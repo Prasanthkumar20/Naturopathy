@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Online Naturopathy & Yoga Consultation</title>
+  <meta name="description" content="Online naturopathy and yoga consultation with booking, payment QR, WhatsApp form, and social media links." />
+  <style>
+    :root{
+      --primary:#0a5c4d;
+      --secondary:#2b7a78;
+      --accent:#3aafa9;
+      --light:#f4fffb;
+      --white:#ffffff;
+      --dark:#163832;
+      --text:#35524a;
+      --soft:#e7f7f2;
+      --gold:#d9b66f;
+      --shadow:0 15px 35px rgba(18, 77, 66, 0.12);
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #f8fffd 0%, #eefaf6 100%);
+      color:var(--text);
+      line-height:1.6;
+    }
+
+    a{
+      text-decoration:none;
+    }
+
+    .container{
+      width:min(1180px, 92%);
+      margin:auto;
+    }
+
+    .navbar{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(255,255,255,0.92);
+      backdrop-filter:blur(12px);
+      box-shadow:0 8px 24px rgba(0,0,0,0.05);
+    }
+
+    .nav-wrap{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:14px 0;
+      gap:10px;
+    }
+
+    .logo{
+      font-size:1.2rem;
+      font-weight:700;
+      color:var(--primary);
+    }
+
+    .nav-links{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .nav-links a{
+      color:var(--dark);
+      font-weight:600;
+    }
+
+    .lang-btn{
+      background:linear-gradient(135deg,var(--primary),var(--accent));
+      color:#fff;
+      border:none;
+      border-radius:999px;
+      padding:10px 16px;
+      cursor:pointer;
+      font-weight:700;
+    }
+
+    .hero{
+      position:relative;
+      padding:80px 0 60px;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at top left, rgba(58,175,169,0.22), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(217,182,111,0.18), transparent 30%),
+        linear-gradient(135deg, #f4fffb 0%, #e9fbf5 50%, #f7fffc 100%);
+    }
+
+    .overlay-shape{
+      position:absolute;
+      border-radius:50%;
+      filter:blur(40px);
+      opacity:0.35;
+    }
+
+    .overlay1{
+      width:260px;
+      height:260px;
+      background:#9fe3d6;
+      top:-80px;
+      right:-60px;
+    }
+
+    .overlay2{
+      width:220px;
+      height:220px;
+      background:#dff4a7;
+      bottom:-60px;
+      left:-50px;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:32px;
+      align-items:center;
+      position:relative;
+      z-index:2;
+    }
+
+    .badge{
+      display:inline-block;
+      background:#dff7f0;
+      color:var(--primary);
+      padding:8px 14px;
+      border-radius:999px;
+      font-weight:700;
+      margin-bottom:18px;
+      box-shadow:var(--shadow);
+    }
+
+    .hero h1{
+      font-size:3rem;
+      line-height:1.15;
+      color:var(--dark);
+      margin-bottom:16px;
+    }
+
+    .hero p{
+      font-size:1.08rem;
+      margin-bottom:20px;
+    }
+
+    .hero-points{
+      list-style:none;
+      display:grid;
+      gap:12px;
+      margin-bottom:24px;
+    }
+
+    .hero-points li{
+      background:rgba(255,255,255,0.88);
+      padding:12px 16px;
+      border-radius:14px;
+      box-shadow:var(--shadow);
+      font-weight:600;
+    }
+
+    .hero-points li::before{
+      content:"✔ ";
+      color:var(--accent);
+      font-weight:700;
+    }
+
+    .hero-buttons{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:14px 24px;
+      border-radius:999px;
+      font-weight:700;
+      transition:0.3s ease;
+      border:none;
+      cursor:pointer;
+      text-align:center;
+    }
+
+    .btn.primary{
+      background:linear-gradient(135deg,var(--primary),var(--accent));
+      color:#fff;
+      box-shadow:0 10px 24px rgba(10,92,77,0.24);
+    }
+
+    .btn.secondary{
+      background:#fff;
+      color:var(--primary);
+      border:2px solid var(--primary);
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+    }
+
+    .glass-card{
+      background:rgba(255,255,255,0.74);
+      border:1px solid rgba(255,255,255,0.55);
+      backdrop-filter:blur(12px);
+      border-radius:30px;
+      padding:24px;
+      box-shadow:var(--shadow);
+    }
+
+    .doctor-mini{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      background:#fff;
+      border-radius:22px;
+      padding:16px;
+      margin-bottom:16px;
+      box-shadow:0 10px 24px rgba(0,0,0,0.08);
+    }
+
+    .doctor-mini:last-child{
+      margin-bottom:0;
+    }
+
+    .doctor-mini img{
+      width:100px;
+      height:100px;
+      border-radius:50%;
+      object-fit:cover;
+      border:4px solid #d7f2eb;
+    }
+
+    .section{
+      padding:70px 0;
+    }
+
+    .alt-bg{
+      background:linear-gradient(180deg, #f2fbf8 0%, #fbfffd 100%);
+    }
+
+    .section-title{
+      text-align:center;
+      font-size:2.2rem;
+      color:var(--dark);
+      margin-bottom:10px;
+    }
+
+    .section-subtitle{
+      text-align:center;
+      max-width:760px;
+      margin:0 auto 34px;
+      color:#56766e;
+    }
+
+    .services-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:20px;
+    }
+
+    .service-card{
+      background:#fff;
+      border-radius:24px;
+      padding:24px;
+      box-shadow:var(--shadow);
+      text-align:center;
+      transition:0.3s ease;
+    }
+
+    .service-card:hover{
+      transform:translateY(-6px);
+    }
+
+    .icon{
+      font-size:2rem;
+      margin-bottom:12px;
+    }
+
+    .service-card h3{
+      color:var(--primary);
+      margin-bottom:8px;
+    }
+
+    .pricing-grid,
+    .payment-grid,
+    .contact-grid,
+    .social-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:24px;
+    }
+
+    .price-card,
+    .payment-card,
+    .contact-card,
+    .form-card,
+    .social-card{
+      background:#fff;
+      border-radius:24px;
+      padding:28px;
+      box-shadow:var(--shadow);
+    }
+
+    .featured{
+      border:2px solid var(--accent);
+      position:relative;
+    }
+
+    .recommended{
+      position:absolute;
+      top:-12px;
+      right:18px;
+      background:var(--gold);
+      color:#fff;
+      padding:6px 12px;
+      border-radius:999px;
+      font-size:0.82rem;
+      font-weight:700;
+    }
+
+    .price,
+    .pay-amount{
+      font-size:2.2rem;
+      font-weight:800;
+      color:var(--dark);
+      margin:12px 0;
+    }
+
+    .payment-card{
+      text-align:center;
+    }
+
+    .payment-card img{
+      width:220px;
+      max-width:100%;
+      margin:12px auto;
+      display:block;
+      border-radius:16px;
+      border:1px solid #d9eee7;
+      background:#f8fffc;
+      padding:8px;
+    }
+
+    .upi-box{
+      display:inline-block;
+      margin-top:12px;
+      background:#eefaf6;
+      color:var(--dark);
+      padding:10px 14px;
+      border-radius:12px;
+      font-weight:700;
+      word-break:break-all;
+    }
+
+    .contact-item{
+      margin-bottom:14px;
+      font-size:1.02rem;
+    }
+
+    .form-card{
+      padding:36px;
+    }
+
+    .form-card h3{
+      font-size:1.6rem;
+      color:var(--dark);
+      margin-bottom:18px;
+    }
+
+    form{
+      display:grid;
+      gap:16px;
+    }
+
+    input, textarea, select{
+      width:100%;
+      padding:18px 18px;
+      border:1px solid #cfe5dd;
+      border-radius:16px;
+      outline:none;
+      font-size:1rem;
+      background:#fff;
+      transition:0.3s ease;
+    }
+
+    input:focus, textarea:focus, select:focus{
+      border-color:var(--accent);
+      box-shadow:0 0 0 4px rgba(58,175,169,0.12);
+    }
+
+    textarea{
+      min-height:150px;
+      resize:vertical;
+    }
+
+    .upload-label{
+      font-weight:700;
+      color:var(--primary);
+      margin-top:4px;
+    }
+
+    .file-name{
+      font-size:0.92rem;
+      color:#56766e;
+    }
+
+    .note{
+      font-size:0.92rem;
+      color:#56766e;
+      margin-top:14px;
+    }
+
+    .big-submit{
+      padding:18px 24px;
+      font-size:1.05rem;
+      width:100%;
+    }
+
+    .social-card{
+      text-align:center;
+    }
+
+    .social-card h3{
+      color:var(--primary);
+      margin-bottom:10px;
+    }
+
+    .social-links{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .social-links a{
+      display:block;
+      background:#f3fbf8;
+      color:var(--dark);
+      padding:14px 18px;
+      border-radius:14px;
+      font-weight:700;
+      border:1px solid #d8eee7;
+      transition:0.3s ease;
+      word-break:break-word;
+    }
+
+    .social-links a:hover{
+      background:#e6f8f2;
+      transform:translateY(-2px);
+    }
+
+    .footer{
+      background:var(--dark);
+      color:#e7f7f2;
+      text-align:center;
+      padding:24px 0;
+    }
+
+    .whatsapp-float{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      width:58px;
+      height:58px;
+      border-radius:50%;
+      background:#25D366;
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:26px;
+      box-shadow:0 8px 24px rgba(0,0,0,0.2);
+      z-index:999;
+    }
+
+    .popup{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.55);
+      align-items:center;
+      justify-content:center;
+      z-index:2000;
+    }
+
+    .popup-content{
+      background:#fff;
+      padding:30px;
+      border-radius:20px;
+      width:min(420px, 92%);
+      text-align:center;
+      box-shadow:var(--shadow);
+    }
+
+    .popup-content h3{
+      color:var(--primary);
+      margin-bottom:10px;
+    }
+
+    @media (max-width: 992px){
+      .hero-grid,
+      .pricing-grid,
+      .payment-grid,
+      .contact-grid,
+      .social-grid{
+        grid-template-columns:1fr;
+      }
+
+      .services-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .hero h1{
+        font-size:2.2rem;
+      }
+    }
+
+    @media (max-width: 640px){
+      .nav-wrap{
+        flex-direction:column;
+        gap:12px;
+      }
+
+      .nav-links{
+        justify-content:center;
+      }
+
+      .services-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero h1{
+        font-size:1.8rem;
+      }
+
+      .doctor-mini{
+        flex-direction:column;
+        text-align:center;
+      }
+
+      .form-card{
+        padding:22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="container nav-wrap">
+      <div class="logo">🌿 Naturopathy & Yoga Care</div>
+      <nav class="nav-links">
+        <a href="#services" id="navServices">Services</a>
+        <a href="#pricing" id="navPlans">Plans</a>
+        <a href="#payment" id="navPayment">Payment</a>
+        <a href="#contact" id="navBooking">Booking</a>
+        <a href="#social" id="navSocial">Social</a>
+        <button id="langToggle" class="lang-btn">తెలుగు</button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="overlay-shape overlay1"></div>
+    <div class="overlay-shape overlay2"></div>
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <span class="badge" id="badgeText">Natural Healing • Expert Guidance • Online Care</span>
+        <h1 id="heroTitle">Online Naturopathy & Yoga Consultation</h1>
+        <p id="heroDesc">
+          Heal naturally with evidence-based naturopathy, personalized diet guidance,
+          yoga therapy, and lifestyle correction from qualified experts.
+        </p>
+
+        <ul class="hero-points">
+          <li id="point1">Hormonal Problems: PCOS, Thyroid, Infertility</li>
+          <li id="point2">Diabetes & Weight Management</li>
+          <li id="point3">Joint Pain & Lifestyle Disorders</li>
+          <li id="point4">Digestive & Skin Problems</li>
+        </ul>
+
+        <div class="hero-buttons">
+          <a href="#contact" class="btn primary" id="bookBtn">Book Appointment</a>
+          <a href="#payment" class="btn secondary" id="payBtn">Pay Now</a>
+        </div>
+      </div>
+
+      <div class="glass-card">
+        <div class="doctor-mini">
+          <img src="doctor1.jpg" alt="Dr Srihari" />
+          <div>
+            <h3>Dr Srihari</h3>
+            <p><strong>BNYS, MSc. Psy, Dip. in Acu</strong></p>
+            <p id="doc1desc">Naturopathy, Acupuncture, Diet & Wellness Guidance</p>
+          </div>
+        </div>
+
+        <div class="doctor-mini">
+          <img src="doctor2.jpg" alt="Dr Prathima Kumari" />
+          <div>
+            <h3>Dr Prathima Kumari</h3>
+            <p><strong>BNYS</strong></p>
+            <p id="doc2desc">Yoga Therapy, Women’s Wellness & Lifestyle Care</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="section">
+    <div class="container">
+      <h2 class="section-title" id="servicesTitle">Conditions We Support</h2>
+      <p class="section-subtitle" id="servicesSub">Gentle, natural support for modern health problems.</p>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="icon">🌸</div>
+          <h3 id="s1h">Hormonal Health</h3>
+          <p id="s1p">PCOS, thyroid, infertility support and women’s wellness guidance.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon">🩺</div>
+          <h3 id="s2h">Diabetes Care</h3>
+          <p id="s2p">Natural support through food correction, routine and discipline.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon">⚖️</div>
+          <h3 id="s3h">Weight Management</h3>
+          <p id="s3p">Balanced guidance for healthy weight loss and improved metabolism.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon">🧘</div>
+          <h3 id="s4h">Yoga Therapy</h3>
+          <p id="s4p">Relaxation, healing, flexibility and stress relief support.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon">🦴</div>
+          <h3 id="s5h">Joint Pain</h3>
+          <p id="s5p">Natural support for pain, stiffness and mobility care.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon">🍃</div>
+          <h3 id="s6h">Digestive Wellness</h3>
+          <p id="s6p">Guidance for acidity, indigestion, constipation and gut issues.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon">✨</div>
+          <h3 id="s7h">Skin Care</h3>
+          <p id="s7p">Holistic support through diet, detox and lifestyle balance.</p>
+        </div>
+        <div class="service-card">
+          <div class="icon">💙</div>
+          <h3 id="s8h">Lifestyle Disorders</h3>
+          <p id="s8p">Support for sleep, stress, routine correction and wellness.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="section alt-bg">
+    <div class="container">
+      <h2 class="section-title" id="pricingTitle">Consultation Plans</h2>
+      <p class="section-subtitle" id="pricingSub">Simple pricing for accessible healing support.</p>
+
+      <div class="pricing-grid">
+        <div class="price-card">
+          <h3 id="plan1Title">Online Consultation</h3>
+          <div class="price">₹300</div>
+          <p id="plan1Desc">One-time consultation for initial assessment and guidance.</p>
+          <a href="#payment" class="btn secondary" id="plan1Btn">Pay Consultation Fee</a>
+        </div>
+
+        <div class="price-card featured">
+          <div class="recommended" id="recommendedText">Recommended</div>
+          <h3 id="plan2Title">1-Month Healing Plan</h3>
+          <div class="price">₹1500</div>
+          <p id="plan2Desc">Comprehensive healing plan with continued support.</p>
+          <a href="#payment" class="btn primary" id="plan2Btn">Pay Healing Plan Fee</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="payment" class="section">
+    <div class="container">
+      <h2 class="section-title" id="paymentTitle">Payment QR Section</h2>
+      <p class="section-subtitle" id="paymentSub">Scan and pay using UPI OR QR code.</p>
+
+      <div class="payment-grid">
+        <div class="payment-card">
+          <h3 id="pay1Title">Online Consultation</h3>
+          <div class="pay-amount">₹300</div>
+          <img src="qr-consultation.jpg" alt="Consultation QR Code" />
+          <p id="pay1Desc">Scan to pay consultation fee</p>
+          <div class="upi-box">UPI ID: prathimakumari5@okhdfcbank</div>
+        </div>
+
+        <div class="payment-card">
+          <h3 id="pay2Title">1-Month Healing Plan</h3>
+          <div class="pay-amount">₹1500</div>
+          <img src="qr-healingplan.jpg" alt="Healing Plan QR Code" />
+          <p id="pay2Desc">Scan to pay healing plan fee</p>
+          <div class="upi-box">UPI ID: prathimakumari5@okhdfcbank</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section alt-bg">
+    <div class="container">
+      <h2 class="section-title" id="bookingTitle">Book Your Consultation</h2>
+      <p class="section-subtitle" id="bookingSub">Fill the form below. WhatsApp will open with your details.</p>
+
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3 id="contactInfoTitle">Contact Information</h3>
+          <div class="contact-item"><strong id="phoneLabel">Phone:</strong> +91 7013989526</div>
+          <div class="contact-item"><strong id="emailLabel">Email:</strong> srihariu123456789@gmail.com</div>
+          <div class="contact-item"><strong id="feeLabel1">Consultation Fee:</strong> ₹300</div>
+          <div class="contact-item"><strong id="feeLabel2">Healing Plan:</strong> ₹1500 / 1 Month</div>
+          <div class="contact-item"><strong id="modeLabel">Mode:</strong> Online Consultation</div>
+          <a href="https://wa.me/917013989526" target="_blank" class="btn primary" id="chatBtn">Chat on WhatsApp</a>
+        </div>
+
+        <div class="form-card">
+          <h3 id="formTitle">Appointment Request</h3>
+          <form id="whatsappForm">
+            <input type="text" id="name" placeholder="Your Full Name" required />
+            <input type="tel" id="phone" placeholder="Phone Number" required />
+            <input type="email" id="email" placeholder="Email Address" />
+
+            <select id="plan" required>
+              <option value="">Select Consultation Type</option>
+              <option>Online Consultation - ₹300</option>
+              <option>1-Month Healing Plan - ₹1500</option>
+            </select>
+
+            <input type="date" id="date" required />
+            <input type="time" id="time" required />
+
+            <select id="paymentStatus" required>
+              <option value="">Payment Status</option>
+              <option>Paid</option>
+              <option>Not Paid Yet</option>
+            </select>
+
+            <input type="text" id="transactionId" placeholder="Transaction ID / UTR Number" />
+
+            <label class="upload-label" id="uploadLabel">Upload Payment Screenshot</label>
+            <input type="file" id="paymentScreenshot" accept="image/*" />
+            <div id="fileName" class="file-name">No file selected</div>
+
+            <textarea id="message" placeholder="Describe your health concern"></textarea>
+
+            <button type="submit" class="btn primary big-submit" id="submitBtn">Submit Request</button>
+          </form>
+
+          <p class="note" id="noteText">
+            After submitting, WhatsApp will open with your booking details. If screenshot is selected, send it manually in WhatsApp.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="social" class="section">
+    <div class="container">
+      <h2 class="section-title" id="socialTitle">Follow Us</h2>
+      <p class="section-subtitle" id="socialSub">Stay connected for health tips, healing guidance and updates.</p>
+
+      <div class="social-grid">
+        <div class="social-card">
+          <h3 id="instaTitle">Instagram</h3>
+          <p id="instaDesc">Follow our Instagram for wellness updates and consultation information.</p>
+          <div class="social-links">
+            <a href="https://www.instagram.com/dr_prathimahari?igsh=MXZvM2trYTR0d2ticw==" target="_blank">
+              Open Instagram Profile
+            </a>
+          </div>
+        </div>
+
+        <div class="social-card">
+          <h3 id="ytTitle">YouTube</h3>
+          <p id="ytDesc">Watch useful health guidance, natural healing videos and wellness tips.</p>
+          <div class="social-links">
+            <a href="https://youtube.com/@doctor-healer5?si=Y7C6DuhAurrabG7Y" target="_blank">
+              Open YouTube Channel
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container" id="footerText">© 2025 Naturopathy & Yoga Care. All rights reserved.</div>
+  </footer>
+
+  <a class="whatsapp-float" href="https://wa.me/917013989526" target="_blank">💬</a>
+
+  <div class="popup" id="thankYouPopup">
+    <div class="popup-content">
+      <h3 id="popupTitle">Thank You!</h3>
+      <p id="popupText">Your details are ready. WhatsApp is opening now.</p>
+      <button onclick="closePopup()" class="btn primary" id="popupBtn">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const fileInput = document.getElementById("paymentScreenshot");
+    const fileName = document.getElementById("fileName");
+    const form = document.getElementById("whatsappForm");
+    const popup = document.getElementById("thankYouPopup");
+    const langToggle = document.getElementById("langToggle");
+
+    let teluguMode = false;
+
+    fileInput.addEventListener("change", function () {
+      if (this.files.length > 0) {
+        fileName.textContent = (teluguMode ? "ఎంచుకున్న ఫైల్: " : "Selected file: ") + this.files[0].name;
+      } else {
+        fileName.textContent = teluguMode ? "ఏ ఫైల్ ఎంచుకోలేదు" : "No file selected";
+      }
+    });
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const plan = document.getElementById("plan").value;
+      const date = document.getElementById("date").value;
+      const time = document.getElementById("time").value;
+      const paymentStatus = document.getElementById("paymentStatus").value;
+      const transactionId = document.getElementById("transactionId").value.trim();
+      const message = document.getElementById("message").value.trim();
+      const screenshotSelected = fileInput.files.length > 0 ? (teluguMode ? "అవును" : "Yes") : (teluguMode ? "కాదు" : "No");
+
+      const whatsappNumber = "917013989526";
+
+      let text = "";
+
+      if (!teluguMode) {
+        text =
+`Hello Doctor, I would like to book an appointment.
+
+Name: ${name}
+Phone: ${phone}
+Email: ${email || "Not provided"}
+Consultation Type: ${plan}
+Preferred Date: ${date}
+Preferred Time: ${time}
+Payment Status: ${paymentStatus}
+Transaction ID / UTR: ${transactionId || "Not provided"}
+Payment Screenshot Selected: ${screenshotSelected}
+Health Concern: ${message || "Not mentioned"}
+
+Note: If screenshot is selected, I will send it manually on WhatsApp.`;
+      } else {
+        text =
+`నమస్కారం డాక్టర్ గారు, నాకు అపాయింట్మెంట్ బుక్ చేయాలి.
+
+పేరు: ${name}
+ఫోన్: ${phone}
+ఈమెయిల్: ${email || "ఇవ్వలేదు"}
+కన్సల్టేషన్ రకం: ${plan}
+తేదీ: ${date}
+సమయం: ${time}
+చెల్లింపు స్థితి: ${paymentStatus}
+ట్రాన్సాక్షన్ ID / UTR: ${transactionId || "ఇవ్వలేదు"}
+పేమెంట్ స్క్రీన్‌షాట్ ఎంచుకున్నారా: ${screenshotSelected}
+ఆరోగ్య సమస్య: ${message || "ఇవ్వలేదు"}
+
+గమనిక: స్క్రీన్‌షాట్ ఎంచుకున్నట్లయితే, దాన్ని వాట్సాప్‌లో విడిగా పంపిస్తాను.`;
+      }
+
+      const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`;
+
+      popup.style.display = "flex";
+
+      setTimeout(() => {
+        window.open(url, "_blank");
+      }, 700);
+
+      form.reset();
+      fileName.textContent = teluguMode ? "ఏ ఫైల్ ఎంచుకోలేదు" : "No file selected";
+    });
+
+    function closePopup() {
+      popup.style.display = "none";
+    }
+
+    langToggle.addEventListener("click", function () {
+      teluguMode = !teluguMode;
+
+      if (teluguMode) {
+        document.documentElement.lang = "te";
+        langToggle.textContent = "English";
+
+        document.getElementById("navServices").textContent = "సేవలు";
+        document.getElementById("navPlans").textContent = "ప్లాన్లు";
+        document.getElementById("navPayment").textContent = "చెల్లింపు";
+        document.getElementById("navBooking").textContent = "బుకింగ్";
+        document.getElementById("navSocial").textContent = "సోషల్";
+
+        document.getElementById("badgeText").textContent = "సహజ వైద్యం • నిపుణుల మార్గదర్శకత్వం • ఆన్‌లైన్ సేవ";
+        document.getElementById("heroTitle").textContent = "ఆన్‌లైన్ నేచురోపతి & యోగా కన్సల్టేషన్";
+        document.getElementById("heroDesc").textContent = "అర్హత కలిగిన నిపుణుల నుండి వ్యక్తిగత నేచురోపతి, డైట్, యోగా మరియు జీవనశైలి సవరణలతో సహజంగా ఆరోగ్యం పొందండి.";
+
+        document.getElementById("point1").textContent = "హార్మోనల్ సమస్యలు: PCOS, థైరాయిడ్, ఇన్ఫర్టిలిటీ";
+        document.getElementById("point2").textContent = "డయాబెటిస్ & బరువు నియంత్రణ";
+        document.getElementById("point3").textContent = "జాయింట్ పెయిన్ & లైఫ్‌స్టైల్ డిసార్డర్స్";
+        document.getElementById("point4").textContent = "జీర్ణకోశం & చర్మ సమస్యలు";
+
+        document.getElementById("bookBtn").textContent = "అపాయింట్మెంట్ బుక్ చేయండి";
+        document.getElementById("payBtn").textContent = "ఇప్పుడు చెల్లించండి";
+
+        document.getElementById("doc1desc").textContent = "నేచురోపతి, ఆక్యుపంక్చర్, డైట్ & వెల్నెస్ మార్గదర్శకత్వం";
+        document.getElementById("doc2desc").textContent = "యోగా థెరపీ, మహిళల ఆరోగ్యం & జీవనశైలి సంరక్షణ";
+
+        document.getElementById("servicesTitle").textContent = "మేము సహాయం చేసే సమస్యలు";
+        document.getElementById("servicesSub").textContent = "ఆధునిక ఆరోగ్య సమస్యలకు సహజమైన మద్దతు.";
+
+        document.getElementById("s1h").textContent = "హార్మోనల్ హెల్త్";
+        document.getElementById("s1p").textContent = "PCOS, థైరాయిడ్, ఇన్ఫర్టిలిటీ మరియు మహిళల ఆరోగ్య మార్గదర్శకత్వం.";
+        document.getElementById("s2h").textContent = "డయాబెటిస్ కేర్";
+        document.getElementById("s2p").textContent = "ఆహారం, క్రమశిక్షణ మరియు జీవనశైలి ద్వారా సహజ మద్దతు.";
+        document.getElementById("s3h").textContent = "బరువు నియంత్రణ";
+        document.getElementById("s3p").textContent = "ఆరోగ్యకరమైన బరువు తగ్గుదల కోసం సమతుల్య మార్గదర్శకత్వం.";
+        document.getElementById("s4h").textContent = "యోగా థెరపీ";
+        document.getElementById("s4p").textContent = "ఆరోగ్యం, రిలాక్సేషన్ మరియు ఒత్తిడి తగ్గింపుకు మద్దతు.";
+        document.getElementById("s5h").textContent = "జాయింట్ పెయిన్";
+        document.getElementById("s5p").textContent = "నొప్పి, గట్టిదనం మరియు కదలికకు సహజ మద్దతు.";
+        document.getElementById("s6h").textContent = "జీర్ణకోశ ఆరోగ్యం";
+        document.getElementById("s6p").textContent = "ఆసిడిటీ, అజీర్ణం, మలబద్ధకం వంటి సమస్యలకు మార్గదర్శకత్వం.";
+        document.getElementById("s7h").textContent = "చర్మ సంరక్షణ";
+        document.getElementById("s7p").textContent = "డైట్, డిటాక్స్ మరియు జీవనశైలి ద్వారా సంపూర్ణ మద్దతు.";
+        document.getElementById("s8h").textContent = "లైఫ్‌స్టైల్ డిసార్డర్స్";
+        document.getElementById("s8p").textContent = "నిద్ర, ఒత్తిడి మరియు జీవనశైలి సవరణలకు సహాయం.";
+
+        document.getElementById("pricingTitle").textContent = "కన్సల్టేషన్ ప్లాన్లు";
+        document.getElementById("pricingSub").textContent = "సులభమైన ధరలతో హీలింగ్ సపోర్ట్.";
+        document.getElementById("plan1Title").textContent = "ఆన్‌లైన్ కన్సల్టేషన్";
+        document.getElementById("plan1Desc").textContent = "ప్రాథమిక అంచనా మరియు మార్గదర్శకత్వం కోసం ఒకసారి కన్సల్టేషన్.";
+        document.getElementById("plan1Btn").textContent = "కన్సల్టేషన్ ఫీజు చెల్లించండి";
+        document.getElementById("recommendedText").textContent = "సిఫార్సు చేయబడింది";
+        document.getElementById("plan2Title").textContent = "1-నెల హీలింగ్ ప్లాన్";
+        document.getElementById("plan2Desc").textContent = "నిరంతర మద్దతుతో సమగ్ర హీలింగ్ ప్లాన్.";
+        document.getElementById("plan2Btn").textContent = "హీలింగ్ ప్లాన్ ఫీజు చెల్లించండి";
+
+        document.getElementById("paymentTitle").textContent = "చెల్లింపు QR విభాగం";
+        document.getElementById("paymentSub").textContent = "UPI QR కోడ్ ద్వారా చెల్లించండి.";
+        document.getElementById("pay1Title").textContent = "ఆన్‌లైన్ కన్సల్టేషన్";
+        document.getElementById("pay1Desc").textContent = "కన్సల్టేషన్ ఫీజు చెల్లించడానికి స్కాన్ చేయండి";
+        document.getElementById("pay2Title").textContent = "1-నెల హీలింగ్ ప్లాన్";
+        document.getElementById("pay2Desc").textContent = "హీలింగ్ ప్లాన్ ఫీజు చెల్లించడానికి స్కాన్ చేయండి";
+
+        document.getElementById("bookingTitle").textContent = "మీ కన్సల్టేషన్ బుక్ చేయండి";
+        document.getElementById("bookingSub").textContent = "క్రింద ఫారం నింపండి. వాట్సాప్‌లో మీ వివరాలు తెరుచుకుంటాయి.";
+        document.getElementById("contactInfoTitle").textContent = "సంప్రదింపు వివరాలు";
+        document.getElementById("phoneLabel").textContent = "ఫోన్:";
+        document.getElementById("emailLabel").textContent = "ఈమెయిల్:";
+        document.getElementById("feeLabel1").textContent = "కన్సల్టేషన్ ఫీజు:";
+        document.getElementById("feeLabel2").textContent = "హీలింగ్ ప్లాన్:";
+        document.getElementById("modeLabel").textContent = "మోడ్:";
+        document.getElementById("chatBtn").textContent = "వాట్సాప్‌లో చాట్ చేయండి";
+
+        document.getElementById("formTitle").textContent = "అపాయింట్మెంట్ అభ్యర్థన";
+        document.getElementById("uploadLabel").textContent = "పేమెంట్ స్క్రీన్‌షాట్ అప్లోడ్ చేయండి";
+        document.getElementById("submitBtn").textContent = "అభ్యర్థన పంపండి";
+        document.getElementById("noteText").textContent = "ఫారం సమర్పించిన తరువాత వాట్సాప్ తెరుచుకుంటుంది. స్క్రీన్‌షాట్ ఎంచుకుంటే దాన్ని వాట్సాప్‌లో విడిగా పంపండి.";
+
+        document.getElementById("socialTitle").textContent = "మమ్మల్ని ఫాలో అవ్వండి";
+        document.getElementById("socialSub").textContent = "హెల్త్ టిప్స్, హీలింగ్ గైడెన్స్ మరియు అప్డేట్స్ కోసం కనెక్ట్ అవ్వండి.";
+        document.getElementById("instaTitle").textContent = "ఇన్‌స్టాగ్రామ్";
+        document.getElementById("instaDesc").textContent = "వెల్నెస్ అప్డేట్స్ మరియు కన్సల్టేషన్ సమాచారానికి మా ఇన్‌స్టాగ్రామ్‌ను ఫాలో అవ్వండి.";
+        document.getElementById("ytTitle").textContent = "యూట్యూబ్";
+        document.getElementById("ytDesc").textContent = "హెల్త్ గైడెన్స్, సహజ వైద్యం వీడియోలు మరియు వెల్నెస్ టిప్స్ చూడండి.";
+
+        document.getElementById("popupTitle").textContent = "ధన్యవాదాలు!";
+        document.getElementById("popupText").textContent = "మీ వివరాలు సిద్ధంగా ఉన్నాయి. ఇప్పుడే వాట్సాప్ తెరుచుకుంటుంది.";
+        document.getElementById("popupBtn").textContent = "మూసివేయండి";
+        document.getElementById("footerText").textContent = "© 2025 నేచురోపతి & యోగా కేర్. అన్ని హక్కులు రిజర్వ్ చేయబడ్డాయి.";
+
+        document.getElementById("name").placeholder = "మీ పూర్తి పేరు";
+        document.getElementById("phone").placeholder = "ఫోన్ నంబర్";
+        document.getElementById("email").placeholder = "ఈమెయిల్ అడ్రెస్";
+        document.getElementById("transactionId").placeholder = "ట్రాన్సాక్షన్ ID / UTR నంబర్";
+        document.getElementById("message").placeholder = "మీ ఆరోగ్య సమస్యను వివరించండి";
+
+        fileName.textContent = "ఏ ఫైల్ ఎంచుకోలేదు";
+      } else {
+        location.reload();
+      }
+    });
+  </script>
+
+</body>
+</html>
