@@ -109,146 +109,6 @@
     .bk-remind{display:none;background:#fff8e6;border:1.5px solid var(--gold);border-radius:14px;padding:14px 16px;font-size:0.88rem;color:#6b4800;line-height:1.6;}
     .bk-remind .brt{margin-top:8px;font-weight:800;font-size:1rem;color:var(--dark);}
 
-    /* ════════════════════════════
-       REVIEWS / TESTIMONIALS
-    ════════════════════════════ */
-    .rv-summary{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:36px;background:#fff;border-radius:26px;padding:30px 38px;box-shadow:var(--shadow);margin-bottom:44px;}
-    .avg-blk{text-align:center;}
-    .avg-num{font-size:4.5rem;font-weight:900;color:var(--dark);line-height:1;}
-    .avg-stars{font-size:1.9rem;color:#f5a623;letter-spacing:2px;margin:6px 0 4px;}
-    .avg-lbl{font-size:0.88rem;color:#56766e;}
-    .tot-pill{margin-top:10px;display:inline-block;background:#eefaf6;color:var(--primary);padding:5px 14px;border-radius:999px;font-weight:700;font-size:0.88rem;}
-    .bar-wrap{flex:1;min-width:200px;}
-    .bar-row{display:flex;align-items:center;gap:9px;margin-bottom:8px;font-size:0.88rem;}
-    .bar-lbl{width:32px;text-align:right;font-weight:700;flex-shrink:0;color:var(--dark);}
-    .bar-track{flex:1;height:9px;background:#e7f4ef;border-radius:999px;overflow:hidden;}
-    .bar-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:999px;transition:width 0.7s;}
-    .bar-cnt{width:22px;font-weight:600;color:#56766e;font-size:0.85rem;}
-
-    /* Review cards — NO ::before pseudo to avoid overlap */
-    .rv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:32px;}
-    .rv-card{background:#fff;border-radius:22px;padding:22px;box-shadow:var(--shadow);transition:0.28s;border:1.5px solid #e8f5ef;}
-    .rv-card.new-rv{border:2px solid var(--accent);animation:popIn 0.4s ease;}
-    @keyframes popIn{from{transform:scale(0.94);opacity:0;}to{transform:scale(1);opacity:1;}}
-    .rv-card:hover{transform:translateY(-4px);}
-    .rv-head{display:flex;align-items:center;gap:11px;margin-bottom:12px;}
-    .rv-av{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;flex-shrink:0;}
-    .rv-av.ua{background:linear-gradient(135deg,#2b7a78,#56c6c0);}
-    .rv-meta h4{font-size:0.97rem;color:var(--dark);margin-bottom:1px;}
-    .rv-meta span{font-size:0.79rem;color:#56766e;}
-    .rv-stars{font-size:1.2rem;color:#f5a623;letter-spacing:1px;margin-bottom:8px;}
-    .rv-tag{display:inline-block;background:#eefaf6;color:var(--primary);font-size:0.76rem;font-weight:700;padding:3px 9px;border-radius:999px;margin-bottom:9px;}
-    .rv-txt{font-size:0.9rem;color:var(--text);line-height:1.65;}
-    .rv-vf{display:inline-block;background:#dff7f0;color:var(--primary);font-size:0.72rem;font-weight:700;padding:2px 8px;border-radius:999px;margin-top:10px;}
-
-    .lm-wrap{text-align:center;margin-bottom:48px;}
-
-    /* ══ WRITE REVIEW BOX ══ */
-    .wrb{background:#fff;border-radius:26px;padding:36px;box-shadow:var(--shadow);max-width:720px;margin:0 auto;}
-    .wrb h3{font-size:1.45rem;color:var(--dark);margin-bottom:5px;}
-    .wrb-sub{color:#56766e;font-size:0.91rem;margin-bottom:24px;}
-
-    /* ════════════════════════════════════════════
-       STAR RATING — RADIO BUTTON METHOD
-       Most reliable cross-browser approach.
-       Pure CSS + minimal JS for display only.
-    ════════════════════════════════════════════ */
-    .star-section{margin-bottom:22px;}
-    .star-section > label{
-      display:block;
-      font-weight:700;
-      color:var(--primary);
-      font-size:0.95rem;
-      margin-bottom:12px;
-    }
-
-    /* Hide actual radio inputs */
-    .star-radio{
-      position:absolute;
-      opacity:0;
-      width:0;
-      height:0;
-      pointer-events:none;
-    }
-
-    /* Outer container */
-    .star-group{
-      display:flex;
-      align-items:center;
-      gap:4px;
-      background:#f4fdf9;
-      border:1.5px solid #cde8dc;
-      border-radius:14px;
-      padding:10px 16px;
-      width:fit-content;
-    }
-
-    /* Each star label */
-    .star-group label.sl{
-      font-size:38px;
-      cursor:pointer;
-      color:#c8e6d6;
-      line-height:1;
-      display:block;
-      transition:color 0.12s, transform 0.12s;
-      padding:2px 4px;
-      /* CRITICAL: ensure nothing overlaps */
-      position:relative;
-      z-index:5;
-      user-select:none;
-      -webkit-user-select:none;
-    }
-    .star-group label.sl:hover{
-      color:#f5a623;
-      transform:scale(1.2);
-    }
-
-    /* When radio is checked, color this star and all before it */
-    #s1:checked ~ .star-group label[for="s1"],
-    #s2:checked ~ .star-group label[for="s1"],
-    #s2:checked ~ .star-group label[for="s2"],
-    #s3:checked ~ .star-group label[for="s1"],
-    #s3:checked ~ .star-group label[for="s2"],
-    #s3:checked ~ .star-group label[for="s3"],
-    #s4:checked ~ .star-group label[for="s1"],
-    #s4:checked ~ .star-group label[for="s2"],
-    #s4:checked ~ .star-group label[for="s3"],
-    #s4:checked ~ .star-group label[for="s4"],
-    #s5:checked ~ .star-group label[for="s1"],
-    #s5:checked ~ .star-group label[for="s2"],
-    #s5:checked ~ .star-group label[for="s3"],
-    #s5:checked ~ .star-group label[for="s4"],
-    #s5:checked ~ .star-group label[for="s5"]
-    { color:#f5a623; }
-
-    .star-word{
-      font-size:0.92rem;
-      font-weight:700;
-      color:#56766e;
-      margin-left:8px;
-      min-width:110px;
-      transition:color 0.2s;
-    }
-    .star-err{
-      display:none;
-      color:#e74c3c;
-      font-size:0.85rem;
-      font-weight:700;
-      margin-top:8px;
-      padding:6px 10px;
-      background:#fff0f0;
-      border-radius:8px;
-      border:1px solid #f5c6c6;
-    }
-
-    /* Review form grid */
-    .rv-fg{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-    .rv-fg .full{grid-column:1/-1;}
-    .char-row{display:flex;justify-content:flex-end;font-size:0.8rem;color:#56766e;margin-top:-8px;}
-    .rv-sr{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:8px;}
-    .rv-nt{font-size:0.82rem;color:#56766e;}
-    .rv-ok{display:none;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border-radius:14px;padding:16px 20px;text-align:center;font-weight:700;margin-top:16px;font-size:0.98rem;}
-
     /* SOCIAL */
     .soc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;}
     .soc-card{background:#fff;border-radius:22px;padding:26px;box-shadow:var(--shadow);text-align:center;}
@@ -270,9 +130,6 @@
       .hero-grid,.price-grid,.pay-grid,.bk-grid,.soc-grid{grid-template-columns:1fr;}
       .svc-grid{grid-template-columns:repeat(2,1fr);}
       .hero h1{font-size:2.1rem;}
-      .rv-grid{grid-template-columns:repeat(2,1fr);}
-      .rv-fg{grid-template-columns:1fr;}
-      .rv-fg .full{grid-column:1;}
     }
     @media(max-width:640px){
       .nav-wrap{flex-direction:column;gap:10px;}
@@ -280,10 +137,7 @@
       .svc-grid{grid-template-columns:1fr;}
       .hero h1{font-size:1.75rem;}
       .doc-mini{flex-direction:column;text-align:center;}
-      .bk-form,.wrb{padding:20px;}
-      .rv-grid{grid-template-columns:1fr;}
-      .rv-summary{padding:22px 16px;gap:20px;}
-      .star-group{flex-wrap:wrap;}
+      .bk-form{padding:20px;}
     }
   </style>
 </head>
@@ -294,12 +148,11 @@
   <div class="container nav-wrap">
     <div class="logo">🌿 Naturopathy & Yoga Care</div>
     <nav class="nav-links">
-      <a href="#services"     id="nSvc">Services</a>
-      <a href="#pricing"      id="nPlan">Plans</a>
-      <a href="#payment"      id="nPay">Payment</a>
-      <a href="#contact"      id="nBook">Booking</a>
-      <a href="#testimonials" id="nTest">Testimonials</a>
-      <a href="#social"       id="nSoc">Social</a>
+      <a href="#services"  id="nSvc">Services</a>
+      <a href="#pricing"   id="nPlan">Plans</a>
+      <a href="#payment"   id="nPay">Payment</a>
+      <a href="#contact"   id="nBook">Booking</a>
+      <a href="#social"    id="nSoc">Social</a>
       <button id="langBtn" class="lang-btn">తెలుగు</button>
     </nav>
   </div>
@@ -321,9 +174,8 @@
         <li id="p4">Digestive &amp; Skin Problems</li>
       </ul>
       <div class="hbtns">
-        <a href="#contact"      class="btn primary"   id="bkBtn">Book Appointment</a>
-        <a href="#payment"      class="btn secondary" id="pyBtn">Pay Now</a>
-        <a href="#testimonials" class="btn secondary" id="rvBtn">Read Reviews</a>
+        <a href="#contact" class="btn primary"   id="bkBtn">Book Appointment</a>
+        <a href="#payment" class="btn secondary" id="pyBtn">Pay Now</a>
       </div>
     </div>
     <div class="glass-card">
@@ -455,9 +307,9 @@
       <div class="bk-form">
         <h3 id="fmT">Appointment Request</h3>
         <form id="waForm">
-          <input type="text"  id="wN" placeholder="Your Full Name" required/>
-          <input type="tel"   id="wP" placeholder="Phone Number"   required/>
-          <input type="email" id="wE" placeholder="Email Address"/>
+          <input type="text"  id="wN"  placeholder="Your Full Name"   required/>
+          <input type="tel"   id="wP"  placeholder="Phone Number"     required/>
+          <input type="email" id="wE"  placeholder="Email Address"/>
           <select id="wPl" required>
             <option value="">Select Consultation Type</option>
             <option value="con">Online Consultation — ₹500</option>
@@ -469,7 +321,7 @@
             <div style="margin-top:5px;" id="brS2">👉 <b>Step 2:</b> Then pay <b>₹1500 Healing Plan Fee</b></div>
             <div class="brt" id="brTot">💰 Total = ₹500 + ₹1500 = ₹2000</div>
           </div>
-          <input type="date" id="wD" required/>
+          <input type="date" id="wD"  required/>
           <input type="time" id="wTm" required/>
           <select id="wPs" required>
             <option value="">Payment Status</option>
@@ -491,102 +343,8 @@
   </div>
 </section>
 
-<!-- ══════════════════════════════
-     TESTIMONIALS
-══════════════════════════════ -->
-<section id="testimonials" class="section">
-  <div class="container">
-    <h2 class="sec-title" id="rvT">⭐ Patient Testimonials</h2>
-    <p class="sec-sub" id="rvS">Real experiences from real patients who found natural healing.</p>
-
-    <!-- Summary -->
-    <div class="rv-summary">
-      <div class="avg-blk">
-        <div class="avg-num"   id="avgN">—</div>
-        <div class="avg-stars" id="avgSt">☆☆☆☆☆</div>
-        <div class="avg-lbl"   id="avgL">Overall Rating</div>
-        <div class="tot-pill"  id="totP">0 reviews</div>
-      </div>
-      <div class="bar-wrap" id="barWrap"></div>
-    </div>
-
-    <!-- Cards -->
-    <div class="rv-grid" id="rvGrid"></div>
-    <div class="lm-wrap">
-      <button class="btn secondary" id="lmBtn" style="display:none;">Load More</button>
-    </div>
-
-    <!-- ══ WRITE REVIEW ══ -->
-    <div class="wrb">
-      <h3 id="wrT">✍️ Share Your Experience</h3>
-      <p class="wrb-sub" id="wrS">Rate us and write your review — it goes live on this page immediately!</p>
-
-      <!-- ════════════════════════════════════════
-           STAR RATING using RADIO BUTTONS
-           This is the most reliable method.
-           Radio inputs handle click detection,
-           CSS handles the visual color.
-      ════════════════════════════════════════ -->
-      <div class="star-section">
-        <label id="starLbl">⭐ Your Rating — Click a star to rate:</label>
-
-        <!-- Hidden radios FIRST (siblings before star-group) -->
-        <input type="radio" class="star-radio" id="s5" name="starRating" value="5"/>
-        <input type="radio" class="star-radio" id="s4" name="starRating" value="4"/>
-        <input type="radio" class="star-radio" id="s3" name="starRating" value="3"/>
-        <input type="radio" class="star-radio" id="s2" name="starRating" value="2"/>
-        <input type="radio" class="star-radio" id="s1" name="starRating" value="1"/>
-
-        <div class="star-group">
-          <label class="sl" for="s1" title="1 - Poor">★</label>
-          <label class="sl" for="s2" title="2 - Fair">★</label>
-          <label class="sl" for="s3" title="3 - Good">★</label>
-          <label class="sl" for="s4" title="4 - Very Good">★</label>
-          <label class="sl" for="s5" title="5 - Excellent">★</label>
-          <span class="star-word" id="starWord">Click a star to rate</span>
-        </div>
-        <div class="star-err" id="starErr">⚠️ Please select a star rating before submitting.</div>
-      </div>
-
-      <form id="rvForm">
-        <div class="rv-fg">
-          <input type="text" id="rN" placeholder="Your Name *" required/>
-          <input type="text" id="rL" placeholder="City / Location"/>
-          <select id="rC" required>
-            <option value="">Health Condition Treated *</option>
-            <option>Hormonal / PCOS</option>
-            <option>Thyroid</option>
-            <option>Diabetes</option>
-            <option>Weight Management</option>
-            <option>Joint Pain</option>
-            <option>Digestive Issues</option>
-            <option>Skin Problems</option>
-            <option>Yoga Therapy</option>
-            <option>Lifestyle Disorder</option>
-            <option>Infertility</option>
-            <option>Other</option>
-          </select>
-          <select id="rPl">
-            <option value="">Consultation Type</option>
-            <option>Online Consultation</option>
-            <option>1-Month Healing Plan</option>
-          </select>
-          <textarea id="rCm" class="full" placeholder="Write your experience with our doctors... *" maxlength="450" required></textarea>
-        </div>
-        <div class="char-row"><span id="ccnt">0</span>/450</div>
-        <div class="rv-sr">
-          <p class="rv-nt" id="rvNt">🌿 Your review appears live immediately after posting.</p>
-          <button type="submit" class="btn primary" id="rvSub">Post My Review</button>
-        </div>
-      </form>
-      <div class="rv-ok" id="rvOk"></div>
-    </div>
-
-  </div>
-</section>
-
 <!-- SOCIAL -->
-<section id="social" class="section alt-bg">
+<section id="social" class="section">
   <div class="container">
     <h2 class="sec-title" id="socT">Follow Us</h2>
     <p class="sec-sub" id="socS">Stay connected for health tips, healing guidance and updates.</p>
@@ -612,6 +370,7 @@
 <footer class="footer">
   <div class="container" id="ftTx">© 2025 Naturopathy &amp; Yoga Care. All rights reserved.</div>
 </footer>
+
 <a class="wa-float" href="https://wa.me/917013989526" target="_blank">💬</a>
 
 <div class="popup" id="popup">
@@ -622,194 +381,14 @@
   </div>
 </div>
 
-<!-- ══════════════════════════════
-     JAVASCRIPT
-══════════════════════════════ -->
 <script>
-/* ════════════════════════
-   SEED REVIEWS
-════════════════════════ */
-var allRv = [
-  {n:"Anusha Reddy",    l:"Hyderabad",     r:5, c:"Hormonal / PCOS",   pl:"1-Month Healing Plan", d:"2025-04-10", v:true,
-   t:"I had PCOS for 3 years. After 1 month with Dr Prathima Kumari my cycles became regular and energy improved a lot. The diet plan was easy to follow and she was always available on WhatsApp. Truly grateful!"},
-  {n:"Rajesh Kumar",    l:"Vijayawada",    r:5, c:"Diabetes",          pl:"1-Month Healing Plan", d:"2025-03-28", v:true,
-   t:"My fasting sugar reduced from 160 to 118 in one month without changing medicines. Dr Srihari's food plan was very practical and he checked progress every week. Excellent!"},
-  {n:"Lakshmi Devi",    l:"Guntur",        r:5, c:"Thyroid",           pl:"1-Month Healing Plan", d:"2025-04-02", v:true,
-   t:"Thyroid levels are more stable now and fatigue has reduced. The yoga therapy sessions really helped me feel energetic again. Very caring and knowledgeable doctors."},
-  {n:"Mohammed Faiz",   l:"Warangal",      r:4, c:"Weight Management", pl:"1-Month Healing Plan", d:"2025-03-15", v:true,
-   t:"Lost 4.5 kg in one month with the plan. No crash diet — just natural sustainable lifestyle changes. The doctors were very supportive and answered all questions."},
-  {n:"Sravanthi P.",    l:"Nellore",       r:5, c:"Digestive Issues",  pl:"Online Consultation",  d:"2025-04-05", v:true,
-   t:"Severe acidity and bloating resolved within 2 weeks of the food correction plan. The online consultation was very thorough — doctor spent nearly 45 minutes understanding my issues!"},
-  {n:"Venkat Rao",      l:"Kurnool",       r:5, c:"Joint Pain",        pl:"1-Month Healing Plan", d:"2025-02-20", v:true,
-   t:"Knee pain that troubled me for 2 years reduced drastically. The combination of yoga therapy and naturopathy worked wonders. I can now climb stairs without pain!"},
-  {n:"Padma Sree",      l:"Tirupati",      r:5, c:"Skin Problems",     pl:"1-Month Healing Plan", d:"2025-03-08", v:true,
-   t:"My skin has cleared up so much after the detox diet plan. Doctor was always reachable on WhatsApp. My confidence is back. Thank you so much!"},
-  {n:"Kiran Babu",      l:"Visakhapatnam", r:4, c:"Lifestyle Disorder",pl:"Online Consultation",  d:"2025-04-12", v:true,
-   t:"Sleep quality improved and stress levels are much lower after following the lifestyle correction plan. Doctors listen patiently and give very practical solutions."},
-  {n:"Sunitha G.",      l:"Karimnagar",    r:5, c:"Yoga Therapy",      pl:"1-Month Healing Plan", d:"2025-03-22", v:true,
-   t:"Dr Prathima's yoga therapy sessions are exceptional. Flexibility, mental peace and breathing all improved. She customised every session for my needs. Worth every rupee!"},
-  {n:"Aruna Kumari",    l:"Kadapa",        r:5, c:"Hormonal / PCOS",   pl:"1-Month Healing Plan", d:"2025-04-18", v:true,
-   t:"PCOS symptoms reduced significantly. Doctors are knowledgeable, caring and always available. My weight also reduced 3 kg as a bonus. Strongly recommend!"},
-  {n:"Suresh Babu",     l:"Eluru",         r:4, c:"Diabetes",          pl:"Online Consultation",  d:"2025-04-01", v:true,
-   t:"Very informative consultation. Got a clear diet and lifestyle plan I could actually follow. Fasting sugar improved in 3 weeks. Planning to take the healing plan now."},
-  {n:"Deepa Naidu",     l:"Ongole",        r:5, c:"Weight Management", pl:"1-Month Healing Plan", d:"2025-04-15", v:true,
-   t:"Lost 6 kg in one month without starving or feeling weak. Doctors were extremely supportive. Life-changing experience. Thank you Dr Srihari and Dr Prathima!"}
-];
-
-var visN = 6;
 var telMode = false;
 
-var SW = ["","Poor 😕","Fair 😐","Good 🙂","Very Good 😊","Excellent! 🌟"];
-var SWTE = ["","చాలా అధ్వాన్నం","సాధారణం","మంచిది","చాలా మంచిది","అద్భుతం! 🌟"];
-
-function calcAvg(arr){
-  if(!arr.length) return 0;
-  return (arr.reduce(function(s,x){return s+x.r;},0)/arr.length).toFixed(1);
-}
-function starStr(n){var f=Math.round(n);return "★".repeat(f)+"☆".repeat(5-f);}
-function getCounts(arr){
-  var c={5:0,4:0,3:0,2:0,1:0};
-  arr.forEach(function(x){c[x.r]=(c[x.r]||0)+1;});
-  return c;
-}
-function fmtD(d){
-  try{return new Date(d).toLocaleDateString(telMode?"te-IN":"en-IN",{day:"2-digit",month:"short",year:"numeric"});}
-  catch(e){return d;}
-}
-function ini(s){return (s||"?").trim()[0].toUpperCase();}
-
-function renderSummary(){
-  var a=calcAvg(allRv), tot=allRv.length, c=getCounts(allRv);
-  document.getElementById("avgN").textContent  = tot ? a : "—";
-  document.getElementById("avgSt").textContent = tot ? starStr(a) : "☆☆☆☆☆";
-  document.getElementById("totP").textContent  = telMode ? tot+" సమీక్షలు" : tot+" review"+(tot!==1?"s":"");
-  var h="";
-  [5,4,3,2,1].forEach(function(s){
-    var cnt=c[s]||0, pct=tot?Math.round(cnt/tot*100):0;
-    h+='<div class="bar-row"><span class="bar-lbl">'+s+'★</span><div class="bar-track"><div class="bar-fill" style="width:'+pct+'%"></div></div><span class="bar-cnt">'+cnt+'</span></div>';
-  });
-  document.getElementById("barWrap").innerHTML=h;
-}
-
-function renderCards(hiNew){
-  var g=document.getElementById("rvGrid"), h="";
-  allRv.slice(0,visN).forEach(function(rv,i){
-    var st="★".repeat(rv.r)+"☆".repeat(5-rv.r);
-    h+='<div class="rv-card'+(hiNew&&i===0?" new-rv":"")+(rv.u?" user-rv":"")+'">'
-     +'<div class="rv-head"><div class="rv-av'+(rv.u?" ua":"")+'">'+ini(rv.n)+'</div>'
-     +'<div class="rv-meta"><h4>'+rv.n+'</h4><span>📍 '+rv.l+' · '+fmtD(rv.d)+'</span></div></div>'
-     +'<div class="rv-stars">'+st+'</div>'
-     +'<span class="rv-tag">'+rv.c+'</span>'
-     +'<p class="rv-txt">"'+rv.t+'"</p>'
-     +(rv.v?'<span class="rv-vf">✔ Verified Patient</span>':'')+
-     '</div>';
-  });
-  g.innerHTML=h;
-  var btn=document.getElementById("lmBtn"), rem=allRv.length-visN;
-  btn.style.display=rem>0?"inline-block":"none";
-  if(rem>0) btn.textContent=telMode?"మరిన్ని ("+rem+")":"Load More ("+rem+" more)";
-}
-
-document.getElementById("lmBtn").addEventListener("click",function(){visN+=3;renderCards(false);});
-
-/* ════════════════════════════════════
-   STAR RATING — Radio button JS
-   Reads which radio is checked and
-   updates the word display only.
-════════════════════════════════════ */
-var radioInputs = document.querySelectorAll("input[name='starRating']");
-var starWordEl  = document.getElementById("starWord");
-var starErrEl   = document.getElementById("starErr");
-
-/* Update word when any radio changes */
-radioInputs.forEach(function(radio){
-  radio.addEventListener("change", function(){
-    var v = parseInt(this.value);
-    starWordEl.textContent = telMode ? SWTE[v] : SW[v];
-    starWordEl.style.color = "#f5a623";
-    starErrEl.style.display = "none";
-  });
-});
-
-/* Get current selected star value */
-function getSelectedStar(){
-  var checked = document.querySelector("input[name='starRating']:checked");
-  return checked ? parseInt(checked.value) : 0;
-}
-
-/* ── Char counter ── */
-document.getElementById("rCm").addEventListener("input",function(){
-  document.getElementById("ccnt").textContent = this.value.length;
-});
-
-/* ════════════════════════════════
-   REVIEW FORM SUBMIT
-════════════════════════════════ */
-document.getElementById("rvForm").addEventListener("submit", function(e){
-  e.preventDefault();
-
-  var star = getSelectedStar();
-
-  /* Validate star */
-  if(star === 0){
-    starErrEl.style.display = "block";
-    document.querySelector(".star-section").scrollIntoView({behavior:"smooth", block:"center"});
-    return;
-  }
-
-  var name    = document.getElementById("rN").value.trim();
-  var comment = document.getElementById("rCm").value.trim();
-
-  if(!name || !comment){
-    alert(telMode
-      ? "దయచేసి మీ పేరు మరియు వ్యాఖ్య నమోదు చేయండి!"
-      : "Please enter your name and review comment!");
-    return;
-  }
-
-  var newRv = {
-    n : name,
-    l : document.getElementById("rL").value.trim() || "India",
-    r : star,
-    c : document.getElementById("rC").value || "Other",
-    pl: document.getElementById("rPl").value || "Online Consultation",
-    d : new Date().toISOString().slice(0,10),
-    t : comment,
-    v : false,
-    u : true
-  };
-
-  allRv.unshift(newRv);
-  visN = Math.min(visN + 1, allRv.length);
-  renderSummary();
-  renderCards(true);
-
-  /* Reset */
-  this.reset();
-  radioInputs.forEach(function(r){r.checked=false;});
-  starWordEl.textContent = telMode ? "స్టార్ నొక్కండి" : "Click a star to rate";
-  starWordEl.style.color = "";
-  document.getElementById("ccnt").textContent = "0";
-  starErrEl.style.display = "none";
-
-  var ok = document.getElementById("rvOk");
-  ok.textContent = telMode
-    ? "🎉 ధన్యవాదాలు! మీ సమీక్ష ఇప్పుడు లైవ్‌గా ఉంది."
-    : "🎉 Thank you! Your review is now live on this page.";
-  ok.style.display = "block";
-
-  setTimeout(function(){
-    document.getElementById("rvGrid").scrollIntoView({behavior:"smooth", block:"start"});
-  }, 200);
-
-  setTimeout(function(){ ok.style.display="none"; }, 5000);
-});
-
-/* ════════════════════════════════
+/* ════════════════════════
    BOOKING FORM
-════════════════════════════════ */
+════════════════════════ */
 document.getElementById("wPl").addEventListener("change", function(){
-  document.getElementById("bkRem").style.display = this.value==="heal" ? "block" : "none";
+  document.getElementById("bkRem").style.display = this.value === "heal" ? "block" : "none";
 });
 
 document.getElementById("wF").addEventListener("change", function(){
@@ -820,19 +399,21 @@ document.getElementById("wF").addEventListener("change", function(){
 
 document.getElementById("waForm").addEventListener("submit", function(e){
   e.preventDefault();
-  var n  = document.getElementById("wN").value.trim();
-  var ph = document.getElementById("wP").value.trim();
-  var em = document.getElementById("wE").value.trim();
-  var pl = document.getElementById("wPl");
-  var plTxt = pl.options[pl.selectedIndex].text;
-  var dt = document.getElementById("wD").value;
-  var ti = document.getElementById("wTm").value;
-  var ps = document.getElementById("wPs").value;
-  var tx = document.getElementById("wTx").value.trim();
-  var ms = document.getElementById("wMs").value.trim();
-  var ss = document.getElementById("wF").files.length ? (telMode?"అవును":"Yes") : (telMode?"కాదు":"No");
+  var n    = document.getElementById("wN").value.trim();
+  var ph   = document.getElementById("wP").value.trim();
+  var em   = document.getElementById("wE").value.trim();
+  var pl   = document.getElementById("wPl");
+  var plTxt= pl.options[pl.selectedIndex].text;
+  var dt   = document.getElementById("wD").value;
+  var ti   = document.getElementById("wTm").value;
+  var ps   = document.getElementById("wPs").value;
+  var tx   = document.getElementById("wTx").value.trim();
+  var ms   = document.getElementById("wMs").value.trim();
+  var ss   = document.getElementById("wF").files.length
+               ? (telMode ? "అవును" : "Yes")
+               : (telMode ? "కాదు"  : "No");
 
-  var feeNote = pl.value==="heal"
+  var feeNote = pl.value === "heal"
     ? "\n\n⚠️ PAYMENT REMINDER:\nStep 1: Pay ₹500 Consultation Fee FIRST\nStep 2: Then pay ₹1500 Healing Plan Fee\nTotal = ₹500 + ₹1500 = ₹2000"
     : "";
 
@@ -840,30 +421,267 @@ document.getElementById("waForm").addEventListener("submit", function(e){
     ? "నమస్కారం డాక్టర్ గారు, అపాయింట్మెంట్ బుక్ చేయాలి.\n\nపేరు: "+n+"\nఫోన్: "+ph+"\nఈమెయిల్: "+(em||"లేదు")+"\nకన్సల్టేషన్: "+plTxt+"\nతేదీ: "+dt+"\nసమయం: "+ti+"\nచెల్లింపు: "+ps+"\nTransaction ID: "+(tx||"లేదు")+"\nస్క్రీన్‌షాట్: "+ss+"\nసమస్య: "+(ms||"లేదు")+feeNote
     : "Hello Doctor, I would like to book an appointment.\n\nName: "+n+"\nPhone: "+ph+"\nEmail: "+(em||"Not provided")+"\nConsultation: "+plTxt+"\nDate: "+dt+"\nTime: "+ti+"\nPayment: "+ps+"\nTransaction ID: "+(tx||"Not provided")+"\nScreenshot: "+ss+"\nHealth Concern: "+(ms||"Not mentioned")+feeNote;
 
-  document.getElementById("popup").style.display="flex";
+  document.getElementById("popup").style.display = "flex";
   setTimeout(function(){
-    window.open("https://wa.me/917013989526?text="+encodeURIComponent(txt),"_blank");
-  },700);
+    window.open("https://wa.me/917013989526?text=" + encodeURIComponent(txt), "_blank");
+  }, 700);
 
   this.reset();
-  document.getElementById("bkRem").style.display="none";
-  document.getElementById("wFN").textContent = telMode?"ఏ ఫైల్ లేదు":"No file selected";
+  document.getElementById("bkRem").style.display = "none";
+  document.getElementById("wFN").textContent = telMode ? "ఏ ఫైల్ లేదు" : "No file selected";
 });
 
-/* ════════════════════════════════
+/* ════════════════════════
    LANGUAGE TOGGLE
-════════════════════════════════ */
+════════════════════════ */
 document.getElementById("langBtn").addEventListener("click", function(){
   telMode = !telMode;
+
   if(telMode){
-    document.documentElement.lang="te";
-    this.textContent="English";
-    document.getElementById("nSvc").textContent  ="సేవలు";
-    document.getElementById("nPlan").textContent ="ప్లాన్లు";
-    document.getElementById("nPay").textContent  ="చెల్లింపు";
-    document.getElementById("nBook").textContent ="బుకింగ్";
-    document.getElementById("nTest").textContent ="సమీక్షలు";
-    document.getElementById("nSoc").textContent  ="సోషల్";
-    document.getElementById("badge").textContent ="సహజ వైద్యం • నిపుణుల మార్గదర్శకత్వం • ఆన్‌లైన్ సేవ";
-    document.getElementById("hTitle").textContent="ఆన్‌లైన్ నేచురోపతి & యోగా కన్సల్టేషన్";
-    document.getElementById("hDesc").textContent ="అర్హత కలిగిన
+    document.documentElement.lang = "te";
+    this.textContent = "English";
+
+    /* Nav */
+    document.getElementById("nSvc").textContent  = "సేవలు";
+    document.getElementById("nPlan").textContent = "ప్లాన్లు";
+    document.getElementById("nPay").textContent  = "చెల్లింపు";
+    document.getElementById("nBook").textContent = "బుకింగ్";
+    document.getElementById("nSoc").textContent  = "సోషల్";
+
+    /* Hero */
+    document.getElementById("badge").textContent  = "సహజ వైద్యం • నిపుణుల మార్గదర్శకత్వం • ఆన్‌లైన్ సేవ";
+    document.getElementById("hTitle").textContent = "ఆన్‌లైన్ నేచురోపతి & యోగా కన్సల్టేషన్";
+    document.getElementById("hDesc").textContent  = "అర్హత కలిగిన నిపుణుల నుండి నేచురోపతి, వ్యక్తిగత డైట్ గైడెన్స్, యోగా థెరపీ మరియు జీవనశైలి దిద్దుబాటు ద్వారా సహజంగా నయం చేసుకోండి.";
+    document.getElementById("p1").textContent     = "హార్మోనల్ సమస్యలు: PCOS, థైరాయిడ్, వంధ్యత్వం";
+    document.getElementById("p2").textContent     = "డయాబెటిస్ & బరువు నిర్వహణ";
+    document.getElementById("p3").textContent     = "కీళ్ళ నొప్పి & జీవనశైలి రుగ్మతలు";
+    document.getElementById("p4").textContent     = "జీర్ణ & చర్మ సమస్యలు";
+    document.getElementById("bkBtn").textContent  = "అపాయింట్‌మెంట్ బుక్ చేయండి";
+    document.getElementById("pyBtn").textContent  = "చెల్లించండి";
+    document.getElementById("d1").textContent     = "నేచురోపతి, అక్యుపంక్చర్, డైట్ & వెల్‌నెస్ గైడెన్స్";
+    document.getElementById("d2").textContent     = "యోగా థెరపీ, మహిళల ఆరోగ్యం & జీవనశైలి సంరక్షణ";
+
+    /* Services */
+    document.getElementById("svcT").textContent = "మేము సహాయపడే అనారోగ్యాలు";
+    document.getElementById("svcS").textContent = "ఆధునిక ఆరోగ్య సమస్యలకు సున్నితమైన, సహజమైన సహాయం.";
+    document.getElementById("s1h").textContent  = "హార్మోనల్ ఆరోగ్యం";
+    document.getElementById("s1p").textContent  = "PCOS, థైరాయిడ్, వంధ్యత్వం మరియు మహిళల ఆరోగ్య మార్గదర్శకత్వం.";
+    document.getElementById("s2h").textContent  = "డయాబెటిస్ సంరక్షణ";
+    document.getElementById("s2p").textContent  = "ఆహార దిద్దుబాటు, దినచర్య మరియు క్రమశిక్షణ ద్వారా సహజ సహాయం.";
+    document.getElementById("s3h").textContent  = "బరువు నిర్వహణ";
+    document.getElementById("s3p").textContent  = "ఆరోగ్యకరమైన బరువు తగ్గింపు మరియు మెటబాలిజం మెరుగుదలకు మార్గదర్శకత్వం.";
+    document.getElementById("s4h").textContent  = "యోగా థెరపీ";
+    document.getElementById("s4p").textContent  = "విశ్రాంతి, నయం, సౌలభ్యం మరియు ఒత్తిడి తగ్గింపు సహాయం.";
+    document.getElementById("s5h").textContent  = "కీళ్ళ నొప్పి";
+    document.getElementById("s5p").textContent  = "నొప్పి, దృఢత్వం మరియు చలన సంరక్షణకు సహజ సహాయం.";
+    document.getElementById("s6h").textContent  = "జీర్ణ ఆరోగ్యం";
+    document.getElementById("s6p").textContent  = "యాసిడిటీ, అజీర్తి, మలబద్ధత మరియు గట్ సమస్యలకు మార్గదర్శకత్వం.";
+    document.getElementById("s7h").textContent  = "చర్మ సంరక్షణ";
+    document.getElementById("s7p").textContent  = "డైట్, డిటాక్స్ మరియు జీవనశైలి బ్యాలెన్స్ ద్వారా సమగ్ర సహాయం.";
+    document.getElementById("s8h").textContent  = "జీవనశైలి రుగ్మతలు";
+    document.getElementById("s8p").textContent  = "నిద్ర, ఒత్తిడి, దినచర్య దిద్దుబాటు మరియు వెల్‌నెస్ సహాయం.";
+
+    /* Pricing */
+    document.getElementById("prT").textContent   = "కన్సల్టేషన్ ప్లాన్లు";
+    document.getElementById("prS").textContent   = "మీ నయం ప్రయాణానికి సరళమైన, పారదర్శకమైన ధరలు.";
+    document.getElementById("pl1T").textContent  = "ఆన్‌లైన్ కన్సల్టేషన్";
+    document.getElementById("pl1P").textContent  = "ఒకసారి సెషన్";
+    document.getElementById("pf1").textContent   = "ప్రారంభ ఆరోగ్య అంచనా";
+    document.getElementById("pf2").textContent   = "వ్యక్తిగత డైట్ సలహా";
+    document.getElementById("pf3").textContent   = "నిపుణుల నేచురోపతి మార్గదర్శకత్వం";
+    document.getElementById("pf4").textContent   = "WhatsApp ఫాలో-అప్ (అదే రోజు)";
+    document.getElementById("pl1B").textContent  = "కన్సల్టేషన్ బుక్ చేయండి — ₹500";
+    document.getElementById("recB").textContent  = "అత్యంత ప్రజాదరణ";
+    document.getElementById("pl2T").textContent  = "1 నెల హీలింగ్ ప్లాన్";
+    document.getElementById("pl2P").textContent  = "నెలకు";
+    document.getElementById("frT").textContent   = "⚠️ 2-దశల చెల్లింపు ప్రక్రియ:";
+    document.getElementById("frS1").innerHTML    = "👉 <b>దశ 1 (మొదట):</b> ₹500 కన్సల్టేషన్ ఫీజు చెల్లించండి";
+    document.getElementById("frS2").innerHTML    = "👉 <b>దశ 2 (కన్సల్టేషన్ తర్వాత):</b> ₹1500 హీలింగ్ ప్లాన్ ఫీజు చెల్లించండి";
+    document.getElementById("frTot").textContent = "💰 మొత్తం = ₹500 + ₹1500 = ₹2000";
+    document.getElementById("pf5").textContent   = "ప్రారంభ కన్సల్టేషన్ చేర్చబడింది";
+    document.getElementById("pf6").textContent   = "పూర్తి వ్యక్తిగత హీలింగ్ ప్లాన్";
+    document.getElementById("pf7").textContent   = "రోజువారీ డైట్ & జీవనశైలి షెడ్యూల్";
+    document.getElementById("pf8").textContent   = "యోగా థెరపీ మార్గదర్శకత్వం";
+    document.getElementById("pf9").textContent   = "వారపు ఫాలో-అప్ సెషన్లు";
+    document.getElementById("pf10").textContent  = "WhatsApp సహాయం అంతటా";
+    document.getElementById("pf11").textContent  = "పురోగతి ట్రాకింగ్ & సర్దుబాట్లు";
+    document.getElementById("pl2B").textContent  = "హీలింగ్ ప్లాన్ ప్రారంభించండి";
+
+    /* Payment */
+    document.getElementById("payT").textContent  = "చెల్లింపు";
+    document.getElementById("payS").textContent  = "సురక్షితంగా చెల్లించడానికి QR కోడ్ స్కాన్ చేయండి లేదా UPI ID ఉపయోగించండి.";
+    document.getElementById("qr1T").textContent  = "దశ 1 — కన్సల్టేషన్ ఫీజు";
+    document.getElementById("qr1D").textContent  = "కన్సల్టేషన్ ఫీజు చెల్లించడానికి స్కాన్ చేయండి";
+    document.getElementById("qr1N").innerHTML    = "✅ ఇది <strong>మొదట</strong> చెల్లించండి. అంచనా వేయబడిన తర్వాత హీలింగ్ ప్లాన్‌కు వెళ్ళండి.";
+    document.getElementById("qr2T").textContent  = "దశ 2 — హీలింగ్ ప్లాన్ ఫీజు";
+    document.getElementById("qr2D").textContent  = "హీలింగ్ ప్లాన్ ఫీజు చెల్లించడానికి స్కాన్ చేయండి";
+    document.getElementById("qr2N").innerHTML    = "⚠️ <strong>దశ 1 (₹500 కన్సల్టేషన్) తర్వాత మాత్రమే</strong> చెల్లించండి. మొత్తం = ₹500 + ₹1500 = <strong>₹2000</strong>";
+
+    /* Booking */
+    document.getElementById("bkT").textContent   = "మీ కన్సల్టేషన్ బుక్ చేయండి";
+    document.getElementById("bkS").textContent   = "ఫారం నింపండి — WhatsApp మీ వివరాలతో స్వయంచాలకంగా తెరుచుకుంటుంది.";
+    document.getElementById("ciT").textContent   = "సంప్రదింపు సమాచారం";
+    document.getElementById("phL").textContent   = "ఫోన్:";
+    document.getElementById("emL").textContent   = "ఈమెయిల్:";
+    document.getElementById("f1L").textContent   = "కన్సల్టేషన్ ఫీజు:";
+    document.getElementById("f2L").textContent   = "హీలింగ్ ప్లాన్:";
+    document.getElementById("ftL").textContent   = "మొత్తం (రెండూ):";
+    document.getElementById("mdL").textContent   = "విధానం:";
+    document.getElementById("waBtn").textContent = "💬 WhatsApp లో చాట్ చేయండి";
+    document.getElementById("fmT").textContent   = "అపాయింట్‌మెంట్ అభ్యర్థన";
+    document.getElementById("wN").placeholder    = "మీ పూర్తి పేరు";
+    document.getElementById("wP").placeholder    = "ఫోన్ నంబర్";
+    document.getElementById("wE").placeholder    = "ఈమెయిల్ చిరునామా";
+    document.getElementById("wD").placeholder    = "తేదీ";
+    document.getElementById("wTm").placeholder   = "సమయం";
+    document.getElementById("wTx").placeholder   = "Transaction ID / UTR నంబర్";
+    document.getElementById("wMs").placeholder   = "మీ ఆరోగ్య సమస్యను వివరించండి";
+    document.getElementById("upL").textContent   = "📎 చెల్లింపు స్క్రీన్‌షాట్ అప్‌లోడ్ చేయండి";
+    document.getElementById("subBtn").textContent= "WhatsApp ద్వారా పంపండి";
+    document.getElementById("fNote").textContent = "సమర్పించిన తర్వాత WhatsApp తెరుచుకుంటుంది. స్క్రీన్‌షాట్ మాన్యువల్‌గా పంపండి.";
+    document.getElementById("brH").textContent   = "📋 చెల్లింపు రిమైండర్ — హీలింగ్ ప్లాన్:";
+    document.getElementById("brS1").innerHTML    = "👉 <b>దశ 1:</b> మొదట <b>₹500 కన్సల్టేషన్ ఫీజు</b> చెల్లించండి";
+    document.getElementById("brS2").innerHTML    = "👉 <b>దశ 2:</b> తర్వాత <b>₹1500 హీలింగ్ ప్లాన్ ఫీజు</b> చెల్లించండి";
+    document.getElementById("brTot").textContent = "💰 మొత్తం = ₹500 + ₹1500 = ₹2000";
+
+    /* Social */
+    document.getElementById("socT").textContent = "మనల్ని ఫాలో చేయండి";
+    document.getElementById("socS").textContent = "ఆరోగ్య చిట్కాలు, నయం మార్గదర్శకత్వం మరియు అప్‌డేట్‌ల కోసం కనెక్ట్ అయి ఉండండి.";
+    document.getElementById("igT").textContent  = "📸 ఇన్‌స్టాగ్రామ్";
+    document.getElementById("igD").textContent  = "వెల్‌నెస్ అప్‌డేట్‌లు మరియు కన్సల్టేషన్ సమాచారం కోసం ఫాలో చేయండి.";
+    document.getElementById("ytT").textContent  = "▶️ యూట్యూబ్";
+    document.getElementById("ytD").textContent  = "ఆరోగ్య మార్గదర్శకత్వం, సహజ నయం వీడియోలు మరియు వెల్‌నెస్ చిట్కాలు చూడండి.";
+
+    /* Footer & Popup */
+    document.getElementById("ftTx").innerHTML  = "© 2025 నేచురోపతి & యోగా కేర్. అన్ని హక్కులు రిజర్వ్ చేయబడ్డాయి.";
+    document.getElementById("popT").textContent = "✅ ధన్యవాదాలు!";
+    document.getElementById("popTx").textContent= "మీ వివరాలు సిద్ధంగా ఉన్నాయి. WhatsApp ఇప్పుడు తెరుచుకుంటోంది.";
+    document.getElementById("popB").textContent = "మూసివేయి";
+    document.getElementById("wFN").textContent  = "ఏ ఫైల్ లేదు";
+
+  } else {
+    document.documentElement.lang = "en";
+    this.textContent = "తెలుగు";
+
+    /* Nav */
+    document.getElementById("nSvc").textContent  = "Services";
+    document.getElementById("nPlan").textContent = "Plans";
+    document.getElementById("nPay").textContent  = "Payment";
+    document.getElementById("nBook").textContent = "Booking";
+    document.getElementById("nSoc").textContent  = "Social";
+
+    /* Hero */
+    document.getElementById("badge").textContent  = "Natural Healing • Expert Guidance • Online Care";
+    document.getElementById("hTitle").textContent = "Online Naturopathy & Yoga Consultation";
+    document.getElementById("hDesc").textContent  = "Heal naturally with evidence-based naturopathy, personalized diet guidance, yoga therapy, and lifestyle correction from qualified experts.";
+    document.getElementById("p1").textContent     = "Hormonal Problems: PCOS, Thyroid, Infertility";
+    document.getElementById("p2").textContent     = "Diabetes & Weight Management";
+    document.getElementById("p3").textContent     = "Joint Pain & Lifestyle Disorders";
+    document.getElementById("p4").textContent     = "Digestive & Skin Problems";
+    document.getElementById("bkBtn").textContent  = "Book Appointment";
+    document.getElementById("pyBtn").textContent  = "Pay Now";
+    document.getElementById("d1").textContent     = "Naturopathy, Acupuncture, Diet & Wellness Guidance";
+    document.getElementById("d2").textContent     = "Yoga Therapy, Women's Wellness & Lifestyle Care";
+
+    /* Services */
+    document.getElementById("svcT").textContent = "Conditions We Support";
+    document.getElementById("svcS").textContent = "Gentle, natural support for modern health problems.";
+    document.getElementById("s1h").textContent  = "Hormonal Health";
+    document.getElementById("s1p").textContent  = "PCOS, thyroid, infertility and women's wellness guidance.";
+    document.getElementById("s2h").textContent  = "Diabetes Care";
+    document.getElementById("s2p").textContent  = "Natural support through food correction, routine and discipline.";
+    document.getElementById("s3h").textContent  = "Weight Management";
+    document.getElementById("s3p").textContent  = "Balanced guidance for healthy weight loss and better metabolism.";
+    document.getElementById("s4h").textContent  = "Yoga Therapy";
+    document.getElementById("s4p").textContent  = "Relaxation, healing, flexibility and stress relief support.";
+    document.getElementById("s5h").textContent  = "Joint Pain";
+    document.getElementById("s5p").textContent  = "Natural support for pain, stiffness and mobility care.";
+    document.getElementById("s6h").textContent  = "Digestive Wellness";
+    document.getElementById("s6p").textContent  = "Guidance for acidity, indigestion, constipation and gut issues.";
+    document.getElementById("s7h").textContent  = "Skin Care";
+    document.getElementById("s7p").textContent  = "Holistic support through diet, detox and lifestyle balance.";
+    document.getElementById("s8h").textContent  = "Lifestyle Disorders";
+    document.getElementById("s8p").textContent  = "Support for sleep, stress, routine correction and wellness.";
+
+    /* Pricing */
+    document.getElementById("prT").textContent   = "Consultation Plans";
+    document.getElementById("prS").textContent   = "Simple, transparent pricing for your healing journey.";
+    document.getElementById("pl1T").textContent  = "Online Consultation";
+    document.getElementById("pl1P").textContent  = "One-time session";
+    document.getElementById("pf1").textContent   = "Initial health assessment";
+    document.getElementById("pf2").textContent   = "Personalised diet advice";
+    document.getElementById("pf3").textContent   = "Expert naturopathy guidance";
+    document.getElementById("pf4").textContent   = "WhatsApp follow-up (same day)";
+    document.getElementById("pl1B").textContent  = "Book Consultation — ₹500";
+    document.getElementById("recB").textContent  = "Most Popular";
+    document.getElementById("pl2T").textContent  = "1-Month Healing Plan";
+    document.getElementById("pl2P").textContent  = "Per month";
+    document.getElementById("frT").textContent   = "⚠️ 2-Step Payment Process:";
+    document.getElementById("frS1").innerHTML    = "👉 <b>Step 1 (First):</b> Pay ₹500 Consultation Fee";
+    document.getElementById("frS2").innerHTML    = "👉 <b>Step 2 (After consultation):</b> Pay ₹1500 Healing Plan Fee";
+    document.getElementById("frTot").textContent = "💰 Total = ₹500 + ₹1500 = ₹2000";
+    document.getElementById("pf5").textContent   = "Includes initial consultation";
+    document.getElementById("pf6").textContent   = "Complete personalised healing plan";
+    document.getElementById("pf7").textContent   = "Daily diet & lifestyle schedule";
+    document.getElementById("pf8").textContent   = "Yoga therapy guidance";
+    document.getElementById("pf9").textContent   = "Weekly follow-up sessions";
+    document.getElementById("pf10").textContent  = "WhatsApp support throughout";
+    document.getElementById("pf11").textContent  = "Progress tracking & adjustments";
+    document.getElementById("pl2B").textContent  = "Start Healing Plan";
+
+    /* Payment */
+    document.getElementById("payT").textContent  = "Payment";
+    document.getElementById("payS").textContent  = "Scan the QR code or use the UPI ID to pay securely.";
+    document.getElementById("qr1T").textContent  = "Step 1 — Consultation Fee";
+    document.getElementById("qr1D").textContent  = "Scan to pay consultation fee";
+    document.getElementById("qr1N").innerHTML    = "✅ Pay this <strong>first</strong>. Get assessed, then proceed to Healing Plan.";
+    document.getElementById("qr2T").textContent  = "Step 2 — Healing Plan Fee";
+    document.getElementById("qr2D").textContent  = "Scan to pay healing plan fee";
+    document.getElementById("qr2N").innerHTML    = "⚠️ Pay <strong>only after Step 1 (₹500 consultation)</strong>. Total = ₹500 + ₹1500 = <strong>₹2000</strong>";
+
+    /* Booking */
+    document.getElementById("bkT").textContent   = "Book Your Consultation";
+    document.getElementById("bkS").textContent   = "Fill the form — WhatsApp opens automatically with your details.";
+    document.getElementById("ciT").textContent   = "Contact Information";
+    document.getElementById("phL").textContent   = "Phone:";
+    document.getElementById("emL").textContent   = "Email:";
+    document.getElementById("f1L").textContent   = "Consultation Fee:";
+    document.getElementById("f2L").textContent   = "Healing Plan:";
+    document.getElementById("ftL").textContent   = "Total (Both):";
+    document.getElementById("mdL").textContent   = "Mode:";
+    document.getElementById("waBtn").textContent = "💬 Chat on WhatsApp";
+    document.getElementById("fmT").textContent   = "Appointment Request";
+    document.getElementById("wN").placeholder    = "Your Full Name";
+    document.getElementById("wP").placeholder    = "Phone Number";
+    document.getElementById("wE").placeholder    = "Email Address";
+    document.getElementById("wD").placeholder    = "Date";
+    document.getElementById("wTm").placeholder   = "Time";
+    document.getElementById("wTx").placeholder   = "Transaction ID / UTR Number";
+    document.getElementById("wMs").placeholder   = "Describe your health concern";
+    document.getElementById("upL").textContent   = "📎 Upload Payment Screenshot";
+    document.getElementById("subBtn").textContent= "Send via WhatsApp";
+    document.getElementById("fNote").textContent = "WhatsApp opens after submitting. Send screenshot manually if selected.";
+    document.getElementById("brH").textContent   = "📋 Payment Reminder — Healing Plan:";
+    document.getElementById("brS1").innerHTML    = "👉 <b>Step 1:</b> Pay <b>₹500 Consultation Fee</b> first";
+    document.getElementById("brS2").innerHTML    = "👉 <b>Step 2:</b> Then pay <b>₹1500 Healing Plan Fee</b>";
+    document.getElementById("brTot").textContent = "💰 Total = ₹500 + ₹1500 = ₹2000";
+
+    /* Social */
+    document.getElementById("socT").textContent = "Follow Us";
+    document.getElementById("socS").textContent = "Stay connected for health tips, healing guidance and updates.";
+    document.getElementById("igT").textContent  = "📸 Instagram";
+    document.getElementById("igD").textContent  = "Follow us for wellness updates and consultation information.";
+    document.getElementById("ytT").textContent  = "▶️ YouTube";
+    document.getElementById("ytD").textContent  = "Watch health guidance, natural healing videos and wellness tips.";
+
+    /* Footer & Popup */
+    document.getElementById("ftTx").innerHTML   = "© 2025 Naturopathy &amp; Yoga Care. All rights reserved.";
+    document.getElementById("popT").textContent = "✅ Thank You!";
+    document.getElementById("popTx").textContent= "Your details are ready. WhatsApp is opening now.";
+    document.getElementById("popB").textContent = "Close";
+    document.getElementById("wFN").textContent  = "No file selected";
+  }
+});
+</script>
+</body>
+</html>
