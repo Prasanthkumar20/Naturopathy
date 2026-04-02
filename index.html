@@ -117,6 +117,130 @@
     .soc-links a{display:block;background:#f3fbf8;color:var(--dark);padding:13px 16px;border-radius:12px;font-weight:700;border:1px solid #d8eee7;transition:0.25s;}
     .soc-links a:hover{background:#e6f8f2;transform:translateY(-2px);}
 
+    /* ═══════════════════════════════
+       RULES & GUIDELINES SECTION
+    ═══════════════════════════════ */
+    .rules-section{
+      padding:65px 0;
+      background:linear-gradient(180deg,#fdf8ef,#f5fbf1);
+      position:relative;
+      overflow:hidden;
+    }
+    .rules-section::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230a5c4d' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity:0.5;
+    }
+    .rules-header{
+      text-align:center;
+      margin-bottom:36px;
+      position:relative;
+      z-index:2;
+    }
+    .rules-header .leaf-deco{
+      font-size:1.6rem;
+      display:block;
+      margin-bottom:6px;
+      letter-spacing:6px;
+    }
+    .rules-header h2{
+      font-family:Georgia,serif;
+      font-size:2.3rem;
+      color:var(--dark);
+      line-height:1.2;
+      margin-bottom:6px;
+    }
+    .rules-header h2 span{
+      font-style:italic;
+      color:var(--primary);
+    }
+    .rules-header p{
+      color:#56766e;
+      max-width:680px;
+      margin:0 auto;
+      font-size:0.97rem;
+      font-style:italic;
+    }
+    .rules-divider{
+      width:80px;height:3px;
+      background:linear-gradient(90deg,var(--gold),var(--accent));
+      border-radius:999px;
+      margin:14px auto;
+    }
+    .rules-body{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:22px;
+      position:relative;
+      z-index:2;
+    }
+    .rule-card{
+      background:rgba(255,255,255,0.88);
+      border:1px solid rgba(10,92,77,0.12);
+      border-radius:20px;
+      padding:22px 24px;
+      box-shadow:0 8px 28px rgba(10,92,77,0.08);
+      transition:0.3s;
+    }
+    .rule-card:hover{transform:translateY(-4px);box-shadow:0 14px 36px rgba(10,92,77,0.14);}
+    .rule-card.full-width{grid-column:1/-1;}
+    .rule-num-title{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:14px;
+    }
+    .rule-num{
+      width:34px;height:34px;min-width:34px;
+      background:linear-gradient(135deg,var(--primary),var(--accent));
+      color:#fff;
+      border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      font-weight:900;font-size:0.9rem;
+    }
+    .rule-num-title h3{
+      color:var(--dark);
+      font-size:1.02rem;
+      font-weight:700;
+    }
+    .rule-list{
+      list-style:none;
+      display:grid;
+      gap:9px;
+    }
+    .rule-list li{
+      font-size:0.9rem;
+      color:var(--text);
+      padding-left:20px;
+      position:relative;
+      line-height:1.55;
+    }
+    .rule-list li::before{
+      content:"•";
+      position:absolute;
+      left:0;
+      color:var(--accent);
+      font-size:1.1rem;
+      font-weight:700;
+      line-height:1.4;
+    }
+    .rules-note{
+      margin-top:28px;
+      text-align:center;
+      background:linear-gradient(135deg,rgba(10,92,77,0.06),rgba(217,182,111,0.1));
+      border:1.5px solid var(--gold);
+      border-radius:16px;
+      padding:18px 24px;
+      font-size:0.95rem;
+      color:var(--dark);
+      font-style:italic;
+      position:relative;
+      z-index:2;
+    }
+    .rules-note strong{color:var(--primary);}
+
     .footer{background:var(--dark);color:#e7f7f2;text-align:center;padding:22px 0;}
     .wa-float{position:fixed;right:18px;bottom:18px;width:56px;height:56px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;font-size:25px;box-shadow:0 8px 22px rgba(0,0,0,0.18);z-index:999;}
 
@@ -127,7 +251,8 @@
 
     /* RESPONSIVE */
     @media(max-width:992px){
-      .hero-grid,.price-grid,.pay-grid,.bk-grid,.soc-grid{grid-template-columns:1fr;}
+      .hero-grid,.price-grid,.pay-grid,.bk-grid,.soc-grid,.rules-body{grid-template-columns:1fr;}
+      .rule-card.full-width{grid-column:auto;}
       .svc-grid{grid-template-columns:repeat(2,1fr);}
       .hero h1{font-size:2.1rem;}
     }
@@ -138,6 +263,7 @@
       .hero h1{font-size:1.75rem;}
       .doc-mini{flex-direction:column;text-align:center;}
       .bk-form{padding:20px;}
+      .rules-header h2{font-size:1.7rem;}
     }
   </style>
 </head>
@@ -148,11 +274,12 @@
   <div class="container nav-wrap">
     <div class="logo">🌿 Naturopathy & Yoga Care</div>
     <nav class="nav-links">
-      <a href="#services"  id="nSvc">Services</a>
-      <a href="#pricing"   id="nPlan">Plans</a>
-      <a href="#payment"   id="nPay">Payment</a>
-      <a href="#contact"   id="nBook">Booking</a>
-      <a href="#social"    id="nSoc">Social</a>
+      <a href="#services"   id="nSvc">Services</a>
+      <a href="#rules"      id="nRules">Guidelines</a>
+      <a href="#pricing"    id="nPlan">Plans</a>
+      <a href="#payment"    id="nPay">Payment</a>
+      <a href="#contact"    id="nBook">Booking</a>
+      <a href="#social"     id="nSoc">Social</a>
       <button id="langBtn" class="lang-btn">తెలుగు</button>
     </nav>
   </div>
@@ -214,6 +341,150 @@
       <div class="svc-card"><div class="ic">✨</div><h3 id="s7h">Skin Care</h3><p id="s7p">Holistic support through diet, detox and lifestyle balance.</p></div>
       <div class="svc-card"><div class="ic">💙</div><h3 id="s8h">Lifestyle Disorders</h3><p id="s8p">Support for sleep, stress, routine correction and wellness.</p></div>
     </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     RULES & GUIDELINES SECTION
+════════════════════════════════════ -->
+<section id="rules" class="rules-section">
+  <div class="container">
+
+    <div class="rules-header">
+      <span class="leaf-deco">🍃 🌿 🍃</span>
+      <h2 id="rlTitle">Online Consultation –<br/><span>Rules &amp; Guidelines</span></h2>
+      <div class="rules-divider"></div>
+      <p id="rlDesc">To ensure effective healing and best results through naturopathy and yoga, all patients are requested to strictly follow the guidelines below.</p>
+    </div>
+
+    <div class="rules-body">
+
+      <!-- Rule 1 -->
+      <div class="rule-card">
+        <div class="rule-num-title">
+          <div class="rule-num">1</div>
+          <h3 id="rl1T">Commitment to the Program</h3>
+        </div>
+        <ul class="rule-list">
+          <li id="rl1a">Follow the prescribed diet plan strictly without deviation</li>
+          <li id="rl1b">Practice daily yoga, pranayama and suggested natural therapies</li>
+          <li id="rl1c">Consistency is key for achieving results</li>
+        </ul>
+      </div>
+
+      <!-- Rule 2 -->
+      <div class="rule-card">
+        <div class="rule-num-title">
+          <div class="rule-num">2</div>
+          <h3 id="rl2T">Pre-Consultation Requirements</h3>
+        </div>
+        <ul class="rule-list">
+          <li id="rl2a">Submit all relevant medical reports before starting the program</li>
+          <li id="rl2b">Share complete medical history, medications, and lifestyle details</li>
+          <li id="rl2c">Inform about any allergies or existing conditions</li>
+        </ul>
+      </div>
+
+      <!-- Rule 3 -->
+      <div class="rule-card">
+        <div class="rule-num-title">
+          <div class="rule-num">3</div>
+          <h3 id="rl3T">Daily Monitoring</h3>
+        </div>
+        <ul class="rule-list">
+          <li id="rl3a">Send pictures of meals before eating (as instructed)</li>
+          <li id="rl3b">Provide daily updates on food intake, symptoms/changes and energy levels</li>
+          <li id="rl3c">Report any unusual reactions or discomfort immediately</li>
+        </ul>
+      </div>
+
+      <!-- Rule 4 -->
+      <div class="rule-card">
+        <div class="rule-num-title">
+          <div class="rule-num">4</div>
+          <h3 id="rl4T">Diet &amp; Lifestyle Discipline</h3>
+        </div>
+        <ul class="rule-list">
+          <li id="rl4a">Avoid outside food, sugar, processed, and fried items</li>
+          <li id="rl4b">Follow meal timings strictly</li>
+          <li id="rl4c">Drink adequate water as prescribed</li>
+          <li id="rl4d">No alcohol, smoking, or harmful habits during the program</li>
+        </ul>
+      </div>
+
+      <!-- Rule 5 -->
+      <div class="rule-card">
+        <div class="rule-num-title">
+          <div class="rule-num">5</div>
+          <h3 id="rl5T">Yoga &amp; Exercise Compliance</h3>
+        </div>
+        <ul class="rule-list">
+          <li id="rl5a">Perform all assigned yoga asanas and exercises regularly</li>
+          <li id="rl5b">Do not skip sessions without informing the doctor</li>
+          <li id="rl5c">Follow breathing exercises and meditation as guided</li>
+          <li id="rl5d">Avoid over-exertion or self-modified exercises</li>
+        </ul>
+      </div>
+
+      <!-- Rule 6 -->
+      <div class="rule-card">
+        <div class="rule-num-title">
+          <div class="rule-num">6</div>
+          <h3 id="rl6T">Sleep &amp; Routine</h3>
+        </div>
+        <ul class="rule-list">
+          <li id="rl6a">Maintain proper sleep (6–8 hours minimum)</li>
+          <li id="rl6b">Follow a regular daily routine</li>
+          <li id="rl6c">Avoid late nights and irregular habits</li>
+        </ul>
+      </div>
+
+      <!-- Rule 7 -->
+      <div class="rule-card">
+        <div class="rule-num-title">
+          <div class="rule-num">7</div>
+          <h3 id="rl7T">Medication &amp; Safety</h3>
+        </div>
+        <ul class="rule-list">
+          <li id="rl7a">Continue regular medications unless advised otherwise</li>
+          <li id="rl7b">Do not self-modify or stop medications</li>
+          <li id="rl7c">Inform immediately if any discomfort or unusual symptoms arise</li>
+        </ul>
+      </div>
+
+      <!-- Rule 8 -->
+      <div class="rule-card">
+        <div class="rule-num-title">
+          <div class="rule-num">8</div>
+          <h3 id="rl8T">Follow-Up &amp; Communication</h3>
+        </div>
+        <ul class="rule-list">
+          <li id="rl8a">Attend all scheduled follow-up sessions on time</li>
+          <li id="rl8b">Respond promptly to doctor's messages and queries</li>
+          <li id="rl8c">Share progress reports and test results as requested</li>
+        </ul>
+      </div>
+
+      <!-- Rule 9 — Full width -->
+      <div class="rule-card full-width">
+        <div class="rule-num-title">
+          <div class="rule-num">9</div>
+          <h3 id="rl9T">Consent &amp; Responsibility</h3>
+        </div>
+        <ul class="rule-list" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));display:grid;">
+          <li id="rl9a">Results depend on individual commitment and body response</li>
+          <li id="rl9b">Naturopathy is a supportive therapy — do not discontinue prescribed medicines without doctor's advice</li>
+          <li id="rl9c">The doctor reserves the right to modify or discontinue the plan if guidelines are not followed</li>
+          <li id="rl9d">By booking, you agree to follow all program guidelines sincerely</li>
+        </ul>
+      </div>
+
+    </div><!-- /rules-body -->
+
+    <div class="rules-note" id="rlNote">
+      <strong>📌 Note:</strong> Your cooperation and dedication are essential for achieving the best healing outcomes through natural methods.
+    </div>
+
   </div>
 </section>
 
@@ -442,11 +713,12 @@ document.getElementById("langBtn").addEventListener("click", function(){
     this.textContent = "English";
 
     /* Nav */
-    document.getElementById("nSvc").textContent  = "సేవలు";
-    document.getElementById("nPlan").textContent = "ప్లాన్లు";
-    document.getElementById("nPay").textContent  = "చెల్లింపు";
-    document.getElementById("nBook").textContent = "బుకింగ్";
-    document.getElementById("nSoc").textContent  = "సోషల్";
+    document.getElementById("nSvc").textContent    = "సేవలు";
+    document.getElementById("nRules").textContent  = "మార్గదర్శకాలు";
+    document.getElementById("nPlan").textContent   = "ప్లాన్లు";
+    document.getElementById("nPay").textContent    = "చెల్లింపు";
+    document.getElementById("nBook").textContent   = "బుకింగ్";
+    document.getElementById("nSoc").textContent    = "సోషల్";
 
     /* Hero */
     document.getElementById("badge").textContent  = "సహజ వైద్యం • నిపుణుల మార్గదర్శకత్వం • ఆన్‌లైన్ సేవ";
@@ -481,207 +753,38 @@ document.getElementById("langBtn").addEventListener("click", function(){
     document.getElementById("s8h").textContent  = "జీవనశైలి రుగ్మతలు";
     document.getElementById("s8p").textContent  = "నిద్ర, ఒత్తిడి, దినచర్య దిద్దుబాటు మరియు వెల్‌నెస్ సహాయం.";
 
-    /* Pricing */
-    document.getElementById("prT").textContent   = "కన్సల్టేషన్ ప్లాన్లు";
-    document.getElementById("prS").textContent   = "మీ నయం ప్రయాణానికి సరళమైన, పారదర్శకమైన ధరలు.";
-    document.getElementById("pl1T").textContent  = "ఆన్‌లైన్ కన్సల్టేషన్";
-    document.getElementById("pl1P").textContent  = "ఒకసారి సెషన్";
-    document.getElementById("pf1").textContent   = "ప్రారంభ ఆరోగ్య అంచనా";
-    document.getElementById("pf2").textContent   = "వ్యక్తిగత డైట్ సలహా";
-    document.getElementById("pf3").textContent   = "నిపుణుల నేచురోపతి మార్గదర్శకత్వం";
-    document.getElementById("pf4").textContent   = "WhatsApp ఫాలో-అప్ (అదే రోజు)";
-    document.getElementById("pl1B").textContent  = "కన్సల్టేషన్ బుక్ చేయండి — ₹500";
-    document.getElementById("recB").textContent  = "అత్యంత ప్రజాదరణ";
-    document.getElementById("pl2T").textContent  = "1 నెల హీలింగ్ ప్లాన్";
-    document.getElementById("pl2P").textContent  = "నెలకు";
-    document.getElementById("frT").textContent   = "⚠️ 2-దశల చెల్లింపు ప్రక్రియ:";
-    document.getElementById("frS1").innerHTML    = "👉 <b>దశ 1 (మొదట):</b> ₹500 కన్సల్టేషన్ ఫీజు చెల్లించండి";
-    document.getElementById("frS2").innerHTML    = "👉 <b>దశ 2 (కన్సల్టేషన్ తర్వాత):</b> ₹1500 హీలింగ్ ప్లాన్ ఫీజు చెల్లించండి";
-    document.getElementById("frTot").textContent = "💰 మొత్తం = ₹500 + ₹1500 = ₹2000";
-    document.getElementById("pf5").textContent   = "ప్రారంభ కన్సల్టేషన్ చేర్చబడింది";
-    document.getElementById("pf6").textContent   = "పూర్తి వ్యక్తిగత హీలింగ్ ప్లాన్";
-    document.getElementById("pf7").textContent   = "రోజువారీ డైట్ & జీవనశైలి షెడ్యూల్";
-    document.getElementById("pf8").textContent   = "యోగా థెరపీ మార్గదర్శకత్వం";
-    document.getElementById("pf9").textContent   = "వారపు ఫాలో-అప్ సెషన్లు";
-    document.getElementById("pf10").textContent  = "WhatsApp సహాయం అంతటా";
-    document.getElementById("pf11").textContent  = "పురోగతి ట్రాకింగ్ & సర్దుబాట్లు";
-    document.getElementById("pl2B").textContent  = "హీలింగ్ ప్లాన్ ప్రారంభించండి";
-
-    /* Payment */
-    document.getElementById("payT").textContent  = "చెల్లింపు";
-    document.getElementById("payS").textContent  = "సురక్షితంగా చెల్లించడానికి QR కోడ్ స్కాన్ చేయండి లేదా UPI ID ఉపయోగించండి.";
-    document.getElementById("qr1T").textContent  = "దశ 1 — కన్సల్టేషన్ ఫీజు";
-    document.getElementById("qr1D").textContent  = "కన్సల్టేషన్ ఫీజు చెల్లించడానికి స్కాన్ చేయండి";
-    document.getElementById("qr1N").innerHTML    = "✅ ఇది <strong>మొదట</strong> చెల్లించండి. అంచనా వేయబడిన తర్వాత హీలింగ్ ప్లాన్‌కు వెళ్ళండి.";
-    document.getElementById("qr2T").textContent  = "దశ 2 — హీలింగ్ ప్లాన్ ఫీజు";
-    document.getElementById("qr2D").textContent  = "హీలింగ్ ప్లాన్ ఫీజు చెల్లించడానికి స్కాన్ చేయండి";
-    document.getElementById("qr2N").innerHTML    = "⚠️ <strong>దశ 1 (₹500 కన్సల్టేషన్) తర్వాత మాత్రమే</strong> చెల్లించండి. మొత్తం = ₹500 + ₹1500 = <strong>₹2000</strong>";
-
-    /* Booking */
-    document.getElementById("bkT").textContent   = "మీ కన్సల్టేషన్ బుక్ చేయండి";
-    document.getElementById("bkS").textContent   = "ఫారం నింపండి — WhatsApp మీ వివరాలతో స్వయంచాలకంగా తెరుచుకుంటుంది.";
-    document.getElementById("ciT").textContent   = "సంప్రదింపు సమాచారం";
-    document.getElementById("phL").textContent   = "ఫోన్:";
-    document.getElementById("emL").textContent   = "ఈమెయిల్:";
-    document.getElementById("f1L").textContent   = "కన్సల్టేషన్ ఫీజు:";
-    document.getElementById("f2L").textContent   = "హీలింగ్ ప్లాన్:";
-    document.getElementById("ftL").textContent   = "మొత్తం (రెండూ):";
-    document.getElementById("mdL").textContent   = "విధానం:";
-    document.getElementById("waBtn").textContent = "💬 WhatsApp లో చాట్ చేయండి";
-    document.getElementById("fmT").textContent   = "అపాయింట్‌మెంట్ అభ్యర్థన";
-    document.getElementById("wN").placeholder    = "మీ పూర్తి పేరు";
-    document.getElementById("wP").placeholder    = "ఫోన్ నంబర్";
-    document.getElementById("wE").placeholder    = "ఈమెయిల్ చిరునామా";
-    document.getElementById("wD").placeholder    = "తేదీ";
-    document.getElementById("wTm").placeholder   = "సమయం";
-    document.getElementById("wTx").placeholder   = "Transaction ID / UTR నంబర్";
-    document.getElementById("wMs").placeholder   = "మీ ఆరోగ్య సమస్యను వివరించండి";
-    document.getElementById("upL").textContent   = "📎 చెల్లింపు స్క్రీన్‌షాట్ అప్‌లోడ్ చేయండి";
-    document.getElementById("subBtn").textContent= "WhatsApp ద్వారా పంపండి";
-    document.getElementById("fNote").textContent = "సమర్పించిన తర్వాత WhatsApp తెరుచుకుంటుంది. స్క్రీన్‌షాట్ మాన్యువల్‌గా పంపండి.";
-    document.getElementById("brH").textContent   = "📋 చెల్లింపు రిమైండర్ — హీలింగ్ ప్లాన్:";
-    document.getElementById("brS1").innerHTML    = "👉 <b>దశ 1:</b> మొదట <b>₹500 కన్సల్టేషన్ ఫీజు</b> చెల్లించండి";
-    document.getElementById("brS2").innerHTML    = "👉 <b>దశ 2:</b> తర్వాత <b>₹1500 హీలింగ్ ప్లాన్ ఫీజు</b> చెల్లించండి";
-    document.getElementById("brTot").textContent = "💰 మొత్తం = ₹500 + ₹1500 = ₹2000";
-
-    /* Social */
-    document.getElementById("socT").textContent = "మనల్ని ఫాలో చేయండి";
-    document.getElementById("socS").textContent = "ఆరోగ్య చిట్కాలు, నయం మార్గదర్శకత్వం మరియు అప్‌డేట్‌ల కోసం కనెక్ట్ అయి ఉండండి.";
-    document.getElementById("igT").textContent  = "📸 ఇన్‌స్టాగ్రామ్";
-    document.getElementById("igD").textContent  = "వెల్‌నెస్ అప్‌డేట్‌లు మరియు కన్సల్టేషన్ సమాచారం కోసం ఫాలో చేయండి.";
-    document.getElementById("ytT").textContent  = "▶️ యూట్యూబ్";
-    document.getElementById("ytD").textContent  = "ఆరోగ్య మార్గదర్శకత్వం, సహజ నయం వీడియోలు మరియు వెల్‌నెస్ చిట్కాలు చూడండి.";
-
-    /* Footer & Popup */
-    document.getElementById("ftTx").innerHTML  = "© 2025 నేచురోపతి & యోగా కేర్. అన్ని హక్కులు రిజర్వ్ చేయబడ్డాయి.";
-    document.getElementById("popT").textContent = "✅ ధన్యవాదాలు!";
-    document.getElementById("popTx").textContent= "మీ వివరాలు సిద్ధంగా ఉన్నాయి. WhatsApp ఇప్పుడు తెరుచుకుంటోంది.";
-    document.getElementById("popB").textContent = "మూసివేయి";
-    document.getElementById("wFN").textContent  = "ఏ ఫైల్ లేదు";
-
-  } else {
-    document.documentElement.lang = "en";
-    this.textContent = "తెలుగు";
-
-    /* Nav */
-    document.getElementById("nSvc").textContent  = "Services";
-    document.getElementById("nPlan").textContent = "Plans";
-    document.getElementById("nPay").textContent  = "Payment";
-    document.getElementById("nBook").textContent = "Booking";
-    document.getElementById("nSoc").textContent  = "Social";
-
-    /* Hero */
-    document.getElementById("badge").textContent  = "Natural Healing • Expert Guidance • Online Care";
-    document.getElementById("hTitle").textContent = "Online Naturopathy & Yoga Consultation";
-    document.getElementById("hDesc").textContent  = "Heal naturally with evidence-based naturopathy, personalized diet guidance, yoga therapy, and lifestyle correction from qualified experts.";
-    document.getElementById("p1").textContent     = "Hormonal Problems: PCOS, Thyroid, Infertility";
-    document.getElementById("p2").textContent     = "Diabetes & Weight Management";
-    document.getElementById("p3").textContent     = "Joint Pain & Lifestyle Disorders";
-    document.getElementById("p4").textContent     = "Digestive & Skin Problems";
-    document.getElementById("bkBtn").textContent  = "Book Appointment";
-    document.getElementById("pyBtn").textContent  = "Pay Now";
-    document.getElementById("d1").textContent     = "Naturopathy, Acupuncture, Diet & Wellness Guidance";
-    document.getElementById("d2").textContent     = "Yoga Therapy, Women's Wellness & Lifestyle Care";
-
-    /* Services */
-    document.getElementById("svcT").textContent = "Conditions We Support";
-    document.getElementById("svcS").textContent = "Gentle, natural support for modern health problems.";
-    document.getElementById("s1h").textContent  = "Hormonal Health";
-    document.getElementById("s1p").textContent  = "PCOS, thyroid, infertility and women's wellness guidance.";
-    document.getElementById("s2h").textContent  = "Diabetes Care";
-    document.getElementById("s2p").textContent  = "Natural support through food correction, routine and discipline.";
-    document.getElementById("s3h").textContent  = "Weight Management";
-    document.getElementById("s3p").textContent  = "Balanced guidance for healthy weight loss and better metabolism.";
-    document.getElementById("s4h").textContent  = "Yoga Therapy";
-    document.getElementById("s4p").textContent  = "Relaxation, healing, flexibility and stress relief support.";
-    document.getElementById("s5h").textContent  = "Joint Pain";
-    document.getElementById("s5p").textContent  = "Natural support for pain, stiffness and mobility care.";
-    document.getElementById("s6h").textContent  = "Digestive Wellness";
-    document.getElementById("s6p").textContent  = "Guidance for acidity, indigestion, constipation and gut issues.";
-    document.getElementById("s7h").textContent  = "Skin Care";
-    document.getElementById("s7p").textContent  = "Holistic support through diet, detox and lifestyle balance.";
-    document.getElementById("s8h").textContent  = "Lifestyle Disorders";
-    document.getElementById("s8p").textContent  = "Support for sleep, stress, routine correction and wellness.";
-
-    /* Pricing */
-    document.getElementById("prT").textContent   = "Consultation Plans";
-    document.getElementById("prS").textContent   = "Simple, transparent pricing for your healing journey.";
-    document.getElementById("pl1T").textContent  = "Online Consultation";
-    document.getElementById("pl1P").textContent  = "One-time session";
-    document.getElementById("pf1").textContent   = "Initial health assessment";
-    document.getElementById("pf2").textContent   = "Personalised diet advice";
-    document.getElementById("pf3").textContent   = "Expert naturopathy guidance";
-    document.getElementById("pf4").textContent   = "WhatsApp follow-up (same day)";
-    document.getElementById("pl1B").textContent  = "Book Consultation — ₹500";
-    document.getElementById("recB").textContent  = "Most Popular";
-    document.getElementById("pl2T").textContent  = "1-Month Healing Plan";
-    document.getElementById("pl2P").textContent  = "Per month";
-    document.getElementById("frT").textContent   = "⚠️ 2-Step Payment Process:";
-    document.getElementById("frS1").innerHTML    = "👉 <b>Step 1 (First):</b> Pay ₹500 Consultation Fee";
-    document.getElementById("frS2").innerHTML    = "👉 <b>Step 2 (After consultation):</b> Pay ₹1500 Healing Plan Fee";
-    document.getElementById("frTot").textContent = "💰 Total = ₹500 + ₹1500 = ₹2000";
-    document.getElementById("pf5").textContent   = "Includes initial consultation";
-    document.getElementById("pf6").textContent   = "Complete personalised healing plan";
-    document.getElementById("pf7").textContent   = "Daily diet & lifestyle schedule";
-    document.getElementById("pf8").textContent   = "Yoga therapy guidance";
-    document.getElementById("pf9").textContent   = "Weekly follow-up sessions";
-    document.getElementById("pf10").textContent  = "WhatsApp support throughout";
-    document.getElementById("pf11").textContent  = "Progress tracking & adjustments";
-    document.getElementById("pl2B").textContent  = "Start Healing Plan";
-
-    /* Payment */
-    document.getElementById("payT").textContent  = "Payment";
-    document.getElementById("payS").textContent  = "Scan the QR code or use the UPI ID to pay securely.";
-    document.getElementById("qr1T").textContent  = "Step 1 — Consultation Fee";
-    document.getElementById("qr1D").textContent  = "Scan to pay consultation fee";
-    document.getElementById("qr1N").innerHTML    = "✅ Pay this <strong>first</strong>. Get assessed, then proceed to Healing Plan.";
-    document.getElementById("qr2T").textContent  = "Step 2 — Healing Plan Fee";
-    document.getElementById("qr2D").textContent  = "Scan to pay healing plan fee";
-    document.getElementById("qr2N").innerHTML    = "⚠️ Pay <strong>only after Step 1 (₹500 consultation)</strong>. Total = ₹500 + ₹1500 = <strong>₹2000</strong>";
-
-    /* Booking */
-    document.getElementById("bkT").textContent   = "Book Your Consultation";
-    document.getElementById("bkS").textContent   = "Fill the form — WhatsApp opens automatically with your details.";
-    document.getElementById("ciT").textContent   = "Contact Information";
-    document.getElementById("phL").textContent   = "Phone:";
-    document.getElementById("emL").textContent   = "Email:";
-    document.getElementById("f1L").textContent   = "Consultation Fee:";
-    document.getElementById("f2L").textContent   = "Healing Plan:";
-    document.getElementById("ftL").textContent   = "Total (Both):";
-    document.getElementById("mdL").textContent   = "Mode:";
-    document.getElementById("waBtn").textContent = "💬 Chat on WhatsApp";
-    document.getElementById("fmT").textContent   = "Appointment Request";
-    document.getElementById("wN").placeholder    = "Your Full Name";
-    document.getElementById("wP").placeholder    = "Phone Number";
-    document.getElementById("wE").placeholder    = "Email Address";
-    document.getElementById("wD").placeholder    = "Date";
-    document.getElementById("wTm").placeholder   = "Time";
-    document.getElementById("wTx").placeholder   = "Transaction ID / UTR Number";
-    document.getElementById("wMs").placeholder   = "Describe your health concern";
-    document.getElementById("upL").textContent   = "📎 Upload Payment Screenshot";
-    document.getElementById("subBtn").textContent= "Send via WhatsApp";
-    document.getElementById("fNote").textContent = "WhatsApp opens after submitting. Send screenshot manually if selected.";
-    document.getElementById("brH").textContent   = "📋 Payment Reminder — Healing Plan:";
-    document.getElementById("brS1").innerHTML    = "👉 <b>Step 1:</b> Pay <b>₹500 Consultation Fee</b> first";
-    document.getElementById("brS2").innerHTML    = "👉 <b>Step 2:</b> Then pay <b>₹1500 Healing Plan Fee</b>";
-    document.getElementById("brTot").textContent = "💰 Total = ₹500 + ₹1500 = ₹2000";
-
-    /* Social */
-    document.getElementById("socT").textContent = "Follow Us";
-    document.getElementById("socS").textContent = "Stay connected for health tips, healing guidance and updates.";
-    document.getElementById("igT").textContent  = "📸 Instagram";
-    document.getElementById("igD").textContent  = "Follow us for wellness updates and consultation information.";
-    document.getElementById("ytT").textContent  = "▶️ YouTube";
-    document.getElementById("ytD").textContent  = "Watch health guidance, natural healing videos and wellness tips.";
-
-    /* Footer & Popup */
-    document.getElementById("ftTx").innerHTML   = "© 2025 Naturopathy &amp; Yoga Care. All rights reserved.";
-    document.getElementById("popT").textContent = "✅ Thank You!";
-    document.getElementById("popTx").textContent= "Your details are ready. WhatsApp is opening now.";
-    document.getElementById("popB").textContent = "Close";
-    document.getElementById("wFN").textContent  = "No file selected";
-  }
-});
-</script>
-</body>
-</html>
+    /* Rules & Guidelines */
+    document.getElementById("rlTitle").innerHTML  = "ఆన్‌లైన్ కన్సల్టేషన్ –<br/><span>నియమాలు & మార్గదర్శకాలు</span>";
+    document.getElementById("rlDesc").textContent = "నేచురోపతి మరియు యోగా ద్వారా సమర్థవంతమైన నయం మరియు అత్యుత్తమ ఫలితాలు సాధించడానికి, అన్ని రోగులు క్రింది మార్గదర్శకాలను కచ్చితంగా పాటించాలని అభ్యర్థించబడుతున్నారు.";
+    document.getElementById("rl1T").textContent   = "కార్యక్రమానికి నిబద్ధత";
+    document.getElementById("rl1a").textContent   = "సూచించిన డైట్ ప్లాన్‌ను ఎటువంటి విరామం లేకుండా కచ్చితంగా పాటించండి";
+    document.getElementById("rl1b").textContent   = "రోజువారీ యోగా, ప్రాణాయామం మరియు సూచించిన సహజ చికిత్సలు సాధన చేయండి";
+    document.getElementById("rl1c").textContent   = "ఫలితాలు సాధించడానికి స్థిరత్వం కీలకం";
+    document.getElementById("rl2T").textContent   = "కన్సల్టేషన్ పూర్వ అవసరాలు";
+    document.getElementById("rl2a").textContent   = "కార్యక్రమం ప్రారంభించే ముందు అన్ని సంబంధిత వైద్య నివేదికలు సమర్పించండి";
+    document.getElementById("rl2b").textContent   = "పూర్తి వైద్య చరిత్ర, మందులు మరియు జీవనశైలి వివరాలు పంచుకోండి";
+    document.getElementById("rl2c").textContent   = "ఏదైనా అలెర్జీలు లేదా ప్రస్తుత పరిస్థితుల గురించి తెలియజేయండి";
+    document.getElementById("rl3T").textContent   = "రోజువారీ పర్యవేక్షణ";
+    document.getElementById("rl3a").textContent   = "తినే ముందు భోజన చిత్రాలు పంపండి (నిర్దేశించిన విధంగా)";
+    document.getElementById("rl3b").textContent   = "ఆహారం, లక్షణాలు/మార్పులు మరియు శక్తి స్థాయిలపై రోజువారీ అప్‌డేట్‌లు అందించండి";
+    document.getElementById("rl3c").textContent   = "ఏదైనా అసాధారణ ప్రతిచర్యలు లేదా అసౌకర్యం వెంటనే నివేదించండి";
+    document.getElementById("rl4T").textContent   = "డైట్ & జీవనశైలి క్రమశిక్షణ";
+    document.getElementById("rl4a").textContent   = "బయటి ఆహారం, చక్కెర, ప్రాసెస్డ్ మరియు వేయించిన వస్తువులు నివారించండి";
+    document.getElementById("rl4b").textContent   = "భోజన సమయాలను కచ్చితంగా పాటించండి";
+    document.getElementById("rl4c").textContent   = "సూచించిన విధంగా సరిపడా నీరు త్రాగండి";
+    document.getElementById("rl4d").textContent   = "కార్యక్రమంలో మద్యం, ధూమపానం లేదా హానికరమైన అలవాట్లు వద్దు";
+    document.getElementById("rl5T").textContent   = "యోగా & వ్యాయామ నిబద్ధత";
+    document.getElementById("rl5a").textContent   = "అన్ని నిర్దేశిత యోగా ఆసనలు మరియు వ్యాయామాలు క్రమంగా నిర్వహించండి";
+    document.getElementById("rl5b").textContent   = "డాక్టర్‌కు తెలియజేయకుండా సెషన్లు మానవద్దు";
+    document.getElementById("rl5c").textContent   = "మార్గదర్శకత్వం ప్రకారం శ్వాస వ్యాయామాలు మరియు ధ్యానం అనుసరించండి";
+    document.getElementById("rl5d").textContent   = "అతి కష్టపడటం లేదా స్వయంగా మార్చిన వ్యాయామాలు నివారించండి";
+    document.getElementById("rl6T").textContent   = "నిద్ర & దినచర్య";
+    document.getElementById("rl6a").textContent   = "సరైన నిద్ర నిర్వహించండి (కనీసం 6–8 గంటలు)";
+    document.getElementById("rl6b").textContent   = "క్రమమైన రోజువారీ దినచర్య పాటించండి";
+    document.getElementById("rl6c").textContent   = "ఆలస్యంగా నిద్రపోవడం మరియు అక్రమ అలవాట్లు నివారించండి";
+    document.getElementById("rl7T").textContent   = "మందులు & భద్రత";
+    document.getElementById("rl7a").textContent   = "ఇతరత్రా సలహా ఇవ్వకపోతే సాధారణ మందులు కొనసాగించండి";
+    document.getElementById("rl7b").textContent   = "మందులను స్వయంగా మార్చవద్దు లేదా ఆపవద్దు";
+    document.getElementById("rl7c").textContent   = "ఏదైనా అసౌకర్యం లేదా అసాధారణ లక్షణాలు వెంటనే తెలియజేయండి";
+    document.getElementById("rl8T").textContent   = "ఫాలో-అప్ & కమ్యూనికేషన్";
+    document.getElementById("rl8a").textContent   = "అన్ని నిర్దేశిత ఫాలో-అప్ సెషన్లకు సమయానికి హాజ
