@@ -5,265 +5,184 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Online Naturopathy & Yoga Consultation</title>
   <style>
-    :root{
-      --primary:#0a5c4d;
-      --accent:#3aafa9;
-      --dark:#163832;
-      --text:#35524a;
-      --gold:#d9b66f;
-      --shadow:0 15px 35px rgba(18,77,66,0.12);
+    :root {
+      --primary: #0a5c4d;
+      --accent: #3aafa9;
+      --dark: #163832;
+      --text: #35524a;
+      --gold: #d9b66f;
+      --shadow: 0 15px 35px rgba(18, 77, 66, 0.12);
     }
-    *{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth;}
-    body{font-family:Arial,Helvetica,sans-serif;background:linear-gradient(180deg,#f8fffd,#eefaf6);color:var(--text);line-height:1.6;}
-    a{text-decoration:none;}
-    .container{width:min(1180px,92%);margin:auto;}
+    * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+    body { font-family: Arial, Helvetica, sans-serif; background: linear-gradient(180deg, #f8fffd, #eefaf6); color: var(--text); line-height: 1.6; }
+    a { text-decoration: none; }
+    .container { width: min(1180px, 92%); margin: auto; }
 
     /* NAV */
-    .navbar{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,0.96);backdrop-filter:blur(12px);box-shadow:0 4px 20px rgba(0,0,0,0.06);}
-    .nav-wrap{display:flex;justify-content:space-between;align-items:center;padding:12px 0;gap:8px;flex-wrap:wrap;}
-    .logo{font-size:1.15rem;font-weight:700;color:var(--primary);}
-    .nav-links{display:flex;gap:14px;align-items:center;flex-wrap:wrap;}
-    .nav-links a{color:var(--dark);font-weight:600;font-size:0.91rem;border-bottom:2px solid transparent;transition:0.2s;}
-    .nav-links a:hover{color:var(--primary);border-bottom-color:var(--accent);}
-    .lang-btn{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:999px;padding:8px 14px;cursor:pointer;font-weight:700;font-size:0.88rem;}
+    .navbar { position: sticky; top: 0; z-index: 1000; background: rgba(255,255,255,0.96); backdrop-filter: blur(12px); box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+    .nav-wrap { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; gap: 8px; flex-wrap: wrap; }
+    .logo { font-size: 1.15rem; font-weight: 700; color: var(--primary); }
+    .nav-links { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+    .nav-links a { color: var(--dark); font-weight: 600; font-size: 0.91rem; border-bottom: 2px solid transparent; transition: 0.2s; }
+    .nav-links a:hover { color: var(--primary); border-bottom-color: var(--accent); }
+    .lang-btn { background: linear-gradient(135deg, var(--primary), var(--accent)); color: #fff; border: none; border-radius: 999px; padding: 8px 14px; cursor: pointer; font-weight: 700; font-size: 0.88rem; }
 
     /* HERO */
-    .hero{position:relative;padding:70px 0 55px;overflow:hidden;
-      background:radial-gradient(circle at top left,rgba(58,175,169,0.2),transparent 32%),
-      radial-gradient(circle at bottom right,rgba(217,182,111,0.16),transparent 30%),
-      linear-gradient(135deg,#f4fffb,#e9fbf5 50%,#f7fffc);}
-    .ov{position:absolute;border-radius:50%;filter:blur(40px);opacity:0.32;}
-    .ov1{width:260px;height:260px;background:#9fe3d6;top:-80px;right:-60px;}
-    .ov2{width:220px;height:220px;background:#dff4a7;bottom:-60px;left:-50px;}
-    .hero-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:30px;align-items:center;position:relative;z-index:2;}
-    .badge{display:inline-block;background:#dff7f0;color:var(--primary);padding:7px 14px;border-radius:999px;font-weight:700;margin-bottom:16px;font-size:0.88rem;}
-    .hero h1{font-size:2.8rem;line-height:1.15;color:var(--dark);margin-bottom:14px;}
-    .hero>div>p{font-size:1.05rem;margin-bottom:18px;}
-    .hero-pts{list-style:none;display:grid;gap:10px;margin-bottom:22px;}
-    .hero-pts li{background:rgba(255,255,255,0.9);padding:11px 15px;border-radius:12px;box-shadow:var(--shadow);font-weight:600;font-size:0.95rem;}
-    .hero-pts li::before{content:"✔ ";color:var(--accent);}
-    .hbtns{display:flex;flex-wrap:wrap;gap:12px;}
+    .hero { position: relative; padding: 70px 0 55px; overflow: hidden;
+      background: radial-gradient(circle at top left, rgba(58,175,169,0.2), transparent 32%),
+      radial-gradient(circle at bottom right, rgba(217,182,111,0.16), transparent 30%),
+      linear-gradient(135deg, #f4fffb, #e9fbf5 50%, #f7fffc); }
+    .ov { position: absolute; border-radius: 50%; filter: blur(40px); opacity: 0.32; }
+    .ov1 { width: 260px; height: 260px; background: #9fe3d6; top: -80px; right: -60px; }
+    .ov2 { width: 220px; height: 220px; background: #dff4a7; bottom: -60px; left: -50px; }
+    .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 30px; align-items: center; position: relative; z-index: 2; }
+    .badge { display: inline-block; background: #dff7f0; color: var(--primary); padding: 7px 14px; border-radius: 999px; font-weight: 700; margin-bottom: 16px; font-size: 0.88rem; }
+    .hero h1 { font-size: 2.8rem; line-height: 1.15; color: var(--dark); margin-bottom: 14px; }
+    .hero > div > p { font-size: 1.05rem; margin-bottom: 18px; }
+    .hero-pts { list-style: none; display: grid; gap: 10px; margin-bottom: 22px; }
+    .hero-pts li { background: rgba(255,255,255,0.9); padding: 11px 15px; border-radius: 12px; box-shadow: var(--shadow); font-weight: 600; font-size: 0.95rem; }
+    .hero-pts li::before { content: "✔ "; color: var(--accent); }
+    .hbtns { display: flex; flex-wrap: wrap; gap: 12px; }
 
     /* BUTTONS */
-    .btn{display:inline-block;padding:13px 22px;border-radius:999px;font-weight:700;transition:0.25s;border:none;cursor:pointer;text-align:center;font-size:0.95rem;}
-    .btn.primary{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;box-shadow:0 8px 22px rgba(10,92,77,0.22);}
-    .btn.secondary{background:#fff;color:var(--primary);border:2px solid var(--primary);}
-    .btn:hover{transform:translateY(-2px);}
+    .btn { display: inline-block; padding: 13px 22px; border-radius: 999px; font-weight: 700; transition: 0.25s; border: none; cursor: pointer; text-align: center; font-size: 0.95rem; }
+    .btn.primary { background: linear-gradient(135deg, var(--primary), var(--accent)); color: #fff; box-shadow: 0 8px 22px rgba(10,92,77,0.22); }
+    .btn.secondary { background: #fff; color: var(--primary); border: 2px solid var(--primary); }
+    .btn:hover { transform: translateY(-2px); }
 
-    /* DOCTOR */
-    .glass-card{background:rgba(255,255,255,0.8);border:1px solid rgba(255,255,255,0.6);backdrop-filter:blur(12px);border-radius:28px;padding:22px;box-shadow:var(--shadow);}
-    .doc-mini{display:flex;align-items:center;gap:14px;background:#fff;border-radius:20px;padding:14px;margin-bottom:14px;box-shadow:0 8px 22px rgba(0,0,0,0.07);}
-    .doc-mini:last-child{margin-bottom:0;}
-    .doc-mini img{width:90px;height:90px;border-radius:50%;object-fit:cover;border:4px solid #d7f2eb;}
+    /* DOCTOR CARD */
+    .glass-card { background: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.6); backdrop-filter: blur(12px); border-radius: 28px; padding: 22px; box-shadow: var(--shadow); }
+    .doc-mini { display: flex; align-items: center; gap: 14px; background: #fff; border-radius: 20px; padding: 14px; margin-bottom: 14px; box-shadow: 0 8px 22px rgba(0,0,0,0.07); }
+    .doc-mini:last-child { margin-bottom: 0; }
+    .doc-mini img { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 4px solid #d7f2eb; }
 
     /* SECTIONS */
-    .section{padding:65px 0;}
-    .alt-bg{background:linear-gradient(180deg,#f2fbf8,#fbfffd);}
-    .sec-title{text-align:center;font-size:2rem;color:var(--dark);margin-bottom:8px;}
-    .sec-sub{text-align:center;max-width:700px;margin:0 auto 30px;color:#56766e;font-size:0.97rem;}
+    .section { padding: 65px 0; }
+    .alt-bg { background: linear-gradient(180deg, #f2fbf8, #fbfffd); }
+    .sec-title { text-align: center; font-size: 2rem; color: var(--dark); margin-bottom: 8px; }
+    .sec-sub { text-align: center; max-width: 700px; margin: 0 auto 30px; color: #56766e; font-size: 0.97rem; }
 
     /* SERVICES */
-    .svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
-    .svc-card{background:#fff;border-radius:22px;padding:22px;box-shadow:var(--shadow);text-align:center;transition:0.3s;}
-    .svc-card:hover{transform:translateY(-5px);}
-    .ic{font-size:1.9rem;margin-bottom:10px;}
-    .svc-card h3{color:var(--primary);margin-bottom:7px;font-size:0.97rem;}
-    .svc-card p{font-size:0.88rem;}
+    .svc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .svc-card { background: #fff; border-radius: 22px; padding: 22px; box-shadow: var(--shadow); text-align: center; transition: 0.3s; }
+    .svc-card:hover { transform: translateY(-5px); }
+    .ic { font-size: 1.9rem; margin-bottom: 10px; }
+    .svc-card h3 { color: var(--primary); margin-bottom: 7px; font-size: 0.97rem; }
+    .svc-card p { font-size: 0.88rem; }
 
     /* PRICING */
-    .price-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
-    .price-card{background:#fff;border-radius:24px;padding:30px;box-shadow:var(--shadow);}
-    .price-card.feat{border:2px solid var(--accent);position:relative;}
-    .rec-badge{position:absolute;top:-13px;right:18px;background:var(--gold);color:#fff;padding:5px 14px;border-radius:999px;font-size:0.8rem;font-weight:700;}
-    .price-card h3{color:var(--dark);font-size:1.25rem;margin-bottom:4px;}
-    .price-num{font-size:2.6rem;font-weight:900;color:var(--primary);margin:10px 0 6px;}
-    .price-per{font-size:0.9rem;color:#56766e;margin-bottom:14px;}
-    .price-list{list-style:none;margin:0 0 16px;display:grid;gap:9px;}
-    .price-list li{font-size:0.9rem;}
-    .price-list li::before{content:"✔ ";color:var(--accent);font-weight:700;}
-    .fee-remind{background:#fff8e6;border:1.5px dashed var(--gold);border-radius:12px;padding:12px 14px;margin:12px 0 16px;font-size:0.87rem;color:#6b4800;line-height:1.6;}
-    .fee-remind .ft{margin-top:8px;font-weight:800;color:var(--primary);}
+    .price-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .price-card { background: #fff; border-radius: 24px; padding: 30px; box-shadow: var(--shadow); }
+    .price-card.feat { border: 2px solid var(--accent); position: relative; }
+    .rec-badge { position: absolute; top: -13px; right: 18px; background: var(--gold); color: #fff; padding: 5px 14px; border-radius: 999px; font-size: 0.8rem; font-weight: 700; }
+    .price-card h3 { color: var(--dark); font-size: 1.25rem; margin-bottom: 4px; }
+    .price-num { font-size: 2.6rem; font-weight: 900; color: var(--primary); margin: 10px 0 6px; }
+    .price-per { font-size: 0.9rem; color: #56766e; margin-bottom: 14px; }
+    .price-list { list-style: none; margin: 0 0 16px; display: grid; gap: 9px; }
+    .price-list li { font-size: 0.9rem; }
+    .price-list li::before { content: "✔ "; color: var(--accent); font-weight: 700; }
+    .fee-remind { background: #fff8e6; border: 1.5px dashed var(--gold); border-radius: 12px; padding: 12px 14px; margin: 12px 0 16px; font-size: 0.87rem; color: #6b4800; line-height: 1.6; }
+    .fee-remind .ft { margin-top: 8px; font-weight: 800; color: var(--primary); }
 
     /* PAYMENT */
-    .pay-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
-    .pay-card{background:#fff;border-radius:24px;padding:28px;box-shadow:var(--shadow);text-align:center;}
-    .pay-card h3{color:var(--dark);margin-bottom:6px;}
-    .pay-amt{font-size:2.2rem;font-weight:900;color:var(--primary);margin:8px 0 14px;}
-    .pay-card img{width:210px;max-width:100%;margin:10px auto;display:block;border-radius:14px;border:1px solid #d9eee7;background:#f8fffc;padding:7px;}
-    .upi-box{display:inline-block;margin-top:10px;background:#eefaf6;color:var(--dark);padding:9px 14px;border-radius:10px;font-weight:700;font-size:0.9rem;word-break:break-all;}
-    .pay-note{font-size:0.83rem;background:#fff8e6;border:1px solid #f0d080;border-radius:10px;padding:8px 12px;margin-top:12px;color:#7a5500;line-height:1.5;}
+    .pay-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .pay-card { background: #fff; border-radius: 24px; padding: 28px; box-shadow: var(--shadow); text-align: center; }
+    .pay-card h3 { color: var(--dark); margin-bottom: 6px; }
+    .pay-amt { font-size: 2.2rem; font-weight: 900; color: var(--primary); margin: 8px 0 14px; }
+    .pay-card img { width: 210px; max-width: 100%; margin: 10px auto; display: block; border-radius: 14px; border: 1px solid #d9eee7; background: #f8fffc; padding: 7px; }
+    .upi-box { display: inline-block; margin-top: 10px; background: #eefaf6; color: var(--dark); padding: 9px 14px; border-radius: 10px; font-weight: 700; font-size: 0.9rem; word-break: break-all; }
+    .pay-note { font-size: 0.83rem; background: #fff8e6; border: 1px solid #f0d080; border-radius: 10px; padding: 8px 12px; margin-top: 12px; color: #7a5500; line-height: 1.5; }
 
     /* BOOKING */
-    .bk-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
-    .bk-info{background:#fff;border-radius:24px;padding:28px;box-shadow:var(--shadow);}
-    .bk-item{margin-bottom:13px;font-size:1rem;}
-    .bk-form{background:#fff;border-radius:24px;padding:32px;box-shadow:var(--shadow);}
-    .bk-form h3{font-size:1.5rem;color:var(--dark);margin-bottom:16px;}
-    form{display:grid;gap:14px;}
-    input,textarea,select{width:100%;padding:15px 16px;border:1px solid #cfe5dd;border-radius:14px;outline:none;font-size:0.97rem;background:#fff;transition:0.25s;}
-    input:focus,textarea:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(58,175,169,0.1);}
-    textarea{min-height:130px;resize:vertical;}
-    .up-label{font-weight:700;color:var(--primary);font-size:0.92rem;}
-    .fn{font-size:0.88rem;color:#56766e;}
-    .fnote{font-size:0.88rem;color:#56766e;margin-top:12px;}
-    .bk-remind{display:none;background:#fff8e6;border:1.5px solid var(--gold);border-radius:14px;padding:14px 16px;font-size:0.88rem;color:#6b4800;line-height:1.6;}
-    .bk-remind .brt{margin-top:8px;font-weight:800;font-size:1rem;color:var(--dark);}
+    .bk-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .bk-info { background: #fff; border-radius: 24px; padding: 28px; box-shadow: var(--shadow); }
+    .bk-item { margin-bottom: 13px; font-size: 1rem; }
+    .bk-form { background: #fff; border-radius: 24px; padding: 32px; box-shadow: var(--shadow); }
+    .bk-form h3 { font-size: 1.5rem; color: var(--dark); margin-bottom: 16px; }
+    form { display: grid; gap: 14px; }
+    input, textarea, select { width: 100%; padding: 15px 16px; border: 1px solid #cfe5dd; border-radius: 14px; outline: none; font-size: 0.97rem; background: #fff; transition: 0.25s; }
+    input:focus, textarea:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(58,175,169,0.1); }
+    textarea { min-height: 130px; resize: vertical; }
+    .up-label { font-weight: 700; color: var(--primary); font-size: 0.92rem; }
+    .fn { font-size: 0.88rem; color: #56766e; }
+    .fnote { font-size: 0.88rem; color: #56766e; margin-top: 12px; }
+
+    /* RULES */
+    .rules-section { padding: 65px 0; background: linear-gradient(180deg, #fdf8ef, #f5fbf1); position: relative; overflow: hidden; }
+    .rules-section::before { content: ""; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230a5c4d' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); opacity: 0.5; }
+    .rules-header { text-align: center; margin-bottom: 36px; position: relative; z-index: 2; }
+    .rules-header .leaf-deco { font-size: 1.6rem; display: block; margin-bottom: 6px; letter-spacing: 6px; }
+    .rules-header h2 { font-family: Georgia, serif; font-size: 2.3rem; color: var(--dark); line-height: 1.2; margin-bottom: 6px; }
+    .rules-header h2 span { font-style: italic; color: var(--primary); }
+    .rules-header p { color: #56766e; max-width: 680px; margin: 0 auto; font-size: 0.97rem; font-style: italic; }
+    .rules-divider { width: 80px; height: 3px; background: linear-gradient(90deg, var(--gold), var(--accent)); border-radius: 999px; margin: 14px auto; }
+    .rules-body { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; position: relative; z-index: 2; }
+    .rule-card { background: rgba(255,255,255,0.88); border: 1px solid rgba(10,92,77,0.12); border-radius: 20px; padding: 22px 24px; box-shadow: 0 8px 28px rgba(10,92,77,0.08); transition: 0.3s; }
+    .rule-card:hover { transform: translateY(-4px); box-shadow: 0 14px 36px rgba(10,92,77,0.14); }
+    .rule-card.full-width { grid-column: 1 / -1; }
+    .rule-num-title { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .rule-num { width: 34px; height: 34px; min-width: 34px; background: linear-gradient(135deg, var(--primary), var(--accent)); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.9rem; }
+    .rule-num-title h3 { color: var(--dark); font-size: 1.02rem; font-weight: 700; }
+    .rule-list { list-style: none; display: grid; gap: 9px; }
+    .rule-list li { font-size: 0.9rem; color: var(--text); padding-left: 20px; position: relative; line-height: 1.55; }
+    .rule-list li::before { content: "•"; position: absolute; left: 0; color: var(--accent); font-size: 1.1rem; font-weight: 700; line-height: 1.4; }
+    .rules-note { margin-top: 28px; text-align: center; background: linear-gradient(135deg, rgba(10,92,77,0.06), rgba(217,182,111,0.1)); border: 1.5px solid var(--gold); border-radius: 16px; padding: 18px 24px; font-size: 0.95rem; color: var(--dark); font-style: italic; position: relative; z-index: 2; }
+    .rules-note strong { color: var(--primary); }
 
     /* SOCIAL */
-    .soc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;}
-    .soc-card{background:#fff;border-radius:22px;padding:26px;box-shadow:var(--shadow);text-align:center;}
-    .soc-card h3{color:var(--primary);margin-bottom:8px;}
-    .soc-links{display:flex;flex-direction:column;gap:12px;margin-top:12px;}
-    .soc-links a{display:block;background:#f3fbf8;color:var(--dark);padding:13px 16px;border-radius:12px;font-weight:700;border:1px solid #d8eee7;transition:0.25s;}
-    .soc-links a:hover{background:#e6f8f2;transform:translateY(-2px);}
+    .soc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+    .soc-card { background: #fff; border-radius: 22px; padding: 26px; box-shadow: var(--shadow); text-align: center; }
+    .soc-card h3 { color: var(--primary); margin-bottom: 8px; }
+    .soc-links { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
+    .soc-links a { display: block; background: #f3fbf8; color: var(--dark); padding: 13px 16px; border-radius: 12px; font-weight: 700; border: 1px solid #d8eee7; transition: 0.25s; }
+    .soc-links a:hover { background: #e6f8f2; transform: translateY(-2px); }
 
-    /* ═══════════════════════════════
-       RULES & GUIDELINES SECTION
-    ═══════════════════════════════ */
-    .rules-section{
-      padding:65px 0;
-      background:linear-gradient(180deg,#fdf8ef,#f5fbf1);
-      position:relative;
-      overflow:hidden;
-    }
-    .rules-section::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230a5c4d' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-      opacity:0.5;
-    }
-    .rules-header{
-      text-align:center;
-      margin-bottom:36px;
-      position:relative;
-      z-index:2;
-    }
-    .rules-header .leaf-deco{
-      font-size:1.6rem;
-      display:block;
-      margin-bottom:6px;
-      letter-spacing:6px;
-    }
-    .rules-header h2{
-      font-family:Georgia,serif;
-      font-size:2.3rem;
-      color:var(--dark);
-      line-height:1.2;
-      margin-bottom:6px;
-    }
-    .rules-header h2 span{
-      font-style:italic;
-      color:var(--primary);
-    }
-    .rules-header p{
-      color:#56766e;
-      max-width:680px;
-      margin:0 auto;
-      font-size:0.97rem;
-      font-style:italic;
-    }
-    .rules-divider{
-      width:80px;height:3px;
-      background:linear-gradient(90deg,var(--gold),var(--accent));
-      border-radius:999px;
-      margin:14px auto;
-    }
-    .rules-body{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:22px;
-      position:relative;
-      z-index:2;
-    }
-    .rule-card{
-      background:rgba(255,255,255,0.88);
-      border:1px solid rgba(10,92,77,0.12);
-      border-radius:20px;
-      padding:22px 24px;
-      box-shadow:0 8px 28px rgba(10,92,77,0.08);
-      transition:0.3s;
-    }
-    .rule-card:hover{transform:translateY(-4px);box-shadow:0 14px 36px rgba(10,92,77,0.14);}
-    .rule-card.full-width{grid-column:1/-1;}
-    .rule-num-title{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      margin-bottom:14px;
-    }
-    .rule-num{
-      width:34px;height:34px;min-width:34px;
-      background:linear-gradient(135deg,var(--primary),var(--accent));
-      color:#fff;
-      border-radius:50%;
-      display:flex;align-items:center;justify-content:center;
-      font-weight:900;font-size:0.9rem;
-    }
-    .rule-num-title h3{
-      color:var(--dark);
-      font-size:1.02rem;
-      font-weight:700;
-    }
-    .rule-list{
-      list-style:none;
-      display:grid;
-      gap:9px;
-    }
-    .rule-list li{
-      font-size:0.9rem;
-      color:var(--text);
-      padding-left:20px;
-      position:relative;
-      line-height:1.55;
-    }
-    .rule-list li::before{
-      content:"•";
-      position:absolute;
-      left:0;
-      color:var(--accent);
-      font-size:1.1rem;
-      font-weight:700;
-      line-height:1.4;
-    }
-    .rules-note{
-      margin-top:28px;
-      text-align:center;
-      background:linear-gradient(135deg,rgba(10,92,77,0.06),rgba(217,182,111,0.1));
-      border:1.5px solid var(--gold);
-      border-radius:16px;
-      padding:18px 24px;
-      font-size:0.95rem;
-      color:var(--dark);
-      font-style:italic;
-      position:relative;
-      z-index:2;
-    }
-    .rules-note strong{color:var(--primary);}
+    /* FOOTER */
+    .footer { background: var(--dark); color: #e7f7f2; text-align: center; padding: 22px 0; }
 
-    .footer{background:var(--dark);color:#e7f7f2;text-align:center;padding:22px 0;}
-    .wa-float{position:fixed;right:18px;bottom:18px;width:56px;height:56px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;font-size:25px;box-shadow:0 8px 22px rgba(0,0,0,0.18);z-index:999;}
+    /* WHATSAPP FLOAT */
+    .wa-float { position: fixed; right: 18px; bottom: 18px; width: 56px; height: 56px; border-radius: 50%; background: #25D366; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 25px; box-shadow: 0 8px 22px rgba(0,0,0,0.18); z-index: 999; }
 
     /* POPUP */
-    .popup{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;z-index:2000;}
-    .pop-box{background:#fff;padding:28px;border-radius:20px;width:min(400px,92%);text-align:center;box-shadow:var(--shadow);}
-    .pop-box h3{color:var(--primary);margin-bottom:10px;}
+    .popup { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); align-items: center; justify-content: center; z-index: 2000; }
+    .pop-box { background: #fff; padding: 32px 28px; border-radius: 24px; width: min(420px, 92%); text-align: center; box-shadow: var(--shadow); }
+    .pop-box h3 { color: var(--primary); margin-bottom: 10px; font-size: 1.3rem; }
+    .pop-box p { color: var(--text); margin-bottom: 20px; }
+
+    /* SUBMIT BUTTON AS LINK */
+    .wa-submit-btn {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff;
+      text-align: center;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 8px 22px rgba(10,92,77,0.22);
+      transition: 0.25s;
+      margin-top: 4px;
+    }
+    .wa-submit-btn:hover { transform: translateY(-2px); color: #fff; }
 
     /* RESPONSIVE */
-    @media(max-width:992px){
-      .hero-grid,.price-grid,.pay-grid,.bk-grid,.soc-grid,.rules-body{grid-template-columns:1fr;}
-      .rule-card.full-width{grid-column:auto;}
-      .svc-grid{grid-template-columns:repeat(2,1fr);}
-      .hero h1{font-size:2.1rem;}
+    @media(max-width: 992px) {
+      .hero-grid, .price-grid, .pay-grid, .bk-grid, .soc-grid, .rules-body { grid-template-columns: 1fr; }
+      .rule-card.full-width { grid-column: auto; }
+      .svc-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero h1 { font-size: 2.1rem; }
     }
-    @media(max-width:640px){
-      .nav-wrap{flex-direction:column;gap:10px;}
-      .nav-links{justify-content:center;}
-      .svc-grid{grid-template-columns:1fr;}
-      .hero h1{font-size:1.75rem;}
-      .doc-mini{flex-direction:column;text-align:center;}
-      .bk-form{padding:20px;}
-      .rules-header h2{font-size:1.7rem;}
+    @media(max-width: 640px) {
+      .nav-wrap { flex-direction: column; gap: 10px; }
+      .nav-links { justify-content: center; }
+      .svc-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 1.75rem; }
+      .doc-mini { flex-direction: column; text-align: center; }
+      .bk-form { padding: 20px; }
+      .rules-header h2 { font-size: 1.7rem; }
     }
   </style>
 </head>
@@ -274,13 +193,13 @@
   <div class="container nav-wrap">
     <div class="logo">🌿 Naturopathy & Yoga Care</div>
     <nav class="nav-links">
-      <a href="#services"   id="nSvc">Services</a>
-      <a href="#rules"      id="nRules">Guidelines</a>
-      <a href="#pricing"    id="nPlan">Plans</a>
-      <a href="#payment"    id="nPay">Payment</a>
-      <a href="#contact"    id="nBook">Booking</a>
-      <a href="#social"     id="nSoc">Social</a>
-      <button id="langBtn" class="lang-btn">తెలుగు</button>
+      <a href="#services">Services</a>
+      <a href="#rules">Guidelines</a>
+      <a href="#pricing">Plans</a>
+      <a href="#payment">Payment</a>
+      <a href="#contact">Booking</a>
+      <a href="#social">Social</a>
+      <button id="langToggle" class="lang-btn">తెలుగు</button>
     </nav>
   </div>
 </header>
@@ -291,35 +210,35 @@
   <div class="ov ov2"></div>
   <div class="container hero-grid">
     <div>
-      <span class="badge" id="badge">Natural Healing • Expert Guidance • Online Care</span>
-      <h1 id="hTitle">Online Naturopathy & Yoga Consultation</h1>
-      <p id="hDesc">Heal naturally with evidence-based naturopathy, personalized diet guidance, yoga therapy, and lifestyle correction from qualified experts.</p>
+      <span class="badge" id="badgeText">Natural Healing • Expert Guidance • Online Care</span>
+      <h1 id="heroTitle">Online Naturopathy & Yoga Consultation</h1>
+      <p id="heroDesc">Heal naturally with evidence-based naturopathy, personalized diet guidance, yoga therapy, and lifestyle correction from qualified experts.</p>
       <ul class="hero-pts">
-        <li id="p1">Hormonal Problems: PCOS, Thyroid, Infertility</li>
-        <li id="p2">Diabetes &amp; Weight Management</li>
-        <li id="p3">Joint Pain &amp; Lifestyle Disorders</li>
-        <li id="p4">Digestive &amp; Skin Problems</li>
+        <li>Hormonal Problems: PCOS, Thyroid, Infertility</li>
+        <li>Diabetes &amp; Weight Management</li>
+        <li>Joint Pain &amp; Lifestyle Disorders</li>
+        <li>Digestive &amp; Skin Problems</li>
       </ul>
       <div class="hbtns">
-        <a href="#contact" class="btn primary"   id="bkBtn">Book Appointment</a>
-        <a href="#payment" class="btn secondary" id="pyBtn">Pay Now</a>
+        <a href="#contact" class="btn primary" id="bookBtn">Book Appointment</a>
+        <a href="#payment" class="btn secondary" id="payBtn">Pay Now</a>
       </div>
     </div>
     <div class="glass-card">
       <div class="doc-mini">
-        <img src="doctor1.jpg" alt="Dr Srihari"/>
+        <img src="doctor1.jpg" alt="Dr Srihari" />
         <div>
           <h3>Dr Srihari</h3>
           <p><strong>BNYS, MSc. Psy, Dip. in Acu</strong></p>
-          <p id="d1">Naturopathy, Acupuncture, Diet &amp; Wellness Guidance</p>
+          <p>Naturopathy, Acupuncture, Diet &amp; Wellness Guidance</p>
         </div>
       </div>
       <div class="doc-mini">
-        <img src="doctor2.jpg" alt="Dr Prathima Kumari"/>
+        <img src="doctor2.jpg" alt="Dr Prathima Kumari" />
         <div>
           <h3>Dr Prathima Kumari</h3>
           <p><strong>BNYS</strong></p>
-          <p id="d2">Yoga Therapy, Women's Wellness &amp; Lifestyle Care</p>
+          <p>Yoga Therapy, Women's Wellness &amp; Lifestyle Care</p>
         </div>
       </div>
     </div>
@@ -329,204 +248,152 @@
 <!-- SERVICES -->
 <section id="services" class="section">
   <div class="container">
-    <h2 class="sec-title" id="svcT">Conditions We Support</h2>
-    <p class="sec-sub" id="svcS">Gentle, natural support for modern health problems.</p>
+    <h2 class="sec-title" id="servicesTitle">Conditions We Support</h2>
+    <p class="sec-sub" id="servicesSub">Gentle, natural support for modern health problems.</p>
     <div class="svc-grid">
-      <div class="svc-card"><div class="ic">🌸</div><h3 id="s1h">Hormonal Health</h3><p id="s1p">PCOS, thyroid, infertility and women's wellness guidance.</p></div>
-      <div class="svc-card"><div class="ic">🩺</div><h3 id="s2h">Diabetes Care</h3><p id="s2p">Natural support through food correction, routine and discipline.</p></div>
-      <div class="svc-card"><div class="ic">⚖️</div><h3 id="s3h">Weight Management</h3><p id="s3p">Balanced guidance for healthy weight loss and better metabolism.</p></div>
-      <div class="svc-card"><div class="ic">🧘</div><h3 id="s4h">Yoga Therapy</h3><p id="s4p">Relaxation, healing, flexibility and stress relief support.</p></div>
-      <div class="svc-card"><div class="ic">🦴</div><h3 id="s5h">Joint Pain</h3><p id="s5p">Natural support for pain, stiffness and mobility care.</p></div>
-      <div class="svc-card"><div class="ic">🍃</div><h3 id="s6h">Digestive Wellness</h3><p id="s6p">Guidance for acidity, indigestion, constipation and gut issues.</p></div>
-      <div class="svc-card"><div class="ic">✨</div><h3 id="s7h">Skin Care</h3><p id="s7p">Holistic support through diet, detox and lifestyle balance.</p></div>
-      <div class="svc-card"><div class="ic">💙</div><h3 id="s8h">Lifestyle Disorders</h3><p id="s8p">Support for sleep, stress, routine correction and wellness.</p></div>
+      <div class="svc-card"><div class="ic">🌸</div><h3>Hormonal Health</h3><p>PCOS, thyroid, infertility and women's wellness guidance.</p></div>
+      <div class="svc-card"><div class="ic">🩺</div><h3>Diabetes Care</h3><p>Natural support through food correction, routine and discipline.</p></div>
+      <div class="svc-card"><div class="ic">⚖️</div><h3>Weight Management</h3><p>Balanced guidance for healthy weight loss and better metabolism.</p></div>
+      <div class="svc-card"><div class="ic">🧘</div><h3>Yoga Therapy</h3><p>Relaxation, healing, flexibility and stress relief support.</p></div>
+      <div class="svc-card"><div class="ic">🦴</div><h3>Joint Pain</h3><p>Natural support for pain, stiffness and mobility care.</p></div>
+      <div class="svc-card"><div class="ic">🍃</div><h3>Digestive Wellness</h3><p>Guidance for acidity, indigestion, constipation and gut issues.</p></div>
+      <div class="svc-card"><div class="ic">✨</div><h3>Skin Care</h3><p>Holistic support through diet, detox and lifestyle balance.</p></div>
+      <div class="svc-card"><div class="ic">💙</div><h3>Lifestyle Disorders</h3><p>Support for sleep, stress, routine correction and wellness.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════
-     RULES & GUIDELINES SECTION
-════════════════════════════════════ -->
+<!-- RULES & GUIDELINES -->
 <section id="rules" class="rules-section">
   <div class="container">
-
     <div class="rules-header">
       <span class="leaf-deco">🍃 🌿 🍃</span>
-      <h2 id="rlTitle">Online Consultation –<br/><span>Rules &amp; Guidelines</span></h2>
+      <h2>Online Consultation – <span>Rules &amp; Guidelines</span></h2>
       <div class="rules-divider"></div>
-      <p id="rlDesc">To ensure effective healing and best results through naturopathy and yoga, all patients are requested to strictly follow the guidelines below.</p>
+      <p>To ensure effective healing and best results, all patients are requested to strictly follow the guidelines below.</p>
     </div>
-
     <div class="rules-body">
-
-      <!-- Rule 1 -->
       <div class="rule-card">
-        <div class="rule-num-title">
-          <div class="rule-num">1</div>
-          <h3 id="rl1T">Commitment to the Program</h3>
-        </div>
+        <div class="rule-num-title"><div class="rule-num">1</div><h3>Commitment to the Program</h3></div>
         <ul class="rule-list">
-          <li id="rl1a">Follow the prescribed diet plan strictly without deviation</li>
-          <li id="rl1b">Practice daily yoga, pranayama and suggested natural therapies</li>
-          <li id="rl1c">Consistency is key for achieving results</li>
+          <li>Follow the prescribed diet plan strictly without deviation</li>
+          <li>Practice daily yoga, pranayama and suggested natural therapies</li>
+          <li>Consistency is key for achieving results</li>
         </ul>
       </div>
-
-      <!-- Rule 2 -->
       <div class="rule-card">
-        <div class="rule-num-title">
-          <div class="rule-num">2</div>
-          <h3 id="rl2T">Pre-Consultation Requirements</h3>
-        </div>
+        <div class="rule-num-title"><div class="rule-num">2</div><h3>Pre-Consultation Requirements</h3></div>
         <ul class="rule-list">
-          <li id="rl2a">Submit all relevant medical reports before starting the program</li>
-          <li id="rl2b">Share complete medical history, medications, and lifestyle details</li>
-          <li id="rl2c">Inform about any allergies or existing conditions</li>
+          <li>Submit all relevant medical reports before starting</li>
+          <li>Share complete medical history, medications and lifestyle details</li>
+          <li>Inform about any allergies or existing conditions</li>
         </ul>
       </div>
-
-      <!-- Rule 3 -->
       <div class="rule-card">
-        <div class="rule-num-title">
-          <div class="rule-num">3</div>
-          <h3 id="rl3T">Daily Monitoring</h3>
-        </div>
+        <div class="rule-num-title"><div class="rule-num">3</div><h3>Daily Monitoring</h3></div>
         <ul class="rule-list">
-          <li id="rl3a">Send pictures of meals before eating (as instructed)</li>
-          <li id="rl3b">Provide daily updates on food intake, symptoms/changes and energy levels</li>
-          <li id="rl3c">Report any unusual reactions or discomfort immediately</li>
+          <li>Send pictures of meals before eating as instructed</li>
+          <li>Provide daily updates on food intake and energy levels</li>
+          <li>Report any unusual reactions or discomfort immediately</li>
         </ul>
       </div>
-
-      <!-- Rule 4 -->
       <div class="rule-card">
-        <div class="rule-num-title">
-          <div class="rule-num">4</div>
-          <h3 id="rl4T">Diet &amp; Lifestyle Discipline</h3>
-        </div>
+        <div class="rule-num-title"><div class="rule-num">4</div><h3>Diet &amp; Lifestyle Discipline</h3></div>
         <ul class="rule-list">
-          <li id="rl4a">Avoid outside food, sugar, processed, and fried items</li>
-          <li id="rl4b">Follow meal timings strictly</li>
-          <li id="rl4c">Drink adequate water as prescribed</li>
-          <li id="rl4d">No alcohol, smoking, or harmful habits during the program</li>
+          <li>Avoid outside food, sugar, processed and fried items</li>
+          <li>Follow meal timings strictly</li>
+          <li>Drink adequate water as prescribed</li>
+          <li>No alcohol, smoking or harmful habits during program</li>
         </ul>
       </div>
-
-      <!-- Rule 5 -->
       <div class="rule-card">
-        <div class="rule-num-title">
-          <div class="rule-num">5</div>
-          <h3 id="rl5T">Yoga &amp; Exercise Compliance</h3>
-        </div>
+        <div class="rule-num-title"><div class="rule-num">5</div><h3>Yoga &amp; Exercise Compliance</h3></div>
         <ul class="rule-list">
-          <li id="rl5a">Perform all assigned yoga asanas and exercises regularly</li>
-          <li id="rl5b">Do not skip sessions without informing the doctor</li>
-          <li id="rl5c">Follow breathing exercises and meditation as guided</li>
-          <li id="rl5d">Avoid over-exertion or self-modified exercises</li>
+          <li>Perform all assigned yoga asanas and exercises regularly</li>
+          <li>Do not skip sessions without informing the doctor</li>
+          <li>Follow breathing exercises and meditation as guided</li>
+          <li>Avoid over-exertion or self-modified exercises</li>
         </ul>
       </div>
-
-      <!-- Rule 6 -->
       <div class="rule-card">
-        <div class="rule-num-title">
-          <div class="rule-num">6</div>
-          <h3 id="rl6T">Sleep &amp; Routine</h3>
-        </div>
+        <div class="rule-num-title"><div class="rule-num">6</div><h3>Sleep &amp; Routine</h3></div>
         <ul class="rule-list">
-          <li id="rl6a">Maintain proper sleep (6–8 hours minimum)</li>
-          <li id="rl6b">Follow a regular daily routine</li>
-          <li id="rl6c">Avoid late nights and irregular habits</li>
+          <li>Maintain proper sleep — 6 to 8 hours minimum</li>
+          <li>Follow a regular daily routine</li>
+          <li>Avoid late nights and irregular habits</li>
         </ul>
       </div>
-
-      <!-- Rule 7 -->
       <div class="rule-card">
-        <div class="rule-num-title">
-          <div class="rule-num">7</div>
-          <h3 id="rl7T">Medication &amp; Safety</h3>
-        </div>
+        <div class="rule-num-title"><div class="rule-num">7</div><h3>Medication &amp; Safety</h3></div>
         <ul class="rule-list">
-          <li id="rl7a">Continue regular medications unless advised otherwise</li>
-          <li id="rl7b">Do not self-modify or stop medications</li>
-          <li id="rl7c">Inform immediately if any discomfort or unusual symptoms arise</li>
+          <li>Continue regular medications unless advised otherwise</li>
+          <li>Do not self-modify or stop medications</li>
+          <li>Inform immediately if any discomfort arises</li>
         </ul>
       </div>
-
-      <!-- Rule 8 -->
       <div class="rule-card">
-        <div class="rule-num-title">
-          <div class="rule-num">8</div>
-          <h3 id="rl8T">Follow-Up &amp; Communication</h3>
-        </div>
+        <div class="rule-num-title"><div class="rule-num">8</div><h3>Follow-Up &amp; Communication</h3></div>
         <ul class="rule-list">
-          <li id="rl8a">Attend all scheduled follow-up sessions on time</li>
-          <li id="rl8b">Respond promptly to doctor's messages and queries</li>
-          <li id="rl8c">Share progress reports and test results as requested</li>
+          <li>Attend all scheduled follow-up sessions on time</li>
+          <li>Respond promptly to doctor messages and queries</li>
+          <li>Share progress reports and test results as requested</li>
         </ul>
       </div>
-
-      <!-- Rule 9 — Full width -->
       <div class="rule-card full-width">
-        <div class="rule-num-title">
-          <div class="rule-num">9</div>
-          <h3 id="rl9T">Consent &amp; Responsibility</h3>
-        </div>
+        <div class="rule-num-title"><div class="rule-num">9</div><h3>Consent &amp; Responsibility</h3></div>
         <ul class="rule-list" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));display:grid;">
-          <li id="rl9a">Results depend on individual commitment and body response</li>
-          <li id="rl9b">Naturopathy is a supportive therapy — do not discontinue prescribed medicines without doctor's advice</li>
-          <li id="rl9c">The doctor reserves the right to modify or discontinue the plan if guidelines are not followed</li>
-          <li id="rl9d">By booking, you agree to follow all program guidelines sincerely</li>
+          <li>Results depend on individual commitment and body response</li>
+          <li>Naturopathy is supportive — do not stop medicines without doctor advice</li>
+          <li>Doctor reserves right to modify plan if guidelines are not followed</li>
+          <li>By booking you agree to follow all program guidelines sincerely</li>
         </ul>
       </div>
-
-    </div><!-- /rules-body -->
-
-    <div class="rules-note" id="rlNote">
-      <strong>📌 Note:</strong> Your cooperation and dedication are essential for achieving the best healing outcomes through natural methods.
     </div>
-
+    <div class="rules-note">
+      <strong>📌 Note:</strong> Your cooperation and dedication are essential for achieving the best healing outcomes.
+    </div>
   </div>
 </section>
 
 <!-- PRICING -->
 <section id="pricing" class="section alt-bg">
   <div class="container">
-    <h2 class="sec-title" id="prT">Consultation Plans</h2>
-    <p class="sec-sub" id="prS">Simple, transparent pricing for your healing journey.</p>
+    <h2 class="sec-title" id="pricingTitle">Consultation Plans</h2>
+    <p class="sec-sub" id="pricingSub">Simple, transparent pricing for your healing journey.</p>
     <div class="price-grid">
       <div class="price-card">
-        <h3 id="pl1T">Online Consultation</h3>
+        <h3>Online Consultation</h3>
         <div class="price-num">₹500</div>
-        <p class="price-per" id="pl1P">One-time session</p>
+        <p class="price-per">One-time session</p>
         <ul class="price-list">
-          <li id="pf1">Initial health assessment</li>
-          <li id="pf2">Personalised diet advice</li>
-          <li id="pf3">Expert naturopathy guidance</li>
-          <li id="pf4">WhatsApp follow-up (same day)</li>
+          <li>Initial health assessment</li>
+          <li>Personalised diet advice</li>
+          <li>Expert naturopathy guidance</li>
+          <li>WhatsApp follow-up same day</li>
         </ul>
-        <a href="#payment" class="btn secondary" id="pl1B">Book Consultation — ₹500</a>
+        <a href="#contact" class="btn secondary">Book Consultation — ₹500</a>
       </div>
       <div class="price-card feat">
-        <div class="rec-badge" id="recB">Most Popular</div>
-        <h3 id="pl2T">1-Month Healing Plan</h3>
+        <div class="rec-badge">Most Popular</div>
+        <h3>1-Month Healing Plan</h3>
         <div class="price-num">₹2500</div>
-        <p class="price-per" id="pl2P">Per month</p>
+        <p class="price-per">Per month</p>
         <div class="fee-remind">
-          <strong id="frT">⚠️ 2-Step Payment Process:</strong>
-          <div style="margin-top:8px;" id="frS1">👉 <b>Step 1 (First):</b> Pay ₹500 Consultation Fee</div>
-          <div style="margin-top:5px;" id="frS2">👉 <b>Step 2 (After consultation):</b> Pay ₹2500 Healing Plan Fee</div>
-          <div class="ft" id="frTot">💰 Total = ₹500 + ₹2500 = ₹3000</div>
+          <strong>⚠️ 2-Step Payment Process:</strong>
+          <div style="margin-top:8px;">👉 <b>Step 1 (First):</b> Pay ₹500 Consultation Fee</div>
+          <div style="margin-top:5px;">👉 <b>Step 2 (After consultation):</b> Pay ₹2500 Healing Plan Fee</div>
+          <div class="ft">💰 Total = ₹500 + ₹2500 = ₹3000</div>
         </div>
         <ul class="price-list">
-          <li id="pf5">Includes initial consultation</li>
-          <li id="pf6">Complete personalised healing plan</li>
-          <li id="pf7">Daily diet &amp; lifestyle schedule</li>
-          <li id="pf8">Yoga therapy guidance</li>
-          <li id="pf9">Weekly follow-up sessions</li>
-          <li id="pf10">WhatsApp support throughout</li>
-          <li id="pf11">Progress tracking &amp; adjustments</li>
+          <li>Includes initial consultation</li>
+          <li>Complete personalised healing plan</li>
+          <li>Daily diet &amp; lifestyle schedule</li>
+          <li>Yoga therapy guidance</li>
+          <li>Weekly follow-up sessions</li>
+          <li>WhatsApp support throughout</li>
+          <li>Progress tracking &amp; adjustments</li>
         </ul>
-        <a href="#payment" class="btn primary" id="pl2B">Start Healing Plan</a>
+        <a href="#contact" class="btn primary">Start Healing Plan</a>
       </div>
     </div>
   </div>
@@ -535,24 +402,24 @@
 <!-- PAYMENT -->
 <section id="payment" class="section">
   <div class="container">
-    <h2 class="sec-title" id="payT">Payment</h2>
-    <p class="sec-sub" id="payS">Scan the QR code or use the UPI ID to pay securely.</p>
+    <h2 class="sec-title" id="paymentTitle">Payment</h2>
+    <p class="sec-sub" id="paymentSub">Scan the QR code or use the UPI ID to pay securely.</p>
     <div class="pay-grid">
       <div class="pay-card">
-        <h3 id="qr1T">Step 1 — Consultation Fee</h3>
+        <h3>Step 1 — Consultation Fee</h3>
         <div class="pay-amt">₹500</div>
-        <img src="qr-consultation.jpg" alt="QR Consultation"/>
-        <p id="qr1D">Scan to pay consultation fee</p>
+        <img src="qr-consultation.jpg" alt="QR Consultation" />
+        <p>Scan to pay consultation fee</p>
         <div class="upi-box">UPI: prathimakumari5@okhdfcbank</div>
-        <div class="pay-note" id="qr1N">✅ Pay this <strong>first</strong>. Get assessed, then proceed to Healing Plan.</div>
+        <div class="pay-note">✅ Pay this <strong>first</strong>. Get assessed, then proceed to Healing Plan.</div>
       </div>
       <div class="pay-card">
-        <h3 id="qr2T">Step 2 — Healing Plan Fee</h3>
+        <h3>Step 2 — Healing Plan Fee</h3>
         <div class="pay-amt">₹2500</div>
-        <img src="qr-healingplan.jpg" alt="QR Healing Plan"/>
-        <p id="qr2D">Scan to pay healing plan fee</p>
+        <img src="qr-healingplan.jpg" alt="QR Healing Plan" />
+        <p>Scan to pay healing plan fee</p>
         <div class="upi-box">UPI: prathimakumari5@okhdfcbank</div>
-        <div class="pay-note" id="qr2N">⚠️ Pay <strong>only after Step 1 (₹500 consultation)</strong>. Total = ₹500 + ₹2500 = <strong>₹3000</strong></div>
+        <div class="pay-note">⚠️ Pay <strong>only after Step 1</strong>. Total = ₹500 + ₹2500 = <strong>₹3000</strong></div>
       </div>
     </div>
   </div>
@@ -561,54 +428,59 @@
 <!-- BOOKING -->
 <section id="contact" class="section alt-bg">
   <div class="container">
-    <h2 class="sec-title" id="bkT">Book Your Consultation</h2>
-    <p class="sec-sub" id="bkS">Fill the form — WhatsApp opens automatically with your details.</p>
+    <h2 class="sec-title" id="bookingTitle">Book Your Consultation</h2>
+    <p class="sec-sub" id="bookingSub">Fill the form — WhatsApp opens automatically with your details.</p>
     <div class="bk-grid">
       <div class="bk-info">
-        <h3 id="ciT" style="color:var(--dark);margin-bottom:18px;">Contact Information</h3>
-        <div class="bk-item">📞 <strong id="phL">Phone:</strong> +91 7013989526</div>
-        <div class="bk-item">✉️ <strong id="emL">Email:</strong> srihariu123456789@gmail.com</div>
-        <div class="bk-item">💰 <strong id="f1L">Consultation Fee:</strong> ₹500</div>
-        <div class="bk-item">🌿 <strong id="f2L">Healing Plan:</strong> ₹2500/month</div>
-        <div class="bk-item">💎 <strong id="ftL">Total (Both):</strong> ₹500 + ₹2500 = ₹3000</div>
-        <div class="bk-item">🖥️ <strong id="mdL">Mode:</strong> Online (Video / WhatsApp)</div>
-        <br/>
-        <a href="https://wa.me/917013989526" target="_blank" class="btn primary" id="waBtn">💬 Chat on WhatsApp</a>
+        <h3 style="color:var(--dark);margin-bottom:18px;">Contact Information</h3>
+        <div class="bk-item">📞 <strong>Phone:</strong> +91 7013989526</div>
+        <div class="bk-item">✉️ <strong>Email:</strong> srihariu123456789@gmail.com</div>
+        <div class="bk-item">💰 <strong>Consultation Fee:</strong> ₹500</div>
+        <div class="bk-item">🌿 <strong>Healing Plan:</strong> ₹2500/month</div>
+        <div class="bk-item">💎 <strong>Total (Both):</strong> ₹500 + ₹2500 = ₹3000</div>
+        <div class="bk-item">🖥️ <strong>Mode:</strong> Online (Video / WhatsApp)</div>
+        <br />
+        <a href="https://wa.me/917013989526" target="_blank" class="btn primary">💬 Chat on WhatsApp</a>
       </div>
+
       <div class="bk-form">
-        <h3 id="fmT">Appointment Request</h3>
-        <form id="waForm">
-          <input type="text"  id="wN"  placeholder="Your Full Name"   required/>
-          <input type="tel"   id="wP"  placeholder="Phone Number"     required/>
-          <input type="email" id="wE"  placeholder="Email Address"/>
-          <select id="wPl" required>
+        <h3 id="formTitle">Appointment Request</h3>
+        <!-- ✅ form id matches script.js -->
+        <form id="whatsappForm">
+          <input type="text" id="name" placeholder="Your Full Name" required />
+          <input type="tel" id="phone" placeholder="Phone Number" required />
+          <input type="email" id="email" placeholder="Email Address" />
+          <select id="plan" required>
             <option value="">Select Consultation Type</option>
-            <option value="con">Online Consultation — ₹500</option>
-            <option value="heal">1-Month Healing Plan — ₹2500 (+ ₹500 consultation first)</option>
+            <option value="Online Consultation — ₹500">Online Consultation — ₹500</option>
+            <option value="1-Month Healing Plan — ₹2500 (+ ₹500 consultation first)">1-Month Healing Plan — ₹2500 (+ ₹500 consultation first)</option>
           </select>
-          <div class="bk-remind" id="bkRem">
-            <strong id="brH">📋 Payment Reminder — Healing Plan:</strong>
-            <div style="margin-top:8px;" id="brS1">👉 <b>Step 1:</b> Pay <b>₹500 Consultation Fee</b> first</div>
-            <div style="margin-top:5px;" id="brS2">👉 <b>Step 2:</b> Then pay <b>₹2500 Healing Plan Fee</b></div>
-            <div class="brt" id="brTot">💰 Total = ₹500 + ₹2500 = ₹3000</div>
-          </div>
-          <input type="date" id="wD"  required/>
-          <input type="time" id="wTm" required/>
-          <select id="wPs" required>
+          <input type="date" id="date" required />
+          <input type="time" id="time" required />
+          <select id="paymentStatus" required>
             <option value="">Payment Status</option>
-            <option>Paid ₹500 Consultation Fee</option>
-            <option>Paid ₹2500 Healing Plan Fee</option>
-            <option>Paid Both — ₹500 + ₹2500 = ₹2500</option>
-            <option>Not Paid Yet</option>
+            <option value="Paid ₹500 Consultation Fee">Paid ₹500 Consultation Fee</option>
+            <option value="Paid ₹2500 Healing Plan Fee">Paid ₹2500 Healing Plan Fee</option>
+            <option value="Paid Both ₹500 + ₹2500 = ₹3000">Paid Both ₹500 + ₹2500 = ₹3000</option>
+            <option value="Not Paid Yet">Not Paid Yet</option>
           </select>
-          <input type="text" id="wTx" placeholder="Transaction ID / UTR Number"/>
-          <label class="up-label" id="upL">📎 Upload Payment Screenshot</label>
-          <input type="file" id="wF" accept="image/*"/>
-          <div id="wFN" class="fn">No file selected</div>
-          <textarea id="wMs" placeholder="Describe your health concern"></textarea>
-          <button type="submit" class="btn primary" style="padding:16px;font-size:1rem;" id="subBtn">Send via WhatsApp</button>
+          <input type="text" id="transactionId" placeholder="Transaction ID / UTR Number" />
+          <label class="up-label" id="uploadLabel">📎 Upload Payment Screenshot</label>
+          <!-- ✅ id matches script.js -->
+          <input type="file" id="paymentScreenshot" accept="image/*" />
+          <!-- ✅ id matches script.js -->
+          <div id="fileName" class="fn">No file selected</div>
+          <textarea id="message" placeholder="Describe your health concern"></textarea>
+
+          <!-- ✅ THIS IS THE KEY FIX — <a> tag instead of <button> -->
+          <button type="button" id="submitBtn" class="wa-submit-btn">
+  💬 Send via WhatsApp
+</button>
+  💬 Send via WhatsApp
+</a>
+          </a>
         </form>
-        <p class="fnote" id="fNote">WhatsApp opens after submitting. Send screenshot manually if selected.</p>
+        <p class="fnote" id="noteText">WhatsApp opens after clicking. Send screenshot manually if selected.</p>
       </div>
     </div>
   </div>
@@ -617,19 +489,19 @@
 <!-- SOCIAL -->
 <section id="social" class="section">
   <div class="container">
-    <h2 class="sec-title" id="socT">Follow Us</h2>
-    <p class="sec-sub" id="socS">Stay connected for health tips, healing guidance and updates.</p>
+    <h2 class="sec-title">Follow Us</h2>
+    <p class="sec-sub">Stay connected for health tips, healing guidance and updates.</p>
     <div class="soc-grid">
       <div class="soc-card">
-        <h3 id="igT">📸 Instagram</h3>
-        <p id="igD">Follow us for wellness updates and consultation information.</p>
+        <h3>📸 Instagram</h3>
+        <p>Follow us for wellness updates and consultation information.</p>
         <div class="soc-links">
           <a href="https://www.instagram.com/dr_prathimahari?igsh=MXZvM2trYTR0d2ticw==" target="_blank">Open Instagram Profile</a>
         </div>
       </div>
       <div class="soc-card">
-        <h3 id="ytT">▶️ YouTube</h3>
-        <p id="ytD">Watch health guidance, natural healing videos and wellness tips.</p>
+        <h3>▶️ YouTube</h3>
+        <p>Watch health guidance, natural healing videos and wellness tips.</p>
         <div class="soc-links">
           <a href="https://youtube.com/@doctor-healer5?si=Y7C6DuhAurrabG7Y" target="_blank">Open YouTube Channel</a>
         </div>
@@ -639,152 +511,22 @@
 </section>
 
 <footer class="footer">
-  <div class="container" id="ftTx">© 2025 Naturopathy &amp; Yoga Care. All rights reserved.</div>
+  <div class="container" id="footerText">© 2025 Naturopathy &amp; Yoga Care. All rights reserved.</div>
 </footer>
 
 <a class="wa-float" href="https://wa.me/917013989526" target="_blank">💬</a>
 
-<div class="popup" id="popup">
+<!-- POPUP -->
+<div class="popup" id="thankYouPopup">
   <div class="pop-box">
-    <h3 id="popT">✅ Thank You!</h3>
-    <p id="popTx">Your details are ready. WhatsApp is opening now.</p>
-    <button class="btn primary" onclick="document.getElementById('popup').style.display='none'" id="popB">Close</button>
+    <h3 id="popupTitle">✅ Thank You!</h3>
+    <p id="popupText">Your details are ready. WhatsApp is opening now. Please send your payment screenshot manually if selected.</p>
+    <button class="btn primary" style="width:100%;" id="popupBtn" onclick="closePopup()">Close</button>
   </div>
 </div>
 
-<script>
-var telMode = false;
+<!-- ✅ Link to your script.js file -->
+<script src="script.js"></script>
 
-/* ════════════════════════
-   BOOKING FORM
-════════════════════════ */
-document.getElementById("wPl").addEventListener("change", function(){
-  document.getElementById("bkRem").style.display = this.value === "heal" ? "block" : "none";
-});
-
-document.getElementById("wF").addEventListener("change", function(){
-  document.getElementById("wFN").textContent = this.files.length
-    ? (telMode ? "ఎంచుకున్న: " : "Selected: ") + this.files[0].name
-    : (telMode ? "ఏ ఫైల్ లేదు" : "No file selected");
-});
-
-document.getElementById("waForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  var n    = document.getElementById("wN").value.trim();
-  var ph   = document.getElementById("wP").value.trim();
-  var em   = document.getElementById("wE").value.trim();
-  var pl   = document.getElementById("wPl");
-  var plTxt= pl.options[pl.selectedIndex].text;
-  var dt   = document.getElementById("wD").value;
-  var ti   = document.getElementById("wTm").value;
-  var ps   = document.getElementById("wPs").value;
-  var tx   = document.getElementById("wTx").value.trim();
-  var ms   = document.getElementById("wMs").value.trim();
-  var ss   = document.getElementById("wF").files.length
-               ? (telMode ? "అవును" : "Yes")
-               : (telMode ? "కాదు"  : "No");
-
-  var feeNote = pl.value === "heal"
-    ? "\n\n⚠️ PAYMENT REMINDER:\nStep 1: Pay ₹500 Consultation Fee FIRST\nStep 2: Then pay ₹2500 Healing Plan Fee\nTotal = ₹500 + ₹2500 = ₹2500"
-    : "";
-
-  var txt = telMode
-    ? "నమస్కారం డాక్టర్ గారు, అపాయింట్మెంట్ బుక్ చేయాలి.\n\nపేరు: "+n+"\nఫోన్: "+ph+"\nఈమెయిల్: "+(em||"లేదు")+"\nకన్సల్టేషన్: "+plTxt+"\nతేదీ: "+dt+"\nసమయం: "+ti+"\nచెల్లింపు: "+ps+"\nTransaction ID: "+(tx||"లేదు")+"\nస్క్రీన్‌షాట్: "+ss+"\nసమస్య: "+(ms||"లేదు")+feeNote
-    : "Hello Doctor, I would like to book an appointment.\n\nName: "+n+"\nPhone: "+ph+"\nEmail: "+(em||"Not provided")+"\nConsultation: "+plTxt+"\nDate: "+dt+"\nTime: "+ti+"\nPayment: "+ps+"\nTransaction ID: "+(tx||"Not provided")+"\nScreenshot: "+ss+"\nHealth Concern: "+(ms||"Not mentioned")+feeNote;
-
-  document.getElementById("popup").style.display = "flex";
-  setTimeout(function(){
-    window.open("https://wa.me/917013989526?text=" + encodeURIComponent(txt), "_blank");
-  }, 700);
-
-  this.reset();
-  document.getElementById("bkRem").style.display = "none";
-  document.getElementById("wFN").textContent = telMode ? "ఏ ఫైల్ లేదు" : "No file selected";
-});
-
-/* ════════════════════════
-   LANGUAGE TOGGLE
-════════════════════════ */
-document.getElementById("langBtn").addEventListener("click", function(){
-  telMode = !telMode;
-
-  if(telMode){
-    document.documentElement.lang = "te";
-    this.textContent = "English";
-
-    /* Nav */
-    document.getElementById("nSvc").textContent    = "సేవలు";
-    document.getElementById("nRules").textContent  = "మార్గదర్శకాలు";
-    document.getElementById("nPlan").textContent   = "ప్లాన్లు";
-    document.getElementById("nPay").textContent    = "చెల్లింపు";
-    document.getElementById("nBook").textContent   = "బుకింగ్";
-    document.getElementById("nSoc").textContent    = "సోషల్";
-
-    /* Hero */
-    document.getElementById("badge").textContent  = "సహజ వైద్యం • నిపుణుల మార్గదర్శకత్వం • ఆన్‌లైన్ సేవ";
-    document.getElementById("hTitle").textContent = "ఆన్‌లైన్ నేచురోపతి & యోగా కన్సల్టేషన్";
-    document.getElementById("hDesc").textContent  = "అర్హత కలిగిన నిపుణుల నుండి నేచురోపతి, వ్యక్తిగత డైట్ గైడెన్స్, యోగా థెరపీ మరియు జీవనశైలి దిద్దుబాటు ద్వారా సహజంగా నయం చేసుకోండి.";
-    document.getElementById("p1").textContent     = "హార్మోనల్ సమస్యలు: PCOS, థైరాయిడ్, వంధ్యత్వం";
-    document.getElementById("p2").textContent     = "డయాబెటిస్ & బరువు నిర్వహణ";
-    document.getElementById("p3").textContent     = "కీళ్ళ నొప్పి & జీవనశైలి రుగ్మతలు";
-    document.getElementById("p4").textContent     = "జీర్ణ & చర్మ సమస్యలు";
-    document.getElementById("bkBtn").textContent  = "అపాయింట్‌మెంట్ బుక్ చేయండి";
-    document.getElementById("pyBtn").textContent  = "చెల్లించండి";
-    document.getElementById("d1").textContent     = "నేచురోపతి, అక్యుపంక్చర్, డైట్ & వెల్‌నెస్ గైడెన్స్";
-    document.getElementById("d2").textContent     = "యోగా థెరపీ, మహిళల ఆరోగ్యం & జీవనశైలి సంరక్షణ";
-
-    /* Services */
-    document.getElementById("svcT").textContent = "మేము సహాయపడే అనారోగ్యాలు";
-    document.getElementById("svcS").textContent = "ఆధునిక ఆరోగ్య సమస్యలకు సున్నితమైన, సహజమైన సహాయం.";
-    document.getElementById("s1h").textContent  = "హార్మోనల్ ఆరోగ్యం";
-    document.getElementById("s1p").textContent  = "PCOS, థైరాయిడ్, వంధ్యత్వం మరియు మహిళల ఆరోగ్య మార్గదర్శకత్వం.";
-    document.getElementById("s2h").textContent  = "డయాబెటిస్ సంరక్షణ";
-    document.getElementById("s2p").textContent  = "ఆహార దిద్దుబాటు, దినచర్య మరియు క్రమశిక్షణ ద్వారా సహజ సహాయం.";
-    document.getElementById("s3h").textContent  = "బరువు నిర్వహణ";
-    document.getElementById("s3p").textContent  = "ఆరోగ్యకరమైన బరువు తగ్గింపు మరియు మెటబాలిజం మెరుగుదలకు మార్గదర్శకత్వం.";
-    document.getElementById("s4h").textContent  = "యోగా థెరపీ";
-    document.getElementById("s4p").textContent  = "విశ్రాంతి, నయం, సౌలభ్యం మరియు ఒత్తిడి తగ్గింపు సహాయం.";
-    document.getElementById("s5h").textContent  = "కీళ్ళ నొప్పి";
-    document.getElementById("s5p").textContent  = "నొప్పి, దృఢత్వం మరియు చలన సంరక్షణకు సహజ సహాయం.";
-    document.getElementById("s6h").textContent  = "జీర్ణ ఆరోగ్యం";
-    document.getElementById("s6p").textContent  = "యాసిడిటీ, అజీర్తి, మలబద్ధత మరియు గట్ సమస్యలకు మార్గదర్శకత్వం.";
-    document.getElementById("s7h").textContent  = "చర్మ సంరక్షణ";
-    document.getElementById("s7p").textContent  = "డైట్, డిటాక్స్ మరియు జీవనశైలి బ్యాలెన్స్ ద్వారా సమగ్ర సహాయం.";
-    document.getElementById("s8h").textContent  = "జీవనశైలి రుగ్మతలు";
-    document.getElementById("s8p").textContent  = "నిద్ర, ఒత్తిడి, దినచర్య దిద్దుబాటు మరియు వెల్‌నెస్ సహాయం.";
-
-    /* Rules & Guidelines */
-    document.getElementById("rlTitle").innerHTML  = "ఆన్‌లైన్ కన్సల్టేషన్ –<br/><span>నియమాలు & మార్గదర్శకాలు</span>";
-    document.getElementById("rlDesc").textContent = "నేచురోపతి మరియు యోగా ద్వారా సమర్థవంతమైన నయం మరియు అత్యుత్తమ ఫలితాలు సాధించడానికి, అన్ని రోగులు క్రింది మార్గదర్శకాలను కచ్చితంగా పాటించాలని అభ్యర్థించబడుతున్నారు.";
-    document.getElementById("rl1T").textContent   = "కార్యక్రమానికి నిబద్ధత";
-    document.getElementById("rl1a").textContent   = "సూచించిన డైట్ ప్లాన్‌ను ఎటువంటి విరామం లేకుండా కచ్చితంగా పాటించండి";
-    document.getElementById("rl1b").textContent   = "రోజువారీ యోగా, ప్రాణాయామం మరియు సూచించిన సహజ చికిత్సలు సాధన చేయండి";
-    document.getElementById("rl1c").textContent   = "ఫలితాలు సాధించడానికి స్థిరత్వం కీలకం";
-    document.getElementById("rl2T").textContent   = "కన్సల్టేషన్ పూర్వ అవసరాలు";
-    document.getElementById("rl2a").textContent   = "కార్యక్రమం ప్రారంభించే ముందు అన్ని సంబంధిత వైద్య నివేదికలు సమర్పించండి";
-    document.getElementById("rl2b").textContent   = "పూర్తి వైద్య చరిత్ర, మందులు మరియు జీవనశైలి వివరాలు పంచుకోండి";
-    document.getElementById("rl2c").textContent   = "ఏదైనా అలెర్జీలు లేదా ప్రస్తుత పరిస్థితుల గురించి తెలియజేయండి";
-    document.getElementById("rl3T").textContent   = "రోజువారీ పర్యవేక్షణ";
-    document.getElementById("rl3a").textContent   = "తినే ముందు భోజన చిత్రాలు పంపండి (నిర్దేశించిన విధంగా)";
-    document.getElementById("rl3b").textContent   = "ఆహారం, లక్షణాలు/మార్పులు మరియు శక్తి స్థాయిలపై రోజువారీ అప్‌డేట్‌లు అందించండి";
-    document.getElementById("rl3c").textContent   = "ఏదైనా అసాధారణ ప్రతిచర్యలు లేదా అసౌకర్యం వెంటనే నివేదించండి";
-    document.getElementById("rl4T").textContent   = "డైట్ & జీవనశైలి క్రమశిక్షణ";
-    document.getElementById("rl4a").textContent   = "బయటి ఆహారం, చక్కెర, ప్రాసెస్డ్ మరియు వేయించిన వస్తువులు నివారించండి";
-    document.getElementById("rl4b").textContent   = "భోజన సమయాలను కచ్చితంగా పాటించండి";
-    document.getElementById("rl4c").textContent   = "సూచించిన విధంగా సరిపడా నీరు త్రాగండి";
-    document.getElementById("rl4d").textContent   = "కార్యక్రమంలో మద్యం, ధూమపానం లేదా హానికరమైన అలవాట్లు వద్దు";
-    document.getElementById("rl5T").textContent   = "యోగా & వ్యాయామ నిబద్ధత";
-    document.getElementById("rl5a").textContent   = "అన్ని నిర్దేశిత యోగా ఆసనలు మరియు వ్యాయామాలు క్రమంగా నిర్వహించండి";
-    document.getElementById("rl5b").textContent   = "డాక్టర్‌కు తెలియజేయకుండా సెషన్లు మానవద్దు";
-    document.getElementById("rl5c").textContent   = "మార్గదర్శకత్వం ప్రకారం శ్వాస వ్యాయామాలు మరియు ధ్యానం అనుసరించండి";
-    document.getElementById("rl5d").textContent   = "అతి కష్టపడటం లేదా స్వయంగా మార్చిన వ్యాయామాలు నివారించండి";
-    document.getElementById("rl6T").textContent   = "నిద్ర & దినచర్య";
-    document.getElementById("rl6a").textContent   = "సరైన నిద్ర నిర్వహించండి (కనీసం 6–8 గంటలు)";
-    document.getElementById("rl6b").textContent   = "క్రమమైన రోజువారీ దినచర్య పాటించండి";
-    document.getElementById("rl6c").textContent   = "ఆలస్యంగా నిద్రపోవడం మరియు అక్రమ అలవాట్లు నివారించండి";
-    document.getElementById("rl7T").textContent   = "మందులు & భద్రత";
-    document.getElementById("rl7a").textContent   = "ఇతరత్రా సలహా ఇవ్వకపోతే సాధారణ మందులు కొనసాగించండి";
-    document.getElementById("rl7b").textContent   = "మందులను స్వయంగా మార్చవద్దు లేదా ఆపవద్దు";
-    document.getElementById("rl7c").textContent   = "ఏదైనా అసౌకర్యం లేదా అసాధారణ లక్షణాలు వెంటనే తెలియజేయండి";
-    document.getElementById("rl8T").textContent   = "ఫాలో-అప్ & కమ్యూనికేషన్";
-    document.getElementById("rl8a").textContent   = "అన్ని నిర్దేశిత ఫాలో-అప్ సెషన్లకు సమయానికి హాజ
+</body>
+</html>
