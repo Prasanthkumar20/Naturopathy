@@ -73,15 +73,21 @@ Note: If screenshot selected I will send it manually.`;
 
   const url = "https://wa.me/" + whatsappNumber + "?text=" + encodeURIComponent(text);
 
-  // ✅ Create invisible <a> tag and click it
-  // This is the most reliable way that works everywhere
-  const link    = document.createElement("a");
-  link.href     = url;
-  link.target   = "_blank";
-  link.rel      = "noopener noreferrer";
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+  // ✅ CHROME DESKTOP FIX
+  // Use window.open directly inside click event
+  // This works because it is called directly from user click action
+  const newWindow = window.open(url, "_blank");
+
+  // ✅ Fallback if window.open is blocked
+  if (!newWindow || newWindow.closed || typeof newWindow.closed === "undefined") {
+    // If popup blocked show manual link in popup
+    document.getElementById("popupText").innerHTML =
+      "WhatsApp did not open automatically.<br><br>" +
+      "<a href='" + url + "' target='_blank' " +
+      "style='display:block;padding:14px;background:#25D366;color:#fff;" +
+      "border-radius:12px;font-weight:700;text-decoration:none;text-align:center;'>" +
+      "👆 Click here to open WhatsApp</a>";
+  }
 
   // Show popup
   popup.style.display = "flex";
