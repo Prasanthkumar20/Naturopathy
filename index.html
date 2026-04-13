@@ -517,11 +517,22 @@
 <a class="wa-float" href="https://wa.me/917013989526" target="_blank">💬</a>
 
 <!-- POPUP -->
+<!-- POPUP -->
 <div class="popup" id="thankYouPopup">
   <div class="pop-box">
     <h3 id="popupTitle">✅ Thank You!</h3>
-    <p id="popupText">Your details are ready. WhatsApp is opening now. Please send your payment screenshot manually if selected.</p>
-    <button class="btn primary" style="width:100%;" id="popupBtn" onclick="closePopup()">Close</button>
+    <p id="popupText">
+      Your details are ready. WhatsApp is opening now.<br><br>
+      If WhatsApp did not open automatically click the button below.
+    </p>
+    <a id="waManualLink" href="#" target="_blank"
+      style="display:block;padding:14px;background:#25D366;color:#fff;
+      border-radius:12px;font-weight:700;text-decoration:none;
+      text-align:center;margin-bottom:12px;font-size:1rem;">
+      💬 Open WhatsApp Manually
+    </a>
+    <button class="btn primary" style="width:100%;margin-top:6px;" 
+      id="popupBtn" onclick="closePopup()">Close</button>
   </div>
 </div>
 
