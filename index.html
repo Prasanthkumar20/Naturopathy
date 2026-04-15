@@ -71,10 +71,12 @@
     .svc-card p { font-size: 0.88rem; }
 
     /* PRICING */
-    .price-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .price-card { background: #fff; border-radius: 24px; padding: 30px; box-shadow: var(--shadow); }
     .price-card.feat { border: 2px solid var(--accent); position: relative; }
+    .price-card.wellness-feat { border: 2px solid var(--gold); position: relative; }
     .rec-badge { position: absolute; top: -13px; right: 18px; background: var(--gold); color: #fff; padding: 5px 14px; border-radius: 999px; font-size: 0.8rem; font-weight: 700; }
+    .wellness-badge-tag { position: absolute; top: -13px; right: 18px; background: linear-gradient(135deg, #7b4fa6, #c96cc0); color: #fff; padding: 5px 14px; border-radius: 999px; font-size: 0.8rem; font-weight: 700; }
     .price-card h3 { color: var(--dark); font-size: 1.25rem; margin-bottom: 4px; }
     .price-num { font-size: 2.6rem; font-weight: 900; color: var(--primary); margin: 10px 0 6px; }
     .price-per { font-size: 0.9rem; color: #56766e; margin-bottom: 14px; }
@@ -85,7 +87,7 @@
     .fee-remind .ft { margin-top: 8px; font-weight: 800; color: var(--primary); }
 
     /* PAYMENT */
-    .pay-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .pay-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .pay-card { background: #fff; border-radius: 24px; padding: 28px; box-shadow: var(--shadow); text-align: center; }
     .pay-card h3 { color: var(--dark); margin-bottom: 6px; }
     .pay-amt { font-size: 2.2rem; font-weight: 900; color: var(--primary); margin: 8px 0 14px; }
@@ -149,24 +151,220 @@
     .pop-box h3 { color: var(--primary); margin-bottom: 10px; font-size: 1.3rem; }
     .pop-box p { color: var(--text); margin-bottom: 20px; }
 
-    /* SUBMIT BUTTON AS LINK */
+    /* SUBMIT BUTTON */
     .wa-submit-btn {
-      display: block;
-      width: 100%;
-      padding: 16px;
+      display: block; width: 100%; padding: 16px;
       background: linear-gradient(135deg, var(--primary), var(--accent));
-      color: #fff;
-      text-align: center;
-      border-radius: 999px;
-      font-weight: 700;
-      font-size: 1rem;
-      cursor: pointer;
-      text-decoration: none;
-      box-shadow: 0 8px 22px rgba(10,92,77,0.22);
-      transition: 0.25s;
-      margin-top: 4px;
+      color: #fff; text-align: center; border-radius: 999px;
+      font-weight: 700; font-size: 1rem; cursor: pointer;
+      text-decoration: none; box-shadow: 0 8px 22px rgba(10,92,77,0.22);
+      transition: 0.25s; margin-top: 4px; border: none;
     }
     .wa-submit-btn:hover { transform: translateY(-2px); color: #fff; }
+
+    /* ===================== */
+    /* WELLNESS TAB SECTION  */
+    /* ===================== */
+    .wellness-section {
+      padding: 65px 0;
+      background: linear-gradient(180deg, #f0fdf8, #eaf8f2);
+      position: relative;
+      overflow: hidden;
+    }
+    .wellness-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 30%, rgba(58,175,169,0.08), transparent 40%),
+                  radial-gradient(circle at 80% 70%, rgba(217,182,111,0.08), transparent 40%);
+    }
+    /* Wellness header */
+    .wellness-header {
+      text-align: center;
+      margin-bottom: 14px;
+      position: relative;
+      z-index: 2;
+    }
+    .wellness-header .w-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #7b4fa6, #c96cc0);
+      color: #fff;
+      padding: 7px 18px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      margin-bottom: 12px;
+    }
+    .wellness-header h2 {
+      font-size: 2.1rem;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .wellness-header p {
+      color: #56766e;
+      font-size: 0.97rem;
+      max-width: 680px;
+      margin: 0 auto 10px;
+    }
+    /* Price highlight box */
+    .wellness-price-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 22px rgba(10,92,77,0.22);
+    }
+    .wellness-price-box span.big-price {
+      font-size: 1.4rem;
+      font-weight: 900;
+    }
+    /* Condition selector */
+    .wellness-condition-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 2;
+    }
+    .wellness-condition-wrap label {
+      font-weight: 700;
+      color: var(--dark);
+      font-size: 0.97rem;
+    }
+    .wellness-condition-wrap select {
+      width: auto;
+      min-width: 260px;
+      padding: 12px 18px;
+      border: 2px solid var(--accent);
+      border-radius: 14px;
+      background: #fff;
+      font-size: 0.95rem;
+      color: var(--dark);
+      font-weight: 600;
+      cursor: pointer;
+    }
+    /* Tab bar */
+    .wellness-tabs {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 2;
+    }
+    .w-tab-btn {
+      padding: 11px 22px;
+      border-radius: 999px;
+      border: 2px solid var(--accent);
+      background: #fff;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: 0.25s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .w-tab-btn:hover { background: #e8f9f5; transform: translateY(-2px); }
+    .w-tab-btn.active {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 8px 18px rgba(10,92,77,0.22);
+    }
+    /* Tab panels */
+    .wellness-panel { display: none; position: relative; z-index: 2; }
+    .wellness-panel.active { display: block; animation: fadeInUp 0.35s ease; }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    /* Panel inner grid */
+    .wp-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .wp-card {
+      background: rgba(255,255,255,0.92);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+      border-left: 4px solid var(--accent);
+      transition: 0.3s;
+    }
+    .wp-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(10,92,77,0.14); }
+    .wp-card .wp-icon { font-size: 1.8rem; margin-bottom: 10px; }
+    .wp-card h4 {
+      color: var(--primary);
+      font-size: 1rem;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+    .wp-card ul {
+      list-style: none;
+      display: grid;
+      gap: 6px;
+    }
+    .wp-card ul li {
+      font-size: 0.88rem;
+      color: var(--text);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .wp-card ul li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .wp-card .duration-tag {
+      display: inline-block;
+      margin-top: 10px;
+      background: #eefaf6;
+      color: var(--primary);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    /* No content message */
+    .wp-empty {
+      text-align: center;
+      padding: 40px;
+      color: #56766e;
+      font-size: 1rem;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+    /* CTA box at bottom of wellness */
+    .wellness-cta {
+      margin-top: 34px;
+      background: linear-gradient(135deg, rgba(10,92,77,0.06), rgba(217,182,111,0.12));
+      border: 2px dashed var(--gold);
+      border-radius: 20px;
+      padding: 28px 24px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+    .wellness-cta h3 { color: var(--dark); font-size: 1.3rem; margin-bottom: 8px; }
+    .wellness-cta p { color: #56766e; font-size: 0.95rem; margin-bottom: 18px; }
+    .wellness-cta .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
     /* RESPONSIVE */
     @media(max-width: 992px) {
@@ -174,6 +372,7 @@
       .rule-card.full-width { grid-column: auto; }
       .svc-grid { grid-template-columns: repeat(2, 1fr); }
       .hero h1 { font-size: 2.1rem; }
+      .wp-grid { grid-template-columns: repeat(2, 1fr); }
     }
     @media(max-width: 640px) {
       .nav-wrap { flex-direction: column; gap: 10px; }
@@ -183,6 +382,9 @@
       .doc-mini { flex-direction: column; text-align: center; }
       .bk-form { padding: 20px; }
       .rules-header h2 { font-size: 1.7rem; }
+      .wp-grid { grid-template-columns: 1fr; }
+      .wellness-tabs { gap: 6px; }
+      .w-tab-btn { padding: 9px 14px; font-size: 0.84rem; }
     }
   </style>
 </head>
@@ -194,11 +396,22 @@
     <div class="logo">🌿 Naturopathy & Yoga Care</div>
     <nav class="nav-links">
       <a href="#services">Services</a>
+      <a href="#wellness">Wellness</a>
       <a href="#rules">Guidelines</a>
       <a href="#pricing">Plans</a>
       <a href="#payment">Payment</a>
       <a href="#contact">Booking</a>
       <a href="#social">Social</a>
+	    <a href="doctor.html" target="_blank"
+     style="background:linear-gradient(135deg,#0a5c4d,#3aafa9);
+     color:#fff !important;
+     padding:8px 16px;
+     border-radius:999px;
+     font-weight:700;
+     font-size:0.88rem;
+     border-bottom:none !important;">
+    🩺 Doctor Panel
+  </a>
       <button id="langToggle" class="lang-btn">తెలుగు</button>
     </nav>
   </div>
@@ -212,7 +425,7 @@
     <div>
       <span class="badge" id="badgeText">Natural Healing • Expert Guidance • Online Care</span>
       <h1 id="heroTitle">Online Naturopathy & Yoga Consultation</h1>
-      <p id="heroDesc">Heal naturally with evidence-based naturopathy, personalized diet guidance, yoga therapy, and lifestyle correction from qualified experts.</p>
+      <p id="heroDesc">Heal naturally with evidence-based naturopathy, personalised diet guidance, yoga therapy, and lifestyle correction from qualified experts.</p>
       <ul class="hero-pts">
         <li>Hormonal Problems: PCOS, Thyroid, Infertility</li>
         <li>Diabetes &amp; Weight Management</li>
@@ -248,8 +461,8 @@
 <!-- SERVICES -->
 <section id="services" class="section">
   <div class="container">
-    <h2 class="sec-title" id="servicesTitle">Conditions We Support</h2>
-    <p class="sec-sub" id="servicesSub">Gentle, natural support for modern health problems.</p>
+    <h2 class="sec-title">Conditions We Support</h2>
+    <p class="sec-sub">Gentle, natural support for modern health problems.</p>
     <div class="svc-grid">
       <div class="svc-card"><div class="ic">🌸</div><h3>Hormonal Health</h3><p>PCOS, thyroid, infertility and women's wellness guidance.</p></div>
       <div class="svc-card"><div class="ic">🩺</div><h3>Diabetes Care</h3><p>Natural support through food correction, routine and discipline.</p></div>
@@ -262,6 +475,85 @@
     </div>
   </div>
 </section>
+
+<!-- ================================ -->
+<!-- WELLNESS TAB SECTION — NEW       -->
+<!-- ================================ -->
+<section id="wellness" class="wellness-section">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="wellness-header">
+      <span class="w-badge">🧘 Yoga • Pranayam • Relaxation • Meditation</span>
+      <h2>Wellness & Mind-Body Program</h2>
+      <p>Personalised yoga, pranayam, relaxation and meditation techniques selected based on your health condition — guided by qualified BNYS doctors.</p>
+      <div class="wellness-price-box">
+        🌿 Monthly Wellness Plan &nbsp;|&nbsp;
+        <span class="big-price">₹3,000</span>
+        / month
+      </div>
+    </div>
+
+    <!-- Condition Selector -->
+    <div class="wellness-condition-wrap">
+      <label for="wellnessCondition">🩺 Select Your Condition:</label>
+      <select id="wellnessCondition" onchange="filterWellness()">
+        <option value="all">All Conditions (General Wellness)</option>
+        <option value="pcos">PCOS / Hormonal Imbalance</option>
+        <option value="thyroid">Thyroid Issues</option>
+        <option value="diabetes">Diabetes / Blood Sugar</option>
+        <option value="weight">Weight Management / Obesity</option>
+        <option value="stress">Stress / Anxiety / Sleep Issues</option>
+        <option value="joint">Joint Pain / Arthritis</option>
+        <option value="digestive">Digestive Problems</option>
+        <option value="skin">Skin Problems</option>
+        <option value="bp">Blood Pressure / Heart Health</option>
+      </select>
+    </div>
+
+    <!-- Tab Buttons -->
+    <div class="wellness-tabs">
+      <button class="w-tab-btn active" onclick="switchWTab('yoga', this)">🧘 Yoga</button>
+      <button class="w-tab-btn" onclick="switchWTab('pranayam', this)">🌬️ Pranayam</button>
+      <button class="w-tab-btn" onclick="switchWTab('relaxation', this)">🛁 Relaxation Techniques</button>
+      <button class="w-tab-btn" onclick="switchWTab('meditation', this)">🧠 Meditation Techniques</button>
+    </div>
+
+    <!-- ============ YOGA PANEL ============ -->
+    <div id="panel-yoga" class="wellness-panel active">
+      <div class="wp-grid" id="yoga-grid">
+        <!-- Cards rendered by JS -->
+      </div>
+    </div>
+
+    <!-- ============ PRANAYAM PANEL ============ -->
+    <div id="panel-pranayam" class="wellness-panel">
+      <div class="wp-grid" id="pranayam-grid"></div>
+    </div>
+
+    <!-- ============ RELAXATION PANEL ============ -->
+    <div id="panel-relaxation" class="wellness-panel">
+      <div class="wp-grid" id="relaxation-grid"></div>
+    </div>
+
+    <!-- ============ MEDITATION PANEL ============ -->
+    <div id="panel-meditation" class="wellness-panel">
+      <div class="wp-grid" id="meditation-grid"></div>
+    </div>
+
+    <!-- CTA -->
+    <div class="wellness-cta">
+      <h3>💰 Monthly Wellness Program — ₹3,000 / Month</h3>
+      <p>Includes personalised Yoga, Pranayam, Relaxation & Meditation plan based on your condition. Guided by BNYS doctors with weekly follow-ups via WhatsApp.</p>
+      <div class="cta-btns">
+        <a href="#contact" class="btn primary">📋 Book Wellness Plan</a>
+        <a href="https://wa.me/917013989526?text=Hi%2C%20I%20am%20interested%20in%20the%20Monthly%20Wellness%20Plan%20%E2%82%B93000%2Fmonth" target="_blank" class="btn secondary">💬 Ask on WhatsApp</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- END WELLNESS SECTION -->
 
 <!-- RULES & GUIDELINES -->
 <section id="rules" class="rules-section">
@@ -358,9 +650,11 @@
 <!-- PRICING -->
 <section id="pricing" class="section alt-bg">
   <div class="container">
-    <h2 class="sec-title" id="pricingTitle">Consultation Plans</h2>
-    <p class="sec-sub" id="pricingSub">Simple, transparent pricing for your healing journey.</p>
+    <h2 class="sec-title">Consultation Plans</h2>
+    <p class="sec-sub">Simple, transparent pricing for your healing journey.</p>
     <div class="price-grid">
+
+      <!-- Plan 1 -->
       <div class="price-card">
         <h3>Online Consultation</h3>
         <div class="price-num">₹500</div>
@@ -373,6 +667,8 @@
         </ul>
         <a href="#contact" class="btn secondary">Book Consultation — ₹500</a>
       </div>
+
+      <!-- Plan 2 -->
       <div class="price-card feat">
         <div class="rec-badge">Most Popular</div>
         <h3>1-Month Healing Plan</h3>
@@ -395,6 +691,25 @@
         </ul>
         <a href="#contact" class="btn primary">Start Healing Plan</a>
       </div>
+
+      <!-- Plan 3 — NEW WELLNESS PLAN -->
+      <div class="price-card wellness-feat">
+        <div class="wellness-badge-tag">🧘 Wellness Plan</div>
+        <h3>Monthly Wellness Program</h3>
+        <div class="price-num" style="color:#7b4fa6;">₹3,000</div>
+        <p class="price-per">Per month — All inclusive</p>
+        <ul class="price-list">
+          <li>Personalised Yoga based on condition</li>
+          <li>Pranayam breathing techniques</li>
+          <li>Relaxation therapy sessions</li>
+          <li>Meditation techniques for healing</li>
+          <li>Condition-specific weekly plan</li>
+          <li>WhatsApp guidance &amp; support</li>
+          <li>Monthly progress review</li>
+        </ul>
+        <a href="#contact" class="btn primary" style="background:linear-gradient(135deg,#7b4fa6,#c96cc0);">Enroll in Wellness Plan</a>
+      </div>
+
     </div>
   </div>
 </section>
@@ -402,9 +717,10 @@
 <!-- PAYMENT -->
 <section id="payment" class="section">
   <div class="container">
-    <h2 class="sec-title" id="paymentTitle">Payment</h2>
-    <p class="sec-sub" id="paymentSub">Scan the QR code or use the UPI ID to pay securely.</p>
+    <h2 class="sec-title">Payment</h2>
+    <p class="sec-sub">Scan the QR code or use the UPI ID to pay securely.</p>
     <div class="pay-grid">
+
       <div class="pay-card">
         <h3>Step 1 — Consultation Fee</h3>
         <div class="pay-amt">₹500</div>
@@ -413,6 +729,7 @@
         <div class="upi-box">UPI: prathimakumari5@okhdfcbank</div>
         <div class="pay-note">✅ Pay this <strong>first</strong>. Get assessed, then proceed to Healing Plan.</div>
       </div>
+
       <div class="pay-card">
         <h3>Step 2 — Healing Plan Fee</h3>
         <div class="pay-amt">₹2500</div>
@@ -421,6 +738,19 @@
         <div class="upi-box">UPI: prathimakumari5@okhdfcbank</div>
         <div class="pay-note">⚠️ Pay <strong>only after Step 1</strong>. Total = ₹500 + ₹2500 = <strong>₹3000</strong></div>
       </div>
+
+      <!-- NEW — Wellness Plan Payment -->
+      <div class="pay-card" style="border: 2px solid #c96cc0;">
+        <h3>🧘 Wellness Program Fee</h3>
+        <div class="pay-amt" style="color:#7b4fa6;">₹3,000</div>
+        <img src="qr-healingplan.jpg" alt="QR Wellness" />
+        <p>Scan to pay monthly wellness fee</p>
+        <div class="upi-box">UPI: prathimakumari5@okhdfcbank</div>
+        <div class="pay-note" style="background:#f9f0ff;border-color:#d8b4fe;color:#5b21b6;">
+          🧘 Yoga + Pranayam + Relaxation + Meditation — All in one monthly plan at <strong>₹3,000/month</strong>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -428,8 +758,8 @@
 <!-- BOOKING -->
 <section id="contact" class="section alt-bg">
   <div class="container">
-    <h2 class="sec-title" id="bookingTitle">Book Your Consultation</h2>
-    <p class="sec-sub" id="bookingSub">Fill the form — WhatsApp opens automatically with your details.</p>
+    <h2 class="sec-title">Book Your Consultation</h2>
+    <p class="sec-sub">Fill the form — WhatsApp opens automatically with your details.</p>
     <div class="bk-grid">
       <div class="bk-info">
         <h3 style="color:var(--dark);margin-bottom:18px;">Contact Information</h3>
@@ -438,14 +768,14 @@
         <div class="bk-item">💰 <strong>Consultation Fee:</strong> ₹500</div>
         <div class="bk-item">🌿 <strong>Healing Plan:</strong> ₹2500/month</div>
         <div class="bk-item">💎 <strong>Total (Both):</strong> ₹500 + ₹2500 = ₹3000</div>
+        <div class="bk-item">🧘 <strong>Wellness Plan:</strong> ₹3,000/month</div>
         <div class="bk-item">🖥️ <strong>Mode:</strong> Online (Video / WhatsApp)</div>
         <br />
         <a href="https://wa.me/917013989526" target="_blank" class="btn primary">💬 Chat on WhatsApp</a>
       </div>
 
       <div class="bk-form">
-        <h3 id="formTitle">Appointment Request</h3>
-        <!-- ✅ form id matches script.js -->
+        <h3>Appointment Request</h3>
         <form id="whatsappForm">
           <input type="text" id="name" placeholder="Your Full Name" required />
           <input type="tel" id="phone" placeholder="Phone Number" required />
@@ -454,6 +784,7 @@
             <option value="">Select Consultation Type</option>
             <option value="Online Consultation — ₹500">Online Consultation — ₹500</option>
             <option value="1-Month Healing Plan — ₹2500 (+ ₹500 consultation first)">1-Month Healing Plan — ₹2500 (+ ₹500 consultation first)</option>
+            <option value="Monthly Wellness Plan (Yoga + Pranayam + Relaxation + Meditation) — ₹3000/month">🧘 Monthly Wellness Plan — ₹3,000/month</option>
           </select>
           <input type="date" id="date" required />
           <input type="time" id="time" required />
@@ -462,25 +793,19 @@
             <option value="Paid ₹500 Consultation Fee">Paid ₹500 Consultation Fee</option>
             <option value="Paid ₹2500 Healing Plan Fee">Paid ₹2500 Healing Plan Fee</option>
             <option value="Paid Both ₹500 + ₹2500 = ₹3000">Paid Both ₹500 + ₹2500 = ₹3000</option>
+            <option value="Paid ₹3000 Monthly Wellness Plan">Paid ₹3000 Monthly Wellness Plan</option>
             <option value="Not Paid Yet">Not Paid Yet</option>
           </select>
           <input type="text" id="transactionId" placeholder="Transaction ID / UTR Number" />
-          <label class="up-label" id="uploadLabel">📎 Upload Payment Screenshot</label>
-          <!-- ✅ id matches script.js -->
+          <label class="up-label">📎 Upload Payment Screenshot</label>
           <input type="file" id="paymentScreenshot" accept="image/*" />
-          <!-- ✅ id matches script.js -->
           <div id="fileName" class="fn">No file selected</div>
-          <textarea id="message" placeholder="Describe your health concern"></textarea>
-
-          <!-- ✅ THIS IS THE KEY FIX — <a> tag instead of <button> -->
+          <textarea id="message" placeholder="Describe your health concern / condition"></textarea>
           <button type="button" id="submitBtn" class="wa-submit-btn">
-  💬 Send via WhatsApp
-</button>
-  💬 Send via WhatsApp
-</a>
-          </a>
+            💬 Send via WhatsApp
+          </button>
         </form>
-        <p class="fnote" id="noteText">WhatsApp opens after clicking. Send screenshot manually if selected.</p>
+        <p class="fnote">WhatsApp opens after clicking. Send screenshot manually if selected.</p>
       </div>
     </div>
   </div>
@@ -511,33 +836,41 @@
 </section>
 
 <footer class="footer">
-  <div class="container" id="footerText">© 2025 Naturopathy &amp; Yoga Care. All rights reserved.</div>
+  <div class="container">© 2025 Naturopathy &amp; Yoga Care. All rights reserved.</div>
 </footer>
 
 <a class="wa-float" href="https://wa.me/917013989526" target="_blank">💬</a>
 
 <!-- POPUP -->
-<!-- POPUP -->
 <div class="popup" id="thankYouPopup">
   <div class="pop-box">
-    <h3 id="popupTitle">✅ Thank You!</h3>
-    <p id="popupText">
-      Your details are ready. WhatsApp is opening now.<br><br>
-      If WhatsApp did not open automatically click the button below.
-    </p>
+    <h3>✅ Thank You!</h3>
+    <p>Your details are ready. WhatsApp is opening now.<br><br>
+    If WhatsApp did not open automatically, click the button below.</p>
     <a id="waManualLink" href="#" target="_blank"
       style="display:block;padding:14px;background:#25D366;color:#fff;
       border-radius:12px;font-weight:700;text-decoration:none;
       text-align:center;margin-bottom:12px;font-size:1rem;">
       💬 Open WhatsApp Manually
     </a>
-    <button class="btn primary" style="width:100%;margin-top:6px;" 
-      id="popupBtn" onclick="closePopup()">Close</button>
+    <button class="btn primary" style="width:100%;margin-top:6px;"
+      onclick="closePopup()">Close</button>
   </div>
 </div>
 
-<!-- ✅ Link to your script.js file -->
 <script src="script.js"></script>
-
 </body>
 </html>
+
+<!-- Add this at the very bottom of index.html before </body> -->
+<!-- DOCTOR PANEL LINK — Keep this secret / share only with doctors -->
+<a href="doctor.html" 
+   style="position:fixed;left:18px;bottom:18px;
+   background:var(--primary);color:#fff;
+   padding:10px 16px;border-radius:999px;
+   font-size:0.78rem;font-weight:700;
+   box-shadow:0 4px 14px rgba(0,0,0,0.15);
+   z-index:998;opacity:0.7;"
+   target="_blank">
+  🩺 Doctor
+</a>
