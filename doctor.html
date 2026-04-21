@@ -412,26 +412,8 @@
           <div class="frow">
             <div><label>Target Wt(kg)</label>
               <input type="number" id="twt" placeholder="65" /></div>
-            <div><label>Total Kcal</label>
-              <input type="number" id="tkcal" placeholder="1500" /></div>
-          </div>
-        </div>
-
-        <div class="fsec">
-          <h3>🥗 Daily Nutrients</h3>
-          <div class="frow s3">
-            <div><label>Protein(g)</label>
-              <input type="text" id="nprot" placeholder="56" /></div>
-            <div><label>Fat(g)</label>
-              <input type="text" id="nfat"  placeholder="58" /></div>
-            <div><label>Carbs(g)</label>
-              <input type="text" id="ncarb" placeholder="188" /></div>
-          </div>
-          <div class="frow s1">
-            <div><label>Fibre(g)</label>
-              <input type="text" id="nfib" placeholder="40" /></div>
-          </div>
-        </div>
+          
+      
 
         <div class="fsec">
           <h3>🍽️ Preferences</h3>
@@ -460,7 +442,7 @@
         </div>
 
         <div class="fsec">
-          <h3>💡 Tips</h3>
+          <h3>💡 Naturopathy  Treatments</h3>
           <textarea id="tips"
             placeholder="• Follow meal plate method&#10;• Drink 2-3 litres of water daily"></textarea>
         </div>
@@ -961,14 +943,7 @@ function addMeal(name, time) {
       '<div><label>Time</label>' +
         '<input type="text" id="mt_' + id + '" value="' + (time || "") + '" placeholder="8:30 AM"/></div>' +
     '</div>' +
-    '<div class="frow s3">' +
-      '<div><label>Protein(g)</label><input type="text" id="mp_' + id + '" placeholder="12-22"/></div>' +
-      '<div><label>Fat(g)</label><input type="text"    id="mf_' + id + '" placeholder="8-15"/></div>' +
-      '<div><label>Carbs(g)</label><input type="text"  id="mc_' + id + '" placeholder="40-60"/></div>' +
-    '</div>' +
-    '<div class="frow">' +
-      '<div><label>Fibre(g)</label><input type="text"    id="mfi_' + id + '" placeholder="5-10"/></div>' +
-      '<div><label>Calories(kcal)</label><input type="text" id="mk_' + id + '" placeholder="350-450"/></div>' +
+  
     '</div>' +
     '<div id="opts_' + id + '"></div>' +
     '<button class="add-opt-btn" onclick="addOpt(\'' + id + '\')">+ Add Food Option</button>';
@@ -1026,11 +1001,10 @@ function addItm(mid, oid) {
   var r = document.createElement("div");
   r.className = "opt-row";
   r.id = "rw_" + iid;
-  r.innerHTML =
-    '<input type="text" id="in_' + iid + '" placeholder="Food name (e.g. Brown Rice)"/>' +
-    '<input type="text" id="ik_' + iid + '" placeholder="218 kcal"/>' +
-    '<input type="text" id="iq_' + iid + '" placeholder="2 katori"/>' +
-    '<button class="del-btn" onclick="remItm(\'' + iid + '\')">✕</button>';
+ r.innerHTML =
+  '<input type="text" id="in_' + iid + '" placeholder="Food name (e.g. Brown Rice)"/>' +
+  '<input type="text" id="iq_' + iid + '" placeholder="2 katori"/>' +
+  '<button class="del-btn" onclick="remItm(\'' + iid + '\')">✕</button>';
 
   document.getElementById("its_" + oid).appendChild(r);
 }
@@ -1053,11 +1027,6 @@ function genChart() {
   var ht      = document.getElementById("ht").value;
   var age     = document.getElementById("age").value;
   var twt     = document.getElementById("twt").value;
-  var tkcal   = document.getElementById("tkcal").value    || "1500";
-  var nprot   = document.getElementById("nprot").value    || "-";
-  var nfat    = document.getElementById("nfat").value     || "-";
-  var ncarb   = document.getElementById("ncarb").value    || "-";
-  var nfib    = document.getElementById("nfib").value     || "-";
   var ftype   = document.getElementById("ftype").value;
   var cuisine = document.getElementById("cuisine").value  || "South Indian";
   var dislikes= document.getElementById("dislikes").value;
@@ -1158,18 +1127,8 @@ function genChart() {
       '<div class="meal-box">' +
         '<div class="meal-hdr">' +
           '<span class="meal-nm">' + mnv + (mtv ? ' &bull; ' + mtv : '') + '</span>' +
-          '<span class="meal-kc">' + (mkv ? mkv + ' kcal' : '') + '</span>' +
         '</div>' +
-        '<div class="meal-nuts">' +
-          '<div class="meal-nut"><div class="meal-nl">Protein</div>' +
-            '<div class="meal-nv">' + mpv + (mpv !== "-" ? "g" : "") + '</div></div>' +
-          '<div class="meal-nut"><div class="meal-nl">Fat</div>' +
-            '<div class="meal-nv">' + mfv + (mfv !== "-" ? "g" : "") + '</div></div>' +
-          '<div class="meal-nut"><div class="meal-nl">Carbs</div>' +
-            '<div class="meal-nv">' + mcv + (mcv !== "-" ? "g" : "") + '</div></div>' +
-          '<div class="meal-nut"><div class="meal-nl">Fibre</div>' +
-            '<div class="meal-nv">' + mfiv + (mfiv !== "-" ? "g" : "") + '</div></div>' +
-        '</div>' +
+      
         optsHtml +
       '</div>';
   }
@@ -1186,18 +1145,7 @@ function genChart() {
           ' <span style="font-weight:400;color:#888;font-size:0.85rem;">(' + dqual + ')</span>' +
         '</div>' +
       '</div>' +
-      '<div class="nut-box">' +
-        '<div class="nut-box-top">' +
-          '<span>Target Daily Nutrients</span>' +
-          '<span style="font-weight:900;">' + tkcal + ' kcal</span>' +
-        '</div>' +
-        '<div class="nut-row">' +
-          '<div class="nut-cell"><div class="nut-lbl">Protein</div><div class="nut-val">' + nprot + 'g</div></div>' +
-          '<div class="nut-cell"><div class="nut-lbl">Fat</div><div class="nut-val">'     + nfat  + 'g</div></div>' +
-          '<div class="nut-cell"><div class="nut-lbl">Carbs</div><div class="nut-val">'   + ncarb + 'g</div></div>' +
-          '<div class="nut-cell"><div class="nut-lbl">Fibre</div><div class="nut-val">'   + nfib  + 'g</div></div>' +
-        '</div>' +
-      '</div>' +
+    
     '</div>' +
 
     '<div class="info-grid">' +
@@ -1267,7 +1215,6 @@ function waSummary() {
   var pname  = document.getElementById("pname").value  || "Patient";
   var pcond  = document.getElementById("pcond").value;
   var dname  = document.getElementById("dname").value  || "Dr Prathima Kumari";
-  var tkcal  = document.getElementById("tkcal").value  || "";
   var cdate  = document.getElementById("cdate").value;
 
   // Get patient phone if selected
@@ -1287,7 +1234,6 @@ function waSummary() {
     "Your personalised diet chart is ready.\n\n" +
     "Plan: " + pcond + "\n" +
     "Date: " + cdate + "\n" +
-    (tkcal ? "Daily Calories: " + tkcal + " kcal\n" : "") +
     "Prescribed by: " + dname + "\n\n" +
     "Please follow the diet chart strictly for best results.\n" +
     "For queries contact: +91 7013989526\n\n" +
