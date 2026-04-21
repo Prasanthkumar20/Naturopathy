@@ -13,7 +13,6 @@
     *{margin:0;padding:0;box-sizing:border-box;}
     body{font-family:Arial,sans-serif;background:#f4fbf8;color:var(--text);}
 
-    /* LOGIN */
     .login-screen{min-height:100vh;display:flex;align-items:center;
       justify-content:center;background:linear-gradient(135deg,#f4fffb,#e9fbf5);}
     .login-box{background:#fff;border-radius:24px;padding:40px 36px;
@@ -30,7 +29,6 @@
       font-weight:700;font-size:1rem;cursor:pointer;}
     .login-err{color:#e05;font-size:0.85rem;margin-top:8px;display:none;}
 
-    /* TOP BAR */
     .topbar{background:linear-gradient(135deg,var(--primary),var(--accent));
       color:#fff;padding:11px 20px;display:flex;justify-content:space-between;
       align-items:center;flex-wrap:wrap;gap:8px;position:sticky;top:0;z-index:100;}
@@ -43,7 +41,6 @@
     .doc-tag{background:rgba(255,255,255,0.15);padding:5px 12px;
       border-radius:999px;font-size:0.82rem;font-weight:700;}
 
-    /* TAB NAV */
     .tab-nav{background:#fff;border-bottom:2px solid #e0f2ec;
       display:flex;padding:0 20px;overflow-x:auto;}
     .tab-btn{padding:13px 18px;border:none;background:none;color:#888;
@@ -51,14 +48,10 @@
       border-bottom:3px solid transparent;white-space:nowrap;transition:0.2s;}
     .tab-btn.active{color:var(--primary);border-bottom-color:var(--primary);}
 
-    /* TAB CONTENT */
     .tab-pane{display:none;padding:20px;max-width:1400px;margin:auto;}
     .tab-pane.active{display:block;}
-
-    /* CARDS */
     .card{background:#fff;border-radius:16px;padding:20px;box-shadow:var(--shadow);}
 
-    /* DASHBOARD STATS */
     .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;}
     .stat-card{background:#fff;border-radius:14px;padding:18px;
       box-shadow:var(--shadow);text-align:center;}
@@ -66,18 +59,15 @@
     .stat-num{font-size:1.9rem;font-weight:900;color:var(--primary);}
     .stat-lbl{font-size:0.78rem;color:#888;margin-top:3px;}
 
-    /* TABLE */
     .tbl{width:100%;border-collapse:collapse;}
     .tbl th{text-align:left;padding:8px 12px;background:#f4fbf8;
       font-size:0.78rem;color:#888;border-bottom:1px solid #e0f2ec;}
     .tbl td{padding:10px 12px;font-size:0.85rem;border-bottom:1px solid #f0f0f0;}
     .tbl tr:last-child td{border-bottom:none;}
-    .badge{display:inline-block;padding:3px 9px;border-radius:999px;
-      font-size:0.72rem;font-weight:700;}
+    .badge{display:inline-block;padding:3px 9px;border-radius:999px;font-size:0.72rem;font-weight:700;}
     .badge-paid{background:#dcfce7;color:#166534;}
     .badge-pend{background:#fff8e6;color:#7a5500;}
 
-    /* PATIENT GRID */
     .p-toolbar{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;align-items:center;}
     .p-search{flex:1;min-width:180px;padding:9px 13px;
       border:1px solid #cfe5dd;border-radius:10px;font-size:0.88rem;outline:none;}
@@ -85,11 +75,9 @@
       color:#fff;border:none;border-radius:999px;padding:9px 18px;
       font-weight:700;cursor:pointer;font-size:0.85rem;}
     .p-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-    .p-card{background:#fff;border-radius:14px;padding:16px;
-      box-shadow:var(--shadow);transition:0.25s;}
+    .p-card{background:#fff;border-radius:14px;padding:16px;box-shadow:var(--shadow);transition:0.25s;}
     .p-card:hover{transform:translateY(-3px);}
-    .p-card-top{display:flex;justify-content:space-between;
-      align-items:flex-start;margin-bottom:8px;}
+    .p-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
     .p-avatar{width:44px;height:44px;border-radius:50%;
       background:linear-gradient(135deg,var(--primary),var(--accent));
       color:#fff;display:flex;align-items:center;justify-content:center;
@@ -98,13 +86,11 @@
     .p-cond{font-size:0.75rem;color:var(--accent);font-weight:600;margin-bottom:5px;}
     .p-info{font-size:0.78rem;color:#888;margin-bottom:2px;}
     .p-btns{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
-    .p-btn{flex:1;padding:6px 8px;border-radius:7px;border:none;
-      font-weight:700;font-size:0.74rem;cursor:pointer;}
+    .p-btn{flex:1;padding:6px 8px;border-radius:7px;border:none;font-weight:700;font-size:0.74rem;cursor:pointer;}
     .p-btn.diet{background:#eefaf6;color:var(--primary);}
-    .p-btn.wa  {background:#dcfce7;color:#166534;}
-    .p-btn.del {background:#fee2e2;color:#e05;}
+    .p-btn.wa{background:#dcfce7;color:#166534;}
+    .p-btn.del{background:#fee2e2;color:#e05;}
 
-    /* BUILDER */
     .builder-wrap{display:grid;grid-template-columns:390px 1fr;gap:20px;}
     .form-panel{background:#fff;border-radius:18px;padding:20px;
       box-shadow:var(--shadow);position:sticky;top:76px;
@@ -124,12 +110,11 @@
 
     .meal-blk{background:#f4fbf8;border-radius:11px;padding:11px;
       margin-bottom:9px;border:1px solid #d4ede5;}
-    .meal-blk-top{display:flex;justify-content:space-between;
-      align-items:center;margin-bottom:7px;}
+    .meal-blk-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;}
     .meal-blk-top span{font-weight:700;color:var(--dark);font-size:0.82rem;}
-    .meal-blk-top button{background:none;border:none;color:#e05;
-      cursor:pointer;font-size:0.75rem;}
-    .opt-row{display:grid;grid-template-columns:2fr 1fr 1fr auto;
+    .meal-blk-top button{background:none;border:none;color:#e05;cursor:pointer;font-size:0.75rem;}
+
+    .opt-row{display:grid;grid-template-columns:2fr 1fr auto;
       gap:4px;margin-bottom:4px;align-items:center;}
     .opt-row input{font-size:0.78rem;padding:5px 7px;}
     .del-btn{background:#fee2e2;border:none;border-radius:5px;
@@ -150,20 +135,16 @@
     .btn-prnt{flex:1;background:var(--gold);color:#fff;border:none;
       border-radius:999px;padding:10px;font-weight:700;cursor:pointer;font-size:0.85rem;}
     .btn-wa-s{width:100%;background:#25D366;color:#fff;border:none;
-      border-radius:999px;padding:10px;font-weight:700;
-      cursor:pointer;font-size:0.85rem;margin-top:7px;}
+      border-radius:999px;padding:10px;font-weight:700;cursor:pointer;font-size:0.85rem;margin-top:7px;}
 
-    /* PREVIEW */
     .prev-panel{background:#fff;border-radius:18px;box-shadow:var(--shadow);overflow:hidden;}
     .prev-top{background:linear-gradient(135deg,var(--primary),var(--accent));
       color:#fff;padding:11px 16px;display:flex;justify-content:space-between;align-items:center;}
     .prev-top h2{font-size:0.9rem;}
     .prev-top button{background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);
-      color:#fff;padding:5px 11px;border-radius:999px;cursor:pointer;
-      font-weight:700;font-size:0.78rem;}
+      color:#fff;padding:5px 11px;border-radius:999px;cursor:pointer;font-weight:700;font-size:0.78rem;}
     #dcOutput{padding:24px;min-height:300px;}
 
-    /* DIET CHART PRINT STYLES */
     .dc-hdr{display:grid;grid-template-columns:1fr 1fr;gap:18px;
       margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid #e8f5f0;}
     .dc-pname{font-size:1.6rem;font-weight:900;color:#1a1a1a;margin-bottom:3px;}
@@ -171,14 +152,6 @@
     .dc-date{color:#aaa;font-size:0.82rem;margin-bottom:10px;}
     .dc-dname{font-size:0.95rem;font-weight:700;color:#222;}
     .dc-dlbl{color:#888;font-size:0.8rem;}
-    .nut-box{background:#f8f8f8;border-radius:11px;padding:14px;}
-    .nut-box-top{display:flex;justify-content:space-between;font-weight:700;
-      color:#1a1a1a;margin-bottom:10px;font-size:0.9rem;}
-    .nut-row{display:grid;grid-template-columns:repeat(4,1fr);}
-    .nut-cell{padding:7px 11px;border-right:1px solid #ddd;}
-    .nut-cell:last-child{border-right:none;}
-    .nut-lbl{font-size:0.7rem;color:#888;margin-bottom:2px;}
-    .nut-val{font-size:0.95rem;font-weight:800;color:#222;}
     .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px;}
     .info-box{background:#f8f8f8;border-radius:11px;padding:14px;}
     .info-box h3{font-size:0.88rem;font-weight:700;color:#1a1a1a;margin-bottom:9px;}
@@ -195,18 +168,10 @@
     .meal-box{background:#f8f8f8;border-radius:11px;padding:14px;margin-bottom:12px;}
     .meal-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;}
     .meal-nm{font-size:0.95rem;font-weight:800;color:#1a1a1a;}
-    .meal-kc{font-size:0.88rem;font-weight:700;color:#444;}
-    .meal-nuts{display:grid;grid-template-columns:repeat(4,1fr);background:#fff;
-      border-radius:8px;overflow:hidden;border:1px solid #e8e8e8;margin-bottom:10px;}
-    .meal-nut{padding:7px 11px;border-right:1px solid #e8e8e8;}
-    .meal-nut:last-child{border-right:none;}
-    .meal-nl{font-size:0.68rem;color:#888;margin-bottom:2px;}
-    .meal-nv{font-size:0.84rem;font-weight:700;color:#333;}
     .opt-ttl{font-size:0.75rem;color:#aaa;font-weight:600;margin-bottom:5px;
       display:flex;align-items:center;gap:7px;}
     .opt-ttl::after{content:"";flex:1;height:1px;background:#e0e0e0;}
-    .opt-item{display:flex;justify-content:space-between;font-size:0.84rem;
-      padding:3px 0;color:#222;}
+    .opt-item{display:flex;justify-content:space-between;font-size:0.84rem;padding:3px 0;color:#222;}
     .opt-item-r{color:#666;font-size:0.78rem;}
     .opt-gap{margin-bottom:9px;}
     .tips-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;}
@@ -215,44 +180,38 @@
     .tips-box ul{list-style:none;}
     .tips-box ul li{font-size:0.82rem;color:#444;padding:3px 0 3px 14px;
       position:relative;line-height:1.5;}
-    .tips-box ul li::before{content:"•";position:absolute;left:0;
-      color:var(--accent);font-weight:700;}
+    .tips-box ul li::before{content:"•";position:absolute;left:0;color:var(--accent);font-weight:700;}
     .dc-foot{margin-top:18px;text-align:center;padding-top:12px;
       border-top:1px solid #e8e8e8;font-size:0.75rem;color:#aaa;}
     .dc-empty{text-align:center;padding:50px 20px;color:#aaa;}
     .dc-empty .ei{font-size:2.5rem;margin-bottom:10px;}
 
-    /* MODAL */
     .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);
       z-index:999;align-items:center;justify-content:center;}
     .modal.open{display:flex;}
     .modal-box{background:#fff;border-radius:18px;padding:24px;
-      width:min(480px,94%);box-shadow:var(--shadow);
-      max-height:90vh;overflow-y:auto;}
+      width:min(480px,94%);box-shadow:var(--shadow);max-height:90vh;overflow-y:auto;}
     .modal-box h3{color:var(--dark);margin-bottom:14px;font-size:1.05rem;}
     .modal-btns{display:flex;gap:9px;margin-top:14px;}
     .m-save{flex:1;background:linear-gradient(135deg,var(--primary),var(--accent));
-      color:#fff;border:none;border-radius:999px;padding:11px;
-      font-weight:700;cursor:pointer;}
+      color:#fff;border:none;border-radius:999px;padding:11px;font-weight:700;cursor:pointer;}
     .m-cancel{flex:1;background:#f0f0f0;color:#444;border:none;
       border-radius:999px;padding:11px;font-weight:700;cursor:pointer;}
 
-    /* HOW TO */
-    .step-card{background:#fff;border-radius:14px;padding:18px;
-      box-shadow:var(--shadow);border-left:4px solid var(--accent);margin-bottom:14px;}
-    .step-card h3{color:var(--primary);margin-bottom:7px;font-size:0.97rem;}
-    .step-card p{font-size:0.87rem;line-height:1.7;color:#444;}
-
-    /* PRINT */
+    /* =====================
+       FIXED PRINT CSS
+       ===================== */
     @media print{
-      .topbar,.tab-nav,.form-panel,.prev-top,
-      .login-screen,.modal{display:none!important;}
-      .builder-wrap{display:block!important;}
-      .prev-panel{box-shadow:none!important;}
-      #dcOutput{padding:10px!important;}
+      body * { visibility: hidden; }
+      #dcOutput, #dcOutput * { visibility: visible; }
+      #dcOutput {
+        position: absolute;
+        left: 0; top: 0;
+        width: 100%;
+        padding: 20px !important;
+      }
     }
 
-    /* RESPONSIVE */
     @media(max-width:900px){
       .stats-row{grid-template-columns:1fr 1fr;}
       .p-grid{grid-template-columns:1fr 1fr;}
@@ -265,7 +224,7 @@
       .p-grid{grid-template-columns:1fr;}
       .frow{grid-template-columns:1fr;}
       .frow.s3{grid-template-columns:1fr 1fr;}
-      .opt-row{grid-template-columns:1fr 1fr;}
+      .opt-row{grid-template-columns:2fr 1fr auto;}
     }
   </style>
 </head>
@@ -277,20 +236,17 @@
     <div class="logo">🌿</div>
     <h2>Doctor Login</h2>
     <p>Naturopathy & Yoga Care — Doctor Panel</p>
-    <input class="l-input" type="text"     id="lu" placeholder="Username" />
+    <input class="l-input" type="text" id="lu" placeholder="Username" />
     <input class="l-input" type="password" id="lp" placeholder="Password"
       onkeydown="if(event.key==='Enter')doLogin()" />
     <button class="login-btn" onclick="doLogin()">🔐 Login</button>
     <div class="login-err" id="lerr">❌ Wrong username or password.</div>
-    <p style="margin-top:16px;font-size:0.75rem;color:#bbb;">
-    </p>
   </div>
 </div>
 
 <!-- MAIN PANEL -->
 <div id="mainPanel" style="display:none;">
 
-  <!-- TOPBAR -->
   <div class="topbar">
     <h1>🌿 Doctor Panel — Naturopathy & Yoga Care</h1>
     <div class="topbar-right">
@@ -300,12 +256,11 @@
     </div>
   </div>
 
-  <!-- TABS -->
+  <!-- TABS — How To Use REMOVED -->
   <div class="tab-nav">
     <button class="tab-btn active" onclick="goTab('dashboard',this)">📊 Dashboard</button>
-    <button class="tab-btn"        onclick="goTab('patients',this)">👥 Patients</button>
-    <button class="tab-btn"        onclick="goTab('dietchart',this)">🥗 Diet Chart</button>
-    <button class="tab-btn"        onclick="goTab('howto',this)">📖 How To Use</button>
+    <button class="tab-btn" onclick="goTab('patients',this)">👥 Patients</button>
+    <button class="tab-btn" onclick="goTab('dietchart',this)">🥗 Diet Chart</button>
   </div>
 
   <!-- DASHBOARD -->
@@ -329,8 +284,7 @@
             <th>Paid</th><th>Status</th><th>Action</th>
           </tr></thead>
           <tbody id="recentTbody">
-            <tr><td colspan="6" style="text-align:center;color:#aaa;padding:18px;">
-              No patients yet.</td></tr>
+            <tr><td colspan="6" style="text-align:center;color:#aaa;padding:18px;">No patients yet.</td></tr>
           </tbody>
         </table>
       </div>
@@ -340,13 +294,11 @@
   <!-- PATIENTS -->
   <div id="tab-patients" class="tab-pane">
     <div class="p-toolbar">
-      <input class="p-search" id="psearch" placeholder="🔍 Search patient..."
-        oninput="renderPatients()" />
+      <input class="p-search" id="psearch" placeholder="🔍 Search patient..." oninput="renderPatients()" />
       <button class="p-add-btn" onclick="openAddModal()">+ Add Patient</button>
     </div>
     <div class="p-grid" id="pGrid">
-      <p style="color:#aaa;grid-column:1/-1;text-align:center;padding:40px;">
-        No patients yet.</p>
+      <p style="color:#aaa;grid-column:1/-1;text-align:center;padding:40px;">No patients yet.</p>
     </div>
   </div>
 
@@ -392,28 +344,22 @@
         <div class="fsec">
           <h3>🩺 Doctor</h3>
           <div class="frow">
-            <div><label>Name</label>
-              <input type="text" id="dname" /></div>
-            <div><label>Qualification</label>
-              <input type="text" id="dqual" /></div>
+            <div><label>Name</label><input type="text" id="dname" /></div>
+            <div><label>Qualification</label><input type="text" id="dqual" /></div>
           </div>
         </div>
 
         <div class="fsec">
           <h3>📊 Health Details</h3>
           <div class="frow s3">
-            <div><label>Weight(kg)</label>
-              <input type="number" id="wt" placeholder="70" /></div>
-            <div><label>Height(cm)</label>
-              <input type="number" id="ht" placeholder="165" /></div>
-            <div><label>Age</label>
-              <input type="number" id="age" placeholder="35" /></div>
+            <div><label>Weight(kg)</label><input type="number" id="wt" placeholder="70" /></div>
+            <div><label>Height(cm)</label><input type="number" id="ht" placeholder="165" /></div>
+            <div><label>Age</label><input type="number" id="age" placeholder="35" /></div>
           </div>
-          <div class="frow">
-            <div><label>Target Wt(kg)</label>
-              <input type="number" id="twt" placeholder="65" /></div>
-          
-      
+          <div class="frow s1">
+            <div><label>Target Wt(kg)</label><input type="number" id="twt" placeholder="65" /></div>
+          </div>
+        </div>
 
         <div class="fsec">
           <h3>🍽️ Preferences</h3>
@@ -426,8 +372,7 @@
                 <option>Vegan</option>
               </select>
             </div>
-            <div><label>Cuisine</label>
-              <input type="text" id="cuisine" placeholder="South Indian" /></div>
+            <div><label>Cuisine</label><input type="text" id="cuisine" placeholder="South Indian" /></div>
           </div>
           <div class="frow s1">
             <div><label>Dislikes / Allergies</label>
@@ -436,15 +381,21 @@
         </div>
 
         <div class="fsec">
-          <h3>🍱 Meals</h3>
+          <h3>🥗 Diet Plan</h3>
           <div id="mealsWrap"></div>
           <button class="add-meal-btn" onclick="addMeal()">+ Add Meal Slot</button>
         </div>
 
         <div class="fsec">
-          <h3>💡 Naturopathy  Treatments</h3>
+          <h3>🌿 Naturopathy Treatments</h3>
+          <textarea id="naturo"
+            placeholder="Hot and cold fomentation on joints&#10;4.00 - Cold fomentation on stomach for 20min&#10;Steam bath - twice a week"></textarea>
+        </div>
+
+        <div class="fsec">
+          <h3>💡 Tips</h3>
           <textarea id="tips"
-            placeholder="• Follow meal plate method&#10;• Drink 2-3 litres of water daily"></textarea>
+            placeholder="• Drink 2-3 litres of water daily&#10;• Eat slowly and chew well"></textarea>
         </div>
 
         <div class="fsec">
@@ -482,63 +433,6 @@
     </div>
   </div>
 
-  <!-- HOW TO USE -->
-  <div id="tab-howto" class="tab-pane">
-    <div style="max-width:750px;margin:auto;">
-      <div class="card">
-        <h2 style="color:var(--dark);margin-bottom:20px;font-size:1.2rem;">
-          📖 Doctor — Step by Step Guide
-        </h2>
-
-        <div class="step-card">
-          <h3>Step 1 — Patient Books on Website 🌐</h3>
-          <p>Patient fills form on <strong>index.html</strong> and pays via UPI (₹500 or ₹2500 or ₹3000). You receive a WhatsApp message automatically with all patient details — name, phone, plan, health concern.</p>
-        </div>
-
-        <div class="step-card">
-          <h3>Step 2 — Add Patient Here 👥</h3>
-          <p>Go to <strong>Patients tab</strong> → Click <strong>Add Patient</strong> → Enter the details from the WhatsApp booking message. Patient is saved in your browser storage.</p>
-        </div>
-
-        <div class="step-card">
-          <h3>Step 3 — Conduct Consultation 📞</h3>
-          <p>Call the patient via <strong>WhatsApp Video or Phone</strong>. During consultation, ask about:<br>
-          • Current weight, height, age<br>
-          • Food preferences and dislikes<br>
-          • Daily routine and meal timings<br>
-          • Current medications and health reports</p>
-        </div>
-
-        <div class="step-card">
-          <h3>Step 4 — Create Diet Chart 🥗</h3>
-          <p>Go to <strong>Diet Chart tab</strong> → Select patient from dropdown (details auto-fill) → Fill meal plan with food items, calories, quantities → Add tips and things to avoid → Click <strong>Preview</strong> to see the chart.</p>
-        </div>
-
-        <div class="step-card">
-          <h3>Step 5 — Print & Send to Patient 📤</h3>
-          <p>
-            <strong>Option A (Best):</strong><br>
-            Click <strong>🖨 Print / PDF</strong> → Browser print dialog opens → Select <strong>"Save as PDF"</strong> → Save the PDF file → Open WhatsApp → Find patient → Send the PDF file.<br><br>
-            <strong>Option B (Quick Summary):</strong><br>
-            Click <strong>💬 Send Summary via WhatsApp</strong> → Sends a text summary of the diet plan to patient.
-          </p>
-        </div>
-
-        <div class="step-card" style="border-left-color:var(--gold);background:#fff8e6;">
-          <h3 style="color:#7a5500;">⚠️ Important Notes</h3>
-          <p>
-            • Data is saved in <strong>browser storage only</strong> — do not clear browser cache<br>
-            • This panel works <strong>without internet</strong> once page is loaded<br>
-            • Access this panel from: <strong>your-folder/doctor.html</strong><br>
-            • Share the doctor.html link only with your doctors<br>
-            • For cloud backup, screenshot patient details regularly
-          </p>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
 </div><!-- END MAIN -->
 
 <!-- ADD PATIENT MODAL -->
@@ -550,16 +444,12 @@
         <input type="text" id="mn" placeholder="Patient full name" /></div>
     </div>
     <div class="frow">
-      <div><label>Phone *</label>
-        <input type="text" id="mph" placeholder="+91 9999999999" /></div>
-      <div><label>Age</label>
-        <input type="number" id="mag" placeholder="35" /></div>
+      <div><label>Phone *</label><input type="text" id="mph" placeholder="+91 9999999999" /></div>
+      <div><label>Age</label><input type="number" id="mag" placeholder="35" /></div>
     </div>
     <div class="frow">
-      <div><label>Weight(kg)</label>
-        <input type="number" id="mwt" placeholder="70" /></div>
-      <div><label>Height(cm)</label>
-        <input type="number" id="mht" placeholder="165" /></div>
+      <div><label>Weight(kg)</label><input type="number" id="mwt" placeholder="70" /></div>
+      <div><label>Height(cm)</label><input type="number" id="mht" placeholder="165" /></div>
     </div>
     <div class="frow">
       <div><label>Condition</label>
@@ -592,8 +482,7 @@
           <option>Vegan</option>
         </select>
       </div>
-      <div><label>Amount Paid(₹)</label>
-        <input type="number" id="mpd" placeholder="500" /></div>
+      <div><label>Amount Paid(₹)</label><input type="number" id="mpd" placeholder="500" /></div>
     </div>
     <div class="frow s1">
       <div><label>Dislikes / Allergies</label>
@@ -612,44 +501,31 @@
       </div>
     </div>
     <div class="modal-btns">
-      <button class="m-save"   onclick="savePatient()">✅ Save Patient</button>
+      <button class="m-save" onclick="savePatient()">✅ Save Patient</button>
       <button class="m-cancel" onclick="closeModal()">Cancel</button>
     </div>
   </div>
 </div>
 
 <script>
-// =============================================
-// DOCTOR ACCOUNTS
-// =============================================
 var DOCTORS = [
-  { u:"srihari",  p:"srihari@123",
-    name:"Dr Srihari", qual:"BNYS, MSc. Psy, Dip. in Acu" },
-  { u:"prathima", p:"prathima@123",
-    name:"Dr Prathima Kumari", qual:"BNYS" }
+  { u:"srihari",  p:"srihari@123",  name:"Dr Srihari",        qual:"BNYS, MSc. Psy, Dip. in Acu" },
+  { u:"prathima", p:"prathima@123", name:"Dr Prathima Kumari", qual:"BNYS" }
 ];
 
-var ME        = null;
-var patients  = JSON.parse(localStorage.getItem("nyc_patients") || "[]");
-var chartsDone= parseInt(localStorage.getItem("nyc_charts") || "0");
-var MEALS     = [];
-var MC        = 0;
+var ME         = null;
+var patients   = JSON.parse(localStorage.getItem("nyc_patients") || "[]");
+var chartsDone = parseInt(localStorage.getItem("nyc_charts") || "0");
+var MEALS      = [];
+var MC         = 0;
 
-// =============================================
-// LOGIN
-// =============================================
 function doLogin() {
   var u = document.getElementById("lu").value.trim();
   var p = document.getElementById("lp").value.trim();
-
   var found = null;
   for (var i = 0; i < DOCTORS.length; i++) {
-    if (DOCTORS[i].u === u && DOCTORS[i].p === p) {
-      found = DOCTORS[i];
-      break;
-    }
+    if (DOCTORS[i].u === u && DOCTORS[i].p === p) { found = DOCTORS[i]; break; }
   }
-
   if (found) {
     ME = found;
     document.getElementById("loginScreen").style.display = "none";
@@ -667,19 +543,13 @@ function doLogin() {
   }
 }
 
-// Enter key triggers login
 document.addEventListener("keydown", function(e) {
   if (e.key === "Enter") {
     var ls = document.getElementById("loginScreen");
-    if (ls && ls.style.display !== "none") {
-      doLogin();
-    }
+    if (ls && ls.style.display !== "none") doLogin();
   }
 });
 
-// =============================================
-// LOGOUT
-// =============================================
 function doLogout() {
   if (!confirm("Logout?")) return;
   ME = null;
@@ -690,16 +560,9 @@ function doLogout() {
   document.getElementById("lerr").style.display = "none";
 }
 
-// =============================================
-// TABS
-// =============================================
 function goTab(name, btn) {
-  document.querySelectorAll(".tab-pane").forEach(function(t) {
-    t.classList.remove("active");
-  });
-  document.querySelectorAll(".tab-btn").forEach(function(b) {
-    b.classList.remove("active");
-  });
+  document.querySelectorAll(".tab-pane").forEach(function(t) { t.classList.remove("active"); });
+  document.querySelectorAll(".tab-btn").forEach(function(b) { b.classList.remove("active"); });
   document.getElementById("tab-" + name).classList.add("active");
   if (btn) btn.classList.add("active");
   if (name === "dashboard") initDash();
@@ -707,21 +570,15 @@ function goTab(name, btn) {
   if (name === "dietchart") updatePatDD();
 }
 
-// =============================================
-// DASHBOARD
-// =============================================
 function initDash() {
-  var total   = patients.length;
+  var total = patients.length;
   var revenue = 0;
-  for (var i = 0; i < patients.length; i++) {
-    revenue += parseInt(patients[i].paid) || 0;
-  }
-  var today    = new Date().toISOString().split("T")[0];
+  for (var i = 0; i < patients.length; i++) revenue += parseInt(patients[i].paid) || 0;
+  var today = new Date().toISOString().split("T")[0];
   var todayCnt = 0;
   for (var i = 0; i < patients.length; i++) {
     if (patients[i].addedDate === today) todayCnt++;
   }
-
   document.getElementById("s1").textContent = total;
   document.getElementById("s2").textContent = chartsDone;
   document.getElementById("s3").textContent = "₹" + revenue.toLocaleString("en-IN");
@@ -732,36 +589,29 @@ function initDash() {
     tb.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#aaa;padding:18px;">No patients yet.</td></tr>';
     return;
   }
-
   var recent = patients.slice().reverse().slice(0, 10);
   var rows = "";
   for (var i = 0; i < recent.length; i++) {
-    var p  = recent[i];
+    var p = recent[i];
     var bc = p.paystatus === "Paid" ? "badge-paid" : "badge-pend";
-    rows +=
-      "<tr>" +
+    rows += "<tr>" +
       "<td><strong>" + p.name + "</strong></td>" +
       "<td>" + p.condition + "</td>" +
       "<td>" + p.plan + "</td>" +
       "<td>₹" + (p.paid || 0) + "</td>" +
       "<td><span class='badge " + bc + "'>" + p.paystatus + "</span></td>" +
       "<td><button onclick=\"loadByName('" + p.name + "')\" " +
-        "style='background:#eefaf6;border:none;border-radius:6px;" +
-        "padding:5px 9px;color:#0a5c4d;font-weight:700;" +
-        "cursor:pointer;font-size:0.75rem;'>🥗 Chart</button></td>" +
+        "style='background:#eefaf6;border:none;border-radius:6px;padding:5px 9px;" +
+        "color:#0a5c4d;font-weight:700;cursor:pointer;font-size:0.75rem;'>🥗 Chart</button></td>" +
       "</tr>";
   }
   tb.innerHTML = rows;
 }
 
-// =============================================
-// PATIENTS — ADD MODAL
-// =============================================
 function openAddModal() {
-  var ids = ["mn","mph","mag","mwt","mht","mpd","mdl","mnt"];
-  for (var i = 0; i < ids.length; i++) {
-    document.getElementById(ids[i]).value = "";
-  }
+  ["mn","mph","mag","mwt","mht","mpd","mdl","mnt"].forEach(function(id) {
+    document.getElementById(id).value = "";
+  });
   document.getElementById("addModal").classList.add("open");
 }
 
@@ -772,7 +622,6 @@ function closeModal() {
 function savePatient() {
   var name = document.getElementById("mn").value.trim();
   if (!name) { alert("Please enter patient name."); return; }
-
   var p = {
     id:        Date.now(),
     name:      name,
@@ -789,7 +638,6 @@ function savePatient() {
     notes:     document.getElementById("mnt").value,
     addedDate: new Date().toISOString().split("T")[0]
   };
-
   patients.push(p);
   localStorage.setItem("nyc_patients", JSON.stringify(patients));
   closeModal();
@@ -808,49 +656,38 @@ function deletePatient(id) {
   initDash();
 }
 
-// =============================================
-// PATIENTS — RENDER
-// =============================================
 function renderPatients() {
-  var q   = (document.getElementById("psearch").value || "").toLowerCase();
+  var q = (document.getElementById("psearch").value || "").toLowerCase();
   var list = patients.filter(function(p) {
     return p.name.toLowerCase().indexOf(q) !== -1;
   });
-
   var g = document.getElementById("pGrid");
   if (!list.length) {
     g.innerHTML = '<p style="color:#aaa;grid-column:1/-1;text-align:center;padding:40px;">No patients found.</p>';
     return;
   }
-
   var html = "";
   for (var i = 0; i < list.length; i++) {
     var p   = list[i];
-    var ini = p.name.split(" ").map(function(w) { return w[0]; })
-                .join("").toUpperCase().slice(0, 2);
+    var ini = p.name.split(" ").map(function(w) { return w[0]; }).join("").toUpperCase().slice(0,2);
     var bc  = p.paystatus === "Paid" ? "badge-paid" : "badge-pend";
-
     html +=
       '<div class="p-card">' +
         '<div class="p-card-top">' +
-          '<div>' +
-            '<h3>' + p.name + '</h3>' +
-            '<div class="p-cond">' + p.condition + '</div>' +
-          '</div>' +
+          '<div><h3>' + p.name + '</h3><div class="p-cond">' + p.condition + '</div></div>' +
           '<div class="p-avatar">' + ini + '</div>' +
         '</div>' +
         '<div class="p-info">📞 ' + (p.phone || "—") + '</div>' +
-        '<div class="p-info">⚖️ ' + (p.weight ? p.weight + "kg" : "—") +
-          ' | 📏 ' + (p.height ? p.height + "cm" : "—") +
-          ' | 🎂 ' + (p.age ? p.age + "y" : "—") + '</div>' +
+        '<div class="p-info">⚖️ ' + (p.weight ? p.weight+"kg" : "—") +
+          ' | 📏 ' + (p.height ? p.height+"cm" : "—") +
+          ' | 🎂 ' + (p.age ? p.age+"y" : "—") + '</div>' +
         '<div class="p-info">🍽 ' + (p.food || "—") + '</div>' +
-        '<div class="p-info">💰 ' + p.plan +
-          ' — <span class="badge ' + bc + '">' + p.paystatus + '</span></div>' +
+        '<div class="p-info">💰 ' + p.plan + ' — <span class="badge ' + bc + '">' + p.paystatus + '</span></div>' +
         (p.notes ? '<div class="p-info" style="font-style:italic;color:#888;">' + p.notes + '</div>' : '') +
         '<div class="p-btns">' +
           '<button class="p-btn diet" onclick="loadByName(\'' + p.name + '\')">🥗 Diet Chart</button>' +
-          '<button class="p-btn wa"   onclick="waMsg(\'' + p.phone + '\',\'' + p.name + '\')">💬 WhatsApp</button>' +
-          '<button class="p-btn del"  onclick="deletePatient(' + p.id + ')">🗑 Delete</button>' +
+          '<button class="p-btn wa" onclick="waMsg(\'' + p.phone + '\',\'' + p.name + '\')">💬 WhatsApp</button>' +
+          '<button class="p-btn del" onclick="deletePatient(' + p.id + ')">🗑 Delete</button>' +
         '</div>' +
       '</div>';
   }
@@ -861,20 +698,16 @@ function waMsg(phone, name) {
   var c = phone.replace(/\D/g, "");
   if (!c) { alert("No phone saved for this patient."); return; }
   var msg = "Hello " + name + ", greetings from Naturopathy & Yoga Care. " +
-    "Your health plan is ready. Please follow the guidelines shared. " +
-    "Contact: +91 7013989526";
+    "Your health plan is ready. Contact: +91 7013989526";
   window.open("https://wa.me/" + c + "?text=" + encodeURIComponent(msg), "_blank");
 }
 
-// =============================================
-// PATIENT DROPDOWN FOR DIET CHART
-// =============================================
 function updatePatDD() {
   var sel = document.getElementById("selPat");
   sel.innerHTML = '<option value="">— Type manually —</option>';
   for (var i = 0; i < patients.length; i++) {
     var o = document.createElement("option");
-    o.value       = patients[i].id;
+    o.value = patients[i].id;
     o.textContent = patients[i].name + " (" + patients[i].condition + ")";
     sel.appendChild(o);
   }
@@ -888,7 +721,6 @@ function loadPatToForm() {
     if (patients[i].id === id) { p = patients[i]; break; }
   }
   if (!p) return;
-
   document.getElementById("pname").value    = p.name;
   document.getElementById("age").value      = p.age    || "";
   document.getElementById("wt").value       = p.weight || "";
@@ -911,24 +743,20 @@ function loadByName(name) {
   }, 150);
 }
 
-// =============================================
-// MEAL BUILDER
-// =============================================
 function initMeals() {
   MEALS = []; MC = 0;
   document.getElementById("mealsWrap").innerHTML = "";
-  addMeal("Pre Breakfast",  "8:30 AM");
-  addMeal("Breakfast",      "10:00 AM");
-  addMeal("Mid Morning",    "12:00 PM");
+  addMeal("Early Morning",  "7:00 AM");
+  addMeal("Breakfast",      "9:00 AM");
+  addMeal("Mid Morning",    "11:00 AM");
   addMeal("Lunch",          "1:30 PM");
-  addMeal("Evening Snacks", "4:30 PM");
-  addMeal("Dinner",         "7:30 PM");
+  addMeal("Evening",        "6:00 PM");
+  addMeal("Dinner",         "8:00 PM");
 }
 
 function addMeal(name, time) {
   var id = "m" + MC++;
   MEALS.push({ id: id, opts: [] });
-
   var d = document.createElement("div");
   d.className = "meal-blk";
   d.id = "blk_" + id;
@@ -939,15 +767,12 @@ function addMeal(name, time) {
     '</div>' +
     '<div class="frow">' +
       '<div><label>Meal Name</label>' +
-        '<input type="text" id="mn_' + id + '" value="' + (name || "") + '" placeholder="Breakfast"/></div>' +
+        '<input type="text" id="mn_' + id + '" value="' + (name||"") + '" placeholder="Breakfast"/></div>' +
       '<div><label>Time</label>' +
-        '<input type="text" id="mt_' + id + '" value="' + (time || "") + '" placeholder="8:30 AM"/></div>' +
-    '</div>' +
-  
+        '<input type="text" id="mt_' + id + '" value="' + (time||"") + '" placeholder="8:30 AM"/></div>' +
     '</div>' +
     '<div id="opts_' + id + '"></div>' +
     '<button class="add-opt-btn" onclick="addOpt(\'' + id + '\')">+ Add Food Option</button>';
-
   document.getElementById("mealsWrap").appendChild(d);
   addOpt(id);
 }
@@ -964,11 +789,9 @@ function addOpt(mid) {
     if (MEALS[i].id === mid) { meal = MEALS[i]; break; }
   }
   if (!meal) return;
-
   var oi  = meal.opts.length + 1;
   var oid = mid + "_o" + oi;
   meal.opts.push({ id: oid, items: [] });
-
   var d = document.createElement("div");
   d.id = "ob_" + oid;
   d.style.marginBottom = "5px";
@@ -976,7 +799,6 @@ function addOpt(mid) {
     '<div style="font-size:0.73rem;color:#888;font-weight:700;margin:5px 0 3px;">Option ' + oi + '</div>' +
     '<div id="its_' + oid + '"></div>' +
     '<button class="add-item-btn" onclick="addItm(\'' + mid + '\',\'' + oid + '\')">+ Add Item</button>';
-
   document.getElementById("opts_" + mid).appendChild(d);
   addItm(mid, oid);
 }
@@ -987,25 +809,21 @@ function addItm(mid, oid) {
     if (MEALS[i].id === mid) { meal = MEALS[i]; break; }
   }
   if (!meal) return;
-
   var opt = null;
   for (var j = 0; j < meal.opts.length; j++) {
     if (meal.opts[j].id === oid) { opt = meal.opts[j]; break; }
   }
   if (!opt) return;
-
   var ii  = opt.items.length + 1;
   var iid = oid + "_i" + ii;
   opt.items.push(iid);
-
   var r = document.createElement("div");
   r.className = "opt-row";
   r.id = "rw_" + iid;
- r.innerHTML =
-  '<input type="text" id="in_' + iid + '" placeholder="Food name (e.g. Brown Rice)"/>' +
-  '<input type="text" id="iq_' + iid + '" placeholder="2 katori"/>' +
-  '<button class="del-btn" onclick="remItm(\'' + iid + '\')">✕</button>';
-
+  r.innerHTML =
+    '<input type="text" id="in_' + iid + '" placeholder="Food name"/>' +
+    '<input type="text" id="iq_' + iid + '" placeholder="Quantity"/>' +
+    '<button class="del-btn" onclick="remItm(\'' + iid + '\')">✕</button>';
   document.getElementById("its_" + oid).appendChild(r);
 }
 
@@ -1014,107 +832,78 @@ function remItm(iid) {
   if (r) r.remove();
 }
 
-// =============================================
-// GENERATE CHART
-// =============================================
 function genChart() {
-  var pname   = document.getElementById("pname").value    || "Patient";
-  var cdate   = document.getElementById("cdate").value;
-  var pcond   = document.getElementById("pcond").value;
-  var dname   = document.getElementById("dname").value    || "Dr Prathima Kumari";
-  var dqual   = document.getElementById("dqual").value    || "BNYS";
-  var wt      = document.getElementById("wt").value;
-  var ht      = document.getElementById("ht").value;
-  var age     = document.getElementById("age").value;
-  var twt     = document.getElementById("twt").value;
-  var ftype   = document.getElementById("ftype").value;
-  var cuisine = document.getElementById("cuisine").value  || "South Indian";
-  var dislikes= document.getElementById("dislikes").value;
-  var tipsRaw = document.getElementById("tips").value;
-  var avoidRaw= document.getElementById("avoid").value;
+  var pname    = document.getElementById("pname").value   || "Patient";
+  var cdate    = document.getElementById("cdate").value;
+  var pcond    = document.getElementById("pcond").value;
+  var dname    = document.getElementById("dname").value   || "Dr Prathima Kumari";
+  var dqual    = document.getElementById("dqual").value   || "BNYS";
+  var wt       = document.getElementById("wt").value;
+  var ht       = document.getElementById("ht").value;
+  var age      = document.getElementById("age").value;
+  var twt      = document.getElementById("twt").value;
+  var ftype    = document.getElementById("ftype").value;
+  var cuisine  = document.getElementById("cuisine").value || "South Indian";
+  var dislikes = document.getElementById("dislikes").value;
+  var naturoRaw= document.getElementById("naturo").value;
+  var tipsRaw  = document.getElementById("tips").value;
+  var avoidRaw = document.getElementById("avoid").value;
 
-  // BMI
   var bmi = ""; var bmiP = 50;
   if (wt && ht) {
-    var h   = parseFloat(ht) / 100;
-    var bv  = parseFloat(wt) / (h * h);
-    bmi     = bv.toFixed(1);
-    bmiP    = Math.min(Math.max(((bv - 15) / 20) * 100, 5), 95);
+    var h  = parseFloat(ht) / 100;
+    var bv = parseFloat(wt) / (h * h);
+    bmi    = bv.toFixed(1);
+    bmiP   = Math.min(Math.max(((bv - 15) / 20) * 100, 5), 95);
   }
 
-  // Date string
   var ds = "";
   if (cdate) {
     var d = new Date(cdate);
     ds = d.toLocaleDateString("en-IN", { day:"numeric", month:"long", year:"numeric" });
   }
 
-  // Tips and Avoid lists
   function toList(raw) {
     if (!raw.trim()) return "";
-    return raw.split("\n")
-      .filter(function(t) { return t.trim(); })
-      .map(function(t) {
-        return "<li>" + t.replace(/^[•\-\*]\s*/, "") + "</li>";
-      }).join("");
+    return raw.split("\n").filter(function(t) { return t.trim(); })
+      .map(function(t) { return "<li>" + t.replace(/^[•\-\*]\s*/, "") + "</li>"; }).join("");
   }
 
   var tipsHtml  = toList(tipsRaw);
   var avoidHtml = toList(avoidRaw);
 
-  // Build meals HTML
   var mealsHtml = "";
   var mealBlks  = document.querySelectorAll(".meal-blk");
 
   for (var mi = 0; mi < mealBlks.length; mi++) {
     var blk = mealBlks[mi];
     var bid = blk.id.replace("blk_", "");
-
     var mnEl = document.getElementById("mn_" + bid);
     if (!mnEl) continue;
+    var mnv = mnEl.value || "Meal";
+    var mtEl = document.getElementById("mt_" + bid);
+    var mtv  = mtEl ? mtEl.value : "";
 
-    var mnv  = mnEl.value || "Meal";
-    var mtEl = document.getElementById("mt_"  + bid);
-    var mkEl = document.getElementById("mk_"  + bid);
-    var mpEl = document.getElementById("mp_"  + bid);
-    var mfEl = document.getElementById("mf_"  + bid);
-    var mcEl = document.getElementById("mc_"  + bid);
-    var mfiEl= document.getElementById("mfi_" + bid);
-
-    var mtv  = mtEl  ? mtEl.value  : "";
-    var mkv  = mkEl  ? mkEl.value  : "";
-    var mpv  = mpEl  ? mpEl.value  : "-";
-    var mfv  = mfEl  ? mfEl.value  : "-";
-    var mcv  = mcEl  ? mcEl.value  : "-";
-    var mfiv = mfiEl ? mfiEl.value : "-";
-
-    // Build food options
     var optsHtml = "";
     var optsWrap = document.getElementById("opts_" + bid);
     if (optsWrap) {
       var optBlks = optsWrap.querySelectorAll("[id^='ob_']");
       for (var oi = 0; oi < optBlks.length; oi++) {
-        optsHtml += '<div class="opt-gap"><div class="opt-ttl">Option ' + (oi + 1) + '</div>';
+        optsHtml += '<div class="opt-gap"><div class="opt-ttl">Option ' + (oi+1) + '</div>';
         var itsWrap = optBlks[oi].querySelector("[id^='its_']");
         if (itsWrap) {
           var itemRows = itsWrap.querySelectorAll(".opt-row");
           for (var ii = 0; ii < itemRows.length; ii++) {
             var iid  = itemRows[ii].id.replace("rw_", "");
             var inEl = document.getElementById("in_" + iid);
-            var ikEl = document.getElementById("ik_" + iid);
             var iqEl = document.getElementById("iq_" + iid);
             var inv  = inEl ? inEl.value : "";
-            var ikv  = ikEl ? ikEl.value : "";
             var iqv  = iqEl ? iqEl.value : "";
             if (inv.trim()) {
-              var rt = "";
-              if (ikv && iqv) rt = ikv + " &bull; " + iqv;
-              else if (ikv)   rt = ikv;
-              else if (iqv)   rt = iqv;
               optsHtml +=
                 '<div class="opt-item">' +
                   '<span>' + inv + '</span>' +
-                  '<span class="opt-item-r">' + rt + '</span>' +
+                  '<span class="opt-item-r">' + iqv + '</span>' +
                 '</div>';
             }
           }
@@ -1128,12 +917,10 @@ function genChart() {
         '<div class="meal-hdr">' +
           '<span class="meal-nm">' + mnv + (mtv ? ' &bull; ' + mtv : '') + '</span>' +
         '</div>' +
-      
         optsHtml +
       '</div>';
   }
 
-  // Assemble full chart HTML
   var html =
     '<div class="dc-hdr">' +
       '<div>' +
@@ -1145,7 +932,6 @@ function genChart() {
           ' <span style="font-weight:400;color:#888;font-size:0.85rem;">(' + dqual + ')</span>' +
         '</div>' +
       '</div>' +
-    
     '</div>' +
 
     '<div class="info-grid">' +
@@ -1158,15 +944,14 @@ function genChart() {
       '<div>' +
         '<div class="info-box" style="margin-bottom:14px;">' +
           '<h3>Health Parameters</h3>' +
-          (wt  ? '<div class="h-row"><span class="h-lbl">Weight</span><span class="h-val">' + wt  + ' kg</span></div>' : '') +
-          (ht  ? '<div class="h-row"><span class="h-lbl">Height</span><span class="h-val">' + ht  + ' cm</span></div>' : '') +
-          (age ? '<div class="h-row"><span class="h-lbl">Age</span><span class="h-val">'    + age + ' years</span></div>' : '') +
+          (wt  ? '<div class="h-row"><span class="h-lbl">Weight</span><span class="h-val">' + wt + ' kg</span></div>' : '') +
+          (ht  ? '<div class="h-row"><span class="h-lbl">Height</span><span class="h-val">' + ht + ' cm</span></div>' : '') +
+          (age ? '<div class="h-row"><span class="h-lbl">Age</span><span class="h-val">' + age + ' years</span></div>' : '') +
           (bmi ? '<div class="h-row"><span class="h-lbl">BMI</span><span class="h-val">' + bmi + '</span></div>' +
                  '<div class="bmi-bar"><div class="bmi-fill" style="width:' + bmiP + '%"></div></div>' : '') +
         '</div>' +
         (twt ?
-        '<div class="tgt-box">' +
-          '<h3>Target</h3>' +
+        '<div class="tgt-box"><h3>Target</h3>' +
           '<div class="tgt-row"><span style="color:#888">Target Weight</span><span style="font-weight:700">' + twt + ' kg</span></div>' +
           '<div class="tgt-row"><span style="color:#888">Ideal BMI</span><span style="font-weight:700">18.5 – 22.9</span></div>' +
         '</div>' : '') +
@@ -1175,60 +960,48 @@ function genChart() {
 
     mealsHtml +
 
+    (naturoRaw.trim() ?
+    '<div style="background:#f0fdf4;border-radius:11px;padding:14px;margin-bottom:14px;border-left:4px solid #059669;">' +
+      '<h3 style="color:#065f46;font-size:0.95rem;font-weight:800;margin-bottom:10px;">🌿 Naturopathy Treatment</h3>' +
+      '<div style="font-size:0.88rem;color:#1a1a1a;line-height:1.9;white-space:pre-line;">' + naturoRaw + '</div>' +
+    '</div>' : '') +
+
     ((tipsHtml || avoidHtml) ?
     '<div class="tips-grid">' +
-      (tipsHtml  ?
-        '<div class="tips-box"><h3>💡 Tips</h3><ul>' + tipsHtml + '</ul></div>' : '') +
-      (avoidHtml ?
-        '<div class="tips-box"><h3>🚫 Things to Avoid</h3><ul>' + avoidHtml + '</ul></div>' : '') +
+      (tipsHtml  ? '<div class="tips-box"><h3>💡 Tips</h3><ul>' + tipsHtml + '</ul></div>' : '') +
+      (avoidHtml ? '<div class="tips-box"><h3>🚫 Things to Avoid</h3><ul>' + avoidHtml + '</ul></div>' : '') +
     '</div>' : '') +
 
     '<div class="dc-foot">' +
       '<strong>Naturopathy &amp; Yoga Care</strong> &nbsp;|&nbsp; ' +
       dname + ' (' + dqual + ')' +
       '<br>📞 +91 7013989526 &nbsp;|&nbsp; ✉ srihariu123456789@gmail.com' +
-      '<br><small>This diet plan is personalised for ' + pname + ' only. Do not share or redistribute.</small>' +
+      '<br><small>This diet plan is personalised for ' + pname + ' only.</small>' +
     '</div>';
 
   document.getElementById("dcOutput").innerHTML = html;
-
-  // Count chart made
   chartsDone++;
   localStorage.setItem("nyc_charts", chartsDone);
-
-  // Scroll to preview
   document.querySelector(".prev-panel").scrollIntoView({ behavior: "smooth" });
 }
 
-// =============================================
-// PRINT / SAVE PDF
-// =============================================
 function printChart() {
   genChart();
-  setTimeout(function() { window.print(); }, 400);
+  setTimeout(function() { window.print(); }, 500);
 }
 
-// =============================================
-// WHATSAPP SUMMARY
-// =============================================
 function waSummary() {
-  var pname  = document.getElementById("pname").value  || "Patient";
-  var pcond  = document.getElementById("pcond").value;
-  var dname  = document.getElementById("dname").value  || "Dr Prathima Kumari";
-  var cdate  = document.getElementById("cdate").value;
-
-  // Get patient phone if selected
+  var pname = document.getElementById("pname").value || "Patient";
+  var pcond = document.getElementById("pcond").value;
+  var dname = document.getElementById("dname").value || "Dr Prathima Kumari";
+  var cdate = document.getElementById("cdate").value;
   var selId = parseInt(document.getElementById("selPat").value);
   var phone = "";
   if (selId) {
     for (var i = 0; i < patients.length; i++) {
-      if (patients[i].id === selId) {
-        phone = patients[i].phone.replace(/\D/g, "");
-        break;
-      }
+      if (patients[i].id === selId) { phone = patients[i].phone.replace(/\D/g,""); break; }
     }
   }
-
   var msg =
     "Hello " + pname + " 🙏\n\n" +
     "Your personalised diet chart is ready.\n\n" +
@@ -1238,11 +1011,11 @@ function waSummary() {
     "Please follow the diet chart strictly for best results.\n" +
     "For queries contact: +91 7013989526\n\n" +
     "— Naturopathy & Yoga Care 🌿";
-
   var waURL = phone
     ? "https://wa.me/" + phone + "?text=" + encodeURIComponent(msg)
-    : "https://wa.me/?text="             + encodeURIComponent(msg);
-
+    : "https://wa.me/?text=" + encodeURIComponent(msg);
   window.open(waURL, "_blank");
 }
 </script>
+</body>
+</html>
