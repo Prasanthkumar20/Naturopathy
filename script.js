@@ -523,3 +523,11 @@ function renderWellness() {
 document.addEventListener("DOMContentLoaded", function () {
   renderWellness();
 });
+
+// Naturopathy Food Tabs
+function switchFoodTab(tab, el) {
+  document.querySelectorAll('.food-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.food-tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-food-' + tab).classList.add('active');
+  el.classList.add('active');
+}
