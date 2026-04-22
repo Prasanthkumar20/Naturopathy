@@ -354,3 +354,265 @@ a{
 }
 .pop-box h3 { color: var(--primary); margin-bottom: 10px; font-size: 1.3rem; }
 .pop-box p  { color: var(--text); margin-bottom: 20px; line-height: 1.7; }
+
+/* ======================== */
+/* NATUROPATHY FOOD SECTION */
+/* ======================== */
+
+.food-section{
+  padding:70px 0;
+  background:linear-gradient(180deg, #fffef0 0%, #f5fbe8 100%);
+  position:relative;
+  overflow:hidden;
+}
+
+.food-section::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 15% 50%, rgba(217,182,111,0.12), transparent 40%),
+    radial-gradient(circle at 85% 30%, rgba(58,175,169,0.08), transparent 40%);
+}
+
+.food-header{
+  text-align:center;
+  margin-bottom:30px;
+  position:relative;
+  z-index:2;
+}
+
+.food-badge{
+  display:inline-block;
+  background:linear-gradient(135deg, #c8960a, var(--gold));
+  color:#fff;
+  padding:8px 18px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:0.88rem;
+  margin-bottom:12px;
+}
+
+.food-header h2{
+  font-size:2.2rem;
+  color:var(--dark);
+  margin-bottom:10px;
+}
+
+.food-header p{
+  color:#56766e;
+  font-size:0.97rem;
+  max-width:680px;
+  margin:0 auto;
+}
+
+/* TAB BUTTONS */
+.food-tabs{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-bottom:28px;
+  position:relative;
+  z-index:2;
+}
+
+.food-tab-btn{
+  padding:12px 24px;
+  border-radius:999px;
+  border:2px solid var(--gold);
+  background:#fff;
+  color:var(--primary);
+  font-weight:700;
+  font-size:0.92rem;
+  cursor:pointer;
+  transition:0.3s ease;
+}
+
+.food-tab-btn:hover{
+  background:#fef9e7;
+  transform:translateY(-2px);
+}
+
+.food-tab-btn.active{
+  background:linear-gradient(135deg, #c8960a, var(--gold));
+  color:#fff;
+  border-color:transparent;
+  box-shadow:0 8px 18px rgba(217,182,111,0.4);
+}
+
+/* PANELS */
+.food-panel{
+  display:none;
+  position:relative;
+  z-index:2;
+}
+
+.food-panel.active{
+  display:block;
+  animation:fadeInUp 0.35s ease;
+}
+
+@keyframes fadeInUp{
+  from{ opacity:0; transform:translateY(16px); }
+  to  { opacity:1; transform:translateY(0); }
+}
+
+/* GRIDS */
+.food-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+}
+
+.food-grid-3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+/* FOOD CARD */
+.food-card{
+  background:#fff;
+  border-radius:24px;
+  padding:24px 20px;
+  box-shadow:var(--shadow);
+  text-align:center;
+  transition:0.3s ease;
+  border-top:4px solid var(--gold);
+}
+
+.food-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 20px 44px rgba(10,92,77,0.15);
+}
+
+.food-icon{
+  font-size:2.8rem;
+  margin-bottom:10px;
+  display:block;
+}
+
+.food-card h4{
+  color:var(--primary);
+  font-size:1rem;
+  margin-bottom:5px;
+  font-weight:700;
+}
+
+.food-telugu{
+  font-size:0.82rem;
+  color:#999;
+  margin-bottom:8px;
+  font-style:italic;
+}
+
+.food-tag{
+  display:inline-block;
+  background:#eefaf6;
+  color:var(--primary);
+  padding:4px 12px;
+  border-radius:999px;
+  font-size:0.78rem;
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+.food-card p{
+  font-size:0.86rem;
+  color:var(--text);
+  margin-bottom:16px;
+  line-height:1.55;
+}
+
+/* WHATSAPP ORDER BUTTON */
+.order-wa-btn{
+  display:block;
+  background:linear-gradient(135deg, #25D366, #1da851);
+  color:#fff;
+  padding:12px 16px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:0.88rem;
+  text-decoration:none;
+  transition:0.3s ease;
+  text-align:center;
+  box-shadow:0 4px 14px rgba(37,211,102,0.3);
+}
+
+.order-wa-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(37,211,102,0.4);
+  color:#fff;
+}
+
+/* CTA BOX */
+.food-cta{
+  margin-top:40px;
+  background:linear-gradient(135deg, rgba(217,182,111,0.12), rgba(10,92,77,0.06));
+  border:2px dashed var(--gold);
+  border-radius:24px;
+  padding:32px 24px;
+  text-align:center;
+  position:relative;
+  z-index:2;
+}
+
+.food-cta h3{
+  color:var(--dark);
+  font-size:1.4rem;
+  margin-bottom:10px;
+}
+
+.food-cta p{
+  color:#56766e;
+  font-size:0.95rem;
+  margin-bottom:22px;
+  max-width:600px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+/* HOW TO ORDER STEPS */
+.how-to-order{
+  display:flex;
+  gap:14px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-bottom:22px;
+}
+
+.order-step{
+  background:#fff;
+  border-radius:16px;
+  padding:16px 14px;
+  font-size:0.86rem;
+  color:var(--text);
+  font-weight:600;
+  box-shadow:var(--shadow);
+  flex:1;
+  min-width:150px;
+  max-width:190px;
+  line-height:1.5;
+}
+
+.order-step .step-num{
+  display:block;
+  font-size:1.5rem;
+  margin-bottom:8px;
+}
+
+/* RESPONSIVE */
+@media(max-width:992px){
+  .food-grid  { grid-template-columns:repeat(2,1fr); }
+  .food-grid-3{ grid-template-columns:repeat(2,1fr); }
+}
+
+@media(max-width:640px){
+  .food-grid  { grid-template-columns:1fr; }
+  .food-grid-3{ grid-template-columns:1fr; }
+  .food-tab-btn{ padding:10px 14px; font-size:0.84rem; }
+  .food-header h2{ font-size:1.7rem; }
+  .how-to-order{ flex-direction:column; align-items:center; }
+  .order-step{ max-width:100%; width:100%; }
+}
