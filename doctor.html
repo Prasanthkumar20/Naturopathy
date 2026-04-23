@@ -989,12 +989,23 @@ function printChart() {
   genChart();
   setTimeout(function() { window.print(); }, 500);
 }
-
 function waSummary() {
-  var pname = document.getElementById("pname").value || "Patient";
-  var pcond = document.getElementById("pcond").value;
-  var dname = document.getElementById("dname").value || "Dr Prathima Kumari";
-  var cdate = document.getElementById("cdate").value;
+  var pname    = document.getElementById("pname").value    || "Patient";
+  var pcond    = document.getElementById("pcond").value;
+  var dname    = document.getElementById("dname").value    || "Dr Prathima Kumari";
+  var dqual    = document.getElementById("dqual").value    || "BNYS";
+  var cdate    = document.getElementById("cdate").value;
+  var wt       = document.getElementById("wt").value;
+  var ht       = document.getElementById("ht").value;
+  var age      = document.getElementById("age").value;
+  var twt      = document.getElementById("twt").value;
+  var ftype    = document.getElementById("ftype").value;
+  var cuisine  = document.getElementById("cuisine").value;
+  var dislikes = document.getElementById("dislikes").value;
+  var naturoRaw= document.getElementById("naturo").value;
+  var tipsRaw  = document.getElementById("tips").value;
+  var avoidRaw = document.getElementById("avoid").value;
+
   var selId = parseInt(document.getElementById("selPat").value);
   var phone = "";
   if (selId) {
@@ -1002,20 +1013,121 @@ function waSummary() {
       if (patients[i].id === selId) { phone = patients[i].phone.replace(/\D/g,""); break; }
     }
   }
-  var msg =
-    "Hello " + pname + " 🙏\n\n" +
-    "Your personalised diet chart is ready.\n\n" +
-    "Plan: " + pcond + "\n" +
-    "Date: " + cdate + "\n" +
-    "Prescribed by: " + dname + "\n\n" +
-    "Please follow the diet chart strictly for best results.\n" +
-    "For queries contact: +91 7013989526\n\n" +
-    "— Naturopathy & Yoga Care 🌿";
+
+  // Header
+  var msg = "🌿 *NATUROPATHY & YOGA CARE*\n";
+  msg += "━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
+  msg += "Hello *" + pname + "* 🙏\n";
+  msg += "Your personalised diet chart is ready!\n\n";
+  msg += "📋 *Plan:* " + pcond + "\n";
+  msg += "📅 *Date:* " + cdate + "\n";
+  msg += "👨‍⚕️ *Prescribed by:* " + dname + " (" + dqual + ")\n\n";
+
+  // Health Parameters
+  if (wt || ht || age || twt) {
+    msg += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
+    msg += "*📊 Health Parameters*\n";
+    if (wt)  msg += "⚖️ Weight : " + wt  + " kg\n";
+    if (ht)  msg += "📏 Height : " + ht  + " cm\n";
+    if (age) msg += "🎂 Age    : " + age + " years\n";
+    if (wt && ht) {
+      var h   = parseFloat(ht) / 100;
+      var bmi = (parseFloat(wt) / (h * h)).toFixed(1);
+      msg += "📐 BMI    : " + bmi + "\n";
+    }
+    if (twt) msg += "🎯 Target : " + twt + " kg\n";
+    msg += "\n";
+  }
+
+  // Preferences
+  msg += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
+  msg += "*🍽️ Food Preferences*\n";
+  msg += "• Food Type : " + ftype + "\n";
+  if (cuisine)  msg += "• Cuisine   : " + cuisine  + "\n";
+  if (dislikes) msg += "• Dislikes  : " + dislikes + "\n";
+  msg += "\n";
+
+  // Meal Plan
+  msg += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
+  msg += "*🥗 DAILY DIET PLAN*\n\n";
+
+  var mealBlks = document.querySelectorAll(".meal-blk");
+  for (var mi = 0; mi < mealBlks.length; mi++) {
+    var blk = mealBlks[mi];
+    var bid = blk.id.replace("blk_", "");
+    var mnEl = document.getElementById("mn_" + bid);
+    if (!mnEl) continue;
+    var mnv = mnEl.value || "Meal";
+    var mtEl = document.getElementById("mt_" + bid);
+    var mtv  = mtEl ? mtEl.value : "";
+
+    msg += "🕐 *" + mnv + (mtv ? "  (" + mtv + ")" : "") + "*\n";
+
+    var optsWrap = document.getElementById("opts_" + bid);
+    if (optsWrap) {
+      var optBlks = optsWrap.querySelectorAll("[id^='ob_']");
+      for (var oi = 0; oi < optBlks.length; oi++) {
+        if (optBlks.length > 1) {
+          msg += "  _Option " + (oi + 1) + ":_\n";
+        }
+        var itsWrap = optBlks[oi].querySelector("[id^='its_']");
+        if (itsWrap) {
+          var itemRows = itsWrap.querySelectorAll(".opt-row");
+          var hasItem = false;
+          for (var ii = 0; ii < itemRows.length; ii++) {
+            var iid  = itemRows[ii].id.replace("rw_", "");
+            var inEl = document.getElementById("in_" + iid);
+            var iqEl = document.getElementById("iq_" + iid);
+            var inv  = inEl ? inEl.value.trim() : "";
+            var iqv  = iqEl ? iqEl.value.trim() : "";
+            if (inv) {
+              msg += "  • " + inv + (iqv ? "  — " + iqv : "") + "\n";
+              hasItem = true;
+            }
+          }
+          if (!hasItem) msg += "  • (no items added)\n";
+        }
+      }
+    }
+    msg += "\n";
+  }
+
+  // Naturopathy
+  if (naturoRaw.trim()) {
+    msg += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
+    msg += "*🌿 Naturopathy Treatment*\n";
+    msg += naturoRaw.trim() + "\n\n";
+  }
+
+  // Tips
+  if (tipsRaw.trim()) {
+    msg += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
+    msg += "*💡 Tips*\n";
+    msg += tipsRaw.trim() + "\n\n";
+  }
+
+  // Avoid
+  if (avoidRaw.trim()) {
+    msg += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
+    msg += "*🚫 Things to Avoid*\n";
+    msg += avoidRaw.trim() + "\n\n";
+  }
+
+  // Footer
+  msg += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
+  msg += "Please follow this diet plan strictly for best results. 🙏\n";
+  msg += "For queries contact us:\n";
+  msg += "📞 +91 7013989526\n";
+  msg += "✉️  srihariu123456789@gmail.com\n\n";
+  msg += "_This plan is personalised for " + pname + " only._\n";
+  msg += "— *Naturopathy & Yoga Care* 🌿";
+
   var waURL = phone
     ? "https://wa.me/" + phone + "?text=" + encodeURIComponent(msg)
     : "https://wa.me/?text=" + encodeURIComponent(msg);
   window.open(waURL, "_blank");
 }
+
 </script>
 </body>
 </html>
