@@ -402,6 +402,7 @@
       <a href="#pricing">Plans</a>
       <a href="#payment">Payment</a>
       <a href="#contact">Booking</a>
+	  <a href="#reviews">⭐ Reviews</a>
       <a href="#social">Social</a>
 	    <a href="doctor.html" target="_blank"
      style="background:linear-gradient(135deg,#0a5c4d,#3aafa9);
@@ -1010,7 +1011,87 @@
     </div>
   </div>
 </section>
+<!-- ========================= -->
+<!--   LIVE REVIEWS SECTION    -->
+<!-- ========================= -->
+<section id="reviews" class="section alt-bg">
+  <div class="container">
 
+    <h2 class="sec-title">⭐ Patient Reviews</h2>
+    <p class="sec-sub">
+      Real experiences from our healing community. Share yours below!
+    </p>
+
+    <!-- All Reviews Display Here -->
+    <div id="reviewsContainer" class="reviews-grid">
+      <div class="no-reviews" id="noReviewsMsg">
+        ⏳ Loading reviews...
+      </div>
+    </div>
+
+    <!-- Submit Review Form -->
+    <div class="review-form-wrap">
+      <h3 class="review-form-title">✍️ Share Your Experience</h3>
+
+      <form id="reviewForm" class="review-form">
+
+        <input
+          type="text"
+          id="reviewName"
+          placeholder="Your Full Name *"
+          required
+          maxlength="50"
+        />
+
+        <input
+          type="text"
+          id="reviewCondition"
+          placeholder="Your Health Concern (e.g. PCOS, Diabetes, Weight)"
+          maxlength="80"
+        />
+
+        <!-- Star Rating -->
+        <div class="star-wrap">
+          <label class="up-label">⭐ Your Rating — Click a Star *</label>
+          <div class="star-rating" id="starRating">
+            <span class="star" data-value="1">★</span>
+            <span class="star" data-value="2">★</span>
+            <span class="star" data-value="3">★</span>
+            <span class="star" data-value="4">★</span>
+            <span class="star" data-value="5">★</span>
+          </div>
+          <div id="ratingLabel" class="rating-label">No rating selected</div>
+          <input type="hidden" id="reviewRating" value="0" />
+        </div>
+
+        <textarea
+          id="reviewText"
+          placeholder="Write about your experience with the consultation, diet plan or yoga guidance... *"
+          required
+          minlength="10"
+          maxlength="500"
+        ></textarea>
+
+        <div id="charCount" class="char-count">0 / 500 characters</div>
+
+        <!-- Submit Button -->
+        <button
+          type="button"
+          id="reviewSubmitBtn"
+          class="btn primary review-submit-btn"
+        >
+          ⭐ Submit Review
+        </button>
+
+        <!-- Message -->
+        <p id="reviewMsg" class="review-msg"></p>
+
+      </form>
+    </div>
+
+  </div>
+</section>
+<!-- END REVIEWS SECTION -->
 <!-- SOCIAL -->
 <section id="social" class="section">
   <div class="container">
