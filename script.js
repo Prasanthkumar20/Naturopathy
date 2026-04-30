@@ -531,3 +531,404 @@ function switchFoodTab(tab, el) {
   document.getElementById('panel-food-' + tab).classList.add('active');
   el.classList.add('active');
 }
+
+/* ============================================ */
+/*   LIVE REVIEWS — JSONBin.io                 */
+/*   All visitors see ALL reviews              */
+/*   Stars fully working                       */
+/* ============================================ */
+
+(function () {
+
+  /* ================================================= */
+  /* ⚠️  PASTE YOUR OWN VALUES HERE (from Steps 2 & 3) */
+  /* ================================================= */
+  var BIN_ID     = '69f37a77856a6821898f56ad';       /* e.g. 6xxxxxxxxxxxxxxxxxxxxxxx   */
+  var MASTER_KEY = '$2a$10$.YEX/A9CjVSV43PGh6oo7e/ec.nIO2pWx0d/OOqHgkosboU3gzVBi';   /* e.g. \$2a$10$xxxxxxxxxxxxx...     */
+  /* ================================================= */
+
+  var BASE_URL = 'https://api.jsonbin.io/v3/b/' + BIN_ID;
+
+  /* ---- Rating label text ---- */
+  var RATING_LABELS = {
+    1 : '⭐ Poor',
+    2 : '⭐⭐ Fair',
+    3 : '⭐⭐⭐ Good',
+    4 : '⭐⭐⭐⭐ Very Good',
+    5 : '⭐⭐⭐⭐⭐ Excellent!'
+  };
+
+  var selectedRating = 0;
+
+  /* Get elements */
+  var starContainer = document.getElementById('starRating');
+  var stars         = starContainer
+                        ? Array.prototype.slice.call(
+                            starContainer.querySelectorAll('.star')
+                          )
+                        : [];
+  var ratingInput   = document.getElementById('reviewRating');
+  var ratingLabel   = document.getElementById('ratingLabel');
+  var textarea      = document.getElementById('reviewText');
+  var charCount     = document.getElementById('charCount');
+  var submitBtn     = document.getElementById('reviewSubmitBtn');
+
+
+  /* =============================== */
+  /*   STAR RATING — Full Logic      */
+  /* =============================== */
+
+  /* Light up stars 0 to count */
+  function highlightStars(count) {
+    stars.forEach(function (s, index) {
+      if (index < count) {
+        s.classList.add('lit');
+      } else {
+        s.classList.remove('lit');
+      }
+    });
+  }
+
+  /* Update text label below stars */
+  function updateRatingLabel(count) {
+    if (ratingLabel) {
+      ratingLabel.textContent = RATING_LABELS[count] || 'No rating selected';
+    }
+  }
+
+  /* Attach star events */
+  if (stars.length) {
+
+    stars.forEach(function (star) {
+
+      /* Hover — light preview */
+      star.addEventListener('mouseenter', function () {
+        var val = parseInt(this.getAttribute('data-value'));
+        highlightStars(val);
+        updateRatingLabel(val);
+      });
+
+      /* Mouse leave — restore locked rating */
+      star.addEventListener('mouseleave', function () {
+        highlightStars(selectedRating);
+        updateRatingLabel(selectedRating);
+      });
+
+      /* Click — lock rating */
+      star.addEventListener('click', function () {
+        selectedRating = parseInt(this.getAttribute('data-value'));
+        if (ratingInput) ratingInput.value = selectedRating;
+        highlightStars(selectedRating);
+        updateRatingLabel(selectedRating);
+      });
+
+    });
+  }
+
+
+  /* =============================== */
+  /*   CHARACTER COUNT               */
+  /* =============================== */
+
+  if (textarea && charCount) {
+    textarea.addEventListener('input', function () {
+      var len           = this.value.length;
+      charCount.textContent = len + ' / 500 characters';
+      charCount.style.color = len > 450 ? '#e74c3c' : '#8aada6';
+    });
+  }
+
+
+  /* =============================== */
+  /*   ESCAPE HTML — Security        */
+  /* =============================== */
+
+  function escapeHTML(str) {
+    return String(str)
+      .replace(/&/g,  '&amp;')
+      .replace(/</g,  '&lt;')
+      .replace(/>/g,  '&gt;')
+      .replace(/"/g,  '&quot;')
+      .replace(/'/g,  '&#039;');
+  }
+
+
+  /* =============================== */
+  /*   BUILD ONE REVIEW CARD HTML    */
+  /* =============================== */
+
+  function buildCard(review) {
+    var rating = Math.min(5, Math.max(0, parseInt(review.rating) || 0));
+
+    /* Build star strings */
+    var filledStars = '';
+    var emptyStars  = '';
+    for (var f = 0; f < rating;     f++) { filledStars += '★'; }
+    for (var e = 0; e < 5 - rating; e++) { emptyStars  += '☆'; }
+
+    var initial     = escapeHTML((review.name || 'A').charAt(0).toUpperCase());
+    var condHTML    = (review.condition && review.condition.trim() !== '')
+      ? '<div class="review-condition">🌿 ' + escapeHTML(review.condition) + '</div>'
+      : '';
+
+    return (
+      '<div class="review-card">' +
+
+        '<div class="review-header">' +
+          '<div class="review-avatar">' + initial + '</div>' +
+          '<div class="review-info">' +
+            '<div class="review-name">'  + escapeHTML(review.name || '') + '</div>' +
+            condHTML +
+            '<div class="review-date">'  + escapeHTML(review.date || '') + '</div>' +
+          '</div>' +
+        '</div>' +
+
+        '<div class="review-stars">' +
+          '<span style="color:#f59e0b;">' + filledStars + '</span>' +
+          '<span style="color:#d1d5db;">' + emptyStars  + '</span>' +
+        '</div>' +
+
+        '<p class="review-text">' + escapeHTML(review.text || '') + '</p>' +
+
+      '</div>'
+    );
+  }
+
+
+  /* =============================== */
+  /*   SHOW STATUS MESSAGE           */
+  /* =============================== */
+
+  function showMsg(text, isSuccess) {
+    var msgEl = document.getElementById('reviewMsg');
+    if (!msgEl) return;
+    msgEl.textContent      = text;
+    msgEl.style.display    = 'block';
+    msgEl.style.color      = isSuccess ? '#0a5c4d'  : '#c0392b';
+    msgEl.style.background = isSuccess ? '#eefaf6'  : '#fff0f0';
+    msgEl.style.border     = isSuccess
+      ? '1px solid #a7ddd0'
+      : '1px solid #f5c6cb';
+
+    /* Auto hide success after 5 seconds */
+    if (isSuccess) {
+      setTimeout(function () {
+        msgEl.style.display = 'none';
+      }, 5000);
+    }
+  }
+
+
+  /* =============================== */
+  /*   RENDER REVIEWS TO PAGE        */
+  /* =============================== */
+
+  function renderReviews(reviews) {
+    var container = document.getElementById('reviewsContainer');
+    var noMsg     = document.getElementById('noReviewsMsg');
+    if (!container) return;
+
+    /* Remove old cards */
+    var oldCards = container.querySelectorAll('.review-card');
+    oldCards.forEach(function (c) { c.remove(); });
+
+    if (!reviews || reviews.length === 0) {
+      if (noMsg) {
+        noMsg.style.display = 'block';
+        noMsg.textContent   = '🌿 Be the first to share your experience!';
+      }
+      return;
+    }
+
+    if (noMsg) noMsg.style.display = 'none';
+
+    /* Newest first */
+    var sorted = reviews.slice().reverse();
+    sorted.forEach(function (review) {
+      container.insertAdjacentHTML('beforeend', buildCard(review));
+    });
+  }
+
+
+  /* =============================== */
+  /*   LOAD REVIEWS FROM JSONBIN     */
+  /* =============================== */
+
+  function loadReviews() {
+    var noMsg = document.getElementById('noReviewsMsg');
+    if (noMsg) {
+      noMsg.style.display = 'block';
+      noMsg.textContent   = '⏳ Loading reviews...';
+    }
+
+    fetch(BASE_URL + '/latest', {
+      method  : 'GET',
+      headers : {
+        'X-Master-Key'    : MASTER_KEY,
+        'X-Bin-Meta'      : 'false'      /* Returns only the record, no metadata */
+      }
+    })
+    .then(function (res) {
+      if (!res.ok) { throw new Error('Failed to load: ' + res.status); }
+      return res.json();
+    })
+    .then(function (data) {
+      /* JSONBin wraps data in { record: { reviews: [...] } }        */
+      /* With X-Bin-Meta: false it returns { reviews: [...] } directly */
+      var reviews = [];
+      if (data && data.reviews) {
+        reviews = data.reviews;
+      } else if (data && data.record && data.record.reviews) {
+        reviews = data.record.reviews;
+      }
+      renderReviews(reviews);
+    })
+    .catch(function (err) {
+      console.error('Load error:', err);
+      var noMsg2 = document.getElementById('noReviewsMsg');
+      if (noMsg2) {
+        noMsg2.style.display = 'block';
+        noMsg2.textContent   = '🌿 Reviews could not be loaded. Please refresh.';
+      }
+    });
+  }
+
+
+  /* =============================== */
+  /*   SUBMIT REVIEW → JSONBIN       */
+  /* =============================== */
+
+  if (submitBtn) {
+    submitBtn.addEventListener('click', function () {
+
+      /* Collect form values */
+      var name      = document.getElementById('reviewName').value.trim();
+      var condition = document.getElementById('reviewCondition').value.trim();
+      var text      = textarea
+                        ? textarea.value.trim()
+                        : document.getElementById('reviewText').value.trim();
+      var rating    = parseInt(
+                        ratingInput
+                          ? ratingInput.value
+                          : document.getElementById('reviewRating').value
+                      );
+
+      /* ---- Validate ---- */
+      if (!name) {
+        showMsg('❌ Please enter your full name.', false);
+        document.getElementById('reviewName').focus();
+        return;
+      }
+
+      if (!rating || rating < 1) {
+        showMsg('⭐ Please click a star to give your rating.', false);
+        return;
+      }
+
+      if (!text || text.length < 10) {
+        showMsg('❌ Please write at least 10 characters in your review.', false);
+        if (textarea) textarea.focus();
+        return;
+      }
+
+      /* Disable button */
+      submitBtn.disabled    = true;
+      submitBtn.textContent = '⏳ Submitting...';
+
+      /* Today date */
+      var today = new Date().toLocaleDateString('en-IN', {
+        day   : 'numeric',
+        month : 'short',
+        year  : 'numeric'
+      });
+
+      /* New review object */
+      var newReview = {
+        name      : name,
+        condition : condition,
+        text      : text,
+        rating    : rating,
+        date      : today
+      };
+
+      /* Step 1: GET current reviews from JSONBin */
+      fetch(BASE_URL + '/latest', {
+        method  : 'GET',
+        headers : {
+          'X-Master-Key' : MASTER_KEY,
+          'X-Bin-Meta'   : 'false'
+        }
+      })
+      .then(function (res) {
+        if (!res.ok) { throw new Error('Fetch error: ' + res.status); }
+        return res.json();
+      })
+      .then(function (data) {
+
+        /* Get existing reviews array */
+        var existing = [];
+        if (data && data.reviews) {
+          existing = data.reviews;
+        } else if (data && data.record && data.record.reviews) {
+          existing = data.record.reviews;
+        }
+
+        /* Add new review to end */
+        existing.push(newReview);
+
+        /* Step 2: PUT updated array back to JSONBin */
+        return fetch(BASE_URL, {
+          method  : 'PUT',
+          headers : {
+            'Content-Type' : 'application/json',
+            'X-Master-Key' : MASTER_KEY
+          },
+          body : JSON.stringify({ reviews: existing })
+        });
+
+      })
+      .then(function (putRes) {
+        if (!putRes.ok) { throw new Error('Save error: ' + putRes.status); }
+        return putRes.json();
+      })
+      .then(function () {
+
+        /* Reset form */
+        document.getElementById('reviewForm').reset();
+        selectedRating = 0;
+        if (ratingInput) ratingInput.value = 0;
+        highlightStars(0);
+        updateRatingLabel(0);
+        if (charCount) charCount.textContent = '0 / 500 characters';
+
+        /* Success */
+        showMsg('✅ Thank you! Your review is now live for everyone to see! 🎉', true);
+
+        /* Reload reviews after short wait */
+        setTimeout(loadReviews, 1500);
+
+      })
+      .catch(function (err) {
+        console.error('Submit error:', err);
+        showMsg('❌ Something went wrong. Please try again.', false);
+      })
+      .finally(function () {
+        submitBtn.disabled    = false;
+        submitBtn.textContent = '⭐ Submit Review';
+      });
+
+    });
+  }
+
+
+  /* =============================== */
+  /*   START — Load reviews on ready */
+  /* =============================== */
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadReviews);
+  } else {
+    loadReviews();
+  }
+
+})();
