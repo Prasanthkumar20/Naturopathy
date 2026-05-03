@@ -22,6 +22,8 @@ const mimeTypes = {
   '.gif': 'image/gif',
   '.svg': 'image/svg+xml',
   '.ico': 'image/x-icon',
+  '.json': 'application/json',
+  '.webmanifest': 'application/manifest+json',
   '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 };
 
@@ -184,6 +186,16 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
+  /* ── PWA: serve .well-known/assetlinks.json ─────────────────────── */
+  if (url === '/.well-known/assetlinks.json') {
+    fs.readFile('./.well-known/assetlinks.json', (err, content) => {
+      if (err) { res.writeHead(404); return res.end('Not Found'); }
+      res.writeHead(200, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
+      res.end(content);
+    });
+    return;
+  }
+
   /* ── Static file server ──────────────────────────────────────────── */
   let filePath = '.' + url;
   if (filePath === './') filePath = './index.html';
@@ -196,7 +208,15 @@ const server = http.createServer(async (req, res) => {
       res.writeHead(404);
       res.end('Not Found', 'utf-8');
     } else {
-      res.writeHead(200, { 'Content-Type': contentType });
+      const headers = { 'Content-Type': contentType };
+      if (filePath.endsWith('sw.js')) {
+        headers['Service-Worker-Allowed'] = '/';
+        headers['Cache-Control'] = 'no-cache';
+      }
+      if (filePath.endsWith('manifest.json')) {
+        headers['Access-Control-Allow-Origin'] = '*';
+      }
+      res.writeHead(200, headers);
       res.end(content, 'binary');
     }
   });
