@@ -249,6 +249,23 @@
     .lb-img{max-width:90vw;max-height:88vh;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,0.5);}
     .lb-close{position:fixed;top:18px;right:22px;background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:1.6rem;cursor:pointer;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;}
 
+
+    /* ---- Blogs Tab ---- */
+    .blog-form-wrap{background:#f0faf5;border-radius:16px;padding:24px;margin-bottom:28px;}
+    .blog-form-wrap h3{color:var(--dark);margin-bottom:18px;font-size:1rem;}
+    .blog-form-field{margin-bottom:14px;}
+    .blog-form-field label{display:block;font-size:0.8rem;font-weight:600;color:#3a5a3a;margin-bottom:4px;}
+    .blog-form-field input,.blog-form-field select,.blog-form-field textarea{width:100%;padding:10px 13px;border:1.5px solid #c8ead8;border-radius:10px;font-size:0.9rem;background:#fff;box-sizing:border-box;}
+    .blog-form-field textarea{min-height:160px;resize:vertical;}
+    .blog-pub-btn{padding:12px 28px;background:linear-gradient(135deg,#0a5c4d,#3aafa9);color:#fff;border:none;border-radius:10px;font-size:0.92rem;font-weight:700;cursor:pointer;}
+    .blog-list{margin-top:20px;display:flex;flex-direction:column;gap:14px;}
+    .blog-item{background:#fff;border:1.5px solid #e0f2ec;border-radius:14px;padding:18px;display:flex;justify-content:space-between;align-items:flex-start;gap:14px;}
+    .blog-item-info{flex:1;}
+    .blog-item-title{font-weight:700;color:#1a2e1a;font-size:0.97rem;margin-bottom:4px;}
+    .blog-item-meta{font-size:0.78rem;color:#8aaa90;}
+    .blog-del-btn{background:#fee2e2;color:#e05;border:none;border-radius:8px;padding:7px 14px;cursor:pointer;font-weight:600;font-size:0.82rem;flex-shrink:0;}
+    .blog-success{display:none;background:#d4edda;border:1.5px solid #28a745;color:#155724;border-radius:10px;padding:12px 16px;margin-top:12px;font-weight:600;}
+
   </style>
 </head>
 <body>
@@ -285,6 +302,7 @@
     <button class="tab-btn" onclick="goTab('patients',this)">👥 Patients</button>
     <button class="tab-btn" onclick="goTab('dietchart',this)">🥗 Diet Chart</button>
     <button class="tab-btn" onclick="goTab('dietuploads',this)">📸 Diet Uploads</button>
+    <button class="tab-btn" onclick="goTab('blogs',this)">📝 Blogs</button>
   </div>
 
   <!-- DASHBOARD -->
@@ -469,6 +487,45 @@
     </div>
   </div>
 
+  <!-- BLOGS -->
+  <div id="tab-blogs" class="tab-pane">
+    <div class="blog-form-wrap">
+      <h3>✍️ Publish New Blog Post</h3>
+      <div class="blog-form-field">
+        <label>Blog Title *</label>
+        <input type="text" id="bl-title" placeholder="e.g. 5 Yoga Poses for PCOS Relief" />
+      </div>
+      <div class="blog-form-field">
+        <label>Category</label>
+        <select id="bl-cat">
+          <option>Yoga & Wellness</option>
+          <option>Diet & Nutrition</option>
+          <option>Naturopathy Tips</option>
+          <option>PCOS & Hormones</option>
+          <option>Diabetes Care</option>
+          <option>Weight Management</option>
+          <option>Mental Wellness</option>
+          <option>Skin & Hair Care</option>
+          <option>General Health</option>
+        </select>
+      </div>
+      <div class="blog-form-field">
+        <label>Author Name</label>
+        <input type="text" id="bl-author" placeholder="Dr. Srihari / Dr. Prathima..." />
+      </div>
+      <div class="blog-form-field">
+        <label>Blog Content *</label>
+        <textarea id="bl-content" placeholder="Write your full blog post here..."></textarea>
+      </div>
+      <button class="blog-pub-btn" onclick="publishBlog()">🚀 Publish Blog</button>
+      <div class="blog-success" id="bl-success">✅ Blog published successfully!</div>
+    </div>
+    <h3 style="color:var(--dark);font-size:0.97rem;margin-bottom:4px;">📋 Published Blogs</h3>
+    <div class="blog-list" id="blogList">
+      <div style="color:#8aaa90;padding:20px;text-align:center;">No blogs published yet.</div>
+    </div>
+  </div>
+
 </div><!-- END MAIN -->
 
 <!-- ADD PATIENT MODAL -->
@@ -600,6 +657,7 @@ function goTab(name, btn) {
   document.querySelectorAll(".tab-pane").forEach(function(t) { t.classList.remove("active"); });
   document.querySelectorAll(".tab-btn").forEach(function(b) { b.classList.remove("active"); });
   document.getElementById("tab-" + name).classList.add("active");
+  if (name === "blogs") renderBlogList();
   if (btn) btn.classList.add("active");
   if (name === "dashboard") initDash();
   if (name === "patients")  renderPatients();
@@ -1219,6 +1277,63 @@ function closeLB() {
   document.getElementById('lbImg').src = '';
 }
 
+
+
+/* ---- BLOGS ---- */
+function publishBlog() {
+  var title = document.getElementById('bl-title');
+  var cat = document.getElementById('bl-cat');
+  var content = document.getElementById('bl-content');
+  var author = document.getElementById('bl-author');
+  if (!title || !content) return;
+  if (!title.value.trim()) { alert('Please enter a blog title.'); return; }
+  if (!content.value.trim()) { alert('Please enter blog content.'); return; }
+  var blogs = JSON.parse(localStorage.getItem('nyc_blogs') || '[]');
+  blogs.push({
+    id: Date.now(),
+    title: title.value.trim(),
+    category: cat ? cat.value : 'General Health',
+    content: content.value.trim(),
+    author: author ? author.value.trim() || 'Doctor' : 'Doctor',
+    date: new Date().toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' })
+  });
+  localStorage.setItem('nyc_blogs', JSON.stringify(blogs));
+  title.value = '';
+  content.value = '';
+  if (author) author.value = '';
+  renderBlogList();
+  var suc = document.getElementById('bl-success');
+  if (suc) { suc.style.display = 'block'; setTimeout(function() { suc.style.display = 'none'; }, 3000); }
+}
+
+function renderBlogList() {
+  var blogs = JSON.parse(localStorage.getItem('nyc_blogs') || '[]');
+  var list = document.getElementById('blogList');
+  if (!list) return;
+  if (!blogs.length) {
+    list.innerHTML = '<div style="color:#8aaa90;padding:20px;text-align:center;">No blogs published yet.</div>';
+    return;
+  }
+  list.innerHTML = '';
+  blogs.slice().reverse().forEach(function(b) {
+    var div = document.createElement('div');
+    div.className = 'blog-item';
+    div.innerHTML =
+      '<div class="blog-item-info">' +
+        '<div class="blog-item-title">' + b.title + '</div>' +
+        '<div class="blog-item-meta">📂 ' + (b.category || 'Health') + ' &nbsp;|&nbsp; 📅 ' + b.date + ' &nbsp;|&nbsp; ✍️ ' + (b.author || 'Doctor') + '</div>' +
+      '</div>' +
+      '<button class="blog-del-btn" onclick="deleteBlog(' + b.id + ')">🗑 Delete</button>';
+    list.appendChild(div);
+  });
+}
+
+function deleteBlog(id) {
+  if (!confirm('Delete this blog post?')) return;
+  var blogs = JSON.parse(localStorage.getItem('nyc_blogs') || '[]');
+  localStorage.setItem('nyc_blogs', JSON.stringify(blogs.filter(function(b) { return b.id !== id; })));
+  renderBlogList();
+}
 
 </script>
 
