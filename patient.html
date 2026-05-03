@@ -385,15 +385,16 @@
       <div class="recharge-success" id="rechargeSuccess"></div>
       <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;">
         <button class="recharge-pay-btn" id="rechargeBtn" onclick="startRecharge('razorpay')">
-          &#x1F4B3; Recharge via Razorpay
+          &#x1F4B3; Razorpay Link
         </button>
         <button class="recharge-pay-btn" style="background:linear-gradient(135deg,#0f766e,#14b8a6);" onclick="startRecharge('upi')">
-          &#x1F4B8; UPI Pay
+          &#x1F4B8; Pay to 9666796307@ybl
         </button>
       </div>
-      <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;">
-        <a href="upi://pay?pa=9666796307@ybl&pn=Prahari%20NatureCure&cu=INR&tn=Wallet%20Recharge" style="flex:1;min-width:150px;text-align:center;padding:12px 14px;border-radius:999px;background:#f3e8ff;color:#6b21a8;font-weight:800;text-decoration:none;">PhonePe</a>
-        <a href="upi://pay?pa=9666796307@ybl&pn=Prahari%20NatureCure&cu=INR&tn=Wallet%20Recharge" style="flex:1;min-width:150px;text-align:center;padding:12px 14px;border-radius:999px;background:#eff6ff;color:#1d4ed8;font-weight:800;text-decoration:none;">Pay with UPI App</a>
+      <div style="margin-top:10px;background:#f8fafc;border:1px solid #dbeafe;border-radius:12px;padding:12px 14px;font-size:0.85rem;color:#334155;">
+        <div style="font-weight:800;margin-bottom:6px;">Payment options</div>
+        <div>Option 1: Pay to UPI ID <b>9666796307@ybl</b></div>
+        <div>Option 2: Razorpay link</div>
       </div>
     </div>
 
@@ -757,7 +758,7 @@ function startRecharge(mode) {
     if (!opened) { window.location.href = upiUrl; }
     return;
   }
-  if (!window.Razorpay) { alert('Payment system not loaded. Please refresh the page and try again.'); return; }
+    if (!window.Razorpay) { alert('Razorpay is not loaded. Please use the UPI ID option or refresh and try again.'); return; }
   var btn = document.getElementById('rechargeBtn');
   if (btn) { btn.disabled=true; btn.textContent='\u23F3 Opening payment...'; }
 
@@ -766,7 +767,7 @@ function startRecharge(mode) {
     body:JSON.stringify({amount_paise:Math.round(amt*100),doctor_name:'Wallet Recharge',session_type:'recharge',patient_name:_patient.name})
   })
   .then(function(r){
-    if (!r.ok) { return r.text().then(function(t){ throw new Error('Server error ('+r.status+'): '+t.substring(0,120)); }); }
+    if (!r.ok) { return r.text().then(function(t){ throw new Error(t || ('Server error ('+r.status+')')); }); }
     return r.json();
   })
   .then(function(data){
