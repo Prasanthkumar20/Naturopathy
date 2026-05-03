@@ -1501,6 +1501,7 @@
       </div>
       <div class="bc-new-bal">Wallet Balance: <strong id="bc-bal">&#8377;0</strong></div>
       <p style="font-size:0.82rem;color:#5a7060;text-align:center;margin-bottom:14px;">The admin will assign a doctor and confirm your session shortly.</p>
+      <button class="bc-close-btn" id="bcWhatsappBtn" onclick="sendBookingReceiptWA()" style="background:linear-gradient(135deg,#25D366,#128C7E);margin-bottom:8px;">&#x1F4F2; Send Receipt on WhatsApp</button>
       <button class="bc-close-btn" onclick="document.getElementById('bookConfirmModal').classList.remove('open')">&#x1F44D; Done</button>
     </div>
   </div>
@@ -1974,9 +1975,11 @@ function confirmBooking(){
   showBookingConfirm(name,_bookDoctor.name,typeStr,mins,total,platShare,docShare,adminShare,getWallet(p).balance);
 }
 
+var _lastBookingReceipt = {};
 function showBookingConfirm(pname,dname,type,mins,total,plat,doc,admin,newBal){
   var modal=document.getElementById('bookConfirmModal');
   if(!modal)return;
+  _lastBookingReceipt={pname:pname,dname:dname,type:type,mins:mins,total:total,plat:plat,doc:doc,admin:admin,newBal:newBal};
   document.getElementById('bc-patient').textContent=pname;
   document.getElementById('bc-doctor').textContent='Dr. '+dname;
   document.getElementById('bc-type').textContent=type+' Consultation';
@@ -1987,6 +1990,30 @@ function showBookingConfirm(pname,dname,type,mins,total,plat,doc,admin,newBal){
   document.getElementById('bc-admin').textContent='\u20b9'+admin+' (20%)';
   document.getElementById('bc-bal').textContent='\u20b9'+parseFloat(newBal).toFixed(2);
   modal.classList.add('open');
+}
+
+function sendBookingReceiptWA(){
+  var r=_lastBookingReceipt;
+  var clinicNum='917013989526';
+  var patPhone=(localStorage.getItem('nyc_wallet_active_phone')||'').replace(/\D/g,'');
+  var msg=encodeURIComponent(
+    '\uD83C\uDF31 *Booking Receipt — Naturopathy & Yoga Care*\n'+
+    '━━━━━━━━━━━━━━━━━━━━━━\n'+
+    '\uD83D\uDC64 Patient: '+r.pname+'\n'+
+    '\uD83D\uDC68\u200D\u2695\uFE0F Doctor: Dr. '+r.dname+'\n'+
+    '\uD83D\uDCDE Session: '+r.type+' ('+r.mins+' min)\n'+
+    '━━━━━━━━━━━━━━━━━━━━━━\n'+
+    '\uD83D\uDCB0 Amount Paid: \u20B9'+parseFloat(r.total).toFixed(2)+'\n'+
+    '\uD83D\uDCBB Platform (20%): \u20B9'+parseFloat(r.plat).toFixed(2)+'\n'+
+    '\uD83E\uDDB9 Doctor (60%): \u20B9'+parseFloat(r.doc).toFixed(2)+'\n'+
+    '\uD83C\uDFE5 Admin (20%): \u20B9'+parseFloat(r.admin).toFixed(2)+'\n'+
+    '━━━━━━━━━━━━━━━━━━━━━━\n'+
+    '\uD83D\uDCB3 Wallet Balance: \u20B9'+parseFloat(r.newBal).toFixed(2)+'\n'+
+    '\uD83D\uDDD3 Date: '+new Date().toLocaleString('en-IN')+'\n\n'+
+    'Thank you for booking with Naturopathy & Yoga Care! \uD83C\uDF3F'
+  );
+  window.open('https://wa.me/'+clinicNum+'?text='+msg,'_blank');
+  document.getElementById('bookConfirmModal').classList.remove('open');
 }
 
 document.addEventListener('keydown',function(e){

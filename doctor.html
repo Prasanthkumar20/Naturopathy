@@ -2223,7 +2223,30 @@ function openMarkPaid(docName, docPhone, owedAmt) {
   });
   localStorage.setItem('nyc_payouts', JSON.stringify(payouts));
   renderPayoutsTab();
-  alert('✅ Payout of ₹' + parseFloat(amt).toFixed(2) + ' to Dr. ' + docName + ' recorded successfully!');
+  /* WhatsApp notification to doctor */
+  if (docPhone) {
+    var phone = docPhone.replace(/\D/g,'');
+    if (phone.length >= 10) {
+      var msg = encodeURIComponent(
+        '\uD83C\uDF31 *Payment Received — Naturopathy & Yoga Care*\n' +
+        '━━━━━━━━━━━━━━━━━━━━━━\n' +
+        'Dear Dr. ' + docName + ',\n\n' +
+        '\u2705 Your consultation payment has been processed.\n\n' +
+        '\uD83D\uDCB0 Amount Paid: \u20B9' + parseFloat(amt).toFixed(2) + '\n' +
+        '\uD83D\uDCDD Method: ' + (note || 'Manual Transfer') + '\n' +
+        '\uD83D\uDDD3 Date: ' + new Date().toLocaleString('en-IN') + '\n' +
+        '━━━━━━━━━━━━━━━━━━━━━━\n' +
+        'Thank you for your services! \uD83C\uDF3F\nNaturopathy & Yoga Care'
+      );
+      if (confirm('✅ Payout recorded! Open WhatsApp to notify Dr. ' + docName + '?')) {
+        window.open('https://wa.me/' + (phone.length===10?'91':'')+phone + '?text=' + msg, '_blank');
+      }
+    } else {
+      alert('✅ Payout of ₹' + parseFloat(amt).toFixed(2) + ' to Dr. ' + docName + ' recorded!\n(No phone number available for WhatsApp notification)');
+    }
+  } else {
+    alert('✅ Payout of ₹' + parseFloat(amt).toFixed(2) + ' to Dr. ' + docName + ' recorded successfully!');
+  }
 }
 
 </script>
