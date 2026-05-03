@@ -226,6 +226,28 @@
       .frow.s3{grid-template-columns:1fr 1fr;}
       .opt-row{grid-template-columns:2fr 1fr auto;}
     }
+  
+    /* Diet Uploads tab */
+    .du-toolbar{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;align-items:center;}
+    .du-filter{flex:1;min-width:180px;padding:9px 13px;border:1px solid #cfe5dd;border-radius:10px;font-size:0.88rem;outline:none;}
+    .du-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;}
+    .du-card{background:#fff;border-radius:16px;padding:18px;box-shadow:var(--shadow);}
+    .du-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
+    .du-name{font-weight:800;color:var(--dark);font-size:0.97rem;}
+    .du-phone{font-size:0.78rem;color:#888;margin-top:2px;}
+    .du-date{font-size:0.75rem;color:#aaa;}
+    .du-note{font-size:0.82rem;color:var(--text);background:#f4fbf8;border-radius:8px;padding:8px 10px;margin-bottom:10px;font-style:italic;}
+    .du-imgs{display:flex;flex-wrap:wrap;gap:8px;}
+    .du-img{width:80px;height:80px;border-radius:10px;object-fit:cover;border:2px solid #d7f2eb;cursor:pointer;transition:0.2s;}
+    .du-img:hover{transform:scale(1.05);border-color:var(--accent);}
+    .du-del{background:#fee2e2;border:none;border-radius:7px;color:#e05;padding:5px 10px;font-size:0.75rem;font-weight:700;cursor:pointer;margin-top:10px;}
+    .du-empty{text-align:center;padding:60px 20px;color:#aaa;font-size:1rem;grid-column:1/-1;}
+    /* Lightbox */
+    .lb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9999;align-items:center;justify-content:center;}
+    .lb-overlay.open{display:flex;}
+    .lb-img{max-width:90vw;max-height:88vh;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,0.5);}
+    .lb-close{position:fixed;top:18px;right:22px;background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:1.6rem;cursor:pointer;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;}
+
   </style>
 </head>
 <body>
@@ -261,6 +283,7 @@
     <button class="tab-btn active" onclick="goTab('dashboard',this)">📊 Dashboard</button>
     <button class="tab-btn" onclick="goTab('patients',this)">👥 Patients</button>
     <button class="tab-btn" onclick="goTab('dietchart',this)">🥗 Diet Chart</button>
+    <button class="tab-btn" onclick="goTab('dietuploads',this)">📸 Diet Uploads</button>
   </div>
 
   <!-- DASHBOARD -->
@@ -430,6 +453,18 @@
         </div>
       </div>
 
+    </div>
+  </div>
+
+
+  <!-- DIET UPLOADS -->
+  <div id="tab-dietuploads" class="tab-pane">
+    <div class="du-toolbar">
+      <input class="du-filter" id="duSearch" placeholder="🔍 Search patient..." oninput="renderDietUploads()" />
+      <button class="p-add-btn" onclick="clearAllUploads()" style="background:#fee2e2;color:#e05;">🗑 Clear All</button>
+    </div>
+    <div class="du-grid" id="duGrid">
+      <div class="du-empty">No diet uploads yet. Patients upload photos from the website.</div>
     </div>
   </div>
 
@@ -1128,6 +1163,69 @@ function waSummary() {
   window.open(waURL, "_blank");
 }
 
+
+/* ---- Diet Uploads (Doctor Panel) ---- */
+function renderDietUploads() {
+  var q = (document.getElementById('duSearch').value || '').toLowerCase();
+  var uploads = JSON.parse(localStorage.getItem('nyc_diet_uploads') || '[]');
+  var list = uploads.filter(function(u) {
+    return u.name.toLowerCase().indexOf(q) !== -1 || (u.phone || '').indexOf(q) !== -1;
+  }).reverse();
+  var g = document.getElementById('duGrid');
+  if (!list.length) {
+    g.innerHTML = '<div class="du-empty">No diet uploads yet. Patients upload photos from the website.</div>';
+    return;
+  }
+  var html = '';
+  list.forEach(function(u) {
+    var imgs = (u.images || []).map(function(src) {
+      return '<img class="du-img" src="' + src + '" onclick="openLB(\'' + src + '\')" title="Click to enlarge" />';
+    }).join('');
+    html += '<div class="du-card">' +
+      '<div class="du-card-top">' +
+        '<div><div class="du-name">' + u.name + '</div><div class="du-phone">📞 ' + (u.phone||'—') + '</div></div>' +
+        '<div class="du-date">' + (u.date||'') + '</div>' +
+      '</div>' +
+      (u.note ? '<div class="du-note">"' + u.note + '"</div>' : '') +
+      '<div class="du-imgs">' + imgs + '</div>' +
+      '<button class="du-del" onclick="deleteDietUpload(' + u.id + ')">🗑 Delete</button>' +
+    '</div>';
+  });
+  g.innerHTML = html;
+}
+
+function deleteDietUpload(id) {
+  if (!confirm('Delete this upload?')) return;
+  var uploads = JSON.parse(localStorage.getItem('nyc_diet_uploads') || '[]');
+  uploads = uploads.filter(function(u) { return u.id !== id; });
+  localStorage.setItem('nyc_diet_uploads', JSON.stringify(uploads));
+  renderDietUploads();
+}
+
+function clearAllUploads() {
+  if (!confirm('Clear ALL patient diet uploads? This cannot be undone.')) return;
+  localStorage.removeItem('nyc_diet_uploads');
+  renderDietUploads();
+}
+
+function openLB(src) {
+  document.getElementById('lbImg').src = src;
+  document.getElementById('lbOverlay').classList.add('open');
+}
+
+function closeLB() {
+  document.getElementById('lbOverlay').classList.remove('open');
+  document.getElementById('lbImg').src = '';
+}
+
+
 </script>
+
+<!-- LIGHTBOX -->
+<div class="lb-overlay" id="lbOverlay" onclick="closeLB()">
+  <button class="lb-close" onclick="closeLB()">✕</button>
+  <img class="lb-img" id="lbImg" src="" alt="Diet Photo" onclick="event.stopPropagation()" />
+</div>
+
 </body>
 </html>
