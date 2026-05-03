@@ -50,7 +50,11 @@ const server = http.createServer(async (req, res) => {
   const url = req.url.split('?')[0];
 
   if (req.method === 'OPTIONS') {
-    res.writeHead(204, { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Content-Type', 'Access-Control-Allow-Methods': 'POST, GET, OPTIONS' });
+    res.writeHead(204, {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Methods': 'POST, GET, OPTIONS'
+    });
     return res.end();
   }
 
@@ -107,6 +111,76 @@ const server = http.createServer(async (req, res) => {
     } catch (err) {
       console.error('verify-payment error:', err);
       return json(res, 500, { error: err.message });
+    }
+  }
+
+  /* ── POST /api/route-transfer ───────────────────────────────────────
+     Transfers money from platform Razorpay balance to a doctor's
+     Razorpay Route linked account.
+     Body: { account_id, amount_rupees, doctor_name, note }
+     Returns: { transfer_id, status, amount, account_id }
+  ─────────────────────────────────────────────────────────────────── */
+  if (req.method === 'POST' && url === '/api/route-transfer') {
+    try {
+      const body = await readBody(req);
+      const { account_id, amount_rupees, doctor_name, note } = body;
+
+      if (!account_id || !account_id.startsWith('acc_')) {
+        return json(res, 400, { error: 'Invalid linked account ID. Must start with acc_' });
+      }
+      if (!amount_rupees || isNaN(parseFloat(amount_rupees)) || parseFloat(amount_rupees) < 1) {
+        return json(res, 400, { error: 'Invalid amount. Minimum ₹1.' });
+      }
+
+      const amount_paise = Math.round(parseFloat(amount_rupees) * 100);
+
+      const transfer = await razorpay.transfers.create({
+        account: account_id,
+        amount: amount_paise,
+        currency: 'INR',
+        notes: {
+          doctor: doctor_name || '',
+          note: note || 'Session payout',
+          platform: 'Naturopathy & Yoga Care',
+          date: new Date().toISOString(),
+        },
+      });
+
+      console.log(`Route transfer: ₹${amount_rupees} → ${account_id} (${doctor_name}) | transfer_id: ${transfer.id}`);
+
+      return json(res, 200, {
+        transfer_id: transfer.id,
+        status: transfer.status,
+        amount: transfer.amount,
+        account_id: transfer.recipient,
+      });
+    } catch (err) {
+      console.error('route-transfer error:', err);
+      return json(res, 500, { error: err.error_description || err.message || 'Transfer failed.' });
+    }
+  }
+
+  /* ── POST /api/verify-linked-account ───────────────────────────────
+     Validates that a given account ID exists on this Razorpay Route.
+     Body: { account_id }
+  ─────────────────────────────────────────────────────────────────── */
+  if (req.method === 'POST' && url === '/api/verify-linked-account') {
+    try {
+      const body = await readBody(req);
+      const { account_id } = body;
+      if (!account_id || !account_id.startsWith('acc_')) {
+        return json(res, 400, { error: 'Invalid account ID format.' });
+      }
+      const account = await razorpay.accounts.fetch(account_id);
+      return json(res, 200, {
+        valid: true,
+        name: account.legal_business_name || account.contact_name || account_id,
+        email: account.email || '',
+        status: account.activation_status || 'active',
+      });
+    } catch (err) {
+      console.error('verify-linked-account error:', err);
+      return json(res, 400, { valid: false, error: err.error_description || 'Account not found.' });
     }
   }
 

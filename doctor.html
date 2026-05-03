@@ -108,6 +108,20 @@
       border-radius:8px;font-size:0.83rem;background:#fff;outline:none;}
     input:focus,select:focus,textarea:focus{border-color:var(--accent);}
     textarea{min-height:60px;resize:vertical;}
+    /* RAZORPAY ROUTE */
+    .route-link-box{background:#f0fdf8;border:2px solid #b2eed8;border-radius:12px;padding:14px;margin-top:12px;}
+    .route-link-box label{font-size:0.78rem;font-weight:700;color:var(--primary);display:block;margin-bottom:6px;}
+    .route-input-row{display:flex;gap:8px;}
+    .route-input-row input{flex:1;padding:9px 12px;border:2px solid #cde8da;border-radius:10px;font-size:0.85rem;outline:none;font-family:monospace;}
+    .route-link-btn{padding:9px 16px;background:linear-gradient(135deg,#0a5c4d,#3aafa9);color:#fff;border:none;border-radius:10px;font-weight:700;font-size:0.82rem;cursor:pointer;white-space:nowrap;}
+    .route-linked-badge{display:inline-flex;align-items:center;gap:6px;background:#dcfce7;color:#166534;border-radius:999px;padding:5px 12px;font-size:0.8rem;font-weight:700;margin-top:8px;}
+    .route-pay-btn{width:100%;padding:11px;background:linear-gradient(135deg,#1565c0,#1976d2);color:#fff;border:none;border-radius:999px;font-weight:800;font-size:0.88rem;cursor:pointer;margin-top:8px;}
+    .route-pay-btn:disabled{opacity:0.5;cursor:not-allowed;}
+    .route-status-processing{color:#1565c0;font-size:0.82rem;font-weight:700;margin-top:6px;display:none;}
+    .route-how{background:#e8f4fd;border:1px solid #90caf9;border-radius:10px;padding:12px 14px;font-size:0.8rem;color:#1565c0;margin-bottom:16px;}
+    .route-how ol{margin-left:16px;margin-top:6px;}
+    .route-how li{margin-bottom:4px;}
+
     /* ── PAYOUTS TAB ── */
     .payout-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:22px;}
     .payout-stat{background:#fff;border-radius:14px;padding:18px;box-shadow:var(--shadow);text-align:center;}
@@ -786,8 +800,17 @@
       <button class="p-add-btn" onclick="renderPayoutsTab()">🔄 Refresh</button>
     </div>
 
-    <div class="alert-box">
-      ℹ️ <strong>How payouts work:</strong> Each session's doctor share (60%) is calculated automatically. Click <strong>"Mark as Paid"</strong> once you've transferred the amount to the doctor via UPI or bank transfer. This keeps a permanent record of all payouts.
+    <div class="route-how">
+      🔵 <strong>Razorpay Route is Active!</strong> You can now pay doctors directly from your Razorpay balance — no manual UPI needed.<br>
+      <ol>
+        <li>Go to <a href="https://dashboard.razorpay.com/app/route/linked-accounts" target="_blank" style="color:#1565c0;font-weight:700;">Razorpay Dashboard → Route → Linked Accounts</a></li>
+        <li>Find or create the doctor's linked account — copy their <strong>Account ID</strong> (starts with <code>acc_</code>)</li>
+        <li>Paste it below in each doctor's card and click <strong>"Link Account"</strong></li>
+        <li>Click <strong>"💳 Pay via Razorpay Route"</strong> — money transfers instantly from your balance</li>
+      </ol>
+    </div>
+    <div class="alert-box" style="background:#fff8e1;border-color:#f0d080;">
+      ℹ️ <strong>Manual option:</strong> If a doctor isn't linked yet, use <strong>"Mark as Paid"</strong> (records manual UPI transfer). Once linked, switch to Route for instant automated transfers.
     </div>
 
     <!-- Stats -->
@@ -2143,8 +2166,10 @@ function renderPayoutsTab() {
     return;
   }
 
+  var routeAccounts = JSON.parse(localStorage.getItem('nyc_route_accounts') || '{}');
   container.innerHTML = keys.map(function(key) {
     var doc = docMap[key];
+    var routeId = routeAccounts[key] || '';
     var docPayouts = payouts.filter(function(p){ return p.doctorName === doc.name; });
     var paidAmt    = docPayouts.reduce(function(s,p){ return s + parseFloat(p.amount||0); }, 0);
     var owedAmt    = Math.max(0, doc.docShare - paidAmt);
@@ -2247,6 +2272,129 @@ function openMarkPaid(docName, docPhone, owedAmt) {
   } else {
     alert('✅ Payout of ₹' + parseFloat(amt).toFixed(2) + ' to Dr. ' + docName + ' recorded successfully!');
   }
+}
+
+
+
+/* ══════════════════════════════════════════
+   RAZORPAY ROUTE FUNCTIONS
+   ══════════════════════════════════════════ */
+
+function linkRouteAccount(keySlug, docName) {
+  var inp = document.getElementById('route-inp-' + keySlug);
+  if (!inp) return;
+  var accId = (inp.value || '').trim();
+  if (!accId || !accId.startsWith('acc_')) {
+    alert('❌ Please enter a valid Razorpay linked account ID.\nIt must start with acc_');
+    return;
+  }
+  inp.disabled = true;
+  inp.value = '⏳ Verifying...';
+  fetch('/api/verify-linked-account', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ account_id: accId })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(d) {
+    inp.disabled = false;
+    if (d.valid) {
+      var accounts = JSON.parse(localStorage.getItem('nyc_route_accounts') || '{}');
+      accounts[keySlug] = accId;
+      localStorage.setItem('nyc_route_accounts', JSON.stringify(accounts));
+      renderPayoutsTab();
+      alert('✅ Account linked!\nDr. ' + docName + ' → ' + accId + '\nName: ' + (d.name || 'Verified') + '\n\nYou can now pay via Razorpay Route with one click.');
+    } else {
+      inp.value = accId;
+      alert('❌ Account not found: ' + (d.error || 'Invalid ID') + '\n\nMake sure you copied the correct acc_ ID from your Razorpay Route dashboard.');
+    }
+  })
+  .catch(function() {
+    inp.disabled = false;
+    inp.value = accId;
+    alert('❌ Network error. Check connection and try again.');
+  });
+}
+
+function payViaRoute(keySlug, docName, docPhone, owedAmt, accountId) {
+  if (!accountId || !accountId.startsWith('acc_')) {
+    alert('Please link a Razorpay Route account first.');
+    return;
+  }
+  var amtStr = prompt(
+    '💳 Razorpay Route Transfer to Dr. ' + docName + '\nLinked Account: ' + accountId +
+    '\nBalance owed: ₹' + owedAmt.toFixed(2) + '\n\nEnter amount to transfer (₹):',
+    owedAmt.toFixed(2)
+  );
+  if (!amtStr || isNaN(parseFloat(amtStr)) || parseFloat(amtStr) <= 0) return;
+  var amt = parseFloat(amtStr);
+
+  var payBtn    = document.getElementById('route-pay-' + keySlug);
+  var statusEl  = document.getElementById('route-status-' + keySlug);
+  if (payBtn)   { payBtn.disabled = true; payBtn.textContent = '⏳ Transferring...'; }
+  if (statusEl) { statusEl.style.display = 'block'; }
+
+  fetch('/api/route-transfer', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      account_id: accountId,
+      amount_rupees: amt,
+      doctor_name: docName,
+      note: 'Session payout — Naturopathy & Yoga Care'
+    })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(d) {
+    if (statusEl) statusEl.style.display = 'none';
+    if (d.transfer_id) {
+      /* Record in payouts */
+      var payouts = JSON.parse(localStorage.getItem('nyc_payouts') || '[]');
+      payouts.push({
+        id: Date.now(),
+        doctorName: docName,
+        doctorPhone: docPhone,
+        amount: amt,
+        note: '💳 Razorpay Route · Transfer ID: ' + d.transfer_id,
+        method: 'razorpay_route',
+        transfer_id: d.transfer_id,
+        date: new Date().toLocaleString('en-IN')
+      });
+      localStorage.setItem('nyc_payouts', JSON.stringify(payouts));
+      renderPayoutsTab();
+      /* WhatsApp notification */
+      if (docPhone) {
+        var phone = docPhone.replace(/\D/g,'');
+        if (phone.length >= 10) {
+          var msg = encodeURIComponent(
+            '\uD83C\uDF31 *Payment Received — Naturopathy & Yoga Care*\n' +
+            '━━━━━━━━━━━━━━━━━━━━━━\n' +
+            'Dear Dr. ' + docName + ',\n\n' +
+            '\u2705 Your payment has been transferred via Razorpay Route.\n\n' +
+            '\uD83D\uDCB0 Amount: \u20B9' + amt.toFixed(2) + '\n' +
+            '\uD83C\uDD94 Transfer ID: ' + d.transfer_id + '\n' +
+            '\uD83D\uDDD3 Date: ' + new Date().toLocaleString('en-IN') + '\n' +
+            '━━━━━━━━━━━━━━━━━━━━━━\n' +
+            'The amount will appear in your Razorpay dashboard shortly.\n' +
+            'Thank you! \uD83C\uDF3F\nNaturopathy & Yoga Care'
+          );
+          if (confirm('✅ ₹' + amt.toFixed(2) + ' transferred to Dr. ' + docName + ' via Razorpay Route!\nTransfer ID: ' + d.transfer_id + '\n\nSend WhatsApp notification to doctor?')) {
+            window.open('https://wa.me/' + (phone.length===10?'91':'')+phone + '?text=' + msg, '_blank');
+          }
+        } else {
+          alert('✅ ₹' + amt.toFixed(2) + ' transferred to Dr. ' + docName + ' via Razorpay Route!\nTransfer ID: ' + d.transfer_id);
+        }
+      }
+    } else {
+      if (payBtn) { payBtn.disabled = false; payBtn.textContent = '💳 Pay ₹' + owedAmt.toFixed(2) + ' via Razorpay Route'; }
+      alert('❌ Transfer failed: ' + (d.error || 'Unknown error') + '\n\nCheck your Razorpay Route balance and try again.');
+    }
+  })
+  .catch(function(err) {
+    if (statusEl) statusEl.style.display = 'none';
+    if (payBtn) { payBtn.disabled = false; payBtn.textContent = '💳 Pay via Razorpay Route'; }
+    alert('❌ Network error. Please try again.');
+  });
 }
 
 </script>
