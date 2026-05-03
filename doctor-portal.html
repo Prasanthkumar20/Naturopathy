@@ -230,6 +230,25 @@
         style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1.1rem;color:#56766e;line-height:1;">&#x1F441;</button>
     </div>
     <button class="login-btn" onclick="doDocLogin()">&#x1F510; Login</button>
+    <div style="text-align:center;margin-top:6px;">
+      <a href="#" onclick="showDocForgotPanel();return false;" style="font-size:0.8rem;color:#56766e;text-decoration:underline;">Forgot Password?</a>
+    </div>
+    <!-- Forgot Password Panel -->
+    <div id="docForgotPanel" style="display:none;background:#f0faf5;border:1.5px solid #52b788;border-radius:12px;padding:14px;margin-top:8px;">
+      <div style="font-weight:700;color:#0a5c4d;font-size:0.9rem;margin-bottom:10px;">&#x1F511; Password Recovery</div>
+      <input class="l-input" type="tel" id="forgotDocPhone" placeholder="Your registered phone number"
+        onkeydown="if(event.key==='Enter')sendDocForgotPwd()"
+        style="margin-bottom:10px;" />
+      <button onclick="sendDocForgotPwd()" style="width:100%;padding:10px;background:#0a5c4d;color:#fff;border:none;border-radius:999px;font-weight:700;cursor:pointer;font-size:0.88rem;">&#x1F4F2; Send Password to My Phone</button>
+      <!-- Password display box -->
+      <div id="forgotDocPwdBox" style="display:none;background:#fff8e6;border:1.5px dashed #d4a000;border-radius:10px;padding:12px;text-align:center;margin-top:10px;">
+        <div style="font-size:0.76rem;color:#7a5800;margin-bottom:4px;font-weight:600;">Your Saved Password</div>
+        <div id="forgotDocPwdVal" style="font-size:1.4rem;font-weight:900;color:#3a2000;letter-spacing:3px;font-family:monospace;margin-bottom:8px;"></div>
+        <a id="forgotDocWaLink" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:5px;background:#25d366;color:#fff;border-radius:999px;padding:6px 14px;font-size:0.78rem;font-weight:700;text-decoration:none;">&#x1F4AC; Save via WhatsApp</a>
+      </div>
+      <div id="forgotDocStatus" style="display:none;font-size:0.8rem;margin-top:8px;text-align:center;"></div>
+      <button onclick="document.getElementById('docForgotPanel').style.display='none';" style="width:100%;margin-top:8px;padding:7px;background:transparent;border:1.5px solid #cde8da;border-radius:999px;color:#5a7060;font-size:0.8rem;cursor:pointer;">&#x2715; Cancel</button>
+    </div>
 
     <div class="login-err" id="loginErr"></div>
     <div class="login-hint">Not registered? <a href="index.html#register">Register as Doctor</a> &nbsp;|&nbsp; <a href="index.html">Main Website</a></div>
@@ -551,6 +570,43 @@ var _sessionFilter = 'all';
 function toggleDocPwd(btn) {
   var inp = document.getElementById('loginPassword');
   inp.type = inp.type === 'password' ? 'text' : 'password';
+}
+
+function showDocForgotPanel() {
+  var p = document.getElementById('docForgotPanel');
+  p.style.display = (p.style.display === 'none' || !p.style.display) ? 'block' : 'none';
+  var ph = (document.getElementById('loginPhone').value || '').replace(/\D/g,'');
+  if (ph) document.getElementById('forgotDocPhone').value = ph;
+  document.getElementById('forgotDocStatus').style.display = 'none';
+  document.getElementById('forgotDocPwdBox').style.display = 'none';
+}
+
+function sendDocForgotPwd() {
+  var raw = (document.getElementById('forgotDocPhone').value || '').replace(/\D/g,'');
+  var st = document.getElementById('forgotDocStatus');
+  st.style.display = 'block';
+  if (!raw || raw.length < 10) { st.textContent = 'Please enter a valid 10-digit phone number.'; st.style.color = '#c0392b'; return; }
+  var regs = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
+  var match = regs.find(function(r){ return r.phone && r.phone.replace(/\D/g,'') === raw && r.type === 'doctor'; });
+  if (!match) { st.textContent = '\u274C No doctor account found for this number.'; st.style.color = '#c0392b'; return; }
+  var pwd = match.password || '';
+  /* Show password on screen */
+  document.getElementById('forgotDocPwdVal').textContent = pwd;
+  document.getElementById('forgotDocPwdBox').style.display = 'block';
+  /* WhatsApp save link — pre-fills message to themselves */
+  var waMsg = '\uD83C\uDF3F Prahari NatureCure \u2014 Doctor Password Recovery\n\nYour password is: ' + pwd + '\n\nPhone: +91' + raw + '\n\u2014 Keep this safe!';
+  document.getElementById('forgotDocWaLink').href = 'https://wa.me/91' + raw + '?text=' + encodeURIComponent(waMsg);
+  /* Send via SMS */
+  st.textContent = '\uD83D\uDCE8 Sending SMS\u2026'; st.style.color = '#56766e';
+  fetch('/api/send-sms', {
+    method: 'POST', headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({ phone: raw, message: 'Prahari NatureCure: Your doctor password is ' + pwd + '. Do not share. -NatureCure' })
+  }).then(function(r){ return r.json(); }).then(function(data){
+    if (data.sent) { st.textContent = '\u2705 Password sent to your phone via SMS!'; st.style.color = '#0a5c4d'; }
+    else { st.textContent = '\uD83D\uDCF1 Your password is shown above. Note it down safely.'; st.style.color = '#56766e'; }
+  }).catch(function(){
+    st.textContent = '\uD83D\uDCF1 Your password is shown above. Note it down safely.'; st.style.color = '#56766e';
+  });
 }
 
 function doDocLogin() {
