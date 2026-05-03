@@ -767,7 +767,19 @@ function startRecharge(mode) {
     body:JSON.stringify({amount_paise:Math.round(amt*100),doctor_name:'Wallet Recharge',session_type:'recharge',patient_name:_patient.name})
   })
   .then(function(r){
-    if (!r.ok) { return r.text().then(function(t){ throw new Error(t || ('Server error ('+r.status+')')); }); }
+    var ct = (r.headers && r.headers.get && r.headers.get('content-type')) || '';
+    if (!r.ok) {
+      return r.text().then(function(t){
+        var clean = (t || '').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
+        throw new Error(clean || ('Server error ('+r.status+')'));
+      });
+    }
+    if (ct.indexOf('application/json') === -1) {
+      return r.text().then(function(t){
+        var clean = (t || '').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
+        throw new Error(clean || 'Invalid response from payment server.');
+      });
+    }
     return r.json();
   })
   .then(function(data){
