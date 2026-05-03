@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+  <title>Patient Portal — Naturopathy & Yoga Care</title>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <style>
+    :root{--primary:#0a5c4d;--accent:#3aafa9;--dark:#163832;--gold:#d9b66f;--text:#35524a;--shadow:0 8px 28px rgba(10,92,77,0.10);}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:Arial,sans-serif;background:#f4fbf8;color:var(--text);}
+
+    /* LOGIN */
+    .login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,#f4fffb,#e9fbf5);}
+    .login-box{background:#fff;border-radius:24px;padding:44px 38px;width:min(420px,94%);
+      box-shadow:0 16px 48px rgba(10,92,77,0.13);text-align:center;}
+    .login-logo{font-size:3rem;margin-bottom:10px;}
+    .login-box h2{color:var(--dark);font-size:1.35rem;font-weight:800;margin-bottom:4px;}
+    .login-box p{color:#8a9e98;font-size:0.88rem;margin-bottom:28px;}
+    .l-tabs{display:flex;border-radius:12px;overflow:hidden;border:2px solid #cde8da;margin-bottom:24px;}
+    .l-tab{flex:1;padding:10px;font-weight:700;font-size:0.88rem;border:none;background:#f0fdf8;color:#5a7060;cursor:pointer;transition:0.15s;}
+    .l-tab.active{background:var(--primary);color:#fff;}
+    .l-input{width:100%;padding:13px 16px;border:2px solid #cde8da;border-radius:12px;
+      font-size:0.97rem;margin-bottom:14px;outline:none;}
+    .l-input:focus{border-color:var(--accent);}
+    .login-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--primary),var(--accent));
+      color:#fff;border:none;border-radius:999px;font-weight:800;font-size:1rem;cursor:pointer;}
+    .login-err{color:#c0392b;font-size:0.85rem;margin-top:10px;display:none;background:#fff0f0;padding:8px 12px;border-radius:8px;}
+    .login-hint{font-size:0.8rem;color:#8a9e98;margin-top:14px;}
+    .login-hint a{color:var(--primary);font-weight:700;}
+
+    /* TOPBAR */
+    .topbar{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;
+      padding:11px 20px;display:flex;justify-content:space-between;align-items:center;
+      flex-wrap:wrap;gap:8px;position:sticky;top:0;z-index:100;}
+    .topbar h1{font-size:1rem;font-weight:700;}
+    .topbar-right{display:flex;gap:8px;align-items:center;}
+    .t-btn{background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.35);
+      color:#fff;padding:6px 13px;border-radius:999px;cursor:pointer;font-weight:700;font-size:0.8rem;}
+    .pat-tag{background:rgba(255,255,255,0.15);padding:5px 14px;border-radius:999px;font-size:0.82rem;font-weight:700;}
+
+    /* TABS */
+    .tab-nav{background:#fff;border-bottom:2px solid #e0f2ec;display:flex;padding:0 20px;overflow-x:auto;}
+    .tab-btn{padding:13px 18px;border:none;background:none;color:#888;font-weight:700;
+      font-size:0.88rem;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:0.2s;}
+    .tab-btn.active{color:var(--primary);border-bottom-color:var(--primary);}
+    .tab-pane{display:none;padding:20px;max-width:1200px;margin:auto;}
+    .tab-pane.active{display:block;}
+
+    /* CARDS */
+    .card{background:#fff;border-radius:16px;padding:22px;box-shadow:var(--shadow);margin-bottom:16px;}
+    .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:20px;}
+    .stat-card{background:#fff;border-radius:14px;padding:18px;box-shadow:var(--shadow);text-align:center;}
+    .stat-icon{font-size:1.7rem;margin-bottom:6px;}
+    .stat-num{font-size:1.8rem;font-weight:900;color:var(--primary);}
+    .stat-lbl{font-size:0.78rem;color:#888;margin-top:3px;}
+
+    /* WALLET */
+    .wallet-balance-card{background:linear-gradient(135deg,#e8fdf5,#d0f5e8);border-radius:16px;
+      padding:28px;text-align:center;border:2px solid #b2eed8;margin-bottom:18px;}
+    .wbal-label{font-size:0.82rem;color:#5a7060;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;}
+    .wbal-amt{font-size:2.8rem;font-weight:900;color:var(--primary);margin:8px 0 4px;}
+    .wbal-sub{font-size:0.82rem;color:#5a7060;}
+    .recharge-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
+    .recharge-btn{background:#f0fdf8;border:2px solid #b2eed8;border-radius:12px;padding:13px 8px;
+      cursor:pointer;font-weight:700;color:var(--primary);font-size:0.97rem;text-align:center;transition:0.15s;}
+    .recharge-btn:hover,.recharge-btn.selected{background:var(--primary);color:#fff;border-color:var(--primary);}
+    .recharge-custom{display:flex;gap:8px;margin-bottom:14px;}
+    .recharge-custom input{flex:1;padding:11px 14px;border:2px solid #cde8da;border-radius:10px;font-size:0.9rem;outline:none;}
+    .recharge-pay-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--primary),var(--accent));
+      color:#fff;border:none;border-radius:12px;font-weight:800;font-size:1rem;cursor:pointer;}
+    .recharge-pay-btn:disabled{opacity:0.6;cursor:not-allowed;}
+    .recharge-success{background:#e8fdf5;border:2px solid #6dd8a8;border-radius:12px;padding:13px;
+      color:var(--primary);font-weight:700;text-align:center;display:none;margin-bottom:12px;}
+    .section-title{font-size:0.88rem;font-weight:700;color:var(--primary);text-transform:uppercase;
+      letter-spacing:0.05em;margin:20px 0 10px;}
+    .txn-tabs{display:flex;border-radius:12px;overflow:hidden;border:2px solid #cde8da;margin-bottom:14px;}
+    .txn-tab{flex:1;padding:9px;text-align:center;font-size:0.85rem;font-weight:700;cursor:pointer;
+      background:#f0fdf8;color:#5a7060;border:none;transition:0.15s;}
+    .txn-tab.active{background:var(--primary);color:#fff;}
+    .txn-list{max-height:300px;overflow-y:auto;}
+    .txn-row{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;
+      border-radius:10px;margin-bottom:7px;font-size:0.85rem;}
+    .txn-row.credit{background:#e8fdf5;}
+    .txn-row.debit{background:#fff5f5;}
+    .txn-left{display:flex;flex-direction:column;gap:2px;}
+    .txn-desc{font-weight:700;color:var(--dark);}
+    .txn-date{font-size:0.76rem;color:#8a9e98;}
+    .txn-amt{font-weight:800;font-size:0.97rem;}
+    .txn-row.credit .txn-amt{color:var(--primary);}
+    .txn-row.debit .txn-amt{color:#c0392b;}
+    .txn-empty{text-align:center;color:#8a9e98;padding:24px;font-size:0.85rem;}
+
+    /* BOOKINGS */
+    .booking-card{background:#fff;border-radius:14px;padding:18px;box-shadow:var(--shadow);
+      margin-bottom:12px;border-left:4px solid var(--accent);}
+    .booking-card.pending{border-left-color:#f59e0b;}
+    .bc-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+    .bc-doctor{font-size:1rem;font-weight:800;color:var(--dark);}
+    .bc-type-badge{display:inline-block;padding:3px 10px;border-radius:999px;font-size:0.75rem;font-weight:700;}
+    .bc-chat{background:#e8fdf5;color:var(--primary);}
+    .bc-call{background:#e8f4fd;color:#1565c0;}
+    .bc-meta{font-size:0.82rem;color:#8a9e98;margin-bottom:8px;}
+    .bc-split{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
+    .bc-split-pill{background:#f0fdf8;border:1px solid #b2eed8;border-radius:999px;
+      padding:3px 10px;font-size:0.75rem;font-weight:700;color:var(--primary);}
+    .no-data{text-align:center;color:#8a9e98;padding:40px;font-size:0.88rem;}
+
+    /* DOCTOR CARD */
+    .doctor-assign-card{background:linear-gradient(135deg,#f0fdf8,#e8f8f0);border-radius:16px;
+      padding:22px;border:2px solid #b2eed8;margin-bottom:14px;}
+    .da-doctor{font-size:1.2rem;font-weight:900;color:var(--dark);margin-bottom:4px;}
+    .da-spec{font-size:0.85rem;color:#5a7060;margin-bottom:10px;}
+    .da-row{display:flex;gap:8px;margin-bottom:6px;font-size:0.85rem;align-items:center;}
+    .da-label{font-weight:700;color:var(--primary);min-width:110px;}
+    .da-val{color:var(--dark);}
+
+    /* DIET UPLOADS */
+    .diet-upload-card{background:#fff;border-radius:14px;padding:16px;box-shadow:var(--shadow);margin-bottom:12px;}
+    .du-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+    .du-name{font-weight:700;color:var(--dark);font-size:0.95rem;}
+    .du-date{font-size:0.78rem;color:#8a9e98;}
+    .du-note{font-size:0.82rem;color:#5a7060;margin-bottom:10px;background:#f4fbf8;padding:8px 10px;border-radius:8px;}
+    .du-imgs{display:flex;gap:8px;flex-wrap:wrap;}
+    .du-img{width:80px;height:80px;object-fit:cover;border-radius:10px;border:2px solid #b2eed8;cursor:pointer;}
+
+    /* PROFILE */
+    .profile-field{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #f0f6f3;font-size:0.88rem;}
+    .profile-field:last-child{border-bottom:none;}
+    .pf-label{font-weight:700;color:var(--primary);min-width:140px;}
+    .pf-val{color:var(--dark);}
+    .edit-profile-btn{margin-top:14px;padding:10px 24px;background:linear-gradient(135deg,var(--primary),var(--accent));
+      color:#fff;border:none;border-radius:999px;font-weight:700;cursor:pointer;font-size:0.88rem;}
+
+    /* REGISTER PROMPT */
+    .register-prompt{background:#fff8e1;border:2px solid #f0d080;border-radius:16px;padding:24px;text-align:center;}
+    .register-prompt h3{color:#7a5800;margin-bottom:8px;}
+    .register-prompt p{color:#7a6020;font-size:0.88rem;margin-bottom:16px;}
+    .register-prompt a{display:inline-block;padding:12px 28px;background:linear-gradient(135deg,var(--primary),var(--accent));
+      color:#fff;border-radius:999px;font-weight:700;text-decoration:none;}
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">🌿</div>
+    <h2>Patient Portal</h2>
+    <p>Naturopathy &amp; Yoga Care — Login to your account</p>
+
+    <div class="l-tabs">
+      <button class="l-tab active" onclick="switchLoginTab('phone',this)">&#x1F4F1; Login with Phone</button>
+      <button class="l-tab" onclick="switchLoginTab('register',this)">&#x1F4CB; New Patient</button>
+    </div>
+
+    <!-- Phone Login -->
+    <div id="loginPhoneForm">
+      <input class="l-input" type="tel" id="loginPhone" placeholder="Enter your registered phone number"
+        onkeydown="if(event.key==='Enter')doPatientLogin()" />
+      <button class="login-btn" onclick="doPatientLogin()">&#x1F513; Login to My Portal</button>
+      <div class="login-err" id="loginErr">&#x274C; No account found with this phone number. Please register first.</div>
+    </div>
+
+    <!-- Register redirect -->
+    <div id="loginRegisterForm" style="display:none;">
+      <p style="color:#5a7060;font-size:0.88rem;margin-bottom:16px;">Fill in the registration form on the main website, then come back here to login.</p>
+      <a href="index.html#register" style="display:block;padding:13px;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border-radius:999px;font-weight:700;text-decoration:none;text-align:center;margin-bottom:12px;">&#x1F4CB; Register as Patient</a>
+      <button class="login-btn" style="background:#e8fdf5;color:var(--primary);border:2px solid var(--accent);" onclick="switchLoginTab('phone',document.querySelector('.l-tab'))">&#x1F519; Back to Login</button>
+    </div>
+
+    <div class="login-hint">Problems logging in? <a href="index.html">Return to website</a></div>
+  </div>
+</div>
+
+<!-- MAIN PORTAL -->
+<div id="mainPortal" style="display:none;">
+
+  <div class="topbar">
+    <h1>&#x1F331; Patient Portal — Naturopathy &amp; Yoga Care</h1>
+    <div class="topbar-right">
+      <span class="pat-tag" id="patTag">&#x1F9D1; Patient</span>
+      <button class="t-btn" onclick="window.open('index.html','_blank')">&#x1F310; Website</button>
+      <button class="t-btn" onclick="doLogout()">&#x1F6AA; Logout</button>
+    </div>
+  </div>
+
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="goTab('dashboard',this)">&#x1F4CA; Dashboard</button>
+    <button class="tab-btn" onclick="goTab('wallet',this)">&#x1F4B0; My Wallet</button>
+    <button class="tab-btn" onclick="goTab('bookings',this)">&#x1F4C5; My Bookings</button>
+    <button class="tab-btn" onclick="goTab('doctor',this)">&#x1F9D1;&#x200D;&#x2695;&#xFE0F; My Doctor</button>
+    <button class="tab-btn" onclick="goTab('diet',this)">&#x1F4F8; Diet Uploads</button>
+    <button class="tab-btn" onclick="goTab('profile',this)">&#x1F464; My Profile</button>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="tab-dashboard" class="tab-pane active">
+    <h2 id="dashGreeting" style="font-size:1.15rem;font-weight:800;color:var(--dark);margin-bottom:18px;"></h2>
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-icon">&#x1F4B0;</div>
+        <div class="stat-num" id="ds-wallet">&#8377;0</div>
+        <div class="stat-lbl">Wallet Balance</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">&#x1F4C5;</div>
+        <div class="stat-num" id="ds-bookings">0</div>
+        <div class="stat-lbl">Sessions Booked</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">&#x1F9D1;&#x200D;&#x2695;&#xFE0F;</div>
+        <div class="stat-num" id="ds-doctor">—</div>
+        <div class="stat-lbl">Assigned Doctor</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">&#x1F4F8;</div>
+        <div class="stat-num" id="ds-uploads">0</div>
+        <div class="stat-lbl">Diet Uploads</div>
+      </div>
+    </div>
+
+    <!-- Quick action cards -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:20px;">
+      <div class="card" style="border-left:4px solid var(--accent);cursor:pointer;" onclick="goTab('wallet',null)">
+        <div style="font-size:1.5rem;margin-bottom:6px;">&#x1F4B3;</div>
+        <div style="font-weight:800;color:var(--dark);margin-bottom:4px;">Recharge Wallet</div>
+        <div style="font-size:0.82rem;color:#8a9e98;">Top up to book more sessions</div>
+      </div>
+      <div class="card" style="border-left:4px solid #d9b66f;cursor:pointer;" onclick="goTab('bookings',null)">
+        <div style="font-size:1.5rem;margin-bottom:6px;">&#x1F4CB;</div>
+        <div style="font-weight:800;color:var(--dark);margin-bottom:4px;">View Bookings</div>
+        <div style="font-size:0.82rem;color:#8a9e98;">Check your session history</div>
+      </div>
+      <div class="card" style="border-left:4px solid #3aafa9;cursor:pointer;" onclick="window.open('index.html#doctors','_blank')">
+        <div style="font-size:1.5rem;margin-bottom:6px;">&#x1F468;&#x200D;&#x2695;&#xFE0F;</div>
+        <div style="font-weight:800;color:var(--dark);margin-bottom:4px;">Book a Session</div>
+        <div style="font-size:0.82rem;color:#8a9e98;">Find doctors and book now</div>
+      </div>
+    </div>
+
+    <!-- Assigned doctor summary -->
+    <div id="dashDoctorBox"></div>
+
+    <!-- Recent bookings -->
+    <h3 style="font-size:0.9rem;color:var(--dark);font-weight:700;margin-bottom:10px;">&#x1F4CB; Recent Bookings</h3>
+    <div id="dashRecentBookings"></div>
+  </div>
+
+  <!-- WALLET -->
+  <div id="tab-wallet" class="tab-pane">
+    <div class="wallet-balance-card">
+      <div class="wbal-label">Available Balance</div>
+      <div class="wbal-amt" id="walletBalAmt">&#8377;0.00</div>
+      <div class="wbal-sub" id="walletPhoneSub"></div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">&#x1F4B3; Recharge Wallet</div>
+      <div class="recharge-grid">
+        <button class="recharge-btn" onclick="selectRecharge(100,this)">&#8377;100</button>
+        <button class="recharge-btn" onclick="selectRecharge(200,this)">&#8377;200</button>
+        <button class="recharge-btn" onclick="selectRecharge(500,this)">&#8377;500</button>
+        <button class="recharge-btn" onclick="selectRecharge(1000,this)">&#8377;1,000</button>
+        <button class="recharge-btn" onclick="selectRecharge(2000,this)">&#8377;2,000</button>
+        <button class="recharge-btn" onclick="selectRecharge(5000,this)">&#8377;5,000</button>
+      </div>
+      <div class="recharge-custom">
+        <input type="number" id="customAmt" placeholder="Custom amount (min &#8377;10)" min="10"
+          oninput="selectRecharge(null,null)"/>
+      </div>
+      <div class="recharge-success" id="rechargeSuccess"></div>
+      <button class="recharge-pay-btn" id="rechargeBtn" onclick="startRecharge()">
+        &#x1F4B3; Recharge via Razorpay
+      </button>
+    </div>
+
+    <div class="card">
+      <div class="section-title">&#x1F4CB; Transaction History</div>
+      <div class="txn-tabs">
+        <button class="txn-tab active" onclick="showTxnTab('all',this)">All</button>
+        <button class="txn-tab" onclick="showTxnTab('credit',this)">Recharges</button>
+        <button class="txn-tab" onclick="showTxnTab('debit',this)">Sessions</button>
+      </div>
+      <div class="txn-list" id="txnList"></div>
+    </div>
+  </div>
+
+  <!-- BOOKINGS -->
+  <div id="tab-bookings" class="tab-pane">
+    <h2 style="font-size:1.05rem;font-weight:800;color:var(--dark);margin-bottom:16px;">&#x1F4C5; My Session Bookings</h2>
+    <div id="bookingsList"></div>
+  </div>
+
+  <!-- MY DOCTOR -->
+  <div id="tab-doctor" class="tab-pane">
+    <h2 style="font-size:1.05rem;font-weight:800;color:var(--dark);margin-bottom:16px;">&#x1F9D1;&#x200D;&#x2695;&#xFE0F; My Assigned Doctor</h2>
+    <div id="assignedDoctorList"></div>
+  </div>
+
+  <!-- DIET UPLOADS -->
+  <div id="tab-diet" class="tab-pane">
+    <h2 style="font-size:1.05rem;font-weight:800;color:var(--dark);margin-bottom:16px;">&#x1F4F8; My Diet Uploads</h2>
+    <div id="dietUploadsList"></div>
+  </div>
+
+  <!-- PROFILE -->
+  <div id="tab-profile" class="tab-pane">
+    <div class="card" id="profileCard">
+      <h2 style="font-size:1.05rem;font-weight:800;color:var(--dark);margin-bottom:16px;">&#x1F464; My Profile</h2>
+      <div id="profileFields"></div>
+    </div>
+  </div>
+
+</div><!-- end mainPortal -->
+
+<script>
+var _patient = null;
+var _phone   = '';
+var _rechargeAmt = 0;
+var _txnTab = 'all';
+
+/* ── Login tabs ── */
+function switchLoginTab(tab, btn) {
+  document.querySelectorAll('.l-tab').forEach(function(b){ b.classList.remove('active'); });
+  if(btn) btn.classList.add('active');
+  document.getElementById('loginPhoneForm').style.display   = tab==='phone'    ? 'block' : 'none';
+  document.getElementById('loginRegisterForm').style.display = tab==='register' ? 'block' : 'none';
+  document.getElementById('loginErr').style.display = 'none';
+}
+
+/* ── Login ── */
+function doPatientLogin() {
+  var raw = (document.getElementById('loginPhone').value || '').replace(/\D/g,'');
+  if (!raw || raw.length < 10) {
+    showErr('Please enter a valid 10-digit phone number.');
+    return;
+  }
+  var regs = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
+  var match = regs.find(function(r){ return r.phone && r.phone.replace(/\D/g,'') === raw && r.type === 'patient'; });
+  if (!match) {
+    showErr('\u274C No patient account found for this number. Please register on the website first.');
+    return;
+  }
+  _patient = match;
+  _phone   = raw;
+  localStorage.setItem('nyc_patient_active_phone', raw);
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('mainPortal').style.display  = 'block';
+  document.getElementById('patTag').textContent = '\uD83E\uDDD1 ' + _patient.name;
+  goTab('dashboard', document.querySelector('.tab-btn'));
+}
+
+function showErr(msg) {
+  var el = document.getElementById('loginErr');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+/* ── Auto-login if session saved ── */
+(function(){
+  var saved = localStorage.getItem('nyc_patient_active_phone') || '';
+  if (saved) {
+    document.getElementById('loginPhone').value = saved;
+    doPatientLogin();
+  }
+})();
+
+function doLogout() {
+  localStorage.removeItem('nyc_patient_active_phone');
+  _patient = null; _phone = '';
+  document.getElementById('mainPortal').style.display  = 'none';
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('loginPhone').value = '';
+}
+
+/* ── Tab navigation ── */
+function goTab(name, btn) {
+  document.querySelectorAll('.tab-pane').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('tab-'+name).classList.add('active');
+  if (btn) btn.classList.add('active');
+  if (name === 'dashboard') renderDashboard();
+  if (name === 'wallet')    renderWallet();
+  if (name === 'bookings')  renderBookings();
+  if (name === 'doctor')    renderMyDoctor();
+  if (name === 'diet')      renderDietUploads();
+  if (name === 'profile')   renderProfile();
+}
+
+/* ── Wallet helpers ── */
+function walletKey(p){ return 'nyc_wallet_' + p.replace(/\D/g,''); }
+function getWallet(p){ var r=localStorage.getItem(walletKey(p)); return r?JSON.parse(r):{balance:0,history:[]}; }
+function saveWallet(p,d){ localStorage.setItem(walletKey(p),JSON.stringify(d)); }
+
+/* ── Dashboard ── */
+function renderDashboard() {
+  var w = getWallet(_phone);
+  var bookings = (JSON.parse(localStorage.getItem('nyc_bookings')||'[]')).filter(function(b){ return b.phone===_phone; });
+  var uploads  = (JSON.parse(localStorage.getItem('nyc_diet_uploads')||'[]')).filter(function(u){ return u.phone&&u.phone.replace(/\D/g,'')===_phone; });
+  var assigns  = (JSON.parse(localStorage.getItem('nyc_assignments')||'[]')).filter(function(a){ return a.patientPhone&&a.patientPhone.replace(/\D/g,'')===_phone; });
+
+  document.getElementById('dashGreeting').textContent = 'Welcome back, ' + _patient.name + '! \uD83C\uDF31';
+  document.getElementById('ds-wallet').textContent  = '\u20B9' + w.balance.toFixed(0);
+  document.getElementById('ds-bookings').textContent = bookings.length;
+  document.getElementById('ds-uploads').textContent  = uploads.length;
+
+  var latestDoc = assigns.length ? assigns[assigns.length-1] : null;
+  document.getElementById('ds-doctor').textContent = latestDoc ? 'Dr. ' + latestDoc.doctorName : '\u2014';
+
+  /* Assigned doctor box */
+  var dbox = document.getElementById('dashDoctorBox');
+  if (latestDoc) {
+    dbox.innerHTML =
+      '<div class="doctor-assign-card" style="margin-bottom:18px;">' +
+        '<div style="font-size:0.78rem;font-weight:700;color:var(--primary);text-transform:uppercase;margin-bottom:8px;">&#x1F9D1;&#x200D;&#x2695;&#xFE0F; Your Assigned Doctor</div>' +
+        '<div style="font-size:1.1rem;font-weight:800;color:var(--dark);margin-bottom:4px;">Dr. ' + latestDoc.doctorName + '</div>' +
+        '<div style="font-size:0.83rem;color:#5a7060;margin-bottom:10px;">Assigned for: ' + latestDoc.patientCondition + ' &nbsp;|&nbsp; Type: ' + latestDoc.type + '</div>' +
+        '<div style="font-size:0.82rem;color:#8a9e98;">Assigned on: ' + latestDoc.date + (latestDoc.notes ? ' &nbsp;|&nbsp; Notes: ' + latestDoc.notes : '') + '</div>' +
+      '</div>';
+  } else {
+    dbox.innerHTML = '<div style="background:#fff8e1;border:1px solid #f0d080;border-radius:12px;padding:16px;margin-bottom:18px;font-size:0.85rem;color:#7a6020;">&#x26A0; No doctor assigned yet. The admin will assign a doctor after reviewing your registration.</div>';
+  }
+
+  /* Recent bookings */
+  var rb = document.getElementById('dashRecentBookings');
+  if (!bookings.length) {
+    rb.innerHTML = '<div class="no-data">No bookings yet. <a href="index.html#doctors" target="_blank" style="color:var(--primary);font-weight:700;">Book a session &rarr;</a></div>';
+    return;
+  }
+  rb.innerHTML = bookings.slice().reverse().slice(0,3).map(function(b){
+    return bookingCardHTML(b);
+  }).join('');
+}
+
+/* ── Wallet tab ── */
+function renderWallet() {
+  var w = getWallet(_phone);
+  document.getElementById('walletBalAmt').textContent = '\u20B9' + w.balance.toFixed(2);
+  document.getElementById('walletPhoneSub').textContent = 'Phone: +91' + _phone;
+  renderTxns(_txnTab);
+}
+
+function selectRecharge(amt, btn) {
+  document.querySelectorAll('.recharge-btn').forEach(function(b){ b.classList.remove('selected'); });
+  if (btn) btn.classList.add('selected');
+  _rechargeAmt = amt;
+  if (amt) document.getElementById('customAmt').value = '';
+}
+
+function showTxnTab(tab, btn) {
+  _txnTab = tab;
+  document.querySelectorAll('.txn-tab').forEach(function(b){ b.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  renderTxns(tab);
+}
+
+function renderTxns(tab) {
+  var w = getWallet(_phone);
+  var h = (w.history||[]).slice().reverse();
+  if (tab==='credit') h = h.filter(function(t){ return t.type==='credit'; });
+  if (tab==='debit')  h = h.filter(function(t){ return t.type==='debit'; });
+  var el = document.getElementById('txnList');
+  if (!h.length) { el.innerHTML='<div class="txn-empty">No transactions yet.</div>'; return; }
+  el.innerHTML = h.map(function(t){
+    return '<div class="txn-row '+t.type+'">' +
+      '<div class="txn-left"><span class="txn-desc">'+t.desc+'</span><span class="txn-date">'+t.date+'</span></div>' +
+      '<span class="txn-amt">'+(t.type==='credit'?'+':'-')+'\u20B9'+parseFloat(t.amount).toFixed(2)+'</span>' +
+    '</div>';
+  }).join('');
+}
+
+function startRecharge() {
+  var custom = parseFloat(document.getElementById('customAmt').value)||0;
+  var amt = custom>0 ? custom : _rechargeAmt;
+  if (!amt||amt<10) { alert('Please select or enter a recharge amount (minimum \u20B910).'); return; }
+  var btn = document.getElementById('rechargeBtn');
+  if (btn) { btn.disabled=true; btn.textContent='\u23F3 Opening payment...'; }
+  fetch('/api/create-order',{
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({amount_paise:Math.round(amt*100),doctor_name:'Wallet Recharge',session_type:'recharge',patient_name:_patient.name})
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    if (data.error) { alert('Error: '+data.error); resetBtn(); return; }
+    var opts = {
+      key:data.key_id, amount:data.amount, currency:data.currency,
+      name:'Naturopathy & Yoga Care', description:'Wallet Recharge', order_id:data.order_id,
+      theme:{color:'#0a5c4d'},
+      prefill:{name:_patient.name, contact:'+91'+_phone},
+      handler:function(resp){
+        fetch('/api/verify-payment',{
+          method:'POST', headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({razorpay_order_id:resp.razorpay_order_id||data.order_id,razorpay_payment_id:resp.razorpay_payment_id,razorpay_signature:resp.razorpay_signature})
+        })
+        .then(function(r){ return r.json(); })
+        .then(function(vd){
+          if (vd.verified) {
+            var w = getWallet(_phone);
+            w.balance = (w.balance||0) + amt;
+            w.history.push({type:'credit',desc:'\uD83D\uDCB0 Wallet Recharge',amount:amt,date:new Date().toLocaleString('en-IN'),payId:resp.razorpay_payment_id});
+            saveWallet(_phone,w);
+            renderWallet();
+            document.getElementById('ds-wallet').textContent = '\u20B9' + w.balance.toFixed(0);
+            var s=document.getElementById('rechargeSuccess');
+            s.style.display='block'; s.textContent='\u2705 \u20B9'+amt+' added to your wallet!';
+            setTimeout(function(){ s.style.display='none'; },4000);
+            document.querySelectorAll('.recharge-btn').forEach(function(b){ b.classList.remove('selected'); });
+            document.getElementById('customAmt').value=''; _rechargeAmt=0;
+          } else { alert('Payment verification failed. Contact support.'); }
+          resetBtn();
+        });
+      },
+      modal:{ondismiss:function(){ resetBtn(); }}
+    };
+    new window.Razorpay(opts).open();
+  })
+  .catch(function(){ alert('Network error. Try again.'); resetBtn(); });
+}
+
+function resetBtn() {
+  var btn=document.getElementById('rechargeBtn');
+  if(btn){ btn.disabled=false; btn.textContent='\uD83D\uDCB3 Recharge via Razorpay'; }
+}
+
+/* ── Bookings tab ── */
+function bookingCardHTML(b) {
+  var typeClass = b.type==='Chat' ? 'bc-chat' : 'bc-call';
+  var typeIcon  = b.type==='Chat' ? '\uD83D\uDCAC' : '\uD83D\uDCDE';
+  return '<div class="booking-card">' +
+    '<div class="bc-row">' +
+      '<span class="bc-doctor">' + typeIcon + ' Dr. ' + b.doctor + '</span>' +
+      '<span class="bc-type-badge '+typeClass+'">'+b.type+'</span>' +
+    '</div>' +
+    '<div class="bc-meta">\u23F1 '+b.mins+' min &nbsp;|&nbsp; \uD83D\uDCC5 '+b.date+'</div>' +
+    '<div class="bc-split">' +
+      '<span class="bc-split-pill">Total: \u20B9'+parseFloat(b.amount).toFixed(2)+'</span>' +
+      '<span class="bc-split-pill">\uD83D\uDCBB Platform: \u20B9'+parseFloat(b.platShare||0).toFixed(2)+'</span>' +
+      '<span class="bc-split-pill">\uD83E\uDDB9 Doctor: \u20B9'+parseFloat(b.docShare||0).toFixed(2)+'</span>' +
+      '<span class="bc-split-pill">\uD83C\uDFE5 Admin: \u20B9'+parseFloat(b.adminShare||0).toFixed(2)+'</span>' +
+    '</div>' +
+  '</div>';
+}
+
+function renderBookings() {
+  var bookings = (JSON.parse(localStorage.getItem('nyc_bookings')||'[]')).filter(function(b){ return b.phone===_phone; });
+  var el = document.getElementById('bookingsList');
+  if (!bookings.length) {
+    el.innerHTML = '<div class="no-data">No sessions booked yet.<br><a href="index.html#doctors" target="_blank" style="color:var(--primary);font-weight:700;">Browse doctors and book a session \u2192</a></div>';
+    return;
+  }
+  el.innerHTML = bookings.slice().reverse().map(function(b){ return bookingCardHTML(b); }).join('');
+}
+
+/* ── My Doctor tab ── */
+function renderMyDoctor() {
+  var assigns = (JSON.parse(localStorage.getItem('nyc_assignments')||'[]')).filter(function(a){ return a.patientPhone&&a.patientPhone.replace(/\D/g,'')===_phone; });
+  var el = document.getElementById('assignedDoctorList');
+  if (!assigns.length) {
+    el.innerHTML =
+      '<div class="register-prompt">' +
+        '<h3>\u23F3 No Doctor Assigned Yet</h3>' +
+        '<p>The admin will review your health condition and assign the most suitable doctor for you. This usually happens within 24 hours of registration.</p>' +
+        '<a href="index.html" target="_blank">Back to Website</a>' +
+      '</div>';
+    return;
+  }
+  el.innerHTML = assigns.slice().reverse().map(function(a,i){
+    return '<div class="doctor-assign-card">' +
+      (i===0?'<div style="background:#dcfce7;color:#166534;display:inline-block;padding:3px 10px;border-radius:999px;font-size:0.75rem;font-weight:700;margin-bottom:10px;">\u2705 Current Assignment</div><br>':'') +
+      '<div class="da-doctor">\uD83D\uDC68\u200D\u2695\uFE0F Dr. '+a.doctorName+'</div>' +
+      '<div class="da-spec">'+a.patientCondition+'</div>' +
+      '<div class="da-row"><span class="da-label">Consultation Type</span><span class="da-val">'+a.type+'</span></div>' +
+      '<div class="da-row"><span class="da-label">Amount Paid</span><span class="da-val">\u20B9'+parseFloat(a.amount).toFixed(2)+'</span></div>' +
+      (a.type!=='personal'?
+        '<div class="da-row"><span class="da-label">Doctor Share</span><span class="da-val" style="color:var(--primary);font-weight:700;">\u20B9'+parseFloat(a.docShare||0).toFixed(2)+' (20%)</span></div>' : '') +
+      (a.notes?'<div class="da-row"><span class="da-label">Notes</span><span class="da-val">'+a.notes+'</span></div>':'') +
+      '<div class="da-row"><span class="da-label">Assigned On</span><span class="da-val">'+a.date+'</span></div>' +
+    '</div>';
+  }).join('');
+}
+
+/* ── Diet Uploads tab ── */
+function renderDietUploads() {
+  var uploads = (JSON.parse(localStorage.getItem('nyc_diet_uploads')||'[]')).filter(function(u){
+    return u.phone && u.phone.replace(/\D/g,'') === _phone;
+  });
+  var el = document.getElementById('dietUploadsList');
+  if (!uploads.length) {
+    el.innerHTML = '<div class="no-data">No diet photos uploaded yet.<br><a href="index.html#patient-upload" target="_blank" style="color:var(--primary);font-weight:700;">Upload your diet photos \u2192</a></div>';
+    return;
+  }
+  el.innerHTML = uploads.slice().reverse().map(function(u){
+    var imgs = (u.images||[]).map(function(src){
+      return '<img class="du-img" src="'+src+'" alt="diet" onclick="window.open(\''+src+'\',\'_blank\')" />';
+    }).join('');
+    return '<div class="diet-upload-card">' +
+      '<div class="du-header"><span class="du-name">\uD83D\uDCF8 Upload — '+u.date+'</span><span class="du-date">'+u.date+'</span></div>' +
+      (u.note?'<div class="du-note">Note: '+u.note+'</div>':'') +
+      '<div class="du-imgs">'+imgs+'</div>' +
+    '</div>';
+  }).join('');
+}
+
+/* ── Profile tab ── */
+function renderProfile() {
+  var fields = [
+    ['Full Name',      _patient.name],
+    ['Phone',          _patient.phone],
+    ['Email',          _patient.email || '—'],
+    ['Age',            _patient.age || '—'],
+    ['Health Condition', _patient.condition || _patient.healthCondition || '—'],
+    ['Registered On',  _patient.date || '—'],
+  ];
+  document.getElementById('profileFields').innerHTML =
+    fields.map(function(f){
+      return '<div class="profile-field"><span class="pf-label">'+f[0]+'</span><span class="pf-val">'+f[1]+'</span></div>';
+    }).join('');
+}
+
+/* Keyboard shortcut */
+document.addEventListener('keydown', function(e){
+  if (e.key==='Escape' && document.getElementById('mainPortal').style.display!=='none') return;
+});
+</script>
+</body>
+</html>
