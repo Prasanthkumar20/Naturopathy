@@ -393,7 +393,7 @@
       </div>
       <div style="margin-top:10px;background:#f8fafc;border:1px solid #dbeafe;border-radius:12px;padding:12px 14px;font-size:0.85rem;color:#334155;">
         <div style="font-weight:800;margin-bottom:6px;">Payment options</div>
-        <div>Option 1: Pay to UPI ID <b>9666796307@ybl</b></div>
+        <div>Option 1: Pay to UPI ID <b>prasanthkumar103c@ybl</b></div>
         <div>Option 2: Razorpay link</div>
       </div>
     </div>
@@ -750,7 +750,7 @@ function startRecharge(mode) {
   var amt = custom>0 ? custom : _rechargeAmt;
   if (!amt||amt<10) { alert('Please select or enter a recharge amount (minimum \u20B910).'); return; }
   if (mode === 'upi') {
-    var upiId = '9666796307@ybl';
+    var upiId = 'prasanthkumar103c@ybl';
     var payee = 'Prahari NatureCure';
     var note = 'Wallet Recharge ' + _patient.name;
     var upiUrl = 'upi://pay?pa=' + encodeURIComponent(upiId) + '&pn=' + encodeURIComponent(payee) + '&am=' + encodeURIComponent(amt.toFixed(2)) + '&cu=INR&tn=' + encodeURIComponent(note);
