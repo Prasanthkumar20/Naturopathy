@@ -79,10 +79,26 @@
     .sc-earn{font-size:0.88rem;font-weight:700;color:#1565c0;}
 
     /* PATIENT CARDS */
-    .patient-card{background:#fff;border-radius:14px;padding:16px;box-shadow:var(--shadow);margin-bottom:10px;border-left:4px solid var(--accent);}
-    .pc-name{font-size:0.97rem;font-weight:800;color:var(--dark);margin-bottom:4px;}
-    .pc-meta{font-size:0.8rem;color:#8a9e98;margin-bottom:6px;}
+    .patient-card{background:#fff;border-radius:16px;padding:20px;box-shadow:var(--shadow);margin-bottom:14px;border-left:4px solid var(--accent);}
+    .pc-header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
+    .pc-name{font-size:1rem;font-weight:800;color:var(--dark);}
+    .pc-phone{font-size:0.82rem;color:#8a9e98;margin-top:2px;}
+    .pc-wa-btn{display:flex;align-items:center;gap:6px;background:#25D366;color:#fff;border:none;border-radius:999px;padding:8px 16px;font-weight:800;font-size:0.82rem;cursor:pointer;text-decoration:none;white-space:nowrap;flex-shrink:0;}
+    .pc-wa-btn:hover{background:#1ebe5d;}
+    .pc-badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
     .pc-condition{display:inline-block;background:#e8fdf5;color:var(--primary);border-radius:999px;padding:3px 10px;font-size:0.75rem;font-weight:700;}
+    .pc-type-badge{display:inline-block;border-radius:999px;padding:3px 10px;font-size:0.75rem;font-weight:700;}
+    .pc-type-chat{background:#e8f0fe;color:#1565c0;}
+    .pc-type-call{background:#fce8e8;color:#c0392b;}
+    .pc-type-personal{background:#fdf3e8;color:#c07830;}
+    .pc-stats{display:flex;gap:14px;flex-wrap:wrap;background:#f4fbf8;border-radius:10px;padding:10px 14px;margin-bottom:10px;}
+    .pc-stat{text-align:center;}
+    .pc-stat-val{font-size:1rem;font-weight:800;color:var(--dark);}
+    .pc-stat-lbl{font-size:0.72rem;color:#8a9e98;margin-top:1px;}
+    .pc-sessions-title{font-size:0.78rem;font-weight:700;color:#1565c0;margin:10px 0 6px;text-transform:uppercase;letter-spacing:0.04em;}
+    .pc-session-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #f0f4f0;font-size:0.81rem;}
+    .pc-session-row:last-child{border-bottom:none;}
+    .pc-notes{background:#fffbea;border:1px solid #f0d080;border-radius:8px;padding:8px 12px;font-size:0.8rem;color:#7a6020;margin-top:8px;}
 
     /* PAYOUT CARDS */
     .payout-row{display:flex;justify-content:space-between;align-items:center;
@@ -223,7 +239,10 @@
 
   <!-- PATIENTS -->
   <div id="tab-patients" class="tab-pane">
-    <h2 style="font-size:1.05rem;font-weight:800;color:var(--dark);margin-bottom:16px;">&#x1F9D1; My Assigned Patients</h2>
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:16px;">
+      <h2 style="font-size:1.05rem;font-weight:800;color:var(--dark);">&#x1F9D1; My Assigned Patients</h2>
+      <div id="pc-summary" style="font-size:0.83rem;color:#8a9e98;font-weight:600;"></div>
+    </div>
     <div id="patientsList"></div>
   </div>
 
@@ -494,24 +513,113 @@ function renderEarnings() {
 
 /* ── Patients ── */
 function renderPatients() {
-  var assigns = getMyAssignedPatients();
-  var el = document.getElementById('patientsList');
+  var assigns  = getMyAssignedPatients();
+  var bookings = JSON.parse(localStorage.getItem('nyc_bookings') || '[]');
+  var myName   = getMyName().toLowerCase();
+  var el       = document.getElementById('patientsList');
+
   if (!assigns.length) {
-    el.innerHTML = '<div class="no-data">No patients assigned yet. The admin will assign patients to you.</div>';
+    el.innerHTML = '<div class="no-data">&#x1F9D1; No patients assigned yet.<br>The admin will assign patients to you from the Admin Panel.</div>';
+    document.getElementById('pc-summary').textContent = '';
     return;
   }
-  var seen = {};
-  el.innerHTML = assigns.filter(function(a){
-    if (seen[a.patientPhone]) return false;
-    seen[a.patientPhone] = true; return true;
-  }).map(function(a){
-    return '<div class="patient-card">' +
-      '<div class="pc-name">\uD83D\uDC64 ' + (a.patientName||'—') + '</div>' +
-      '<div class="pc-meta">\uD83D\uDCF1 ' + (a.patientPhone||'—') + ' &nbsp;|&nbsp; Assigned: ' + a.date + '</div>' +
-      '<span class="pc-condition">' + (a.patientCondition||'General') + '</span>' +
-      (a.notes?'<div style="font-size:0.8rem;color:#5a7060;margin-top:8px;">Note: '+a.notes+'</div>':'') +
-    '</div>';
-  }).join('');
+
+  /* Group all assignments by patient phone */
+  var patMap = {};
+  assigns.forEach(function(a) {
+    var key = a.patientPhone || a.patientName;
+    if (!patMap[key]) {
+      patMap[key] = {
+        name:      a.patientName || '—',
+        phone:     a.patientPhone || '',
+        condition: a.patientCondition || 'General',
+        sessions:  [],
+        totalPaid: 0,
+        myEarning: 0,
+        firstDate: a.date
+      };
+    }
+    patMap[key].sessions.push(a);
+    patMap[key].totalPaid += parseFloat(a.amount || 0);
+    patMap[key].myEarning += parseFloat(a.docShare || 0);
+  });
+
+  /* Also pull wallet bookings for this patient */
+  bookings.filter(function(b){ return (b.doctor||'').toLowerCase() === myName; })
+    .forEach(function(b) {
+      var key = b.patientPhone || b.patient;
+      if (!patMap[key]) {
+        patMap[key] = { name: b.patient||'—', phone: b.patientPhone||'', condition:'General', sessions:[], totalPaid:0, myEarning:0, firstDate:b.date };
+      }
+      patMap[key].sessions.push({ type: b.type, date: b.date, amount: b.amount, docShare: b.docShare, patientName: b.patient, notes: '' });
+      patMap[key].totalPaid += parseFloat(b.amount || 0);
+      patMap[key].myEarning += parseFloat(b.docShare || 0);
+    });
+
+  var keys = Object.keys(patMap);
+  document.getElementById('pc-summary').textContent = keys.length + ' patient' + (keys.length!==1?'s':'') + ' assigned';
+
+  el.innerHTML = '';
+  keys.forEach(function(key) {
+    var p = patMap[key];
+
+    /* WhatsApp link */
+    var waPhone = p.phone.replace(/\D/g,'');
+    if (waPhone.length === 10) waPhone = '91' + waPhone;
+    var waMsg = encodeURIComponent(
+      '\uD83C\uDF31 Hello ' + p.name + ', this is Dr. ' + _doctor.name +
+      ' from Naturopathy & Yoga Care.\n\nI have been assigned as your doctor. Please let me know how I can assist you.\n\nThank you! \uD83D\uDE0A'
+    );
+    var waLink = 'https://wa.me/' + waPhone + '?text=' + waMsg;
+
+    /* Type badges from all sessions */
+    var types = {};
+    p.sessions.forEach(function(s){ types[s.type||'General'] = true; });
+    var typeBadges = Object.keys(types).map(function(t){
+      var cls = t==='Chat' ? 'pc-type-chat' : t==='Call' ? 'pc-type-call' : 'pc-type-personal';
+      var icon = t==='Chat' ? '&#x1F4AC;' : t==='Call' ? '&#x1F4DE;' : '&#x1F3E5;';
+      return '<span class="pc-type-badge ' + cls + '">' + icon + ' ' + t + '</span>';
+    }).join('');
+
+    /* Session rows (last 5) */
+    var sessionRows = p.sessions.slice().reverse().slice(0,5).map(function(s){
+      var icon = s.type==='Chat' ? '&#x1F4AC;' : s.type==='Call' ? '&#x1F4DE;' : '&#x1F3E5;';
+      return '<div class="pc-session-row">' +
+        '<span>' + icon + ' ' + (s.type||'Session') + (s.mins ? ' &middot; '+s.mins+' min' : '') + ' &nbsp;&mdash;&nbsp; ' + (s.date||'') + '</span>' +
+        '<span style="font-weight:700;color:var(--primary);">&#x20B9;' + parseFloat(s.docShare||0).toFixed(0) + ' earned</span>' +
+      '</div>';
+    }).join('');
+
+    var card = document.createElement('div');
+    card.className = 'patient-card';
+    card.innerHTML =
+      '<div class="pc-header">' +
+        '<div>' +
+          '<div class="pc-name">&#x1F464; ' + p.name + '</div>' +
+          '<div class="pc-phone">&#x1F4F1; ' + (p.phone || 'Phone not available') + ' &nbsp;&middot;&nbsp; First assigned: ' + (p.firstDate||'') + '</div>' +
+        '</div>' +
+        (waPhone.length >= 12
+          ? '<a class="pc-wa-btn" href="' + waLink + '" target="_blank">&#x1F4AC; WhatsApp</a>'
+          : '') +
+      '</div>' +
+      '<div class="pc-badges">' +
+        '<span class="pc-condition">&#x1FA7A; ' + p.condition + '</span>' +
+        typeBadges +
+      '</div>' +
+      '<div class="pc-stats">' +
+        '<div class="pc-stat"><div class="pc-stat-val">' + p.sessions.length + '</div><div class="pc-stat-lbl">Sessions</div></div>' +
+        '<div class="pc-stat"><div class="pc-stat-val">&#x20B9;' + p.totalPaid.toFixed(0) + '</div><div class="pc-stat-lbl">Total Paid</div></div>' +
+        '<div class="pc-stat"><div class="pc-stat-val" style="color:#1565c0;">&#x20B9;' + p.myEarning.toFixed(0) + '</div><div class="pc-stat-lbl">My Earnings</div></div>' +
+      '</div>' +
+      (p.sessions.length
+        ? '<div class="pc-sessions-title">Recent Sessions</div>' + sessionRows +
+          (p.sessions.length > 5 ? '<div style="font-size:0.78rem;color:#8a9e98;text-align:center;padding:5px;">+ ' + (p.sessions.length-5) + ' more sessions</div>' : '')
+        : '') +
+      (p.sessions[p.sessions.length-1] && p.sessions[p.sessions.length-1].notes
+        ? '<div class="pc-notes">&#x1F4DD; Admin note: ' + p.sessions[p.sessions.length-1].notes + '</div>'
+        : '');
+    el.appendChild(card);
+  });
 }
 
 /* ── Rates ── */
