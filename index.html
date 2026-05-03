@@ -391,33 +391,14 @@
     /* ========================= */
     /* PATIENT UPLOAD SECTION    */
     /* ========================= */
-    .upload-section { padding: 65px 0; background: linear-gradient(180deg, #f2fbf8, #eaf8f2); }
-    .upload-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start; }
-    .upload-info { background: #fff; border-radius: 24px; padding: 30px; box-shadow: var(--shadow); }
-    .upload-info h3 { color: var(--dark); font-size: 1.3rem; margin-bottom: 14px; }
-    .upload-step { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
-    .upload-step-num { width: 32px; height: 32px; min-width: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent)); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.9rem; }
-    .upload-step p { font-size: 0.93rem; line-height: 1.55; }
-    .upload-form-box { background: #fff; border-radius: 24px; padding: 32px; box-shadow: var(--shadow); }
-    .upload-form-box h3 { font-size: 1.4rem; color: var(--dark); margin-bottom: 18px; }
     .upload-field { display: grid; gap: 14px; }
     .upload-field input, .upload-field textarea { width: 100%; padding: 14px 16px; border: 1px solid #cfe5dd; border-radius: 14px; outline: none; font-size: 0.97rem; background: #fff; transition: 0.25s; }
     .upload-field input:focus, .upload-field textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(58,175,169,0.1); }
     .upload-field textarea { min-height: 80px; resize: vertical; }
-    .upload-file-label { display: block; border: 2px dashed var(--accent); border-radius: 14px; padding: 22px; text-align: center; cursor: pointer; background: #f4fffb; transition: 0.25s; }
-    .upload-file-label:hover { background: #e8f9f5; border-color: var(--primary); }
-    .upload-file-label .ufl-icon { font-size: 2.2rem; margin-bottom: 6px; }
-    .upload-file-label span { display: block; color: var(--primary); font-weight: 700; font-size: 0.95rem; }
-    .upload-file-label small { color: #888; font-size: 0.82rem; }
-    #uploadFileInput { display: none; }
     .upload-preview { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
     .upload-thumb { position: relative; width: 80px; height: 80px; border-radius: 10px; overflow: hidden; border: 2px solid #d7f2eb; }
     .upload-thumb img { width: 100%; height: 100%; object-fit: cover; }
     .upload-thumb .rm-thumb { position: absolute; top: 2px; right: 2px; background: rgba(220,0,0,0.75); border: none; border-radius: 50%; color: #fff; width: 18px; height: 18px; font-size: 0.65rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-    .upload-submit-btn { display: block; width: 100%; padding: 16px; background: linear-gradient(135deg, var(--primary), var(--accent)); color: #fff; text-align: center; border-radius: 999px; font-weight: 700; font-size: 1rem; cursor: pointer; border: none; box-shadow: 0 8px 22px rgba(10,92,77,0.22); transition: 0.25s; margin-top: 6px; }
-    .upload-submit-btn:hover { transform: translateY(-2px); }
-    .upload-success { display: none; background: #dcfce7; border: 1.5px solid #4ade80; border-radius: 14px; padding: 16px; text-align: center; color: #166534; font-weight: 700; margin-top: 12px; }
-    @media(max-width:768px) { .upload-wrap { grid-template-columns: 1fr; } }
 
 
 
@@ -608,7 +589,7 @@
       <a href="#contact">Booking</a>
           <a href="#reviews">⭐ Reviews</a>
       <a href="#social">Social</a>
-      <a href="#patient-upload">📸 Patients</a>
+      
       <a href="#blogs">📝 Blogs</a>
       <a href="#register">📋 Register</a>
       <a href="#doctors">👨‍⚕️ Doctors</a>
@@ -1329,59 +1310,6 @@
 
 
 <!-- PATIENT DIET UPLOAD -->
-<section id="patient-upload" class="upload-section">
-  <div class="container">
-    <h2 class="sec-title">📸 Upload Your Diet Pics</h2>
-    <p class="sec-sub">Patients — share your meal photos so your doctor can review and guide you better.</p>
-    <div class="upload-wrap">
-
-      <div class="upload-info">
-        <h3>How It Works</h3>
-        <div class="upload-step">
-          <div class="upload-step-num">1</div>
-          <p><strong>Enter your name and phone number</strong> so the doctor can identify your uploads.</p>
-        </div>
-        <div class="upload-step">
-          <div class="upload-step-num">2</div>
-          <p><strong>Select diet photos</strong> — meals you ate, food labels, or anything diet-related you want to share.</p>
-        </div>
-        <div class="upload-step">
-          <div class="upload-step-num">3</div>
-          <p><strong>Add a note</strong> (optional) — e.g. "Breakfast today" or "Is this OK to eat?".</p>
-        </div>
-        <div class="upload-step">
-          <div class="upload-step-num">4</div>
-          <p><strong>Click Upload</strong> — your doctor will see the images in the Doctor Panel instantly.</p>
-        </div>
-        <div style="margin-top:18px;background:#fff8e6;border:1.5px dashed var(--gold);border-radius:12px;padding:14px;font-size:0.87rem;color:#6b4800;">
-          📌 <strong>Note:</strong> Images are stored locally in your browser. Use the same device and browser for best results.
-        </div>
-      </div>
-
-      <div class="upload-form-box">
-        <h3>📤 Share Your Meal Photos</h3>
-        <div class="upload-field">
-          <input type="text" id="upName" placeholder="Your Full Name *" required />
-          <input type="tel" id="upPhone" placeholder="Your Phone Number *" required />
-          <textarea id="upNote" placeholder="Note (optional) — e.g. Breakfast today, Is this good?"></textarea>
-
-          <label class="upload-file-label" for="uploadFileInput">
-            <div class="ufl-icon">🖼️</div>
-            <span>Click to select photos</span>
-            <small>JPG, PNG, WEBP — up to 5 images</small>
-          </label>
-          <input type="file" id="uploadFileInput" accept="image/*" multiple />
-
-          <div class="upload-preview" id="uploadPreview"></div>
-
-          <button class="upload-submit-btn" onclick="submitDietUpload()">📤 Upload to Doctor</button>
-          <div class="upload-success" id="uploadSuccess">✅ Photos uploaded! Your doctor will review them shortly.</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
 
 <!-- BLOGS SECTION -->
 <section id="blogs" class="blogs-section">
@@ -2028,87 +1956,6 @@ updateNavWalletBal();
 
 <script src="script.js"></script>
 
-<script>
-/* ---- Patient Diet Upload ---- */
-var _upFiles = [];
-
-(function() {
-  var upInput = document.getElementById('uploadFileInput');
-  if (upInput) {
-    upInput.addEventListener('change', function(e) {
-      var files = Array.from(e.target.files);
-      var remaining = 5 - _upFiles.length;
-      files = files.slice(0, remaining);
-      files.forEach(function(file) {
-        var reader = new FileReader();
-        reader.onload = function(ev) {
-          _upFiles.push({ name: file.name, data: ev.target.result });
-          renderUploadPreviews();
-        };
-        reader.readAsDataURL(file);
-      });
-      e.target.value = '';
-    });
-  }
-})();
-
-function renderUploadPreviews() {
-  var wrap = document.getElementById('uploadPreview');
-  if (!wrap) return;
-  wrap.innerHTML = '';
-  _upFiles.forEach(function(f, idx) {
-    var div = document.createElement('div');
-    div.className = 'upload-thumb';
-    div.innerHTML = '<img src="' + f.data + '" alt="preview"/>' +
-      '<button class="rm-thumb" onclick="removeThumb(' + idx + ')">✕</button>';
-    wrap.appendChild(div);
-  });
-}
-
-function removeThumb(idx) {
-  _upFiles.splice(idx, 1);
-  renderUploadPreviews();
-}
-
-function submitDietUpload() {
-  var nameEl  = document.getElementById('upName');
-  var phoneEl = document.getElementById('upPhone');
-  var noteEl  = document.getElementById('upNote');
-  var sucEl   = document.getElementById('uploadSuccess');
-  if (!nameEl || !phoneEl) return;
-  var name  = nameEl.value.trim();
-  var phone = phoneEl.value.trim();
-  var note  = noteEl ? noteEl.value.trim() : '';
-  if (!name)  { alert('Please enter your full name.'); return; }
-  if (!phone) { alert('Please enter your phone number.'); return; }
-  if (_upFiles.length === 0) { alert('Please select at least one photo.'); return; }
-  var uploads = JSON.parse(localStorage.getItem('nyc_diet_uploads') || '[]');
-  uploads.push({
-    id: Date.now(),
-    name: name,
-    phone: phone,
-    note: note,
-    date: new Date().toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' }),
-    dateRaw: new Date().toISOString(),
-    images: _upFiles.map(function(f) { return f.data; })
-  });
-  try {
-    localStorage.setItem('nyc_diet_uploads', JSON.stringify(uploads));
-  } catch(e) {
-    alert('Storage full. Please remove old uploads from the doctor panel or use fewer/smaller images.');
-    return;
-  }
-  _upFiles = [];
-  renderUploadPreviews();
-  nameEl.value = '';
-  phoneEl.value = '';
-  if (noteEl) noteEl.value = '';
-  if (sucEl) {
-    sucEl.style.display = 'block';
-    setTimeout(function() { sucEl.style.display = 'none'; }, 4000);
-  }
-}
-</script>
 
 
 </body>

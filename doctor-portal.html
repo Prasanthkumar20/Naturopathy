@@ -813,6 +813,35 @@ function renderPatients() {
         '</button>' +
       '</div>';
 
+    // Diet photo uploads from this patient
+    var allUploads = JSON.parse(localStorage.getItem('nyc_diet_uploads')||'[]');
+    var patUploads = allUploads.filter(function(u) {
+      var uPhone = (u.phone||'').replace(/\D/g,'');
+      return (p.phone && uPhone === p.phone) ||
+             (u.name||'').toLowerCase() === p.name.toLowerCase();
+    }).slice().reverse().slice(0, 5);
+
+    if (patUploads.length) {
+      var uploadsHtml = '<div style="margin-top:12px;padding-top:12px;border-top:1px solid #e8f5ee;">' +
+        '<div style="font-size:0.82rem;font-weight:800;color:var(--dark);margin-bottom:8px;">&#x1F4F8; Diet Photos Submitted by Patient (' + patUploads.length + ')</div>';
+      patUploads.forEach(function(u) {
+        var imgs = (u.images||[]).slice(0,3).map(function(src){
+          return '<img src="'+src+'" onclick="window.open(this.src,\'_blank\')" style="width:56px;height:56px;object-fit:cover;border-radius:8px;border:2px solid #d8eee7;cursor:pointer;" />';
+        }).join('');
+        uploadsHtml +=
+          '<div style="background:#f8fffc;border-radius:10px;padding:10px;margin-bottom:8px;">' +
+            '<div style="display:flex;justify-content:space-between;font-size:0.78rem;color:#6a8a7a;margin-bottom:6px;">' +
+              '<span>&#x1F4C5; ' + u.date + '</span>' +
+              ((u.images||[]).length > 3 ? '<span>+' + ((u.images||[]).length - 3) + ' more</span>' : '') +
+            '</div>' +
+            (u.note ? '<div style="font-size:0.8rem;color:#444;margin-bottom:6px;font-style:italic;">&ldquo;' + u.note + '&rdquo;</div>' : '') +
+            '<div style="display:flex;gap:6px;flex-wrap:wrap;">' + imgs + '</div>' +
+          '</div>';
+      });
+      uploadsHtml += '</div>';
+      card.innerHTML += uploadsHtml;
+    }
+
     el.appendChild(card);
   });
 }

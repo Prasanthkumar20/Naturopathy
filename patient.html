@@ -315,7 +315,22 @@
 
   <!-- DIET UPLOADS -->
   <div id="tab-diet" class="tab-pane">
-    <h2 style="font-size:1.05rem;font-weight:800;color:var(--dark);margin-bottom:16px;">&#x1F4F8; My Diet Uploads</h2>
+    <!-- Upload form -->
+    <div class="card" id="dietUploadForm" style="margin-bottom:20px;">
+      <h2 style="font-size:1rem;font-weight:800;color:var(--dark);margin-bottom:14px;">&#x1F4F8; Upload My Meal Photos</h2>
+      <p style="font-size:0.84rem;color:#5a7060;margin-bottom:14px;">Share your meal photos with your doctor — they will review and guide you in your next session.</p>
+      <textarea id="patUpNote" rows="2" placeholder="Add a note (optional) — e.g. Breakfast today, Is this OK to eat?" style="width:100%;padding:12px;border:1px solid #cfe5dd;border-radius:12px;font-size:0.9rem;resize:vertical;margin-bottom:12px;box-sizing:border-box;"></textarea>
+      <label for="patUpFileInput" style="display:block;border:2px dashed var(--accent);border-radius:14px;padding:20px;text-align:center;cursor:pointer;background:#f4fffb;margin-bottom:12px;">
+        <div style="font-size:1.8rem;margin-bottom:4px;">&#x1F5BC;&#xFE0F;</div>
+        <span style="display:block;color:var(--primary);font-weight:700;font-size:0.92rem;">Click to select photos</span>
+        <small style="color:#888;font-size:0.8rem;">JPG, PNG, WEBP — up to 5 images</small>
+      </label>
+      <input type="file" id="patUpFileInput" accept="image/*" multiple style="display:none;" />
+      <div id="patUpPreview" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;"></div>
+      <button onclick="patSubmitDietUpload()" style="width:100%;padding:14px;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:999px;font-weight:800;font-size:0.95rem;cursor:pointer;">&#x1F4E4; Submit to My Doctor</button>
+      <div id="patUpSuccess" style="display:none;background:#dcfce7;border:1.5px solid #4ade80;border-radius:12px;padding:14px;text-align:center;color:#166534;font-weight:700;margin-top:10px;">&#x2705; Photos submitted! Your doctor will review them.</div>
+    </div>
+    <!-- Uploads & Chart display -->
     <div id="dietUploadsList"></div>
   </div>
 
@@ -645,7 +660,7 @@ function renderDietUploads() {
     return u.phone && u.phone.replace(/\D/g,'') === _phone;
   });
   if (!uploads.length) {
-    html += '<div class="no-data">No diet photos uploaded yet.<br><a href="index.html#patient-upload" target="_blank" style="color:var(--primary);font-weight:700;">Upload your diet photos \u2192</a></div>';
+    html += '<div class="no-data">No diet photos uploaded yet.<br><span style="color:var(--primary);font-weight:700;">Use the form above to upload your first meal photo.</span></div>';
   } else {
     html += uploads.slice().reverse().map(function(u){
       var imgs = (u.images||[]).map(function(src){
@@ -708,6 +723,90 @@ function toggleFAQ(id, btn) {
   var open = el.style.display !== 'none';
   el.style.display = open ? 'none' : 'block';
   if (ico) ico.textContent = open ? '+' : '−';
+}
+
+
+/* ── Patient Diet Upload (in Patient Portal) ── */
+var _patUpFiles = [];
+
+(function() {
+  document.addEventListener('change', function(e) {
+    if (e.target.id !== 'patUpFileInput') return;
+    var files = Array.from(e.target.files);
+    var remaining = 5 - _patUpFiles.length;
+    files = files.slice(0, remaining);
+    files.forEach(function(file) {
+      var reader = new FileReader();
+      reader.onload = function(ev) {
+        _patUpFiles.push({ name: file.name, data: ev.target.result });
+        patRenderPreviews();
+      };
+      reader.readAsDataURL(file);
+    });
+    e.target.value = '';
+  });
+})();
+
+function patRenderPreviews() {
+  var wrap = document.getElementById('patUpPreview');
+  if (!wrap) return;
+  wrap.innerHTML = '';
+  _patUpFiles.forEach(function(f, idx) {
+    var div = document.createElement('div');
+    div.style.cssText = 'position:relative;width:72px;height:72px;';
+    div.innerHTML = '<img src="' + f.data + '" style="width:72px;height:72px;object-fit:cover;border-radius:10px;border:2px solid #d8eee7;" />' +
+      '<button onclick="patRemoveThumb(' + idx + ')" style="position:absolute;top:-6px;right:-6px;width:20px;height:20px;background:#e74c3c;color:#fff;border:none;border-radius:50%;font-size:0.7rem;cursor:pointer;line-height:20px;text-align:center;padding:0;">✕</button>';
+    wrap.appendChild(div);
+  });
+}
+
+function patRemoveThumb(idx) {
+  _patUpFiles.splice(idx, 1);
+  patRenderPreviews();
+}
+
+function patSubmitDietUpload() {
+  if (!_patient) { alert('Please log in first.'); return; }
+  if (_patUpFiles.length === 0) { alert('Please select at least one photo first.'); return; }
+  var note = (document.getElementById('patUpNote').value || '').trim();
+
+  // Find assigned doctor for this patient
+  var assigns = JSON.parse(localStorage.getItem('nyc_assignments') || '[]');
+  var myAssign = assigns.filter(function(a) {
+    return (a.patientPhone && a.patientPhone.replace(/\D/g,'') === _phone) ||
+           (a.patientName && a.patientName.toLowerCase() === (_patient.name||'').toLowerCase());
+  });
+  var doctorName = '';
+  var doctorPhone = '';
+  if (myAssign.length) {
+    doctorName = myAssign[myAssign.length-1].doctorName || myAssign[myAssign.length-1].doctor || '';
+    doctorPhone = myAssign[myAssign.length-1].doctorPhone || '';
+  }
+
+  var uploads = JSON.parse(localStorage.getItem('nyc_diet_uploads') || '[]');
+  uploads.push({
+    id: Date.now(),
+    name: _patient.name,
+    phone: _phone,
+    note: note,
+    doctorName: doctorName,
+    doctorPhone: doctorPhone,
+    date: new Date().toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' }),
+    dateRaw: new Date().toISOString(),
+    images: _patUpFiles.map(function(f) { return f.data; })
+  });
+  try {
+    localStorage.setItem('nyc_diet_uploads', JSON.stringify(uploads));
+  } catch(e) {
+    alert('Storage full. Please contact support or use smaller images.');
+    return;
+  }
+  _patUpFiles = [];
+  patRenderPreviews();
+  document.getElementById('patUpNote').value = '';
+  var suc = document.getElementById('patUpSuccess');
+  if (suc) { suc.style.display = 'block'; setTimeout(function(){ suc.style.display='none'; }, 4000); }
+  renderDietUploads();
 }
 
 </script>
