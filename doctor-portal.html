@@ -534,6 +534,40 @@
       <h2 style="font-size:1.05rem;font-weight:800;color:var(--dark);margin-bottom:16px;">&#x1F464; My Profile</h2>
       <div id="profileFields"></div>
     </div>
+    <!-- Change Password Card -->
+    <div class="card" style="margin-top:18px;max-width:480px;">
+      <h2 style="font-size:1.05rem;font-weight:800;color:var(--dark);margin-bottom:16px;">&#x1F510; Change Password</h2>
+      <div style="margin-bottom:12px;">
+        <label style="font-size:0.82rem;color:#56766e;font-weight:600;display:block;margin-bottom:4px;">Current Password</label>
+        <div style="position:relative;">
+          <input type="password" id="docCurPwd" placeholder="Enter current password"
+            style="width:100%;padding:10px 42px 10px 12px;border:1.5px solid #b7e4c7;border-radius:10px;font-size:0.93rem;box-sizing:border-box;" />
+          <button type="button" onclick="var i=document.getElementById('docCurPwd');i.type=i.type==='password'?'text':'password';"
+            style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1rem;color:#56766e;">&#x1F441;</button>
+        </div>
+      </div>
+      <div style="margin-bottom:12px;">
+        <label style="font-size:0.82rem;color:#56766e;font-weight:600;display:block;margin-bottom:4px;">New Password</label>
+        <div style="position:relative;">
+          <input type="password" id="docNewPwd" placeholder="Enter new password (min 4 chars)"
+            style="width:100%;padding:10px 42px 10px 12px;border:1.5px solid #b7e4c7;border-radius:10px;font-size:0.93rem;box-sizing:border-box;" />
+          <button type="button" onclick="var i=document.getElementById('docNewPwd');i.type=i.type==='password'?'text':'password';"
+            style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1rem;color:#56766e;">&#x1F441;</button>
+        </div>
+      </div>
+      <div style="margin-bottom:16px;">
+        <label style="font-size:0.82rem;color:#56766e;font-weight:600;display:block;margin-bottom:4px;">Confirm New Password</label>
+        <div style="position:relative;">
+          <input type="password" id="docConfPwd" placeholder="Re-enter new password"
+            style="width:100%;padding:10px 42px 10px 12px;border:1.5px solid #b7e4c7;border-radius:10px;font-size:0.93rem;box-sizing:border-box;"
+            onkeydown="if(event.key==='Enter')changeDocPassword();" />
+          <button type="button" onclick="var i=document.getElementById('docConfPwd');i.type=i.type==='password'?'text':'password';"
+            style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1rem;color:#56766e;">&#x1F441;</button>
+        </div>
+      </div>
+      <button onclick="changeDocPassword()" style="width:100%;padding:12px;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:999px;font-weight:800;font-size:0.93rem;cursor:pointer;">&#x1F510; Update Password</button>
+      <div id="docPwdMsg" style="display:none;margin-top:12px;padding:10px 14px;border-radius:10px;font-size:0.85rem;font-weight:600;text-align:center;"></div>
+    </div>
   </div>
 
   <!-- FAQS -->
@@ -607,6 +641,36 @@ function sendDocForgotPwd() {
   }).catch(function(){
     st.textContent = '\uD83D\uDCF1 Your password is shown above. Note it down safely.'; st.style.color = '#56766e';
   });
+}
+
+function changeDocPassword() {
+  var cur  = document.getElementById('docCurPwd').value;
+  var nw   = document.getElementById('docNewPwd').value;
+  var conf = document.getElementById('docConfPwd').value;
+  var msg  = document.getElementById('docPwdMsg');
+  function showMsg(text, ok) {
+    msg.textContent = text;
+    msg.style.display = 'block';
+    msg.style.background = ok ? '#e8fdf5' : '#fff0f0';
+    msg.style.color = ok ? '#0a5c4d' : '#c0392b';
+    msg.style.border = '1.5px solid ' + (ok ? '#52b788' : '#e57373');
+    if (ok) { setTimeout(function(){ msg.style.display='none'; }, 4000); }
+  }
+  if (!cur) { showMsg('Please enter your current password.', false); return; }
+  if (!nw || nw.length < 4) { showMsg('New password must be at least 4 characters.', false); return; }
+  if (nw !== conf) { showMsg('\u274C New passwords do not match.', false); return; }
+  if (!_doctor || !_docPhone) { showMsg('Session error. Please re-login.', false); return; }
+  if (_doctor.password !== cur) { showMsg('\u274C Current password is incorrect.', false); return; }
+  var regs = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
+  var idx = regs.findIndex(function(r){ return r.phone && r.phone.replace(/\D/g,'') === _docPhone && r.type === 'doctor'; });
+  if (idx === -1) { showMsg('Account not found. Please re-login.', false); return; }
+  regs[idx].password = nw;
+  localStorage.setItem('nyc_registrations', JSON.stringify(regs));
+  _doctor.password = nw;
+  document.getElementById('docCurPwd').value = '';
+  document.getElementById('docNewPwd').value = '';
+  document.getElementById('docConfPwd').value = '';
+  showMsg('\u2705 Password updated successfully!', true);
 }
 
 function doDocLogin() {
