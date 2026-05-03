@@ -266,6 +266,29 @@
     .blog-del-btn{background:#fee2e2;color:#e05;border:none;border-radius:8px;padding:7px 14px;cursor:pointer;font-weight:600;font-size:0.82rem;flex-shrink:0;}
     .blog-success{display:none;background:#d4edda;border:1.5px solid #28a745;color:#155724;border-radius:10px;padding:12px 16px;margin-top:12px;font-weight:600;}
 
+
+    /* ---- Registrations Tab ---- */
+    .reg-toolbar{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;align-items:center;}
+    .reg-filter-btn{padding:8px 18px;border-radius:999px;border:1.5px solid var(--primary);background:#fff;color:var(--primary);font-weight:700;font-size:0.82rem;cursor:pointer;transition:all .2s;}
+    .reg-filter-btn.active{background:var(--primary);color:#fff;}
+    .reg-search{flex:1;min-width:180px;padding:9px 14px;border:1.5px solid #c8ead8;border-radius:10px;font-size:0.9rem;}
+    .reg-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:4px;}
+    .reg-card{background:#fff;border:1.5px solid #e0f2ec;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:6px;}
+    .reg-card.doctor-card{border-left:4px solid var(--primary);}
+    .reg-card.patient-card{border-left:4px solid #3aafa9;}
+    .reg-card-type{font-size:0.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:2px 10px;border-radius:999px;display:inline-block;width:fit-content;}
+    .type-doctor{background:#e0f5eb;color:#0a5c4d;}
+    .type-patient{background:#e0f3ff;color:#0a4c8c;}
+    .reg-card-name{font-size:1rem;font-weight:700;color:#1a2e1a;}
+    .reg-card-detail{font-size:0.82rem;color:#5a7060;line-height:1.5;}
+    .reg-card-date{font-size:0.75rem;color:#9aaa9a;margin-top:4px;}
+    .reg-card-actions{display:flex;gap:8px;margin-top:8px;}
+    .reg-wa-btn{padding:7px 14px;background:#25D366;color:#fff;border:none;border-radius:8px;font-size:0.8rem;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block;}
+    .reg-del-btn{padding:7px 14px;background:#fee2e2;color:#e05;border:none;border-radius:8px;font-size:0.8rem;font-weight:600;cursor:pointer;}
+    .reg-empty{text-align:center;color:#8aaa90;padding:48px 20px;grid-column:1/-1;}
+    .reg-stats{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;}
+    .reg-stat{background:#f0faf5;border-radius:12px;padding:12px 20px;font-size:0.85rem;font-weight:700;color:#0a5c4d;}
+
   </style>
 </head>
 <body>
@@ -303,6 +326,7 @@
     <button class="tab-btn" onclick="goTab('dietchart',this)">🥗 Diet Chart</button>
     <button class="tab-btn" onclick="goTab('dietuploads',this)">📸 Diet Uploads</button>
     <button class="tab-btn" onclick="goTab('blogs',this)">📝 Blogs</button>
+    <button class="tab-btn" onclick="goTab('registrations',this)">📋 Registrations</button>
   </div>
 
   <!-- DASHBOARD -->
@@ -526,6 +550,25 @@
     </div>
   </div>
 
+  <!-- REGISTRATIONS -->
+  <div id="tab-registrations" class="tab-pane">
+    <div class="reg-stats">
+      <div class="reg-stat">👥 Total: <span id="reg-total">0</span></div>
+      <div class="reg-stat">🙋 Patients: <span id="reg-patients-count">0</span></div>
+      <div class="reg-stat">👨‍⚕️ Doctors: <span id="reg-doctors-count">0</span></div>
+    </div>
+    <div class="reg-toolbar">
+      <button class="reg-filter-btn active" onclick="filterRegs('all',this)">All</button>
+      <button class="reg-filter-btn" onclick="filterRegs('patient',this)">🙋 Patients</button>
+      <button class="reg-filter-btn" onclick="filterRegs('doctor',this)">👨‍⚕️ Doctors</button>
+      <input class="reg-search" id="regSearch" placeholder="🔍 Search by name or phone..." oninput="renderRegistrations()" />
+      <button class="p-add-btn" style="background:#fee2e2;color:#e05;" onclick="clearAllRegistrations()">🗑 Clear All</button>
+    </div>
+    <div class="reg-cards" id="regCards">
+      <div class="reg-empty">No registrations yet.</div>
+    </div>
+  </div>
+
 </div><!-- END MAIN -->
 
 <!-- ADD PATIENT MODAL -->
@@ -658,6 +701,7 @@ function goTab(name, btn) {
   document.querySelectorAll(".tab-btn").forEach(function(b) { b.classList.remove("active"); });
   document.getElementById("tab-" + name).classList.add("active");
   if (name === "blogs") renderBlogList();
+  if (name === "registrations") renderRegistrations();
   if (btn) btn.classList.add("active");
   if (name === "dashboard") initDash();
   if (name === "patients")  renderPatients();
@@ -1333,6 +1377,101 @@ function deleteBlog(id) {
   var blogs = JSON.parse(localStorage.getItem('nyc_blogs') || '[]');
   localStorage.setItem('nyc_blogs', JSON.stringify(blogs.filter(function(b) { return b.id !== id; })));
   renderBlogList();
+}
+
+
+/* ---- REGISTRATIONS ---- */
+var _regFilter = 'all';
+
+function filterRegs(type, btn) {
+  _regFilter = type;
+  document.querySelectorAll('.reg-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  renderRegistrations();
+}
+
+function renderRegistrations() {
+  var all = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
+  var search = (document.getElementById('regSearch') || {}).value || '';
+  search = search.toLowerCase();
+
+  // Update stats
+  var patients = all.filter(function(u) { return u.type === 'patient'; });
+  var doctors  = all.filter(function(u) { return u.type === 'doctor'; });
+  var t = document.getElementById('reg-total');          if (t) t.textContent = all.length;
+  var p = document.getElementById('reg-patients-count'); if (p) p.textContent = patients.length;
+  var d = document.getElementById('reg-doctors-count');  if (d) d.textContent = doctors.length;
+
+  var filtered = all.filter(function(u) {
+    var typeMatch = _regFilter === 'all' || u.type === _regFilter;
+    var searchMatch = !search ||
+      (u.name  || '').toLowerCase().includes(search) ||
+      (u.phone || '').toLowerCase().includes(search) ||
+      (u.email || '').toLowerCase().includes(search);
+    return typeMatch && searchMatch;
+  });
+
+  var grid = document.getElementById('regCards');
+  if (!grid) return;
+
+  if (!filtered.length) {
+    grid.innerHTML = '<div class="reg-empty">No registrations found.</div>';
+    return;
+  }
+
+  grid.innerHTML = '';
+  filtered.slice().reverse().forEach(function(u) {
+    var isDoc = u.type === 'doctor';
+    var phone = (u.phone || '').replace(/\D/g, '');
+    var waLink = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(
+      isDoc
+        ? 'Hello Dr. ' + u.name + ', this is regarding your registration on Naturopathy & Yoga Care.'
+        : 'Hello ' + u.name + ', this is regarding your patient registration on Naturopathy & Yoga Care.'
+    );
+
+    var details = isDoc
+      ? [
+          u.specialty ? '🏥 ' + u.specialty : '',
+          u.qualifications ? '🎓 ' + u.qualifications : '',
+          u.timing ? '🕐 ' + u.timing : '',
+          u.email ? '📧 ' + u.email : '',
+          u.bio ? '📝 ' + u.bio : ''
+        ].filter(Boolean).join('<br>')
+      : [
+          u.condition ? '🌿 ' + u.condition : '',
+          u.age ? '🎂 Age: ' + u.age : '',
+          u.email ? '📧 ' + u.email : ''
+        ].filter(Boolean).join('<br>');
+
+    var card = document.createElement('div');
+    card.className = 'reg-card ' + (isDoc ? 'doctor-card' : 'patient-card');
+    card.innerHTML =
+      '<span class="reg-card-type ' + (isDoc ? 'type-doctor' : 'type-patient') + '">' +
+        (isDoc ? '👨‍⚕️ Doctor' : '🙋 Patient') +
+      '</span>' +
+      '<div class="reg-card-name">' + (u.name || '—') + '</div>' +
+      '<div class="reg-card-detail">📞 ' + (u.phone || '—') + '</div>' +
+      (details ? '<div class="reg-card-detail">' + details + '</div>' : '') +
+      '<div class="reg-card-date">📅 Registered: ' + (u.date || '—') + '</div>' +
+      '<div class="reg-card-actions">' +
+        '<a class="reg-wa-btn" href="' + waLink + '" target="_blank">💬 WhatsApp</a>' +
+        '<button class="reg-del-btn" onclick="deleteRegistration(' + u.id + ')">🗑 Delete</button>' +
+      '</div>';
+    grid.appendChild(card);
+  });
+}
+
+function deleteRegistration(id) {
+  if (!confirm('Remove this registration?')) return;
+  var all = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
+  localStorage.setItem('nyc_registrations', JSON.stringify(all.filter(function(u) { return u.id !== id; })));
+  renderRegistrations();
+}
+
+function clearAllRegistrations() {
+  if (!confirm('Clear ALL registrations? This cannot be undone.')) return;
+  localStorage.removeItem('nyc_registrations');
+  renderRegistrations();
 }
 
 </script>
