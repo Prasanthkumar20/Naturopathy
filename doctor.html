@@ -957,6 +957,7 @@
 
 <script>
 var DOCTORS = [
+  { u:"admin",    p:"admin@nyc123", name:"Admin",              qual:"Naturopathy & Yoga Care" },
   { u:"srihari",  p:"srihari@123",  name:"Dr Srihari",        qual:"BNYS, MSc. Psy, Dip. in Acu" },
   { u:"prathima", p:"prathima@123", name:"Dr Prathima Kumari", qual:"BNYS" }
 ];
@@ -978,7 +979,7 @@ function doLogin() {
     ME = found;
     document.getElementById("loginScreen").style.display = "none";
     document.getElementById("mainPanel").style.display   = "block";
-    document.getElementById("docTag").textContent        = "👨‍⚕️ " + found.name;
+    document.getElementById("docTag").textContent        = (found.u==="admin" ? "🛡️ Admin" : "👨‍⚕️ " + found.name);
     document.getElementById("dname").value = found.name;
     document.getElementById("dqual").value = found.qual;
     document.getElementById("cdate").value = new Date().toISOString().split("T")[0];
