@@ -594,26 +594,63 @@ function renderMyDoctor() {
   }).join('');
 }
 
-/* ── Diet Uploads tab ── */
+/* ── Patient Diet tab ── */
 function renderDietUploads() {
+  var el = document.getElementById('dietUploadsList');
+  if (!el) return;
+  var html = '';
+
+  /* ─ SECTION 1: Doctor-assigned diet chart ─ */
+  var charts = JSON.parse(localStorage.getItem('nyc_diet_charts')||'[]');
+  var myChart = charts.find(function(ch) {
+    var cpPhone = (ch.patientPhone||'').replace(/\D/g,'');
+    return cpPhone === _phone ||
+           (ch.patientName||'').toLowerCase() === (_patient.name||'').toLowerCase();
+  });
+
+  if (myChart) {
+    html += '<div style="background:#fff;border-radius:18px;box-shadow:0 4px 20px rgba(27,67,50,0.10);overflow:hidden;margin-bottom:24px;">' +
+      '<div style="background:linear-gradient(135deg,#1b4332,#2d6a4f);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">' +
+        '<div>' +
+          '<div style="color:#fff;font-weight:800;font-size:1rem;">\uD83E\uDD57 My Diet Plan</div>' +
+          '<div style="color:rgba(255,255,255,0.8);font-size:0.8rem;">' + (myChart.condition||'') + (myChart.date ? ' \u00B7 ' + myChart.date : '') + '</div>' +
+        '</div>' +
+        '<div style="text-align:right;">' +
+          '<div style="color:#95d5b2;font-weight:700;font-size:0.82rem;">\uD83D\uDC68\u200D\u2695\uFE0F ' + (myChart.doctorName||'Your Doctor') + '</div>' +
+          '<div style="color:rgba(255,255,255,0.65);font-size:0.76rem;">Saved: ' + (myChart.savedAt||'') + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div style="padding:16px;">' + myChart.chartHtml + '</div>' +
+    '</div>';
+  } else {
+    html += '<div style="background:#f0fdf8;border:2px dashed #95d5b2;border-radius:14px;padding:28px;text-align:center;margin-bottom:20px;">' +
+      '<div style="font-size:2rem;margin-bottom:8px;">\uD83E\uDD57</div>' +
+      '<div style="font-weight:700;color:#2d6a4f;font-size:0.95rem;">No diet chart assigned yet</div>' +
+      '<div style="font-size:0.83rem;color:#5a7060;margin-top:6px;">Your doctor will save a personalised diet plan here after your consultation.</div>' +
+    '</div>';
+  }
+
+  /* ─ SECTION 2: My uploaded diet photos ─ */
+  html += '<h3 style="font-size:0.93rem;font-weight:800;color:var(--dark);margin:0 0 12px;">\uD83D\uDCF8 My Diet Photo Uploads</h3>';
   var uploads = (JSON.parse(localStorage.getItem('nyc_diet_uploads')||'[]')).filter(function(u){
     return u.phone && u.phone.replace(/\D/g,'') === _phone;
   });
-  var el = document.getElementById('dietUploadsList');
   if (!uploads.length) {
-    el.innerHTML = '<div class="no-data">No diet photos uploaded yet.<br><a href="index.html#patient-upload" target="_blank" style="color:var(--primary);font-weight:700;">Upload your diet photos \u2192</a></div>';
-    return;
-  }
-  el.innerHTML = uploads.slice().reverse().map(function(u){
-    var imgs = (u.images||[]).map(function(src){
-      return '<img class="du-img" src="'+src+'" alt="diet" onclick="window.open(\''+src+'\',\'_blank\')" />';
+    html += '<div class="no-data">No diet photos uploaded yet.<br><a href="index.html#patient-upload" target="_blank" style="color:var(--primary);font-weight:700;">Upload your diet photos \u2192</a></div>';
+  } else {
+    html += uploads.slice().reverse().map(function(u){
+      var imgs = (u.images||[]).map(function(src){
+        return '<img class="du-img" src="'+src+'" alt="diet" onclick="window.open(\''+src+'\',\'_blank\')" />';
+      }).join('');
+      return '<div class="diet-upload-card">' +
+        '<div class="du-header"><span class="du-name">\uD83D\uDCF8 Upload \u2014 '+u.date+'</span><span class="du-date">'+u.date+'</span></div>' +
+        (u.note?'<div class="du-note">Note: '+u.note+'</div>':'') +
+        '<div class="du-imgs">'+imgs+'</div>' +
+      '</div>';
     }).join('');
-    return '<div class="diet-upload-card">' +
-      '<div class="du-header"><span class="du-name">\uD83D\uDCF8 Upload — '+u.date+'</span><span class="du-date">'+u.date+'</span></div>' +
-      (u.note?'<div class="du-note">Note: '+u.note+'</div>':'') +
-      '<div class="du-imgs">'+imgs+'</div>' +
-    '</div>';
-  }).join('');
+  }
+
+  el.innerHTML = html;
 }
 
 /* ── Profile tab ── */

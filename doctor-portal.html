@@ -417,7 +417,9 @@
           <button class="dc-btn-prev" onclick="dcGenChart()">&#x1F441;&#xFE0F; Preview</button>
           <button class="dc-btn-prnt" onclick="dcPrintChart()">&#x1F5A8;&#xFE0F; Print / Save PDF</button>
         </div>
-        <button class="dc-btn-wa" onclick="dcWaSummary()">&#x1F4AC; Send Diet Summary to Patient via WhatsApp</button>
+        <button onclick="dcSaveChart()" style="width:100%;margin:8px 0 0;padding:13px;background:linear-gradient(135deg,#1b4332,#2d6a4f);color:#fff;border:none;border-radius:12px;font-weight:800;font-size:0.95rem;cursor:pointer;">&#x1F4BE; Save Diet Chart to Patient Portal</button>
+        <div id="dcSaveMsg" style="display:none;text-align:center;color:#2d6a4f;font-weight:700;font-size:0.88rem;margin-top:6px;"></div>
+        <button class="dc-btn-wa" onclick="dcWaSummary()" style="margin-top:8px;">&#x1F4AC; Send Diet Summary to Patient via WhatsApp</button>
         <div style="font-size:0.74rem;color:#8a9e98;text-align:center;margin-top:5px;">Print/PDF → Save PDF → Share the PDF manually via WhatsApp</div>
       </div>
 
@@ -785,6 +787,24 @@ function renderPatients() {
       (p.sessions[p.sessions.length-1] && p.sessions[p.sessions.length-1].notes
         ? '<div class="pc-notes">&#x1F4DD; Admin note: ' + p.sessions[p.sessions.length-1].notes + '</div>'
         : '');
+
+    // Diet chart status
+    var allCharts = JSON.parse(localStorage.getItem('nyc_diet_charts')||'[]');
+    var patChart = allCharts.find(function(ch) {
+      return (p.phone && ch.patientPhone === p.phone) ||
+             ch.patientName.toLowerCase() === p.name.toLowerCase();
+    });
+    card.innerHTML +=
+      '<div style="margin-top:12px;padding-top:12px;border-top:1px solid #e8f5ee;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">' +
+        (patChart
+          ? '<div style="font-size:0.82rem;color:#2d6a4f;font-weight:700;">&#x1F957; Diet chart saved &mdash; <span style=\"font-weight:400;color:#5a7090;\">' + patChart.savedAt + '</span></div>'
+          : '<div style="font-size:0.82rem;color:#c77b00;font-weight:700;">&#x26A0;&#xFE0F; No diet chart saved yet</div>') +
+        '<button onclick="dcOpenForPatient(' + JSON.stringify(p.phone||'') + ',' + JSON.stringify(p.name||'') + ')" ' +
+          'style="background:linear-gradient(135deg,#2d6a4f,#40916c);color:#fff;border:none;border-radius:8px;padding:7px 14px;font-weight:700;font-size:0.8rem;cursor:pointer;">' +
+          '&#x1F957; ' + (patChart ? 'Edit' : 'Create') + ' Diet Chart' +
+        '</button>' +
+      '</div>';
+
     el.appendChild(card);
   });
 }
@@ -1060,6 +1080,83 @@ function dcGenChart() {
   document.getElementById('dp-dcOutput').innerHTML = html;
   document.querySelector('.dc-prev-panel').scrollIntoView({ behavior:'smooth' });
 }
+
+function dcOpenForPatient(phone, name) {
+  goTab('dietchart', document.querySelector('.tab-btn[onclick*=\"dietchart\"]'));
+  setTimeout(function() {
+    // try to select from dropdown
+    var sel = document.getElementById('dp-selPat');
+    if (sel) {
+      for (var i = 0; i < sel.options.length; i++) {
+        try {
+          var a = JSON.parse(decodeURIComponent(sel.options[i].value));
+          if ((phone && a.patientPhone === phone) || (name && a.patientName === name)) {
+            sel.selectedIndex = i;
+            dcLoadPatient();
+            break;
+          }
+        } catch(e) {}
+      }
+    }
+    // If a saved chart exists, load its saved html too
+    var charts = JSON.parse(localStorage.getItem('nyc_diet_charts')||'[]');
+    var ch = charts.find(function(c) {
+      return (phone && c.patientPhone === phone) || c.patientName.toLowerCase() === (name||'').toLowerCase();
+    });
+    if (ch && ch.chartHtml) {
+      document.getElementById('dp-dcOutput').innerHTML = ch.chartHtml;
+    }
+  }, 200);
+}
+
+
+function dcSaveChart() {
+  var pname = (document.getElementById('dp-pname').value||'').trim();
+  if (!pname) { alert('Please enter a patient name before saving.'); return; }
+  // generate preview first so html is fresh
+  dcGenChart();
+  var chartHtml = document.getElementById('dp-dcOutput').innerHTML;
+  if (!chartHtml || chartHtml.indexOf('dc-prev-empty') !== -1) {
+    alert('Please fill in at least the patient name and some meal details first.');
+    return;
+  }
+  // get patient phone from dropdown
+  var phone = '';
+  var selVal = document.getElementById('dp-selPat').value;
+  if (selVal) {
+    try { var a = JSON.parse(decodeURIComponent(selVal)); phone = (a.patientPhone||'').replace(/\D/g,''); } catch(e){}
+  }
+  var charts = JSON.parse(localStorage.getItem('nyc_diet_charts')||'[]');
+  // replace if exists for same patient
+  charts = charts.filter(function(ch) {
+    if (phone) return ch.patientPhone !== phone;
+    return ch.patientName.toLowerCase() !== pname.toLowerCase();
+  });
+  charts.push({
+    id: Date.now(),
+    patientName: pname,
+    patientPhone: phone,
+    doctorName: 'Dr. ' + _doctor.name,
+    doctorPhone: _docPhone,
+    condition: document.getElementById('dp-pcond').value,
+    date: document.getElementById('dp-cdate').value,
+    wt: document.getElementById('dp-wt').value,
+    ht: document.getElementById('dp-ht').value,
+    age: document.getElementById('dp-age').value,
+    tips: (document.getElementById('dp-tips').value||''),
+    avoid: (document.getElementById('dp-avoid').value||''),
+    chartHtml: chartHtml,
+    savedAt: new Date().toLocaleString('en-IN')
+  });
+  localStorage.setItem('nyc_diet_charts', JSON.stringify(charts));
+  var msg = document.getElementById('dcSaveMsg');
+  if (msg) {
+    msg.textContent = '\u2705 Diet chart saved! ' + pname + ' can now see it in their Patient Portal.';
+    msg.style.display = 'block';
+    setTimeout(function(){ msg.style.display = 'none'; }, 4000);
+  }
+}
+
 
 function dcPrintChart() {
   dcGenChart();
