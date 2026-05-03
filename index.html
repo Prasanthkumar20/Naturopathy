@@ -506,6 +506,67 @@
     .pay-success-icon{font-size:3rem;margin-bottom:12px;}
     .pay-success-msg{font-size:1rem;font-weight:700;color:#1a7a3a;margin-bottom:8px;}
     .pay-success-sub{font-size:0.85rem;color:#5a7060;}
+    /* WALLET BUTTON */
+    .wallet-nav-btn{background:linear-gradient(135deg,#d9b66f,#c8973d);color:#fff!important;border:none;border-radius:999px;padding:8px 16px;cursor:pointer;font-weight:700;font-size:0.88rem;display:inline-flex;align-items:center;gap:5px;}
+    .wallet-bal-pill{background:rgba(255,255,255,0.25);border-radius:999px;padding:2px 8px;font-size:0.82rem;font-weight:700;}
+    /* WALLET MODAL */
+    .wallet-modal{display:none;position:fixed;inset:0;z-index:9000;background:rgba(10,30,25,0.55);backdrop-filter:blur(6px);align-items:center;justify-content:center;}
+    .wallet-modal.open{display:flex;}
+    .wallet-box{background:#fff;border-radius:22px;width:min(480px,96vw);max-height:90vh;overflow-y:auto;box-shadow:0 24px 60px rgba(0,0,0,0.2);}
+    .wallet-header{background:linear-gradient(135deg,#0a5c4d,#3aafa9);color:#fff;padding:24px 24px 18px;border-radius:22px 22px 0 0;position:relative;}
+    .wallet-header h2{font-size:1.3rem;font-weight:800;margin-bottom:4px;}
+    .wallet-header p{font-size:0.85rem;opacity:0.85;}
+    .wallet-close{position:absolute;top:16px;right:18px;background:rgba(255,255,255,0.2);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1.1rem;font-weight:700;}
+    .wallet-balance-card{margin:20px 20px 0;background:linear-gradient(135deg,#e8fdf5,#d0f5e8);border-radius:16px;padding:20px;text-align:center;border:2px solid #b2eed8;}
+    .wallet-balance-label{font-size:0.82rem;color:#5a7060;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;}
+    .wallet-balance-amount{font-size:2.4rem;font-weight:900;color:#0a5c4d;margin:6px 0 4px;}
+    .wallet-balance-sub{font-size:0.8rem;color:#5a7060;}
+    .wallet-phone-row{margin:16px 20px 0;display:flex;gap:8px;}
+    .wallet-phone-row input{flex:1;padding:10px 14px;border:2px solid #cde8da;border-radius:10px;font-size:0.9rem;outline:none;}
+    .wallet-phone-row button{background:#0a5c4d;color:#fff;border:none;border-radius:10px;padding:10px 16px;cursor:pointer;font-weight:700;font-size:0.88rem;}
+    .wallet-section-title{font-size:0.88rem;font-weight:700;color:#0a5c4d;text-transform:uppercase;letter-spacing:0.05em;margin:18px 20px 10px;}
+    .recharge-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 20px;}
+    .recharge-btn{background:#f0fdf8;border:2px solid #b2eed8;border-radius:12px;padding:12px 8px;cursor:pointer;font-weight:700;color:#0a5c4d;font-size:0.95rem;text-align:center;transition:0.15s;}
+    .recharge-btn:hover,.recharge-btn.selected{background:#0a5c4d;color:#fff;border-color:#0a5c4d;}
+    .recharge-custom-row{margin:10px 20px 0;display:flex;gap:8px;}
+    .recharge-custom-row input{flex:1;padding:10px 14px;border:2px solid #cde8da;border-radius:10px;font-size:0.9rem;outline:none;}
+    .recharge-pay-btn{width:calc(100% - 40px);margin:14px 20px 4px;padding:14px;background:linear-gradient(135deg,#0a5c4d,#3aafa9);color:#fff;border:none;border-radius:12px;font-weight:800;font-size:1rem;cursor:pointer;display:block;}
+    .recharge-pay-btn:disabled{opacity:0.6;cursor:not-allowed;}
+    .wallet-tabs{display:flex;margin:18px 20px 0;border-radius:12px;overflow:hidden;border:2px solid #cde8da;}
+    .wallet-tab{flex:1;padding:9px;text-align:center;font-size:0.85rem;font-weight:700;cursor:pointer;background:#f0fdf8;color:#5a7060;border:none;transition:0.15s;}
+    .wallet-tab.active{background:#0a5c4d;color:#fff;}
+    .wallet-history{margin:12px 20px 20px;max-height:220px;overflow-y:auto;}
+    .wallet-txn{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:10px;margin-bottom:6px;font-size:0.85rem;}
+    .wallet-txn.credit{background:#e8fdf5;} .wallet-txn.debit{background:#fff5f5;}
+    .wallet-txn-left{display:flex;flex-direction:column;gap:2px;}
+    .wallet-txn-desc{font-weight:700;color:#163832;} .wallet-txn-date{font-size:0.76rem;color:#8a9e98;}
+    .wallet-txn-amt{font-weight:800;font-size:0.95rem;}
+    .wallet-txn.credit .wallet-txn-amt{color:#0a5c4d;} .wallet-txn.debit .wallet-txn-amt{color:#c0392b;}
+    .wallet-empty-txn{text-align:center;color:#8a9e98;font-size:0.85rem;padding:20px 0;}
+    .wallet-login-prompt{margin:16px 20px;padding:14px;background:#fff8e1;border-radius:12px;border:1px solid #f0d080;font-size:0.85rem;color:#7a6020;text-align:center;}
+    .wallet-recharge-success{margin:4px 20px 0;padding:12px 14px;background:#e8fdf5;border-radius:12px;border:2px solid #6dd8a8;font-size:0.9rem;color:#0a5c4d;font-weight:700;text-align:center;display:none;}
+    /* BOOKING MODAL */
+    .book-modal{display:none;position:fixed;inset:0;z-index:8500;background:rgba(10,30,25,0.55);backdrop-filter:blur(6px);align-items:center;justify-content:center;}
+    .book-modal.open{display:flex;}
+    .book-box{background:#fff;border-radius:22px;width:min(420px,96vw);box-shadow:0 24px 60px rgba(0,0,0,0.2);overflow:hidden;}
+    .book-header{background:linear-gradient(135deg,#0a5c4d,#3aafa9);color:#fff;padding:20px 22px;position:relative;}
+    .book-header h3{font-size:1.1rem;font-weight:800;margin-bottom:3px;} .book-header p{font-size:0.83rem;opacity:0.85;}
+    .book-close{position:absolute;top:14px;right:16px;background:rgba(255,255,255,0.2);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:1rem;font-weight:700;}
+    .book-body{padding:20px 22px;}
+    .book-field{margin-bottom:14px;}
+    .book-field label{display:block;font-size:0.83rem;font-weight:700;color:#0a5c4d;margin-bottom:5px;}
+    .book-field input{width:100%;padding:10px 14px;border:2px solid #cde8da;border-radius:10px;font-size:0.9rem;outline:none;}
+    .book-field input:focus{border-color:#3aafa9;}
+    .book-wallet-info{background:#e8fdf5;border-radius:10px;padding:12px 14px;margin-bottom:14px;font-size:0.85rem;color:#0a5c4d;display:flex;justify-content:space-between;align-items:center;}
+    .book-wallet-bal{font-weight:800;font-size:1rem;}
+    .book-cost-box{background:#f7fff8;border:2px solid #b2eed8;border-radius:12px;padding:14px;margin-bottom:14px;}
+    .book-cost-row{display:flex;justify-content:space-between;font-size:0.85rem;color:#5a7060;margin-bottom:6px;}
+    .book-cost-total{display:flex;justify-content:space-between;font-size:1rem;font-weight:800;color:#0a5c4d;border-top:1px solid #b2eed8;padding-top:8px;margin-top:4px;}
+    .book-insuf{background:#fff0f0;border:1px solid #f8c0c0;border-radius:10px;padding:10px 12px;font-size:0.83rem;color:#c0392b;margin-bottom:12px;display:none;}
+    .book-wa-btn{width:100%;padding:14px;background:linear-gradient(135deg,#25D366,#1aa050);color:#fff;border:none;border-radius:12px;font-weight:800;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px;}
+    .book-wa-btn:disabled{opacity:0.5;cursor:not-allowed;}
+    .book-recharge-btn{width:100%;padding:10px;background:#fff;color:#0a5c4d;border:2px solid #0a5c4d;border-radius:12px;font-weight:700;font-size:0.88rem;cursor:pointer;margin-bottom:6px;}
+    .book-no-wallet{text-align:center;padding:4px 0 2px;font-size:0.82rem;color:#8a9e98;}
 
   </style>
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
@@ -540,6 +601,7 @@
      border-bottom:none !important;">
     🩺 Doctor Panel
   </a>
+      <button class="wallet-nav-btn" onclick="openWalletModal()">&#x1F4B0; My Wallet <span class="wallet-bal-pill" id="navWalletBal">&#8377;0</span></button>
       <button id="langToggle" class="lang-btn">తెలుగు</button>
     </nav>
   </div>
@@ -1393,38 +1455,92 @@
   </div>
 </section>
 
-<!-- PAYMENT MODAL -->
-<div class="pay-modal" id="payModal">
-  <div class="pay-modal-box">
-    <button class="pay-modal-close" onclick="closePayModal()">✕</button>
-    <div id="payForm">
-      <div class="pay-modal-title" id="pay-modal-title">Book Session</div>
-      <div class="pay-modal-sub" id="pay-modal-sub">Pay to start your consultation</div>
-      <div class="pay-field">
-        <label>Your Name *</label>
-        <input type="text" id="pay-patient-name" placeholder="Your full name" />
-      </div>
-      <div class="pay-duration-row">
-        <div class="pay-field">
-          <label>Duration (minutes) *</label>
-          <input type="number" id="pay-duration" placeholder="e.g. 15" min="1" oninput="updatePayCalc()" />
-        </div>
-      </div>
-      <div class="pay-calc" id="payCalc" style="display:none;">
-        <div>Total: <strong id="pay-total">₹0</strong></div>
-        <div class="pay-split">Doctor receives 80% · Platform fee 20%</div>
-      </div>
-      <button class="pay-btn" id="payNowBtn" onclick="startPayment()">💳 Pay &amp; Start Session</button>
+
+<!-- WALLET MODAL -->
+<div class="wallet-modal" id="walletModal">
+  <div class="wallet-box">
+    <div class="wallet-header">
+      <h2>&#x1F4B0; My Wallet</h2>
+      <p>Recharge &amp; book appointments via WhatsApp</p>
+      <button class="wallet-close" onclick="closeWalletModal()">&#x2715;</button>
     </div>
-    <div class="pay-success" id="paySuccess">
-      <div class="pay-success-icon">✅</div>
-      <div class="pay-success-msg">Payment Successful!</div>
-      <div class="pay-success-sub" id="pay-success-detail"></div>
-      <div style="margin-top:16px;font-size:0.82rem;color:#5a7060;">The doctor will now contact you via WhatsApp to start the session.</div>
+    <div id="walletLoginArea">
+      <div class="wallet-login-prompt">&#x1F4F1; Enter your phone number to load your wallet.</div>
+      <div class="wallet-phone-row">
+        <input type="tel" id="walletPhoneInput" placeholder="10-digit phone number" maxlength="15"/>
+        <button onclick="loadWallet()">Load</button>
+      </div>
+    </div>
+    <div id="walletContent" style="display:none;">
+      <div class="wallet-balance-card">
+        <div class="wallet-balance-label">Available Balance</div>
+        <div class="wallet-balance-amount" id="walletBalAmt">&#8377;0.00</div>
+        <div class="wallet-balance-sub" id="walletPhoneShow"></div>
+      </div>
+      <div class="wallet-section-title">&#x1F4B3; Recharge Wallet</div>
+      <div class="recharge-grid">
+        <button class="recharge-btn" onclick="selectRecharge(100,this)">&#8377;100</button>
+        <button class="recharge-btn" onclick="selectRecharge(200,this)">&#8377;200</button>
+        <button class="recharge-btn" onclick="selectRecharge(500,this)">&#8377;500</button>
+        <button class="recharge-btn" onclick="selectRecharge(1000,this)">&#8377;1,000</button>
+        <button class="recharge-btn" onclick="selectRecharge(2000,this)">&#8377;2,000</button>
+        <button class="recharge-btn" onclick="selectRecharge(5000,this)">&#8377;5,000</button>
+      </div>
+      <div class="recharge-custom-row">
+        <input type="number" id="customRechargeAmt" placeholder="Custom amount (min &#8377;10)" min="10" oninput="selectRecharge(null,null)"/>
+      </div>
+      <button class="recharge-pay-btn" id="rechargePayBtn" onclick="startRecharge()">&#x1F4B3; Recharge via Razorpay</button>
+      <div class="wallet-recharge-success" id="rechargeSuccess"></div>
+      <div class="wallet-section-title">&#x1F4CB; Transaction History</div>
+      <div class="wallet-tabs">
+        <button class="wallet-tab active" onclick="showWalletTab('all',this)">All</button>
+        <button class="wallet-tab" onclick="showWalletTab('credit',this)">Recharges</button>
+        <button class="wallet-tab" onclick="showWalletTab('debit',this)">Sessions</button>
+      </div>
+      <div class="wallet-history" id="walletHistory"></div>
     </div>
   </div>
 </div>
 
+<!-- BOOKING MODAL -->
+<div class="book-modal" id="bookModal">
+  <div class="book-box">
+    <div class="book-header">
+      <h3 id="bookTitle">Book Session</h3>
+      <p id="bookSubtitle">Pay from wallet &amp; connect via WhatsApp</p>
+      <button class="book-close" onclick="closeBookModal()">&#x2715;</button>
+    </div>
+    <div class="book-body">
+      <div class="book-wallet-info">
+        <span>&#x1F4B0; Wallet Balance</span>
+        <span class="book-wallet-bal" id="bookWalletBal">&#8377;0.00</span>
+      </div>
+      <div class="book-field">
+        <label>Your Name *</label>
+        <input type="text" id="bookPatientName" placeholder="Your full name"/>
+      </div>
+      <div class="book-field">
+        <label>Your Phone (wallet linked) *</label>
+        <input type="tel" id="bookPatientPhone" placeholder="Registered phone number" oninput="refreshBookWallet()"/>
+      </div>
+      <div class="book-field">
+        <label>Duration (minutes) *</label>
+        <input type="number" id="bookDuration" placeholder="e.g. 15" min="1" oninput="updateBookCalc()"/>
+      </div>
+      <div class="book-cost-box" id="bookCostBox" style="display:none;">
+        <div class="book-cost-row"><span>Rate</span><span id="bookRate">&#8377;0/min</span></div>
+        <div class="book-cost-row"><span>Duration</span><span id="bookDurShow">0 min</span></div>
+        <div class="book-cost-total"><span>Total</span><span id="bookTotal">&#8377;0</span></div>
+        <div class="book-cost-row" style="margin-top:8px;font-size:0.78rem;"><span>Doctor earns (80%)</span><span id="bookDocEarn" style="color:#0a5c4d;font-weight:700;"></span></div>
+        <div class="book-cost-row" style="font-size:0.78rem;"><span>Platform fee (20%)</span><span id="bookPlatFee" style="color:#888;"></span></div>
+      </div>
+      <div class="book-insuf" id="bookInsuf">&#x26A0; Insufficient wallet balance. Please recharge.</div>
+      <button class="book-wa-btn" id="bookConfirmBtn" onclick="confirmBooking()">&#x1F4F2; Book Appointment via WhatsApp</button>
+      <button class="book-recharge-btn" id="bookRechargeBtn" onclick="closeBookModal();openWalletModal();" style="display:none;">&#x1F4B0; Recharge Wallet</button>
+      <div class="book-no-wallet" id="bookNoWallet" style="display:none;">No wallet yet? <a href="javascript:void(0)" onclick="closeBookModal();openWalletModal();" style="color:#0a5c4d;font-weight:700;">Set up &amp; recharge &#x2192;</a></div>
+    </div>
+  </div>
+</div>
 <footer class="footer">
   <div class="container">© 2025 Naturopathy &amp; Yoga Care. All rights reserved.</div>
 </footer>
@@ -1588,8 +1704,8 @@ function loadAvailableDoctors() {
       '<div class="rate-badges">' + chatRateLine + callRateLine + '</div>' +
       (d.bio ? '<div style="font-size:0.82rem;color:#5a7060;margin-bottom:10px;line-height:1.5;text-align:left;">' + d.bio + '</div>' : '') +
       '<div class="doctor-action-btns">' +
-        '<button class="doc-session-btn chat" onclick="openPayModal(' + JSON.stringify(d) + ',\'chat\')">' + chatLabel + '</button>' +
-        '<button class="doc-session-btn call" onclick="openPayModal(' + JSON.stringify(d) + ',\'call\')">' + callLabel + '</button>' +
+        '<button class="doc-session-btn chat" onclick="openBookModal(' + JSON.stringify(d) + ',\'chat\')">' + chatLabel + '</button>' +
+        '<button class="doc-session-btn call" onclick="openBookModal(' + JSON.stringify(d) + ',\'call\')">' + callLabel + '</button>' +
       '</div>' +
       (d.chatRate || d.callRate ? '<div class="commission-info">💳 Pay per minute · 20% platform fee applies</div>' : '');
     grid.appendChild(card);
@@ -1600,144 +1716,216 @@ function loadAvailableDoctors() {
 loadBlogs();
 loadAvailableDoctors();
 
-/* ---- RAZORPAY PAYMENT ---- */
-var _payDoctor = null;
-var _payType = null;
-
-function openPayModal(doctor, type) {
-  _payDoctor = doctor;
-  _payType = type;
-  var rate = type === 'chat' ? (doctor.chatRate || 0) : (doctor.callRate || 0);
-  var typeLabel = type === 'chat' ? '💬 Chat' : '📞 Call';
-  var el;
-  el = document.getElementById('pay-modal-title');
-  if (el) el.textContent = typeLabel + ' with Dr. ' + doctor.name;
-  el = document.getElementById('pay-modal-sub');
-  if (el) el.textContent = (rate ? '₹' + rate + '/min · ' : '') + doctor.specialty;
-  el = document.getElementById('pay-duration'); if (el) el.value = '';
-  el = document.getElementById('pay-patient-name'); if (el) el.value = '';
-  el = document.getElementById('payCalc'); if (el) el.style.display = 'none';
-  el = document.getElementById('payForm'); if (el) el.style.display = 'block';
-  el = document.getElementById('paySuccess'); if (el) el.style.display = 'none';
-  var modal = document.getElementById('payModal');
-  if (modal) modal.classList.add('open');
+/* ══════════════════════════════════════════
+   PATIENT WALLET SYSTEM
+   ══════════════════════════════════════════ */
+function walletKey(p){return 'nyc_wallet_'+p.replace(/\D/g,'');}
+function getWallet(p){var k=walletKey(p),r=localStorage.getItem(k);return r?JSON.parse(r):{balance:0,history:[]};}
+function saveWallet(p,d){localStorage.setItem(walletKey(p),JSON.stringify(d));updateNavWalletBal();}
+function updateNavWalletBal(){
+  var p=localStorage.getItem('nyc_wallet_active_phone')||'';
+  var b=p?getWallet(p).balance:0;
+  var el=document.getElementById('navWalletBal');
+  if(el)el.textContent='\u20b9'+b.toFixed(0);
 }
 
-function closePayModal() {
-  var modal = document.getElementById('payModal');
-  if (modal) modal.classList.remove('open');
+var _walletPhone='',_rechargeAmt=0,_walletTab='all';
+
+function openWalletModal(){
+  document.getElementById('walletModal').classList.add('open');
+  var s=localStorage.getItem('nyc_wallet_active_phone')||'';
+  if(s){document.getElementById('walletPhoneInput').value=s;loadWallet();}
+}
+function closeWalletModal(){document.getElementById('walletModal').classList.remove('open');}
+
+function loadWallet(){
+  var p=(document.getElementById('walletPhoneInput').value||'').replace(/\D/g,'');
+  if(!p||p.length<10){alert('Please enter a valid 10-digit phone number.');return;}
+  _walletPhone=p;
+  localStorage.setItem('nyc_wallet_active_phone',p);
+  document.getElementById('walletLoginArea').style.display='none';
+  document.getElementById('walletContent').style.display='block';
+  refreshWalletUI();
 }
 
-function updatePayCalc() {
-  if (!_payDoctor) return;
-  var rate = _payType === 'chat' ? (_payDoctor.chatRate || 0) : (_payDoctor.callRate || 0);
-  var mins = parseFloat(document.getElementById('pay-duration').value) || 0;
-  var calc = document.getElementById('payCalc');
-  var totalEl = document.getElementById('pay-total');
-  if (!calc || !totalEl) return;
-  if (mins > 0 && rate > 0) {
-    var total = mins * rate;
-    totalEl.textContent = '₹' + total.toFixed(2);
-    calc.style.display = 'block';
-  } else {
-    calc.style.display = 'none';
-  }
+function refreshWalletUI(){
+  var d=getWallet(_walletPhone);
+  var b=document.getElementById('walletBalAmt');if(b)b.textContent='\u20b9'+d.balance.toFixed(2);
+  var ph=document.getElementById('walletPhoneShow');if(ph)ph.textContent='Phone: +91'+_walletPhone;
+  renderWalletHistory(_walletTab);
+  updateNavWalletBal();
 }
 
-function startPayment() {
-  if (!_payDoctor) return;
-  var patientName = (document.getElementById('pay-patient-name').value || '').trim();
-  var mins = parseFloat(document.getElementById('pay-duration').value) || 0;
-  var rate = _payType === 'chat' ? (_payDoctor.chatRate || 0) : (_payDoctor.callRate || 0);
-  if (!patientName) { alert('Please enter your name.'); return; }
-  if (mins < 1) { alert('Please enter session duration.'); return; }
-  if (!rate) { alert('This doctor has not set a rate for this session type.'); return; }
+function selectRecharge(amt,btn){
+  document.querySelectorAll('.recharge-btn').forEach(function(b){b.classList.remove('selected');});
+  if(btn)btn.classList.add('selected');
+  _rechargeAmt=amt;
+  if(amt)document.getElementById('customRechargeAmt').value='';
+}
 
-  var totalRupees = mins * rate;
-  var amountPaise = Math.round(totalRupees * 100);
-  var btn = document.getElementById('payNowBtn');
-  if (btn) { btn.disabled = true; btn.textContent = '⏳ Creating order...'; }
+function showWalletTab(tab,btn){
+  _walletTab=tab;
+  document.querySelectorAll('.wallet-tab').forEach(function(b){b.classList.remove('active');});
+  if(btn)btn.classList.add('active');
+  renderWalletHistory(tab);
+}
 
-  fetch('/api/create-order', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      amount_paise: amountPaise,
-      doctor_name: _payDoctor.name,
-      session_type: _payType,
-      patient_name: patientName
-    })
+function renderWalletHistory(tab){
+  var d=getWallet(_walletPhone);
+  var h=(d.history||[]).slice().reverse();
+  if(tab==='credit')h=h.filter(function(t){return t.type==='credit';});
+  if(tab==='debit')h=h.filter(function(t){return t.type==='debit';});
+  var el=document.getElementById('walletHistory');if(!el)return;
+  if(!h.length){el.innerHTML='<div class="wallet-empty-txn">No transactions yet.</div>';return;}
+  el.innerHTML=h.map(function(t){
+    return '<div class="wallet-txn '+t.type+'">'+
+      '<div class="wallet-txn-left"><span class="wallet-txn-desc">'+t.desc+'</span>'+
+      '<span class="wallet-txn-date">'+t.date+'</span></div>'+
+      '<span class="wallet-txn-amt">'+(t.type==='credit'?'+':'-')+'\u20b9'+parseFloat(t.amount).toFixed(2)+'</span>'+
+    '</div>';
+  }).join('');
+}
+
+/* Recharge via Razorpay */
+function startRecharge(){
+  var custom=parseFloat(document.getElementById('customRechargeAmt').value)||0;
+  var amt=custom>0?custom:_rechargeAmt;
+  if(!amt||amt<10){alert('Please select or enter a recharge amount (minimum \u20b910).');return;}
+  if(!_walletPhone){alert('Please load your wallet first.');return;}
+  var btn=document.getElementById('rechargePayBtn');
+  if(btn){btn.disabled=true;btn.textContent='\u23f3 Opening payment...';}
+  fetch('/api/create-order',{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({amount_paise:Math.round(amt*100),doctor_name:'Wallet Recharge',session_type:'recharge',patient_name:'Patient'})
   })
-  .then(function(r) { return r.json(); })
-  .then(function(data) {
-    if (data.error) { alert('Error: ' + data.error); resetPayBtn(); return; }
-    var options = {
-      key: data.key_id,
-      amount: data.amount,
-      currency: data.currency,
-      name: 'Naturopathy & Yoga Care',
-      description: (_payType === 'chat' ? 'Chat' : 'Call') + ' with Dr. ' + _payDoctor.name + ' (' + mins + ' min)',
-      order_id: data.order_id,
-      theme: { color: '#0a5c4d' },
-      prefill: { name: patientName },
-      handler: function(response) {
-        verifyPayment(response, totalRupees, patientName, data.order_id);
+  .then(function(r){return r.json();})
+  .then(function(data){
+    if(data.error){alert('Error: '+data.error);if(btn){btn.disabled=false;btn.textContent='\ud83d\udcb3 Recharge via Razorpay';}return;}
+    var opts={
+      key:data.key_id,amount:data.amount,currency:data.currency,
+      name:'Naturopathy & Yoga Care',description:'Wallet Recharge',order_id:data.order_id,
+      theme:{color:'#0a5c4d'},
+      handler:function(resp){
+        fetch('/api/verify-payment',{
+          method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({razorpay_order_id:resp.razorpay_order_id||data.order_id,razorpay_payment_id:resp.razorpay_payment_id,razorpay_signature:resp.razorpay_signature})
+        })
+        .then(function(r){return r.json();})
+        .then(function(vd){
+          if(vd.verified){
+            var w=getWallet(_walletPhone);
+            w.balance=(w.balance||0)+amt;
+            w.history.push({type:'credit',desc:'\ud83d\udcb0 Wallet Recharge',amount:amt,date:new Date().toLocaleString('en-IN'),payId:resp.razorpay_payment_id});
+            saveWallet(_walletPhone,w);
+            refreshWalletUI();
+            var s=document.getElementById('rechargeSuccess');
+            if(s){s.style.display='block';s.textContent='\u2705 \u20b9'+amt+' added to your wallet!';setTimeout(function(){s.style.display='none';},4000);}
+            document.querySelectorAll('.recharge-btn').forEach(function(b){b.classList.remove('selected');});
+            document.getElementById('customRechargeAmt').value='';_rechargeAmt=0;
+          }else{alert('Payment verification failed. Contact support.');}
+          if(btn){btn.disabled=false;btn.textContent='\ud83d\udcb3 Recharge via Razorpay';}
+        });
       },
-      modal: {
-        ondismiss: function() { resetPayBtn(); }
-      }
+      modal:{ondismiss:function(){if(btn){btn.disabled=false;btn.textContent='\ud83d\udcb3 Recharge via Razorpay';}}}
     };
-    var rzp = new window.Razorpay(options);
-    rzp.open();
+    new window.Razorpay(opts).open();
   })
-  .catch(function(err) {
-    alert('Network error. Please try again.');
-    resetPayBtn();
-  });
+  .catch(function(){alert('Network error. Try again.');if(btn){btn.disabled=false;btn.textContent='\ud83d\udcb3 Recharge via Razorpay';}});
 }
 
-function verifyPayment(response, totalRupees, patientName, orderId) {
-  fetch('/api/verify-payment', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      razorpay_order_id: response.razorpay_order_id || orderId,
-      razorpay_payment_id: response.razorpay_payment_id,
-      razorpay_signature: response.razorpay_signature
-    })
-  })
-  .then(function(r) { return r.json(); })
-  .then(function(data) {
-    if (data.verified) {
-      var yours = (totalRupees * 0.8).toFixed(2);
-      var plat  = (totalRupees * 0.2).toFixed(2);
-      var detail = document.getElementById('pay-success-detail');
-      if (detail) detail.textContent = '₹' + totalRupees.toFixed(2) + ' paid · Dr. ' + _payDoctor.name + ' will earn ₹' + yours + ' · Platform fee ₹' + plat;
-      document.getElementById('payForm').style.display = 'none';
-      document.getElementById('paySuccess').style.display = 'block';
-      /* Send WhatsApp to doctor notifying session booked */
-      var phone = (_payDoctor.phone || '').replace(/\D/g,'');
-      var msg = encodeURIComponent('New session booked! Patient: ' + patientName + ' | Type: ' + (_payType === 'chat' ? 'Chat' : 'Call') + ' | Payment ID: ' + response.razorpay_payment_id + ' | Amount: ₹' + totalRupees.toFixed(2));
-      window.open('https://wa.me/' + phone + '?text=' + msg, '_blank');
-    } else {
-      alert('Payment verification failed. Contact support with payment ID: ' + response.razorpay_payment_id);
-      resetPayBtn();
-    }
-  })
-  .catch(function() {
-    alert('Could not verify payment. Please contact support.');
-    resetPayBtn();
-  });
+/* ══════════════════════════════════════════
+   WHATSAPP BOOKING MODAL
+   ══════════════════════════════════════════ */
+var _bookDoctor=null,_bookType=null;
+
+function openBookModal(doctor,type){
+  _bookDoctor=doctor;_bookType=type;
+  var rate=type==='chat'?(doctor.chatRate||0):(doctor.callRate||0);
+  var label=type==='chat'?'\ud83d\udcac Chat':'\ud83d\udcde Call';
+  document.getElementById('bookTitle').textContent=label+' with Dr. '+doctor.name;
+  document.getElementById('bookSubtitle').textContent=(rate?'\u20b9'+rate+'/min \u00b7 ':'')+( doctor.specialty||'');
+  document.getElementById('bookPatientName').value='';
+  document.getElementById('bookDuration').value='';
+  document.getElementById('bookCostBox').style.display='none';
+  document.getElementById('bookInsuf').style.display='none';
+  document.getElementById('bookRechargeBtn').style.display='none';
+  document.getElementById('bookNoWallet').style.display='none';
+  document.getElementById('bookConfirmBtn').disabled=false;
+  var s=localStorage.getItem('nyc_wallet_active_phone')||'';
+  document.getElementById('bookPatientPhone').value=s||'';
+  refreshBookWallet();
+  document.getElementById('bookModal').classList.add('open');
+}
+function closeBookModal(){document.getElementById('bookModal').classList.remove('open');}
+
+function refreshBookWallet(){
+  var p=(document.getElementById('bookPatientPhone').value||'').replace(/\D/g,'');
+  var b=(p&&p.length>=10)?getWallet(p).balance:0;
+  var el=document.getElementById('bookWalletBal');if(el)el.textContent='\u20b9'+b.toFixed(2);
+  updateBookCalc();
 }
 
-function resetPayBtn() {
-  var btn = document.getElementById('payNowBtn');
-  if (btn) { btn.disabled = false; btn.textContent = '💳 Pay & Start Session'; }
+function updateBookCalc(){
+  if(!_bookDoctor)return;
+  var rate=_bookType==='chat'?(_bookDoctor.chatRate||0):(_bookDoctor.callRate||0);
+  var mins=parseFloat(document.getElementById('bookDuration').value)||0;
+  var p=(document.getElementById('bookPatientPhone').value||'').replace(/\D/g,'');
+  var hasP=p&&p.length>=10;
+  var bal=hasP?getWallet(p).balance:0;
+  if(mins>0&&rate>0){
+    var total=mins*rate;
+    document.getElementById('bookRate').textContent='\u20b9'+rate+'/min';
+    document.getElementById('bookDurShow').textContent=mins+' min';
+    document.getElementById('bookTotal').textContent='\u20b9'+total.toFixed(2);
+    document.getElementById('bookDocEarn').textContent='\u20b9'+(total*0.8).toFixed(2);
+    document.getElementById('bookPlatFee').textContent='\u20b9'+(total*0.2).toFixed(2);
+    document.getElementById('bookCostBox').style.display='block';
+    var insuf=hasP&&bal<total;
+    document.getElementById('bookInsuf').style.display=insuf?'block':'none';
+    document.getElementById('bookRechargeBtn').style.display=insuf?'block':'none';
+    document.getElementById('bookNoWallet').style.display=!hasP?'block':'none';
+    document.getElementById('bookConfirmBtn').disabled=insuf;
+  }else{document.getElementById('bookCostBox').style.display='none';}
 }
 
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closePayModal();
+function confirmBooking(){
+  var name=(document.getElementById('bookPatientName').value||'').trim();
+  var p=(document.getElementById('bookPatientPhone').value||'').replace(/\D/g,'');
+  var mins=parseFloat(document.getElementById('bookDuration').value)||0;
+  var rate=_bookType==='chat'?(_bookDoctor.chatRate||0):(_bookDoctor.callRate||0);
+  if(!name){alert('Please enter your name.');return;}
+  if(!p||p.length<10){alert('Please enter your phone number linked to your wallet.');return;}
+  if(mins<1){alert('Please enter session duration in minutes.');return;}
+  if(!rate){alert('This doctor has not set a rate for this session type.');return;}
+  var total=mins*rate;
+  var w=getWallet(p);
+  if(w.balance<total){alert('Insufficient wallet balance. Please recharge your wallet.');return;}
+  w.balance-=total;
+  var typeStr=_bookType==='chat'?'Chat':'Call';
+  w.history.push({type:'debit',desc:(typeStr==='Chat'?'\ud83d\udcac':'\ud83d\udcde')+' '+typeStr+' with Dr.'+_bookDoctor.name+' ('+mins+' min)',amount:total,date:new Date().toLocaleString('en-IN')});
+  saveWallet(p,w);
+  var docPhone=(_bookDoctor.phone||'').replace(/\D/g,'');
+  var msg=encodeURIComponent(
+    'New Appointment Request!\n'+
+    '\ud83d\udc64 Patient: '+name+'\n'+
+    '\ud83d\udcf1 Phone: +91'+p+'\n'+
+    '\ud83e\udba9 Type: '+typeStr+' Consultation\n'+
+    '\u23f1 Duration: '+mins+' minutes\n'+
+    '\ud83d\udcb0 Paid from wallet: \u20b9'+total.toFixed(2)+'\n'+
+    'Booked via: Naturopathy & Yoga Care'
+  );
+  window.open('https://wa.me/'+docPhone+'?text='+msg,'_blank');
+  closeBookModal();
+  updateNavWalletBal();
+  setTimeout(function(){
+    alert('\u2705 Appointment booked!\nDr. '+_bookDoctor.name+' will contact you via WhatsApp.\n\u20b9'+total.toFixed(2)+' deducted.\nNew balance: \u20b9'+getWallet(p).balance.toFixed(2));
+  },350);
+}
+
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){closeWalletModal();closeBookModal();}
 });
+updateNavWalletBal();
 
 </script>
 
