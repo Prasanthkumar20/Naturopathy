@@ -799,6 +799,7 @@ function renderEarnings() {
 
 /* ── Patients ── */
 function renderPatients() {
+  window._pcList = [];
   var assigns  = getMyAssignedPatients();
   var bookings = JSON.parse(localStorage.getItem('nyc_bookings') || '[]');
   var myName   = getMyName().toLowerCase();
@@ -950,6 +951,21 @@ function renderPatients() {
       uploadsHtml += '</div>';
       card.innerHTML += uploadsHtml;
     }
+
+    /* ── Chat & Call action buttons ── */
+    /* Store patient ref in global for click handlers */
+    var pIdx = window._pcList ? window._pcList.length : 0;
+    if (!window._pcList) window._pcList = [];
+    window._pcList.push({ phone: p.phone||'', name: p.name||'' });
+    card.innerHTML +=
+      '<div class="pc-action-row">' +
+        '<button class="pc-chat-btn" onclick="_pcChat(' + pIdx + ')">' +
+          '&#x1F4AC; Chat with Patient' +
+        '</button>' +
+        '<button class="pc-call-btn" onclick="_pcCall(' + pIdx + ')">' +
+          '&#x1F4DE; Start Call Session' +
+        '</button>' +
+      '</div>';
 
     el.appendChild(card);
   });
@@ -1537,5 +1553,42 @@ function toggleDFAQ(id, btn) {
       });
     }
   </script>
+
+<!-- ══ CHAT OVERLAY ══ -->
+<div class="chat-overlay" id="chatOverlay" onclick="if(event.target===this)closeChatOverlay()">
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+      <div>
+        <div class="chat-header-name" id="chatPatName">Patient</div>
+        <div class="chat-header-phone" id="chatPatPhone"></div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <a class="chat-wa-btn" id="chatWaBtn" href="#" target="_blank">&#x1F4AC; WhatsApp</a>
+        <button class="chat-close-btn" onclick="closeChatOverlay()">&#x2715;</button>
+      </div>
+    </div>
+    <div class="chat-msgs" id="chatMsgs"><div class="chat-empty">&#x1F4AC; No messages yet.<br>Start the conversation below!</div></div>
+    <div class="chat-input-row">
+      <input class="chat-input" type="text" id="chatInput" placeholder="Type a message to patient..." onkeydown="if(event.key==='Enter')sendDocMsg()"/>
+      <button class="chat-send-btn" onclick="sendDocMsg()">&#x1F4E4; Send</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CALL OVERLAY ══ -->
+<div class="call-overlay" id="callOverlay">
+  <div class="call-pulse">&#x1F4DE;</div>
+  <div class="call-patient-name" id="callPatName">Patient</div>
+  <div class="call-patient-info" id="callPatInfo">Session in progress</div>
+  <div class="call-timer" id="callTimer">00:00</div>
+  <div class="call-notes-wrap">
+    <div class="call-notes-label">&#x1F4DD; Session Notes</div>
+    <textarea class="call-notes-input" id="callNotes" rows="3" placeholder="Notes for this session..."></textarea>
+  </div>
+  <div class="call-actions">
+    <a class="call-wa-btn" id="callWaBtn" href="#" target="_blank">&#x1F4F1; WhatsApp Call</a>
+    <button class="call-end-btn" onclick="endCallSession()">&#x1F534; End Session</button>
+  </div>
+</div>
 </body>
 </html>

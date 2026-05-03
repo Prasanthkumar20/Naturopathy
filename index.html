@@ -1707,6 +1707,7 @@ function registerDoctor() {
 }
 
 /* ---- Available Doctors ---- */
+var _availDoctors = [];
 function loadAvailableDoctors() {
   var users = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
   var doctors = users.filter(function(u) { return u.type === 'doctor'; });
@@ -1716,8 +1717,11 @@ function loadAvailableDoctors() {
     grid.innerHTML = '<div class="no-doctors-msg">No doctors registered yet. Check back soon! 🌿</div>';
     return;
   }
+  _availDoctors = [];
   grid.innerHTML = '';
-  doctors.forEach(function(d) {
+  doctors.forEach(function(d, _i) {
+    var _idx = _availDoctors.length;
+    _availDoctors.push(d);
     var initial = (d.name || 'D').charAt(0).toUpperCase();
     var phoneClean = d.phone.replace(/\D/g, '');
     var waMsg = encodeURIComponent('Hello Dr. ' + d.name + ', I found you on Naturopathy & Yoga Care and would like to consult you.');
@@ -1736,8 +1740,8 @@ function loadAvailableDoctors() {
       '<div class="rate-badges">' + chatRateLine + callRateLine + '</div>' +
       (d.bio ? '<div style="font-size:0.82rem;color:#5a7060;margin-bottom:10px;line-height:1.5;text-align:left;">' + d.bio + '</div>' : '') +
       '<div class="doctor-action-btns">' +
-        '<button class="doc-session-btn chat" onclick="openBookModal(' + JSON.stringify(d) + ',\'chat\')">' + chatLabel + '</button>' +
-        '<button class="doc-session-btn call" onclick="openBookModal(' + JSON.stringify(d) + ',\'call\')">' + callLabel + '</button>' +
+        '<button class="doc-session-btn chat" onclick="openBookModal(' + _idx + ',\'chat\')">' + chatLabel + '</button>' +
+        '<button class="doc-session-btn call" onclick="openBookModal(' + _idx + ',\'call\')">' + callLabel + '</button>' +
       '</div>' +
       (d.chatRate || d.callRate ? '<div class="commission-info">💳 Pay per minute · Doctor 60% · Admin 20% · Platform 20%</div>' : '');
     grid.appendChild(card);
@@ -1872,7 +1876,9 @@ function startRecharge(){
    ══════════════════════════════════════════ */
 var _bookDoctor=null,_bookType=null;
 
-function openBookModal(doctor,type){
+function openBookModal(doctorOrIdx,type){
+  var doctor = (typeof doctorOrIdx === 'number') ? _availDoctors[doctorOrIdx] : doctorOrIdx;
+  if (!doctor) return;
   _bookDoctor=doctor;_bookType=type;
   var rate=type==='chat'?(doctor.chatRate||0):(doctor.callRate||0);
   var label=type==='chat'?'\ud83d\udcac Chat':'\ud83d\udcde Call';

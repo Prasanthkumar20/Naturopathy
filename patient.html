@@ -703,6 +703,10 @@ function renderMyDoctor() {
     return;
   }
   el.innerHTML = assigns.slice().reverse().map(function(a,i){
+    var dPhone = (a.doctorPhone||'').replace(/\D/g,'');
+    var waPhone = dPhone.length===10?'91'+dPhone:dPhone;
+    var waMsg = encodeURIComponent('\uD83C\uDF31 Hello Dr. '+a.doctorName+', I am '+(_patient&&_patient.name||'your patient')+'. I have a query for you.');
+    var waHref = dPhone ? 'https://wa.me/'+waPhone+'?text='+waMsg : '#';
     return '<div class="doctor-assign-card">' +
       (i===0?'<div style="background:#dcfce7;color:#166534;display:inline-block;padding:3px 10px;border-radius:999px;font-size:0.75rem;font-weight:700;margin-bottom:10px;">\u2705 Current Assignment</div><br>':'') +
       '<div class="da-doctor">\uD83D\uDC68\u200D\u2695\uFE0F Dr. '+a.doctorName+'</div>' +
@@ -713,6 +717,12 @@ function renderMyDoctor() {
         '<div class="da-row"><span class="da-label">Doctor Share</span><span class="da-val" style="color:var(--primary);font-weight:700;">\u20B9'+parseFloat(a.docShare||0).toFixed(2)+' (60%)</span></div>' : '') +
       (a.notes?'<div class="da-row"><span class="da-label">Notes</span><span class="da-val">'+a.notes+'</span></div>':'') +
       '<div class="da-row"><span class="da-label">Assigned On</span><span class="da-val">'+a.date+'</span></div>' +
+      (i===0 ? '<div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;">' +
+        '<button class="pat-chat-open-btn" style="flex:1;margin-top:0;" onclick="openPatChat(\''+dPhone+'\',\''+a.doctorName.replace(/'/g,"&#39;")+'\')">' +
+          '\uD83D\uDCAC Chat with Dr. '+a.doctorName +
+        '</button>' +
+        (dPhone?'<a href="'+waHref+'" target="_blank" style="flex:1;display:flex;align-items:center;justify-content:center;padding:11px;background:#25D366;color:#fff;border-radius:12px;font-weight:800;font-size:0.9rem;text-decoration:none;">\uD83D\uDCDE WhatsApp</a>':'') +
+      '</div>' : '') +
     '</div>';
   }).join('');
 }
@@ -949,5 +959,26 @@ function patSubmitDietUpload() {
       });
     }
   </script>
+
+<!-- ══ PATIENT CHAT OVERLAY ══ -->
+<div class="chat-overlay" id="patChatOverlay" onclick="if(event.target===this)closePatChat()">
+  <div class="chat-panel">
+    <div class="chat-header">
+      <div>
+        <div class="chat-header-name" id="patChatDocName">Doctor</div>
+        <div class="chat-header-phone" id="patChatDocPhone"></div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <a class="chat-wa-btn" id="patChatWaBtn" href="#" target="_blank">&#x1F4AC; WhatsApp</a>
+        <button class="chat-close-btn" onclick="closePatChat()">&#x2715;</button>
+      </div>
+    </div>
+    <div class="chat-msgs" id="patChatMsgs"><div class="chat-empty">&#x1F4AC; No messages yet.<br>Send a message to your doctor below!</div></div>
+    <div class="chat-input-row">
+      <input class="chat-input" type="text" id="patChatInput" placeholder="Message your doctor..." onkeydown="if(event.key==='Enter')sendPatMsg()"/>
+      <button class="chat-send-btn" onclick="sendPatMsg()">&#x1F4E4;</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
