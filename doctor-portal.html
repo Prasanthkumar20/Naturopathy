@@ -219,43 +219,17 @@
     <h2>Doctor Portal</h2>
     <p>Naturopathy &amp; Yoga Care — Login with your registered phone number</p>
 
-    <!-- Step 1: Phone number -->
-    <div id="docOtpStep1">
-      <div style="font-size:0.8rem;color:#56766e;background:#e8fdf5;border-radius:10px;padding:10px 12px;margin-bottom:14px;border:1px solid #b7e4c7;">
-        &#x1F4F2; OTP will be sent to your <b>WhatsApp</b> &amp; <b>SMS</b>
-      </div>
-      <input class="l-input" type="tel" id="loginPhone" placeholder="Registered phone number"
-        onkeydown="if(event.key==='Enter')sendDocOTP()" />
-      <button class="login-btn" onclick="sendDocOTP()">&#x1F4AC; Send OTP (WhatsApp &amp; SMS)</button>
+    <!-- Password Login -->
+    <input class="l-input" type="tel" id="loginPhone" placeholder="Registered phone number"
+      onkeydown="if(event.key==='Enter')document.getElementById('loginPassword').focus()" />
+    <div style="position:relative;margin-bottom:14px;">
+      <input class="l-input" type="password" id="loginPassword" placeholder="Password"
+        onkeydown="if(event.key==='Enter')doDocLogin()"
+        style="margin-bottom:0;padding-right:46px;" />
+      <button type="button" onclick="toggleDocPwd(this)" title="Show/hide password"
+        style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1.1rem;color:#56766e;line-height:1;">&#x1F441;</button>
     </div>
-
-    <!-- Step 2: OTP entry -->
-    <div id="docOtpStep2" style="display:none;">
-      <!-- OTP Display Box -->
-      <div style="background:linear-gradient(135deg,#163832,#1b4332);border-radius:14px;padding:18px 14px;text-align:center;margin-bottom:14px;">
-        <div style="font-size:0.8rem;color:rgba(255,255,255,0.8);margin-bottom:6px;font-weight:600;">&#x1F511; Your One-Time Password</div>
-        <div id="docOtpDisplayCode" style="font-size:2.4rem;font-weight:900;color:#fff;letter-spacing:10px;font-family:monospace;margin-bottom:10px;">------</div>
-        <button onclick="docCopyOtp()" style="background:rgba(255,255,255,0.2);border:1.5px solid rgba(255,255,255,0.5);color:#fff;border-radius:999px;padding:6px 18px;font-size:0.82rem;font-weight:700;cursor:pointer;">&#x1F4CB; Copy &amp; Fill OTP</button>
-        <div id="docSmsStatus" style="font-size:0.78rem;color:rgba(255,255,255,0.75);margin-top:10px;">&#x1F4E8; Sending SMS to your phone&hellip;</div>
-      </div>
-      <!-- WhatsApp backup link -->
-      <div id="docWaOtpRow" style="text-align:center;margin-bottom:12px;">
-        <a id="docWaOtpLink" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:#25d366;color:#fff;border-radius:999px;padding:7px 16px;font-size:0.82rem;font-weight:700;text-decoration:none;">&#x1F4F1; Also send via WhatsApp</a>
-        <span style="display:inline-block;margin:0 6px;color:#aaa;font-size:0.8rem;">|</span>
-        <a id="docSmsOtpLink" href="#" style="display:inline-flex;align-items:center;gap:6px;background:#1976d2;color:#fff;border-radius:999px;padding:7px 16px;font-size:0.82rem;font-weight:700;text-decoration:none;">&#x1F4F2; Send via SMS</a>
-      </div>
-      <input class="l-input" type="number" id="docOtpInput" placeholder="Enter 6-digit OTP"
-        style="letter-spacing:6px;font-size:1.3rem;text-align:center;font-weight:800;"
-        onkeydown="if(event.key==='Enter')verifyDocOTP()" />
-      <div id="docOtpTimerBox" style="text-align:center;font-size:0.82rem;color:#56766e;margin-bottom:12px;">
-        &#x23F1; OTP valid for <span id="docOtpTimerCount" style="font-weight:800;color:#0a5c4d;">5:00</span>
-      </div>
-      <div id="docOtpResendRow" style="display:none;text-align:center;font-size:0.83rem;margin-bottom:12px;">
-        OTP expired. <a href="#" onclick="sendDocOTP();return false;" style="color:var(--primary);font-weight:700;">Resend OTP</a>
-      </div>
-      <button class="login-btn" onclick="verifyDocOTP()">&#x2705; Verify &amp; Login</button>
-      <button onclick="backToDocPhone()" style="width:100%;padding:11px;background:transparent;border:2px solid #cde8da;border-radius:999px;color:#5a7060;font-weight:700;cursor:pointer;font-size:0.88rem;margin-top:8px;">&#x2190; Change Number</button>
-    </div>
+    <button class="login-btn" onclick="doDocLogin()">&#x1F510; Login</button>
 
     <div class="login-err" id="loginErr"></div>
     <div class="login-hint">Not registered? <a href="index.html#register">Register as Doctor</a> &nbsp;|&nbsp; <a href="index.html">Main Website</a></div>
@@ -573,85 +547,21 @@ var _doctor = null;
 var _docPhone = '';
 var _sessionFilter = 'all';
 
-/* ── OTP Login ── */
-var _docOtpCode = null, _docOtpExpiry = 0, _docOtpTimer = null;
-
-function sendDocOTP() {
-  var raw = (document.getElementById('loginPhone').value || '').replace(/\D/g,'');
-  if (!raw || raw.length < 10) { showErr('Please enter a valid 10-digit phone number.'); return; }
-  var regs = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
-  var match = regs.find(function(r){ return r.phone && r.phone.replace(/\D/g,'') === raw && r.type === 'doctor'; });
-  if (!match) { showErr('\u274C No doctor account found for this number. Please register on the website first.'); return; }
-  _docOtpCode   = Math.floor(100000 + Math.random() * 900000).toString();
-  _docOtpExpiry = Date.now() + 5 * 60 * 1000;
-  var waPhone = raw.length === 10 ? '91' + raw : raw;
-  var waMsg = '\uD83C\uDF3F *Prahari NatureCure — Doctor OTP*\n\nDear Dr. ' + match.name + ',\n\nYour OTP is: *' + _docOtpCode + '*\n\nValid for 5 minutes. Do not share this with anyone.\n\n\u2014 Prahari NatureCure Team';
-  var smsMsg = 'Prahari NatureCure Doctor OTP: ' + _docOtpCode + '. Valid 5 mins. Do not share. -NatureCure';
-  /* Show OTP on screen */
-  var dispEl = document.getElementById('docOtpDisplayCode');
-  if (dispEl) dispEl.textContent = _docOtpCode;
-  /* Reset SMS status to "sending..." */
-  var smsStatusEl = document.getElementById('docSmsStatus');
-  if (smsStatusEl) { smsStatusEl.textContent = '\uD83D\uDCE8 Sending SMS to your phone\u2026'; smsStatusEl.style.color = 'rgba(255,255,255,0.75)'; }
-  /* Set WhatsApp & SMS backup links */
-  var waLink = document.getElementById('docWaOtpLink');
-  if (waLink) waLink.href = 'https://wa.me/' + waPhone + '?text=' + encodeURIComponent(waMsg);
-  var smsLink = document.getElementById('docSmsOtpLink');
-  if (smsLink) smsLink.href = 'sms:+' + waPhone + '?&body=' + encodeURIComponent(smsMsg);
-  document.getElementById('docOtpStep1').style.display  = 'none';
-  document.getElementById('docOtpStep2').style.display  = 'block';
-  /* Send SMS via server (Fire-and-forget; OTP shown on screen is always primary) */
-  fetch('/api/send-otp', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ phone: raw, otp: _docOtpCode })
-  }).then(function(r){ return r.json(); }).then(function(data){
-    var el = document.getElementById('docSmsStatus');
-    if (!el) return;
-    if (data.sent) {
-      el.textContent = '\u2705 OTP also sent to your phone via SMS';
-      el.style.color = 'rgba(200,255,200,0.95)';
-    } else {
-      el.textContent = '\uD83D\uDCF1 Use the code shown above to login';
-      el.style.color = 'rgba(255,255,255,0.6)';
-    }
-  }).catch(function(){
-    var el = document.getElementById('docSmsStatus');
-    if (el) { el.textContent = '\uD83D\uDCF1 Use the code shown above to login'; el.style.color = 'rgba(255,255,255,0.6)'; }
-  });
-  document.getElementById('loginErr').style.display     = 'none';
-  document.getElementById('docOtpInput').value          = '';
-  document.getElementById('docOtpResendRow').style.display = 'none';
-  document.getElementById('docOtpTimerBox').style.display  = 'block';
-  clearInterval(_docOtpTimer);
-  _docOtpTimer = setInterval(function(){
-    var rem = Math.max(0, _docOtpExpiry - Date.now());
-    var m = Math.floor(rem/60000), s = Math.floor((rem%60000)/1000);
-    document.getElementById('docOtpTimerCount').textContent = m + ':' + (s<10?'0':'') + s;
-    if(rem <= 0){
-      clearInterval(_docOtpTimer);
-      document.getElementById('docOtpTimerBox').style.display  = 'none';
-      document.getElementById('docOtpResendRow').style.display = 'block';
-    }
-  }, 1000);
+/* ── Password Login ── */
+function toggleDocPwd(btn) {
+  var inp = document.getElementById('loginPassword');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
 }
 
-function docCopyOtp() {
-  if (!_docOtpCode) return;
-  document.getElementById('docOtpInput').value = _docOtpCode;
-  if (navigator.clipboard) navigator.clipboard.writeText(_docOtpCode).catch(function(){});
-}
-
-function verifyDocOTP() {
-  var entered = (document.getElementById('docOtpInput').value || '').trim();
-  if (!entered) { showErr('Please enter the OTP shown on screen above.'); return; }
-  if (Date.now() > _docOtpExpiry) { showErr('OTP has expired. Please tap Resend OTP.'); return; }
-  if (entered !== _docOtpCode) { showErr('\u274C Incorrect OTP. Please use the code shown on screen above.'); return; }
-  clearInterval(_docOtpTimer);
-  _docOtpCode = null;
+function doDocLogin() {
   var raw = (document.getElementById('loginPhone').value || '').replace(/\D/g,'');
+  var pwd = (document.getElementById('loginPassword').value || '');
+  if (!raw || raw.length < 10) { showErr('Please enter your 10-digit registered phone number.'); return; }
+  if (!pwd) { showErr('Please enter your password.'); return; }
   var regs = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
   var match = regs.find(function(r){ return r.phone && r.phone.replace(/\D/g,'') === raw && r.type === 'doctor'; });
+  if (!match) { showErr('\u274C No doctor account found for this number. Please register on the main website first.'); return; }
+  if (!match.password || match.password !== pwd) { showErr('\u274C Incorrect password. Please try again.'); return; }
   _doctor = match; _docPhone = raw;
   localStorage.setItem('nyc_doc_active_phone', raw);
   document.getElementById('loginScreen').style.display = 'none';
@@ -661,16 +571,6 @@ function verifyDocOTP() {
   loadMyRates();
   startNotifPolling();
 }
-
-function backToDocPhone() {
-  clearInterval(_docOtpTimer);
-  _docOtpCode = null;
-  document.getElementById('docOtpStep2').style.display = 'none';
-  document.getElementById('docOtpStep1').style.display = 'block';
-  document.getElementById('loginErr').style.display    = 'none';
-}
-
-function doDocLogin() { sendDocOTP(); }
 
 function showErr(msg) {
   var el = document.getElementById('loginErr');

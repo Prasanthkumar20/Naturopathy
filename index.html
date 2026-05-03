@@ -1398,6 +1398,12 @@
       <h3>🙋 Patient Registration</h3>
       <div class="reg-field"><label>Full Name *</label><input type="text" id="rp-name" placeholder="Your full name" /></div>
       <div class="reg-field"><label>Phone Number *</label><input type="tel" id="rp-phone" placeholder="+91 9999999999" /></div>
+      <div class="reg-field"><label>Password *</label>
+        <div style="position:relative;">
+          <input type="password" id="rp-password" placeholder="Create a password" style="width:100%;padding:10px 40px 10px 12px;border:1.5px solid #b7e4c7;border-radius:10px;font-size:0.95rem;box-sizing:border-box;" />
+          <button type="button" onclick="var i=document.getElementById('rp-password');i.type=i.type==='password'?'text':'password';" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1rem;color:#56766e;">&#x1F441;</button>
+        </div>
+      </div>
       <div class="reg-field"><label>Email</label><input type="email" id="rp-email" placeholder="you@email.com" /></div>
       <div class="reg-field"><label>Health Condition</label>
         <select id="rp-condition">
@@ -1430,6 +1436,12 @@
       <h3>👨‍⚕️ Doctor Registration</h3>
       <div class="reg-field"><label>Full Name *</label><input type="text" id="rd-name" placeholder="Dr. Full Name" /></div>
       <div class="reg-field"><label>Phone (WhatsApp) *</label><input type="tel" id="rd-phone" placeholder="+91 9999999999" /></div>
+      <div class="reg-field"><label>Password *</label>
+        <div style="position:relative;">
+          <input type="password" id="rd-password" placeholder="Create a password" style="width:100%;padding:10px 40px 10px 12px;border:1.5px solid #b7e4c7;border-radius:10px;font-size:0.95rem;box-sizing:border-box;" />
+          <button type="button" onclick="var i=document.getElementById('rd-password');i.type=i.type==='password'?'text':'password';" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1rem;color:#56766e;">&#x1F441;</button>
+        </div>
+      </div>
       <div class="reg-field"><label>Email *</label><input type="email" id="rd-email" placeholder="doctor@email.com" /></div>
       <div class="reg-field"><label>Gender *</label>
         <select id="rd-gender">
@@ -1676,13 +1688,18 @@ function switchRegTab(type, btn) {
 }
 
 function registerPatient() {
-  var name = document.getElementById('rp-name').value.trim();
+  var name  = document.getElementById('rp-name').value.trim();
   var phone = document.getElementById('rp-phone').value.trim();
-  if (!name) { alert('Please enter your full name.'); return; }
+  var pwd   = document.getElementById('rp-password').value;
+  if (!name)  { alert('Please enter your full name.'); return; }
   if (!phone) { alert('Please enter your phone number.'); return; }
+  if (!pwd || pwd.length < 4) { alert('Please create a password (min 4 characters).'); return; }
+  var rawPhone = phone.replace(/\D/g,'');
   var users = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
+  var dup = users.find(function(u){ return u.phone && u.phone.replace(/\D/g,'') === rawPhone && u.type === 'patient'; });
+  if (dup) { alert('A patient account with this phone number already exists. Please login.'); return; }
   users.push({
-    id: Date.now(), type: 'patient', name: name, phone: phone,
+    id: Date.now(), type: 'patient', name: name, phone: phone, password: pwd,
     email: document.getElementById('rp-email').value.trim(),
     gender: document.getElementById('rp-gender').value,
     condition: document.getElementById('rp-condition').value,
@@ -1692,6 +1709,7 @@ function registerPatient() {
   localStorage.setItem('nyc_registrations', JSON.stringify(users));
   document.getElementById('rp-name').value = '';
   document.getElementById('rp-phone').value = '';
+  document.getElementById('rp-password').value = '';
   document.getElementById('rp-email').value = '';
   document.getElementById('rp-age').value = '';
   document.getElementById('rp-gender').value = '';
@@ -1700,13 +1718,18 @@ function registerPatient() {
 }
 
 function registerDoctor() {
-  var name = document.getElementById('rd-name').value.trim();
+  var name  = document.getElementById('rd-name').value.trim();
   var phone = document.getElementById('rd-phone').value.trim();
-  if (!name) { alert('Please enter your full name.'); return; }
+  var pwd   = document.getElementById('rd-password').value;
+  if (!name)  { alert('Please enter your full name.'); return; }
   if (!phone) { alert('Please enter your phone number.'); return; }
+  if (!pwd || pwd.length < 4) { alert('Please create a password (min 4 characters).'); return; }
+  var rawPhone = phone.replace(/\D/g,'');
   var users = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
+  var dup = users.find(function(u){ return u.phone && u.phone.replace(/\D/g,'') === rawPhone && u.type === 'doctor'; });
+  if (dup) { alert('A doctor account with this phone number already exists. Please login.'); return; }
   users.push({
-    id: Date.now(), type: 'doctor', name: name, phone: phone,
+    id: Date.now(), type: 'doctor', name: name, phone: phone, password: pwd,
     email: document.getElementById('rd-email').value.trim(),
     gender: document.getElementById('rd-gender').value,
     specialty: document.getElementById('rd-spec').value,
@@ -1718,7 +1741,7 @@ function registerDoctor() {
     date: new Date().toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' })
   });
   localStorage.setItem('nyc_registrations', JSON.stringify(users));
-  ['rd-name','rd-phone','rd-email','rd-qual','rd-timing','rd-bio','rd-chat-rate','rd-call-rate','rd-gender'].forEach(function(id) {
+  ['rd-name','rd-phone','rd-password','rd-email','rd-qual','rd-timing','rd-bio','rd-chat-rate','rd-call-rate','rd-gender'].forEach(function(id) {
     var el = document.getElementById(id); if (el) el.value = '';
   });
   var suc = document.getElementById('rd-success');
