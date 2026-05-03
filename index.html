@@ -1857,6 +1857,8 @@ function startRecharge(){
       key:data.key_id,amount:data.amount,currency:data.currency,
       name:'Naturopathy & Yoga Care',description:'Wallet Recharge',order_id:data.order_id,
       theme:{color:'#0a5c4d'},
+      prefill:{contact:'+91'+_walletPhone},
+      retry:{enabled:true,max_count:3},
       handler:function(resp){
         fetch('/api/verify-payment',{
           method:'POST',headers:{'Content-Type':'application/json'},
