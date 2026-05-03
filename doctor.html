@@ -289,6 +289,41 @@
     .reg-stats{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;}
     .reg-stat{background:#f0faf5;border-radius:12px;padding:12px 20px;font-size:0.85rem;font-weight:700;color:#0a5c4d;}
 
+
+    /* ---- Earnings Tab ---- */
+    .earn-overview{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-bottom:28px;}
+    .earn-card{background:#fff;border-radius:14px;padding:18px;text-align:center;box-shadow:0 2px 10px rgba(0,80,60,.07);}
+    .earn-card-icon{font-size:1.8rem;margin-bottom:6px;}
+    .earn-card-val{font-size:1.5rem;font-weight:800;color:#0a5c4d;margin-bottom:4px;}
+    .earn-card-lbl{font-size:0.78rem;color:#7a9a7a;font-weight:600;}
+    .earn-card.platform{border-top:3px solid #f0a500;}
+    .earn-card.platform .earn-card-val{color:#b07000;}
+    .earn-card.doctor-share{border-top:3px solid #0a5c4d;}
+    .earn-log-form{background:#f0faf5;border-radius:16px;padding:22px;margin-bottom:24px;}
+    .earn-log-form h3{font-size:0.95rem;font-weight:700;color:var(--dark);margin-bottom:16px;}
+    .earn-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;}
+    .earn-row .earn-field{flex:1;min-width:130px;}
+    .earn-row .earn-field label{display:block;font-size:0.78rem;font-weight:600;color:#3a5a3a;margin-bottom:4px;}
+    .earn-row .earn-field input,.earn-row .earn-field select{width:100%;padding:9px 12px;border:1.5px solid #c8ead8;border-radius:9px;font-size:0.88rem;box-sizing:border-box;background:#fff;}
+    .earn-log-btn{padding:11px 24px;background:linear-gradient(135deg,#0a5c4d,#3aafa9);color:#fff;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;}
+    .earn-history{display:flex;flex-direction:column;gap:12px;}
+    .earn-item{background:#fff;border:1.5px solid #e0f2ec;border-radius:12px;padding:16px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;}
+    .earn-item-info{flex:1;}
+    .earn-item-name{font-weight:700;color:#1a2e1a;font-size:0.93rem;margin-bottom:3px;}
+    .earn-item-meta{font-size:0.78rem;color:#7a9a7a;}
+    .earn-item-amounts{text-align:right;flex-shrink:0;}
+    .earn-gross{font-size:1rem;font-weight:800;color:#1a2e1a;}
+    .earn-split{font-size:0.75rem;color:#7a9a7a;margin-top:2px;}
+    .earn-del-btn{background:#fee2e2;color:#e05;border:none;border-radius:7px;padding:5px 11px;cursor:pointer;font-size:0.78rem;font-weight:600;}
+    .earn-empty{text-align:center;color:#8aaa90;padding:36px;font-size:0.9rem;}
+    .rate-setup-box{background:#fff8e6;border:1.5px dashed #d4a000;border-radius:14px;padding:20px;margin-bottom:22px;}
+    .rate-setup-box h3{font-size:0.92rem;font-weight:700;color:#7a5800;margin-bottom:14px;}
+    .rate-setup-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;}
+    .rate-setup-row .rf{flex:1;min-width:140px;}
+    .rate-setup-row .rf label{display:block;font-size:0.78rem;font-weight:600;color:#5a4000;margin-bottom:4px;}
+    .rate-setup-row .rf input{width:100%;padding:9px 12px;border:1.5px solid #e8c870;border-radius:9px;font-size:0.9rem;box-sizing:border-box;background:#fffdf0;}
+    .rate-save-btn{padding:10px 22px;background:#d4a000;color:#fff;border:none;border-radius:9px;font-weight:700;cursor:pointer;font-size:0.88rem;}
+
   </style>
 </head>
 <body>
@@ -327,6 +362,7 @@
     <button class="tab-btn" onclick="goTab('dietuploads',this)">📸 Diet Uploads</button>
     <button class="tab-btn" onclick="goTab('blogs',this)">📝 Blogs</button>
     <button class="tab-btn" onclick="goTab('registrations',this)">📋 Registrations</button>
+    <button class="tab-btn" onclick="goTab('earnings',this)">💰 Earnings</button>
   </div>
 
   <!-- DASHBOARD -->
@@ -569,6 +605,60 @@
     </div>
   </div>
 
+  <!-- EARNINGS -->
+  <div id="tab-earnings" class="tab-pane">
+
+    <!-- Rate Setup -->
+    <div class="rate-setup-box">
+      <h3>⚙️ Set Your Consultation Rates</h3>
+      <div class="rate-setup-row">
+        <div class="rf"><label>💬 Chat Rate (₹ / min)</label><input type="number" id="dc-chat-rate" placeholder="e.g. 20" min="1" /></div>
+        <div class="rf"><label>📞 Call Rate (₹ / min)</label><input type="number" id="dc-call-rate" placeholder="e.g. 30" min="1" /></div>
+        <div class="rf" style="display:flex;align-items:flex-end;">
+          <button class="rate-save-btn" onclick="saveMyRates()">💾 Save Rates</button>
+        </div>
+      </div>
+      <div style="font-size:0.78rem;color:#7a5800;">
+        ℹ️ <strong>Platform commission: 10%</strong> is deducted from every session. Your take-home is <strong>90%</strong> of gross billing.
+        Example: ₹20/min × 15 min = ₹300 gross → <strong>You earn ₹270</strong>, platform gets ₹30.
+      </div>
+    </div>
+
+    <!-- Earnings Overview -->
+    <div class="earn-overview">
+      <div class="earn-card"><div class="earn-card-icon">💰</div><div class="earn-card-val" id="e-gross">₹0</div><div class="earn-card-lbl">Gross Billed</div></div>
+      <div class="earn-card doctor-share"><div class="earn-card-icon">🏦</div><div class="earn-card-val" id="e-yours">₹0</div><div class="earn-card-lbl">Your Earnings (90%)</div></div>
+      <div class="earn-card platform"><div class="earn-card-icon">🏢</div><div class="earn-card-val" id="e-platform">₹0</div><div class="earn-card-lbl">Platform Commission (10%)</div></div>
+      <div class="earn-card"><div class="earn-card-icon">📞</div><div class="earn-card-val" id="e-sessions">0</div><div class="earn-card-lbl">Total Sessions</div></div>
+    </div>
+
+    <!-- Log Session -->
+    <div class="earn-log-form">
+      <h3>➕ Log a Completed Session</h3>
+      <div class="earn-row">
+        <div class="earn-field"><label>Patient Name</label><input type="text" id="el-patient" placeholder="Patient name" /></div>
+        <div class="earn-field"><label>Session Type</label>
+          <select id="el-type">
+            <option value="chat">💬 Chat</option>
+            <option value="call">📞 Call</option>
+          </select>
+        </div>
+      </div>
+      <div class="earn-row">
+        <div class="earn-field"><label>Duration (minutes)</label><input type="number" id="el-mins" placeholder="e.g. 15" min="1" oninput="updateSessionPreview()" /></div>
+        <div class="earn-field"><label>Rate Used (₹/min)</label><input type="number" id="el-rate" placeholder="e.g. 20" min="1" oninput="updateSessionPreview()" /></div>
+      </div>
+      <div id="el-preview" style="font-size:0.85rem;color:#0a5c4d;margin-bottom:12px;font-weight:600;min-height:20px;"></div>
+      <button class="earn-log-btn" onclick="logSession()">✅ Log Session</button>
+    </div>
+
+    <!-- Session History -->
+    <h3 style="font-size:0.95rem;color:var(--dark);margin-bottom:14px;">📋 Session History</h3>
+    <div class="earn-history" id="earnHistory">
+      <div class="earn-empty">No sessions logged yet. Log your first session above.</div>
+    </div>
+  </div>
+
 </div><!-- END MAIN -->
 
 <!-- ADD PATIENT MODAL -->
@@ -702,6 +792,7 @@ function goTab(name, btn) {
   document.getElementById("tab-" + name).classList.add("active");
   if (name === "blogs") renderBlogList();
   if (name === "registrations") renderRegistrations();
+  if (name === "earnings") { loadMyRates(); renderEarnings(); }
   if (btn) btn.classList.add("active");
   if (name === "dashboard") initDash();
   if (name === "patients")  renderPatients();
@@ -1472,6 +1563,123 @@ function clearAllRegistrations() {
   if (!confirm('Clear ALL registrations? This cannot be undone.')) return;
   localStorage.removeItem('nyc_registrations');
   renderRegistrations();
+}
+
+
+/* ---- EARNINGS & RATES ---- */
+
+function saveMyRates() {
+  var chat = parseFloat(document.getElementById('dc-chat-rate').value) || 0;
+  var call = parseFloat(document.getElementById('dc-call-rate').value) || 0;
+  if (!chat && !call) { alert('Please enter at least one rate.'); return; }
+  var rates = { chatRate: chat, callRate: call };
+  localStorage.setItem('nyc_my_rates', JSON.stringify(rates));
+  alert('Rates saved! ₹' + chat + '/min for chat, ₹' + call + '/min for call.');
+}
+
+function loadMyRates() {
+  var rates = JSON.parse(localStorage.getItem('nyc_my_rates') || '{}');
+  if (rates.chatRate) { var el = document.getElementById('dc-chat-rate'); if (el) el.value = rates.chatRate; }
+  if (rates.callRate) { var el = document.getElementById('dc-call-rate'); if (el) el.value = rates.callRate; }
+  /* Pre-fill log form rate based on selected session type */
+  var typeEl = document.getElementById('el-type');
+  var rateEl = document.getElementById('el-rate');
+  if (typeEl && rateEl) {
+    typeEl.onchange = function() {
+      rateEl.value = typeEl.value === 'chat' ? (rates.chatRate || '') : (rates.callRate || '');
+      updateSessionPreview();
+    };
+    rateEl.value = rates.chatRate || '';
+  }
+}
+
+function updateSessionPreview() {
+  var mins = parseFloat(document.getElementById('el-mins').value) || 0;
+  var rate = parseFloat(document.getElementById('el-rate').value) || 0;
+  var prev = document.getElementById('el-preview');
+  if (!prev) return;
+  if (mins > 0 && rate > 0) {
+    var gross   = mins * rate;
+    var yours   = (gross * 0.9).toFixed(2);
+    var plat    = (gross * 0.1).toFixed(2);
+    prev.innerHTML = '💡 ' + mins + ' min × ₹' + rate + ' = <strong>₹' + gross + ' gross</strong> &nbsp;|&nbsp; You earn <strong>₹' + yours + '</strong> &nbsp;|&nbsp; Platform: ₹' + plat;
+  } else {
+    prev.textContent = '';
+  }
+}
+
+function logSession() {
+  var patient = (document.getElementById('el-patient').value || '').trim();
+  var type    = document.getElementById('el-type').value;
+  var mins    = parseFloat(document.getElementById('el-mins').value);
+  var rate    = parseFloat(document.getElementById('el-rate').value);
+  if (!patient) { alert('Please enter patient name.'); return; }
+  if (!mins || mins < 1) { alert('Please enter a valid duration.'); return; }
+  if (!rate || rate < 1) { alert('Please enter a valid rate.'); return; }
+  var gross   = mins * rate;
+  var yours   = parseFloat((gross * 0.9).toFixed(2));
+  var plat    = parseFloat((gross * 0.1).toFixed(2));
+  var sessions = JSON.parse(localStorage.getItem('nyc_sessions') || '[]');
+  sessions.push({
+    id      : Date.now(),
+    patient : patient,
+    type    : type,
+    mins    : mins,
+    rate    : rate,
+    gross   : gross,
+    yours   : yours,
+    plat    : plat,
+    date    : new Date().toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' }),
+    time    : new Date().toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' })
+  });
+  localStorage.setItem('nyc_sessions', JSON.stringify(sessions));
+  document.getElementById('el-patient').value = '';
+  document.getElementById('el-mins').value    = '';
+  document.getElementById('el-preview').textContent = '';
+  renderEarnings();
+}
+
+function renderEarnings() {
+  var sessions = JSON.parse(localStorage.getItem('nyc_sessions') || '[]');
+  var totalGross = sessions.reduce(function(s,x){ return s + x.gross; }, 0);
+  var totalYours = sessions.reduce(function(s,x){ return s + x.yours; }, 0);
+  var totalPlat  = sessions.reduce(function(s,x){ return s + x.plat; }, 0);
+
+  var eg = document.getElementById('e-gross');    if (eg) eg.textContent = '₹' + totalGross.toFixed(2);
+  var ey = document.getElementById('e-yours');    if (ey) ey.textContent = '₹' + totalYours.toFixed(2);
+  var ep = document.getElementById('e-platform'); if (ep) ep.textContent = '₹' + totalPlat.toFixed(2);
+  var es = document.getElementById('e-sessions'); if (es) es.textContent = sessions.length;
+
+  var hist = document.getElementById('earnHistory');
+  if (!hist) return;
+  if (!sessions.length) {
+    hist.innerHTML = '<div class="earn-empty">No sessions logged yet. Log your first session above.</div>';
+    return;
+  }
+  hist.innerHTML = '';
+  sessions.slice().reverse().forEach(function(s) {
+    var typeIcon = s.type === 'chat' ? '💬' : '📞';
+    var div = document.createElement('div');
+    div.className = 'earn-item';
+    div.innerHTML =
+      '<div class="earn-item-info">' +
+        '<div class="earn-item-name">' + typeIcon + ' ' + s.patient + '</div>' +
+        '<div class="earn-item-meta">' + s.mins + ' min × ₹' + s.rate + '/min &nbsp;|&nbsp; 📅 ' + s.date + ' ' + s.time + '</div>' +
+      '</div>' +
+      '<div class="earn-item-amounts">' +
+        '<div class="earn-gross">₹' + s.gross.toFixed(2) + ' gross</div>' +
+        '<div class="earn-split">You: ₹' + s.yours.toFixed(2) + ' &nbsp;|&nbsp; Platform: ₹' + s.plat.toFixed(2) + '</div>' +
+      '</div>' +
+      '<button class="earn-del-btn" onclick="deleteSession(' + s.id + ')">🗑</button>';
+    hist.appendChild(div);
+  });
+}
+
+function deleteSession(id) {
+  if (!confirm('Remove this session from history?')) return;
+  var sessions = JSON.parse(localStorage.getItem('nyc_sessions') || '[]');
+  localStorage.setItem('nyc_sessions', JSON.stringify(sessions.filter(function(s){ return s.id !== id; })));
+  renderEarnings();
 }
 
 </script>
