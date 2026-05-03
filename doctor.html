@@ -2168,62 +2168,93 @@ function renderPayoutsTab() {
   }
 
   var routeAccounts = JSON.parse(localStorage.getItem('nyc_route_accounts') || '{}');
-  container.innerHTML = keys.map(function(key) {
-    var doc = docMap[key];
-    var routeId = routeAccounts[key] || '';
-    var docPayouts = payouts.filter(function(p){ return p.doctorName === doc.name; });
-    var paidAmt    = docPayouts.reduce(function(s,p){ return s + parseFloat(p.amount||0); }, 0);
-    var owedAmt    = Math.max(0, doc.docShare - paidAmt);
-    var isSettled  = owedAmt <= 0;
+  container.innerHTML = '';
+  keys.forEach(function(key) {
+    var doc      = docMap[key];
+    var routeId  = routeAccounts[key] || '';
+    var docPays  = payouts.filter(function(p){ return p.doctorName === doc.name; });
+    var paidAmt  = docPays.reduce(function(s,p){ return s + parseFloat(p.amount||0); }, 0);
+    var owedAmt  = Math.max(0, doc.docShare - paidAmt);
+    var isSettled = owedAmt <= 0;
+    var slug     = key.replace(/\s/g,'_');
 
-    var sessionsHTML = doc.sessions.length
+    var sessHTML = doc.sessions.length
       ? doc.sessions.slice().reverse().slice(0,5).map(function(s){
-          return '<div class="dpc-session-row">' +
-            '<span>' + (s.type==='Chat'?'💬':'📞') + ' ' + (s.patient||'—') + ' · ' + (s.date||'') + (s.mins?' · '+s.mins+' min':'') + '</span>' +
-            '<span style="font-weight:700;color:var(--primary);">Doc: ₹' + parseFloat(s.docShare||0).toFixed(2) + '</span>' +
-          '</div>';
-        }).join('') + (doc.sessions.length>5?'<div style="text-align:center;padding:7px;font-size:0.78rem;color:#8a9e98;">+ '+(doc.sessions.length-5)+' more sessions</div>':'')
+          return '<div class="dpc-session-row"><span>' +
+            (s.type==='Chat' ? '&#x1F4AC;' : '&#x1F4DE;') + ' ' + (s.patient||'&mdash;') +
+            ' &middot; ' + (s.date||'') + (s.mins ? ' &middot; '+s.mins+' min' : '') +
+            '</span><span style="font-weight:700;color:var(--primary);">Doc: &#x20B9;' +
+            parseFloat(s.docShare||0).toFixed(2) + '</span></div>';
+        }).join('') + (doc.sessions.length>5
+          ? '<div style="text-align:center;padding:7px;font-size:0.78rem;color:#8a9e98;">+ '+(doc.sessions.length-5)+' more</div>'
+          : '')
       : '<div style="padding:10px;text-align:center;color:#8a9e98;font-size:0.82rem;">No sessions yet</div>';
 
-    var histHTML = docPayouts.length
-      ? docPayouts.slice().reverse().map(function(p){
-          return '<div class="ph-row">' +
-            '<span>₹' + parseFloat(p.amount).toFixed(2) + ' — ' + p.note + '</span>' +
+    var histHTML = docPays.length
+      ? docPays.slice().reverse().map(function(p){
+          return '<div class="ph-row"><span>&#x20B9;' + parseFloat(p.amount).toFixed(2) +
+            ' &mdash; ' + (p.note||'') + '</span>' +
             '<span style="display:flex;gap:6px;align-items:center;">' +
-              '<span class="ph-paid-badge">✅ Paid</span>' +
-              '<span style="font-size:0.75rem;color:#8a9e98;">' + p.date + '</span>' +
-            '</span>' +
-          '</div>';
+            '<span class="ph-paid-badge">&#x2705; Paid</span>' +
+            '<span style="font-size:0.75rem;color:#8a9e98;">' + (p.date||'') + '</span>' +
+            '</span></div>';
         }).join('')
       : '<div style="color:#8a9e98;font-size:0.82rem;text-align:center;padding:8px;">No payouts recorded yet.</div>';
 
-    return '<div class="doctor-payout-card' + (isSettled?' payout-zero':'') + '" id="dpc-'+key.replace(/\s/g,'_')+'">' +
-      '<div class="dpc-header">' +
-        '<div>' +
-          '<div class="dpc-name">👨‍⚕️ Dr. ' + doc.name + '</div>' +
-          '<div class="dpc-phone">' + (doc.phone||'Phone not registered') + '</div>' +
+    var html =
+      '<div class="doctor-payout-card' + (isSettled ? ' payout-zero' : '') + '" id="dpc-' + slug + '">' +
+        '<div class="dpc-header">' +
+          '<div><div class="dpc-name">&#x1F468;&#x200D;&#x2695;&#xFE0F; Dr. ' + doc.name + '</div>' +
+          '<div class="dpc-phone">' + (doc.phone || 'Phone not registered') + '</div></div>' +
+          '<div style="text-align:right;">' +
+            '<div class="dpc-owed"' + (isSettled ? ' style="color:#166534;"' : '') + '>' +
+              (isSettled ? '&#x2705; Settled' : '&#x20B9;' + owedAmt.toFixed(2)) +
+            '</div>' +
+            '<div class="dpc-owed-lbl">' + (isSettled ? 'All paid' : 'Still owed') + '</div>' +
+          '</div>' +
         '</div>' +
-        '<div style="text-align:right;">' +
-          '<div class="dpc-owed' + (isSettled?' " style="color:#166534;':'"') + '>' + (isSettled?'✅ Settled':'₹' + owedAmt.toFixed(2)) + '</div>' +
-          '<div class="dpc-owed-lbl">' + (isSettled?'All paid':'Still owed') + '</div>' +
+        '<div class="dpc-row"><span>Total Billed</span><strong>&#x20B9;' + doc.totalBilled.toFixed(2) + '</strong></div>' +
+        '<div class="dpc-row"><span>Doctor Share (60%)</span><strong>&#x20B9;' + doc.docShare.toFixed(2) + '</strong></div>' +
+        '<div class="dpc-row"><span>Already Paid</span><strong style="color:#166534;">&#x20B9;' + paidAmt.toFixed(2) + '</strong></div>' +
+        '<div class="dpc-row"><span>Balance Owed</span><strong style="color:' + (isSettled ? '#166534' : '#c0392b') + ';">&#x20B9;' + owedAmt.toFixed(2) + '</strong></div>' +
+        '<div style="font-size:0.8rem;font-weight:700;color:var(--primary);margin:12px 0 5px;">&#x1F4CB; Recent Sessions</div>' +
+        '<div class="dpc-sessions">' + sessHTML + '</div>' +
+        '<div class="route-link-box">' +
+          '<label>&#x1F517; Razorpay Route &mdash; Linked Account ID</label>' +
+          '<div class="route-input-row">' +
+            '<input type="text" placeholder="acc_XXXXXXXXXXXXXXXX" id="route-inp-' + slug + '" value="' + (routeId||'') + '" />' +
+            '<button class="route-link-btn" data-slug="' + slug + '" data-docname="' + doc.name.replace(/"/g,'&quot;') + '" onclick="linkRouteAccount(this.dataset.slug, this.dataset.docname)">&#x1F517; Link</button>' +
+          '</div>' +
+          (routeId
+            ? '<div class="route-linked-badge">&#x2705; Linked: ' + routeId + '</div>'
+            : '<div style="font-size:0.76rem;color:#8a9e98;margin-top:5px;">Paste the acc_ ID from Razorpay Route dashboard</div>') +
+          (!isSettled && routeId
+            ? '<button class="route-pay-btn" id="route-pay-' + slug + '"' +
+                ' data-slug="' + slug + '"' +
+                ' data-docname="' + doc.name.replace(/"/g,'&quot;') + '"' +
+                ' data-phone="' + (doc.phone||'').replace(/"/g,'&quot;') + '"' +
+                ' data-owed="' + owedAmt.toFixed(2) + '"' +
+                ' data-rid="' + routeId + '"' +
+                ' onclick="payViaRoute(this.dataset.slug,this.dataset.docname,this.dataset.phone,parseFloat(this.dataset.owed),this.dataset.rid)">' +
+                '&#x1F4B3; Pay &#x20B9;' + owedAmt.toFixed(2) + ' via Razorpay Route' +
+              '</button>'
+            : '') +
+          '<div class="route-status-processing" id="route-status-' + slug + '">&#x23F3; Processing...</div>' +
         '</div>' +
-      '</div>' +
-      '<div class="dpc-row"><span>Total Billed to Patients</span><strong>₹' + doc.totalBilled.toFixed(2) + '</strong></div>' +
-      '<div class="dpc-row"><span>Doctor's Share (60%)</span><strong>₹' + doc.docShare.toFixed(2) + '</strong></div>' +
-      '<div class="dpc-row"><span>Already Paid Out</span><strong style="color:#166534;">₹' + paidAmt.toFixed(2) + '</strong></div>' +
-      '<div class="dpc-row"><span>Balance Owed</span><strong style="color:' + (isSettled?'#166534':'#c0392b') + ';">₹' + owedAmt.toFixed(2) + '</strong></div>' +
-      '<div style="font-size:0.8rem;font-weight:700;color:var(--primary);margin:12px 0 5px;">📋 Recent Sessions</div>' +
-      '<div class="dpc-sessions">' + sessionsHTML + '</div>' +
-      '<div class="dpc-actions">' +
-        '<button class="mark-paid-btn" ' + (isSettled?'disabled':'') +
-          ' onclick="openMarkPaid('' + doc.name.replace(/'/g,"\'") + '','' + (doc.phone||'').replace(/'/g,"\'") + '',' + owedAmt.toFixed(2) + ')">' +
-          (isSettled?'✅ All Settled':'💸 Mark as Paid') +
-        '</button>' +
-        '<button class="view-hist-btn" onclick="togglePayoutHist(this)">📜 Payment History</button>' +
-      '</div>' +
-      '<div class="payout-hist-box">' + histHTML + '</div>' +
-    '</div>';
-  }).join('');
+        '<div class="dpc-actions">' +
+          '<button class="mark-paid-btn"' + (isSettled ? ' disabled' : '') +
+            ' data-docname="' + doc.name.replace(/"/g,'&quot;') + '"' +
+            ' data-phone="' + (doc.phone||'').replace(/"/g,'&quot;') + '"' +
+            ' data-owed="' + owedAmt.toFixed(2) + '"' +
+            ' onclick="openMarkPaid(this.dataset.docname, this.dataset.phone, parseFloat(this.dataset.owed))">' +
+            (isSettled ? '&#x2705; All Settled' : '&#x1F4B8; Record Manual Payment') +
+          '</button>' +
+          '<button class="view-hist-btn" onclick="togglePayoutHist(this)">&#x1F4DC; Payment History</button>' +
+        '</div>' +
+        '<div class="payout-hist-box">' + histHTML + '</div>' +
+      '</div>';
+    container.innerHTML += html;
+  });
 }
 
 function togglePayoutHist(btn) {
