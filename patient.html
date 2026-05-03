@@ -9,12 +9,12 @@
   <style>
     :root{--primary:#0a5c4d;--accent:#3aafa9;--dark:#163832;--gold:#d9b66f;--text:#35524a;--shadow:0 8px 28px rgba(10,92,77,0.10);}
     *{margin:0;padding:0;box-sizing:border-box;}
-    body{font-family:Arial,sans-serif;background:#f4fbf8;color:var(--text);}
+    body{font-family:Arial,sans-serif;background:linear-gradient(160deg,#c5f0e0 0%,#dff8ee 25%,#ccf2e3 55%,#e8fdf5 100%);min-height:100vh;color:var(--text);}
 
     /* LOGIN */
     .login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;
-      background:linear-gradient(135deg,#f4fffb,#e9fbf5);}
-    .login-box{background:#fff;border-radius:24px;padding:44px 38px;width:min(420px,94%);
+      background:linear-gradient(160deg,#c5f0e0,#dff8ee,#b7e4c7,#e0faf0);}
+    .login-box{background:linear-gradient(160deg,#fff,#f0fdf8);border-radius:24px;padding:44px 38px;width:min(420px,94%);border:1.5px solid #b7e4c7;
       box-shadow:0 16px 48px rgba(10,92,77,0.13);text-align:center;}
     .login-logo{font-size:3rem;margin-bottom:10px;}
     .login-box h2{color:var(--dark);font-size:1.35rem;font-weight:800;margin-bottom:4px;}
@@ -32,7 +32,7 @@
     .login-hint a{color:var(--primary);font-weight:700;}
 
     /* TOPBAR */
-    .topbar{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;
+    .topbar{background:linear-gradient(135deg,#063d2f 0%,#0a5c4d 40%,#2d6a4f 70%,#3aafa9 100%);color:#fff;
       padding:11px 20px;display:flex;justify-content:space-between;align-items:center;
       flex-wrap:wrap;gap:8px;position:sticky;top:0;z-index:100;}
     .topbar h1{font-size:1rem;font-weight:700;}
@@ -62,15 +62,15 @@
     .tab-pane.active{display:block;}
 
     /* CARDS */
-    .card{background:#fff;border-radius:16px;padding:22px;box-shadow:var(--shadow);margin-bottom:16px;}
+    .card{background:linear-gradient(135deg,#ffffff,#f0fdf8);border-radius:16px;padding:22px;box-shadow:var(--shadow);margin-bottom:16px;border-top:3px solid #95d5b2;}
     .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:20px;}
-    .stat-card{background:#fff;border-radius:14px;padding:18px;box-shadow:var(--shadow);text-align:center;}
+    .stat-card{background:linear-gradient(135deg,#e8fdf5,#d0f5e8);border-radius:14px;padding:18px;box-shadow:var(--shadow);text-align:center;border-bottom:3px solid #52b788;}
     .stat-icon{font-size:1.7rem;margin-bottom:6px;}
     .stat-num{font-size:1.8rem;font-weight:900;color:var(--primary);}
     .stat-lbl{font-size:0.78rem;color:#888;margin-top:3px;}
 
     /* WALLET */
-    .wallet-balance-card{background:linear-gradient(135deg,#e8fdf5,#d0f5e8);border-radius:16px;
+    .wallet-balance-card{background:linear-gradient(135deg,#0a5c4d,#2d6a4f,#40916c);color:#fff;border-radius:16px;
       padding:28px;text-align:center;border:2px solid #b2eed8;margin-bottom:18px;}
     .wbal-label{font-size:0.82rem;color:#5a7060;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;}
     .wbal-amt{font-size:2.8rem;font-weight:900;color:var(--primary);margin:8px 0 4px;}
@@ -106,7 +106,7 @@
     .txn-empty{text-align:center;color:#8a9e98;padding:24px;font-size:0.85rem;}
 
     /* BOOKINGS */
-    .booking-card{background:#fff;border-radius:14px;padding:18px;box-shadow:var(--shadow);
+    .booking-card{background:linear-gradient(135deg,#fff,#f0fdf8);border-radius:14px;padding:18px;box-shadow:var(--shadow);border-left:4px solid #52b788;
       margin-bottom:12px;border-left:4px solid var(--accent);}
     .booking-card.pending{border-left-color:#f59e0b;}
     .bc-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}

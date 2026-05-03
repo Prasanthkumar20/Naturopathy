@@ -8,12 +8,12 @@
   <style>
     :root{--primary:#0a5c4d;--accent:#3aafa9;--dark:#163832;--gold:#d9b66f;--text:#35524a;--shadow:0 8px 28px rgba(10,92,77,0.10);}
     *{margin:0;padding:0;box-sizing:border-box;}
-    body{font-family:Arial,sans-serif;background:#f4fbf8;color:var(--text);}
+    body{font-family:Arial,sans-serif;background:linear-gradient(160deg,#d0eee5 0%,#e4f7f0 25%,#c8f0e4 55%,#e0f8f0 100%);min-height:100vh;color:var(--text);}
 
     /* LOGIN */
     .login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;
       background:linear-gradient(135deg,#f0f9ff,#e8f8f5);}
-    .login-box{background:#fff;border-radius:24px;padding:44px 38px;width:min(420px,94%);
+    .login-box{background:linear-gradient(160deg,#fff,#edfaf4);border-radius:24px;padding:44px 38px;width:min(420px,94%);border:1.5px solid #74c69d;
       box-shadow:0 16px 48px rgba(10,92,77,0.13);text-align:center;}
     .login-logo{font-size:3rem;margin-bottom:10px;}
     .login-box h2{color:var(--dark);font-size:1.35rem;font-weight:800;margin-bottom:4px;}
@@ -60,9 +60,9 @@
     .tab-pane.active{display:block;}
 
     /* CARDS */
-    .card{background:#fff;border-radius:16px;padding:22px;box-shadow:var(--shadow);margin-bottom:16px;}
+    .card{background:linear-gradient(135deg,#ffffff,#edfaf4);border-radius:16px;padding:22px;box-shadow:var(--shadow);margin-bottom:16px;border-top:3px solid #74c69d;}
     .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:14px;margin-bottom:22px;}
-    .stat-card{background:#fff;border-radius:14px;padding:18px;box-shadow:var(--shadow);text-align:center;}
+    .stat-card{background:linear-gradient(135deg,#e0f7ef,#c8f5e3);border-radius:14px;padding:18px;box-shadow:var(--shadow);text-align:center;border-bottom:3px solid #40916c;}
     .stat-icon{font-size:1.7rem;margin-bottom:6px;}
     .stat-num{font-size:1.8rem;font-weight:900;color:#2d6a4f;}
     .stat-lbl{font-size:0.78rem;color:#888;margin-top:3px;}
@@ -79,7 +79,7 @@
     .earn-mini-lbl{font-size:0.78rem;color:#888;}
 
     /* SESSION CARDS */
-    .session-card{background:#fff;border-radius:14px;padding:16px;box-shadow:var(--shadow);
+    .session-card{background:linear-gradient(135deg,#fff,#f0fdf8);border-radius:14px;padding:16px;box-shadow:var(--shadow);border-left:3px solid #74c69d;
       margin-bottom:10px;border-left:4px solid #40916c;}
     .sc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;}
     .sc-patient{font-size:0.97rem;font-weight:800;color:var(--dark);}
@@ -91,7 +91,7 @@
     .sc-earn{font-size:0.88rem;font-weight:700;color:#2d6a4f;}
 
     /* PATIENT CARDS */
-    .patient-card{background:#fff;border-radius:16px;padding:20px;box-shadow:var(--shadow);margin-bottom:14px;border-left:4px solid var(--accent);}
+    .patient-card{background:linear-gradient(135deg,#fff,#edfaf4);border-radius:16px;padding:20px;box-shadow:var(--shadow);margin-bottom:14px;border-left:4px solid #40916c;}
     .pc-header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
     .pc-name{font-size:1rem;font-weight:800;color:var(--dark);}
     .pc-phone{font-size:0.82rem;color:#8a9e98;margin-top:2px;}
