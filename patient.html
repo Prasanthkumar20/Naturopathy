@@ -383,12 +383,15 @@
           oninput="selectRecharge(null,null)"/>
       </div>
       <div class="recharge-success" id="rechargeSuccess"></div>
-      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
         <button class="recharge-pay-btn" id="rechargeBtn" onclick="startRecharge('razorpay')">
           &#x1F4B3; Recharge via Razorpay
         </button>
         <button class="recharge-pay-btn" style="background:linear-gradient(135deg,#0f766e,#14b8a6);" onclick="startRecharge('upi')">
           &#x1F4B8; Recharge via UPI
+        </button>
+        <button class="recharge-pay-btn" style="background:linear-gradient(135deg,#7c3aed,#a855f7);" onclick="startRecharge('phonepe')">
+          &#x1F4F1; PhonePe UPI
         </button>
       </div>
     </div>
@@ -750,6 +753,14 @@ function startRecharge(mode) {
     var note = 'Wallet Recharge ' + _patient.name;
     var upiUrl = 'upi://pay?pa=' + encodeURIComponent(upiId) + '&pn=' + encodeURIComponent(payee) + '&am=' + encodeURIComponent(amt.toFixed(2)) + '&cu=INR&tn=' + encodeURIComponent(note);
     window.open(upiUrl, '_blank');
+    return;
+  }
+  if (mode === 'phonepe') {
+    var phonepeId = 'praharinaturecure@phonepe';
+    var payee2 = 'Prahari NatureCure';
+    var note2 = 'Wallet Recharge ' + _patient.name;
+    var phonepeUrl = 'upi://pay?pa=' + encodeURIComponent(phonepeId) + '&pn=' + encodeURIComponent(payee2) + '&am=' + encodeURIComponent(amt.toFixed(2)) + '&cu=INR&tn=' + encodeURIComponent(note2);
+    window.open(phonepeUrl, '_blank');
     return;
   }
   if (!window.Razorpay) { alert('Payment system not loaded. Please refresh the page and try again.'); return; }
