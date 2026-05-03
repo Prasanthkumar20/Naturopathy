@@ -1289,11 +1289,15 @@ function deleteSession(id) {
    ══════════════════════════════════════════ */
 var _assignPatient = null;
 
+var _assignPatientList = [];
+
 function renderAssignTab() {
   var regs = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
   var patients = regs.filter(function(r){ return r.type === 'patient'; });
   var doctors  = regs.filter(function(r){ return r.type === 'doctor'; });
   var assignments = JSON.parse(localStorage.getItem('nyc_assignments') || '[]');
+
+  _assignPatientList = patients;
 
   document.getElementById('as-patients').textContent = patients.length;
   document.getElementById('as-doctors').textContent  = doctors.length;
@@ -1304,7 +1308,7 @@ function renderAssignTab() {
     grid.innerHTML = '<div class="assign-empty">No registered patients yet. Patients need to register on the website first.</div>';
   } else {
     grid.innerHTML = '';
-    patients.forEach(function(p) {
+    patients.forEach(function(p, idx) {
       var assigned = assignments.filter(function(a){ return a.patientPhone === p.phone; });
       var latestAssign = assigned.length ? assigned[assigned.length-1] : null;
       var statusBadge = latestAssign
@@ -1318,14 +1322,16 @@ function renderAssignTab() {
         '<span class="apc-condition">' + (p.condition || p.healthCondition || 'General') + '</span><br>' +
         statusBadge +
         '<br><br>' +
-        '<button class="assign-btn" onclick="openAssignModal(' + JSON.stringify(p) + ')">🔗 Assign / Re-assign Doctor</button>';
+        '<button class="assign-btn" onclick="openAssignModal(' + idx + ')">🔗 Assign / Re-assign Doctor</button>';
       grid.appendChild(div);
     });
   }
   showBookingHistory();
 }
 
-function openAssignModal(patient) {
+function openAssignModal(idx) {
+  var patient = _assignPatientList[idx];
+  if (!patient) return;
   _assignPatient = patient;
   document.getElementById('am-patient-info').textContent = patient.name + ' — ' + (patient.condition || patient.healthCondition || 'General') + ' · ' + patient.phone;
   /* Populate doctors dropdown */

@@ -823,7 +823,7 @@ function renderPatients() {
         (patChart
           ? '<div style="font-size:0.82rem;color:#2d6a4f;font-weight:700;">&#x1F957; Diet chart saved &mdash; <span style=\"font-weight:400;color:#5a7090;\">' + patChart.savedAt + '</span></div>'
           : '<div style="font-size:0.82rem;color:#c77b00;font-weight:700;">&#x26A0;&#xFE0F; No diet chart saved yet</div>') +
-        '<button onclick="dcOpenForPatient(' + JSON.stringify(p.phone||'') + ',' + JSON.stringify(p.name||'') + ')" ' +
+        '<button onclick="dcOpenForPatient(\'' + (p.phone||'').replace(/'/g,"&#39;") + '\',\'' + (p.name||'').replace(/'/g,"&#39;") + '\')" ' +
           'style="background:linear-gradient(135deg,#2d6a4f,#40916c);color:#fff;border:none;border-radius:8px;padding:7px 14px;font-weight:700;font-size:0.8rem;cursor:pointer;">' +
           '&#x1F957; ' + (patChart ? 'Edit' : 'Create') + ' Diet Chart' +
         '</button>' +
