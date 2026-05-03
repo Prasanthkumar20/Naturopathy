@@ -198,6 +198,7 @@
     <button class="tab-btn" onclick="goTab('doctor',this)">&#x1F9D1;&#x200D;&#x2695;&#xFE0F; My Doctor</button>
     <button class="tab-btn" onclick="goTab('diet',this)">&#x1F957; Patient Diet</button>
     <button class="tab-btn" onclick="goTab('profile',this)">&#x1F464; My Profile</button>
+    <button class="tab-btn" onclick="goTab('faqs',this)">&#x2753; FAQs</button>
   </div>
 
   <!-- DASHBOARD -->
@@ -318,6 +319,12 @@
     </div>
   </div>
 
+  <!-- FAQS -->
+  <div id="tab-faqs" class="tab-pane">
+    <h2 style="font-size:1.1rem;font-weight:800;color:var(--dark);margin-bottom:20px;">&#x2753; Frequently Asked Questions</h2>
+    <div id="patientFaqList"></div>
+  </div>
+
 </div><!-- end mainPortal -->
 
 <script>
@@ -392,6 +399,7 @@ function goTab(name, btn) {
   if (name === 'doctor')    renderMyDoctor();
   if (name === 'diet')      renderDietUploads();
   if (name === 'profile')   renderProfile();
+  if (name === 'faqs')      renderPatientFAQs();
 }
 
 /* ── Wallet helpers ── */
@@ -628,6 +636,34 @@ function renderProfile() {
 document.addEventListener('keydown', function(e){
   if (e.key==='Escape' && document.getElementById('mainPortal').style.display!=='none') return;
 });
+
+/* ══ Patient FAQs ══ */
+function renderPatientFAQs() {
+  var faqs = [('How does naturopathy treatment work?', 'Naturopathy uses natural therapies — diet corrections, yoga, breathing exercises, herbal guidance, and lifestyle changes — to help the body heal itself. Our doctors assess your condition and create a personalised plan.'), ('How do I book a session?', "Add money to your wallet, then click 'Book' next to any doctor on the main website. Choose Chat (text) or Call (audio). The session fee is deducted automatically from your wallet."), ('What is the wallet and how do I recharge it?', "Your wallet stores prepaid credits used for booking sessions. Go to 'My Wallet' → tap any recharge amount → pay securely via Razorpay (UPI, Card, Net Banking). Amount reflects instantly."), ('What happens after I book a session?', 'You and the doctor both receive a WhatsApp notification with booking details. Your assigned doctor will reach out on WhatsApp to start the session at the agreed time.'), ('Can I get a refund for an unused session?', 'Refunds are handled manually. Contact us on WhatsApp at +91 7013989526 with your payment ID. We review each case and process eligible refunds within 3–5 working days.'), ('How do I upload my diet photos?', "Go to 'Patient Diet' tab → use the upload option to share your meals/food photos. Your doctor will review them and give feedback in the next session."), ('What is a Personal Consultation?', 'Personal (in-clinic or video) consultations are a premium service where you get dedicated 1:1 time with a doctor. The full fee goes to the admin and the doctor handles it directly.'), ('How do I see my assigned doctor?', "After booking, go to 'My Doctor' tab. It shows your doctor's name, specialty, phone, and a WhatsApp button to contact them directly."), ('Is my health data safe?', 'Yes. All data is stored locally in your browser (localStorage). We do not share your personal information with any third party.'), ('How do I reach support?', 'WhatsApp us anytime at +91 7013989526 or email srihariu123456789@gmail.com. We typically respond within a few hours.')];
+  var el = document.getElementById('patientFaqList');
+  if (!el) return;
+  var html = '<div style="max-width:760px;">';
+  faqs.forEach(function(faq, i) {
+    html += '<div style="background:#fff;border-radius:14px;margin-bottom:12px;box-shadow:0 2px 10px rgba(27,67,50,0.08);overflow:hidden;">' +
+      '<button onclick="toggleFAQ(\'pf'+i+'\',this)" style="width:100%;text-align:left;background:none;border:none;padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;">' +
+        '<span style="font-weight:700;font-size:0.93rem;color:#163832;">' + faq[0] + '</span>' +
+        '<span style="font-size:1.2rem;color:#2d6a4f;flex-shrink:0;transition:0.2s;" id="pf' + i + '-ico">+</span>' +
+      '</button>' +
+      '<div id="pf' + i + '" style="display:none;padding:0 20px 16px;font-size:0.88rem;color:#4a6658;line-height:1.7;">' + faq[1] + '</div>' +
+    '</div>';
+  });
+  html += '</div>';
+  el.innerHTML = html;
+}
+function toggleFAQ(id, btn) {
+  var el = document.getElementById(id);
+  var ico = document.getElementById(id + '-ico');
+  if (!el) return;
+  var open = el.style.display !== 'none';
+  el.style.display = open ? 'none' : 'block';
+  if (ico) ico.textContent = open ? '+' : '−';
+}
+
 </script>
 </body>
 </html>

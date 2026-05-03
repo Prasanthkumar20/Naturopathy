@@ -223,6 +223,7 @@
     <button class="tab-btn" onclick="goTab('profile',this)">&#x1F464; My Profile</button>
     <button class="tab-btn" onclick="goTab('blog',this)">&#x270D;&#xFE0F; Write Blog</button>
     <button class="tab-btn" onclick="goTab('dietchart',this)">&#x1F957; Diet Chart</button>
+    <button class="tab-btn" onclick="goTab('faqs',this)">&#x2753; FAQs</button>
   </div>
 
   <!-- DASHBOARD -->
@@ -479,6 +480,12 @@
     </div>
   </div>
 
+  <!-- FAQS -->
+  <div id="tab-faqs" class="tab-pane">
+    <h2 style="font-size:1.1rem;font-weight:800;color:var(--dark);margin-bottom:20px;">&#x2753; Frequently Asked Questions — Doctors</h2>
+    <div id="doctorFaqList"></div>
+  </div>
+
 </div><!-- end mainPortal -->
 
 <script>
@@ -535,6 +542,7 @@ function goTab(name, btn) {
   if (name==='profile')   renderProfile();
   if (name==='blog')      renderDocBlog();
   if (name==='dietchart') dcInit();
+  if (name==='faqs')      renderDoctorFAQs();
 }
 
 /* ── Data helpers ── */
@@ -1217,6 +1225,34 @@ function renderProfile() {
       return '<div class="profile-field"><span class="pf-label">'+f[0]+'</span><span class="pf-val">'+(f[1]||'—')+'</span></div>';
     }).join('');
 }
+
+/* ══ Doctor FAQs ══ */
+function renderDoctorFAQs() {
+  var faqs = [('How is my commission calculated?', 'For Chat and Call sessions: you receive 60% of the session fee. Admin gets 20% and 20% goes to the platform. For Personal consultations: the full amount goes to admin and you are paid separately as agreed.'), ('How do I set my per-minute rates?', "Go to 'My Rates' tab. Enter your Chat Rate and Call Rate (₹ per minute). Click Save. These rates are shown to patients when they book sessions with you."), ('When do I receive my earnings?', 'Earnings accumulate in your account. Admin reviews and processes payouts manually. You will be notified on WhatsApp when a payout is initiated. Contact admin at +91 7013989526 for payout requests.'), ('How do I start a session with a patient?', 'Once a patient books with you, you receive a WhatsApp notification. Reach out to the patient on WhatsApp at the scheduled time to start the Chat or Call session.'), ('How do I publish a blog post?', "Go to 'Write Blog' tab. Fill in the title, category, and content. Click 'Publish'. Your blog appears on the main website for patients to read."), ('How do I create and send a Diet Chart?', "Go to 'Diet Chart' tab. Select the patient, fill in meal details and recommendations. Click 'Preview' to review, then 'Send via WhatsApp' to share it directly with the patient."), ('Can I see my patient history?', "Yes — go to 'My Patients' tab. Each patient card shows their condition, session history, and total earnings from that patient."), ('What if a patient has a complaint?', 'Ask the patient to WhatsApp admin at +91 7013989526. Admin will mediate. Please maintain professional conduct in all sessions.'), ('How do I update my profile?', "Go to 'My Profile' tab and update your name, specialty, qualification, and availability timings. Changes are saved and reflected on the main website."), ('Who do I contact for technical issues?', 'WhatsApp admin at +91 7013989526 or email srihariu123456789@gmail.com. We aim to resolve issues within 24 hours.')];
+  var el = document.getElementById('doctorFaqList');
+  if (!el) return;
+  var html = '<div style="max-width:760px;">';
+  faqs.forEach(function(faq, i) {
+    html += '<div style="background:#fff;border-radius:14px;margin-bottom:12px;box-shadow:0 2px 10px rgba(27,67,50,0.08);overflow:hidden;">' +
+      '<button onclick="toggleDFAQ(\'df'+i+'\',this)" style="width:100%;text-align:left;background:none;border:none;padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;">' +
+        '<span style="font-weight:700;font-size:0.93rem;color:#163832;">' + faq[0] + '</span>' +
+        '<span style="font-size:1.2rem;color:#2d6a4f;flex-shrink:0;transition:0.2s;" id="df' + i + '-ico">+</span>' +
+      '</button>' +
+      '<div id="df' + i + '" style="display:none;padding:0 20px 16px;font-size:0.88rem;color:#4a6658;line-height:1.7;">' + faq[1] + '</div>' +
+    '</div>';
+  });
+  html += '</div>';
+  el.innerHTML = html;
+}
+function toggleDFAQ(id, btn) {
+  var el = document.getElementById(id);
+  var ico = document.getElementById(id + '-ico');
+  if (!el) return;
+  var open = el.style.display !== 'none';
+  el.style.display = open ? 'none' : 'block';
+  if (ico) ico.textContent = open ? '+' : '−';
+}
+
 </script>
 </body>
 </html>
