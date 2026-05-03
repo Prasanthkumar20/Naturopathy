@@ -72,9 +72,9 @@
     /* WALLET */
     .wallet-balance-card{background:linear-gradient(135deg,#0a5c4d,#2d6a4f,#40916c);color:#fff;border-radius:16px;
       padding:28px;text-align:center;border:2px solid #b2eed8;margin-bottom:18px;}
-    .wbal-label{font-size:0.82rem;color:#5a7060;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;}
-    .wbal-amt{font-size:2.8rem;font-weight:900;color:var(--primary);margin:8px 0 4px;}
-    .wbal-sub{font-size:0.82rem;color:#5a7060;}
+    .wbal-label{font-size:0.82rem;color:rgba(255,255,255,0.8);font-weight:700;text-transform:uppercase;letter-spacing:0.06em;}
+    .wbal-amt{font-size:2.8rem;font-weight:900;color:#fff;margin:8px 0 4px;text-shadow:0 2px 8px rgba(0,0,0,0.18);}
+    .wbal-sub{font-size:0.82rem;color:rgba(255,255,255,0.72);}
     .recharge-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
     .recharge-btn{background:#f0fdf8;border:2px solid #b2eed8;border-radius:12px;padding:13px 8px;
       cursor:pointer;font-weight:700;color:var(--primary);font-size:0.97rem;text-align:center;transition:0.15s;}
@@ -152,6 +152,45 @@
     .register-prompt p{color:#7a6020;font-size:0.88rem;margin-bottom:16px;}
     .register-prompt a{display:inline-block;padding:12px 28px;background:linear-gradient(135deg,var(--primary),var(--accent));
       color:#fff;border-radius:999px;font-weight:700;text-decoration:none;}
+
+    /* ── CHAT & CALL TAB ── */
+    .cc-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:18px;}
+    .cc-wallet-pill{background:linear-gradient(135deg,#0a5c4d,#2d6a4f);color:#fff;border-radius:999px;padding:8px 18px;font-weight:800;font-size:0.9rem;display:flex;align-items:center;gap:6px;}
+    .cc-doc-card{background:linear-gradient(135deg,#fff,#edfaf4);border-radius:16px;padding:18px;box-shadow:var(--shadow);border-left:4px solid #74c69d;margin-bottom:12px;}
+    .cc-doc-top{display:flex;align-items:flex-start;gap:14px;margin-bottom:12px;}
+    .cc-avatar{width:52px;height:52px;background:linear-gradient(135deg,#0a5c4d,#3aafa9);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.4rem;font-weight:900;flex-shrink:0;}
+    .cc-doc-info{flex:1;}
+    .cc-doc-name{font-size:1rem;font-weight:800;color:var(--dark);}
+    .cc-doc-spec{font-size:0.82rem;color:#5a7060;margin-top:2px;}
+    .cc-doc-avail{display:inline-block;background:#dcfce7;color:#166534;border-radius:999px;padding:2px 9px;font-size:0.72rem;font-weight:700;margin-top:5px;}
+    .cc-rates{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+    .cc-rate-badge{display:inline-flex;align-items:center;gap:4px;padding:5px 12px;border-radius:999px;font-size:0.8rem;font-weight:700;}
+    .cc-rate-chat{background:#e8fdf5;color:#1b4332;border:1.5px solid #74c69d;}
+    .cc-rate-call{background:#e8f4ff;color:#1a365d;border:1.5px solid #90caf9;}
+    .cc-rate-free{background:#f4f4f4;color:#666;border:1.5px solid #ddd;}
+    .cc-actions{display:flex;gap:8px;}
+    .cc-chat-btn{flex:1;padding:11px;background:linear-gradient(135deg,#e8fdf5,#c8f0e0);color:#1b4332;border:1.5px solid #74c69d;border-radius:12px;font-weight:800;font-size:0.88rem;cursor:pointer;text-align:center;}
+    .cc-call-btn{flex:1;padding:11px;background:linear-gradient(135deg,#1b4332,#2d6a4f);color:#fff;border:none;border-radius:12px;font-weight:800;font-size:0.88rem;cursor:pointer;text-align:center;}
+    .cc-chat-btn:hover{background:#b7e4c7;}
+    .cc-call-btn:hover{background:linear-gradient(135deg,#0a2218,#1b4332);}
+    .cc-no-doctors{text-align:center;padding:50px 20px;color:#8a9e98;}
+
+    /* ── PATIENT CALL OVERLAY ── */
+    .pat-call-overlay{position:fixed;inset:0;z-index:9999;background:linear-gradient(160deg,#0a1f15,#0d3321);display:none;align-items:center;justify-content:center;flex-direction:column;}
+    .pat-call-overlay.open{display:flex;}
+    .pat-call-pulse{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#2d6a4f,#40916c);display:flex;align-items:center;justify-content:center;font-size:2.4rem;margin-bottom:18px;animation:callPulse 1.5s infinite;}
+    @keyframes callPulse{0%{box-shadow:0 0 0 0 rgba(64,145,108,0.6);}70%{box-shadow:0 0 0 22px rgba(64,145,108,0);}100%{box-shadow:0 0 0 0 rgba(64,145,108,0);}}
+    .pat-call-name{font-size:1.7rem;font-weight:900;color:#fff;margin-bottom:4px;text-align:center;}
+    .pat-call-info{font-size:0.9rem;color:rgba(255,255,255,0.65);margin-bottom:6px;text-align:center;}
+    .pat-call-rate-info{background:rgba(255,255,255,0.1);border-radius:10px;padding:8px 18px;color:rgba(255,255,255,0.75);font-size:0.82rem;font-weight:600;margin-bottom:20px;text-align:center;}
+    .pat-call-timer{font-size:3rem;font-weight:900;font-family:monospace;color:#52b788;margin-bottom:24px;letter-spacing:0.05em;}
+    .pat-call-actions{display:flex;gap:14px;margin-bottom:22px;flex-wrap:wrap;justify-content:center;}
+    .pat-call-wa-btn{background:#25D366;color:#fff;border:none;border-radius:999px;padding:12px 24px;font-weight:800;font-size:0.92rem;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:5px;}
+    .pat-call-end-btn{background:linear-gradient(135deg,#c0392b,#e74c3c);color:#fff;border:none;border-radius:999px;padding:12px 28px;font-weight:900;font-size:0.95rem;cursor:pointer;}
+    .pat-call-notes-wrap{background:rgba(255,255,255,0.08);border-radius:12px;padding:14px;width:min(320px,90%);margin-bottom:16px;}
+    .pat-call-notes-lbl{color:rgba(255,255,255,0.65);font-size:0.75rem;font-weight:700;margin-bottom:6px;text-transform:uppercase;}
+    .pat-call-notes-input{width:100%;padding:9px 12px;border:1.5px solid rgba(255,255,255,0.2);border-radius:8px;background:rgba(255,255,255,0.08);color:#fff;font-size:0.88rem;outline:none;resize:none;}
+    .pat-call-notes-input::placeholder{color:rgba(255,255,255,0.4);}
   </style>
 
   <!-- PWA: Prahari NatureCure -->
@@ -245,6 +284,7 @@
 
   <div class="tab-nav">
     <button class="tab-btn active" onclick="goTab('dashboard',this)">&#x1F4CA; Dashboard</button>
+    <button class="tab-btn" onclick="goTab('chatcall',this)">&#x1F4AC; Chat &amp; Call</button>
     <button class="tab-btn" onclick="goTab('wallet',this)">&#x1F4B0; My Wallet</button>
     <button class="tab-btn" onclick="goTab('bookings',this)">&#x1F4C5; My Bookings</button>
     <button class="tab-btn" onclick="goTab('doctor',this)">&#x1F9D1;&#x200D;&#x2695;&#xFE0F; My Doctor</button>
@@ -304,6 +344,21 @@
     <!-- Recent bookings -->
     <h3 style="font-size:0.9rem;color:var(--dark);font-weight:700;margin-bottom:10px;">&#x1F4CB; Recent Bookings</h3>
     <div id="dashRecentBookings"></div>
+  </div>
+
+  <!-- CHAT & CALL -->
+  <div id="tab-chatcall" class="tab-pane">
+    <div class="cc-header">
+      <div>
+        <h2 style="font-size:1.05rem;font-weight:800;color:var(--dark);margin-bottom:4px;">&#x1F4AC; Chat &amp; Call with Doctors</h2>
+        <p style="font-size:0.82rem;color:#8a9e98;">Select a doctor and start a chat or call session</p>
+      </div>
+      <div class="cc-wallet-pill">
+        &#x1F4B0; Wallet: <span id="cc-walBal">&#8377;0</span>
+        &nbsp;<button onclick="goTab('wallet',document.querySelectorAll('.tab-btn')[2])" style="background:rgba(255,255,255,0.2);border:none;color:#fff;border-radius:999px;padding:3px 10px;font-size:0.75rem;font-weight:700;cursor:pointer;">Top Up</button>
+      </div>
+    </div>
+    <div id="ccDoctorGrid"></div>
   </div>
 
   <!-- WALLET -->
@@ -522,6 +577,7 @@ function goTab(name, btn) {
   if (name === 'diet')      renderDietUploads();
   if (name === 'profile')   renderProfile();
   if (name === 'faqs')      renderPatientFAQs();
+  if (name === 'chatcall')  renderChatCallTab();
 }
 
 /* ── Wallet helpers ── */
@@ -959,6 +1015,24 @@ function patSubmitDietUpload() {
       });
     }
   </script>
+
+
+<!-- ══ PATIENT CALL OVERLAY ══ -->
+<div class="pat-call-overlay" id="patCallOverlay">
+  <div class="pat-call-pulse">&#x1F4DE;</div>
+  <div class="pat-call-name" id="patCallDocName">Doctor</div>
+  <div class="pat-call-info" id="patCallDocInfo">Session in progress</div>
+  <div class="pat-call-rate-info" id="patCallRateInfo"></div>
+  <div class="pat-call-timer" id="patCallTimer">00:00</div>
+  <div class="pat-call-notes-wrap">
+    <div class="pat-call-notes-lbl">&#x1F4DD; Session Notes (optional)</div>
+    <textarea class="pat-call-notes-input" id="patCallNotes" rows="2" placeholder="How are you feeling? Notes for this session..."></textarea>
+  </div>
+  <div class="pat-call-actions">
+    <a class="pat-call-wa-btn" id="patCallWaBtn" href="#" target="_blank">&#x1F4F1; WhatsApp Call</a>
+    <button class="pat-call-end-btn" onclick="patEndCall()">&#x1F534; End Session</button>
+  </div>
+</div>
 
 <!-- ══ PATIENT CHAT OVERLAY ══ -->
 <div class="chat-overlay" id="patChatOverlay" onclick="if(event.target===this)closePatChat()">
