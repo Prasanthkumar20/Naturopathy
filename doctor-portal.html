@@ -537,7 +537,16 @@
 
   <!-- FAQS -->
   <div id="tab-faqs" class="tab-pane">
-    <h2 style="font-size:1.1rem;font-weight:800;color:var(--dark);margin-bottom:20px;">&#x2753; Frequently Asked Questions — Doctors</h2>
+    <h2 style="font-size:1.1rem;font-weight:800;color:var(--dark);margin-bottom:16px;">&#x2753; Frequently Asked Questions — Doctors</h2>
+    <!-- Customer Care Card -->
+    <div style="background:linear-gradient(135deg,#25d366,#128c7e);border-radius:16px;padding:18px 22px;margin-bottom:24px;max-width:760px;display:flex;align-items:center;gap:16px;box-shadow:0 4px 16px rgba(18,140,126,0.25);">
+      <span style="font-size:2rem;flex-shrink:0;">&#x1F4DE;</span>
+      <div style="flex:1;">
+        <div style="font-weight:800;font-size:1rem;color:#fff;margin-bottom:3px;">Doctor Support — WhatsApp Helpline</div>
+        <div style="font-size:0.85rem;color:rgba(255,255,255,0.9);margin-bottom:10px;">Have a question about earnings, patients, or technical issues? Reach our team anytime on WhatsApp.</div>
+        <a href="https://wa.me/919346615881?text=Hello%2C%20I%20am%20a%20doctor%20on%20Prahari%20NatureCure%20and%20need%20support." target="_blank" style="display:inline-flex;align-items:center;gap:7px;background:#fff;color:#128c7e;border-radius:999px;padding:8px 20px;font-weight:800;font-size:0.9rem;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,0.15);">&#x1F4AC; Chat on WhatsApp &nbsp;+91 93466 15881</a>
+      </div>
+    </div>
     <div id="doctorFaqList"></div>
   </div>
 
@@ -1654,7 +1663,33 @@ function renderProfile() {
 
 /* ══ Doctor FAQs ══ */
 function renderDoctorFAQs() {
-  var faqs = [('How is my commission calculated?', 'For Chat and Call sessions: you receive 60% of the session fee. Admin gets 20% and 20% goes to the platform. For Personal consultations: the full amount goes to admin and you are paid separately as agreed.'), ('How do I set my per-minute rates?', "Go to 'My Rates' tab. Enter your Chat Rate and Call Rate (₹ per minute). Click Save. These rates are shown to patients when they book sessions with you."), ('When do I receive my earnings?', 'Earnings accumulate in your account. Admin reviews and processes payouts manually. You will be notified on WhatsApp when a payout is initiated. Contact admin at +91 7013989526 for payout requests.'), ('How do I start a session with a patient?', 'Once a patient books with you, you receive a WhatsApp notification. Reach out to the patient on WhatsApp at the scheduled time to start the Chat or Call session.'), ('How do I publish a blog post?', "Go to 'Write Blog' tab. Fill in the title, category, and content. Click 'Publish'. Your blog appears on the main website for patients to read."), ('How do I create and send a Diet Chart?', "Go to 'Diet Chart' tab. Select the patient, fill in meal details and recommendations. Click 'Preview' to review, then 'Send via WhatsApp' to share it directly with the patient."), ('Can I see my patient history?', "Yes — go to 'My Patients' tab. Each patient card shows their condition, session history, and total earnings from that patient."), ('What if a patient has a complaint?', 'Ask the patient to WhatsApp admin at +91 7013989526. Admin will mediate. Please maintain professional conduct in all sessions.'), ('How do I update my profile?', "Go to 'My Profile' tab and update your name, specialty, qualification, and availability timings. Changes are saved and reflected on the main website."), ('Who do I contact for technical issues?', 'WhatsApp admin at +91 7013989526 or email srihariu123456789@gmail.com. We aim to resolve issues within 24 hours.')];
+  var faqs = [
+    ['How is my commission calculated?', 'For Chat and Call sessions: you receive 60% of the session fee. Admin receives 20% and the platform takes 20%. For Personal consultations: the full fee goes to admin and your payment is handled separately as agreed. All earnings are visible in the My Earnings tab.'],
+    ['How do I set my per-minute rates?', "Go to 'My Rates' tab. Enter your Chat Rate and Call Rate (₹ per minute). Click 'Save Rates'. These rates are displayed to patients when they view your profile and book sessions with you. You can update your rates anytime."],
+    ['When do I receive my earnings?', 'Your earnings accumulate in the system after every completed session. Admin reviews and processes payouts manually on a scheduled basis. You will be notified on WhatsApp when a payout is initiated. To request a payout earlier, WhatsApp admin at +91 93466 15881.'],
+    ['How do I start a chat session with a patient?', "Once a patient books a Chat session with you, you receive a WhatsApp notification. Go to your Doctor Portal → Dashboard → click the 💬 Chat button on the patient's card. A chat window opens where you can exchange messages in real time with the patient."],
+    ['How do I conduct a call session?', "When a patient books a Call session, you receive a WhatsApp notification with the patient's phone number. Contact the patient on WhatsApp at the scheduled time. The patient's side logs the duration and deducts from their wallet. Log the session in your portal once complete."],
+    ['How do I log a completed session?', "Go to 'My Patients' tab → find the patient → click 'Log Session'. Fill in the session type (Chat/Call/Personal), duration, and any notes. The system calculates your earnings automatically based on the rate × duration formula."],
+    ['How do I publish a blog post?', "Go to the 'Write Blog' tab. Enter the blog title, select a category (Naturopathy, Yoga, Diet, etc.), and write the content. Click 'Publish'. Your blog appears on the main website immediately for all patients to read. You can view all your published blogs in the same tab."],
+    ['How do I create and send a diet chart?', "Go to the 'Diet Chart' tab. Select the patient from the dropdown, fill in the Early Morning, Breakfast, Mid-Morning, Lunch, Evening, Dinner, and Bedtime meal slots. Add general recommendations. Click 'Preview & Send'. Share the chart via WhatsApp directly from the portal."],
+    ['How do I see my patient history?', "Go to 'My Patients' tab. Each patient card shows their health condition, total sessions, total earnings from that patient, and a chat/call button. You can also view diet photo uploads submitted by patients."],
+    ['How do I view my session logs and earnings?', "Go to 'My Sessions' tab to see all completed Chat, Call, and Personal sessions with dates, durations, fees, and your commission. Go to 'My Earnings' tab to see your total earnings, commission breakdown, and pending payouts."],
+    ['What is the Notifications tab?', "The Notifications tab (🔔) shows unread patient chat messages, new bookings from patients, and new patient assignments from admin — all since your last visit. A red badge appears on the tab button when there are unread items. Open the tab to mark all as read."],
+    ['How do I update my profile?', "Go to 'My Profile' tab. Your registered name, phone, email, gender, specialization, qualifications, and availability timings are shown. To update details like specialty, timing, or qualifications, contact admin on WhatsApp at +91 93466 15881 or edit directly if the fields are editable."],
+    ['How do I set my availability timings?', 'Contact admin at +91 93466 15881 to update your listed availability timings. These are shown to patients on the main website so they know when you are available for bookings. Keep your timings updated to avoid missed sessions.'],
+    ['How do I send a WhatsApp message to a patient?', "Open the patient's chat in the portal and use the 📱 WhatsApp button in the chat header to open a WhatsApp chat directly with the patient's number. You can also find the patient's phone number in the My Patients tab."],
+    ['What qualifications are displayed on the main website?', "Your name, BNYS degree/qualification, specialization, and a profile photo (if added) are shown on the Doctors section of the main website. Patients see this before booking. Keep your admin-registered profile updated for accurate display."],
+    ['Can I reject a patient booking?', 'Currently, bookings are confirmed automatically once a patient pays from their wallet. If you are unavailable for a session, contact the patient on WhatsApp to reschedule and inform admin at +91 93466 15881. Admin can manually cancel and refund if needed.'],
+    ['What if a patient does not show up for a session?', "If a patient booked a Call session but does not respond on WhatsApp at the scheduled time, log the session with 0 minutes or minimal duration and add a note. Contact admin at +91 93466 15881 — they will mediate and determine if a partial fee applies."],
+    ['What if a patient has a complaint?', 'Ask the patient to contact admin at +91 93466 15881 on WhatsApp. Admin will review the session logs and mediate fairly. Please maintain professional conduct in all sessions. Repeated complaints may affect your profile visibility.'],
+    ['How do I handle Personal Consultation payments?', 'For Personal (in-clinic or video) consultations, the patient pays admin directly. You receive your agreed payment from admin separately. Log the session in your portal under Personal type so earnings are tracked correctly.'],
+    ['What is a Route Account and how does it work?', "A Route Account is a linked bank/UPI account used by admin to process your earnings payout. Admin links your payout method in the system. When your payout is processed, the amount is transferred directly to your linked account via Razorpay Route."],
+    ['How do I request an early payout?', 'WhatsApp admin at +91 93466 15881 with your doctor name and the payout period you need. Admin will review your pending earnings and process the transfer. Standard payout cycles are weekly or bi-weekly.'],
+    ['How do I write session notes?', 'During or after a Chat or Call session, open the session overlay or go to Log Session. There is a Notes field where you can enter clinical observations, patient-reported symptoms, advice given, and follow-up instructions. Notes are saved locally.'],
+    ['Can I have multiple active chat sessions at the same time?', 'The portal supports one active chat/call overlay at a time. If you need to handle multiple patients, complete or close one session before starting another. We recommend scheduling sessions at different times to give each patient your full attention.'],
+    ['How do I logout of the doctor portal?', "Click the '🚪 Logout' button in the top bar. This clears your active session from the browser. Next time you visit, you will need to log in again with OTP. Note: your data (sessions, earnings, patients) is all saved and will reload on next login."],
+    ['Who do I contact for technical issues?', 'WhatsApp our support team anytime at +91 93466 15881. For urgent issues, mention your registered doctor name and phone number. We aim to resolve all technical issues within 24 hours. You can also email srihariu123456789@gmail.com.']
+  ];
   var el = document.getElementById('doctorFaqList');
   if (!el) return;
   var html = '<div style="max-width:760px;">';
@@ -1757,5 +1792,22 @@ function toggleDFAQ(id, btn) {
     <button class="call-end-btn" onclick="endCallSession()">&#x1F534; End Session</button>
   </div>
 </div>
+<!-- Floating Customer Care WhatsApp Button -->
+<a href="https://wa.me/919346615881?text=Hello%2C%20I%20am%20a%20doctor%20on%20Prahari%20NatureCure%20and%20need%20support." target="_blank" id="floatWaBtn" style="display:none;position:fixed;bottom:22px;right:22px;z-index:9999;background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;border-radius:999px;padding:12px 20px;font-weight:800;font-size:0.88rem;text-decoration:none;box-shadow:0 4px 18px rgba(37,211,102,0.45);align-items:center;gap:8px;">
+  <span style="font-size:1.3rem;">&#x1F4AC;</span> Support
+</a>
+<script>
+(function(){
+  var btn = document.getElementById('floatWaBtn');
+  function syncBtn(){
+    if(document.getElementById('mainPortal') && document.getElementById('mainPortal').style.display !== 'none'){
+      btn.style.display = 'inline-flex';
+    } else {
+      btn.style.display = 'none';
+    }
+  }
+  setInterval(syncBtn, 1000);
+})();
+</script>
 </body>
 </html>

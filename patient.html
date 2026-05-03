@@ -444,7 +444,16 @@
 
   <!-- FAQS -->
   <div id="tab-faqs" class="tab-pane">
-    <h2 style="font-size:1.1rem;font-weight:800;color:var(--dark);margin-bottom:20px;">&#x2753; Frequently Asked Questions</h2>
+    <h2 style="font-size:1.1rem;font-weight:800;color:var(--dark);margin-bottom:16px;">&#x2753; Frequently Asked Questions</h2>
+    <!-- Customer Care Card -->
+    <div style="background:linear-gradient(135deg,#25d366,#128c7e);border-radius:16px;padding:18px 22px;margin-bottom:24px;max-width:760px;display:flex;align-items:center;gap:16px;box-shadow:0 4px 16px rgba(18,140,126,0.25);">
+      <span style="font-size:2rem;flex-shrink:0;">&#x1F4DE;</span>
+      <div style="flex:1;">
+        <div style="font-weight:800;font-size:1rem;color:#fff;margin-bottom:3px;">Customer Care — WhatsApp Support</div>
+        <div style="font-size:0.85rem;color:rgba(255,255,255,0.9);margin-bottom:10px;">Need help? Chat with us instantly on WhatsApp. We typically respond within a few minutes.</div>
+        <a href="https://wa.me/919346615881?text=Hello%2C%20I%20need%20help%20with%20my%20patient%20account%20on%20Prahari%20NatureCure." target="_blank" style="display:inline-flex;align-items:center;gap:7px;background:#fff;color:#128c7e;border-radius:999px;padding:8px 20px;font-weight:800;font-size:0.9rem;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,0.15);">&#x1F4AC; Chat on WhatsApp &nbsp;+91 93466 15881</a>
+      </div>
+    </div>
     <div id="patientFaqList"></div>
   </div>
 
@@ -875,7 +884,33 @@ document.addEventListener('keydown', function(e){
 
 /* ══ Patient FAQs ══ */
 function renderPatientFAQs() {
-  var faqs = [('How does naturopathy treatment work?', 'Naturopathy uses natural therapies — diet corrections, yoga, breathing exercises, herbal guidance, and lifestyle changes — to help the body heal itself. Our doctors assess your condition and create a personalised plan.'), ('How do I book a session?', "Add money to your wallet, then click 'Book' next to any doctor on the main website. Choose Chat (text) or Call (audio). The session fee is deducted automatically from your wallet."), ('What is the wallet and how do I recharge it?', "Your wallet stores prepaid credits used for booking sessions. Go to 'My Wallet' → tap any recharge amount → pay securely via Razorpay (UPI, Card, Net Banking). Amount reflects instantly."), ('What happens after I book a session?', 'You and the doctor both receive a WhatsApp notification with booking details. Your assigned doctor will reach out on WhatsApp to start the session at the agreed time.'), ('Can I get a refund for an unused session?', 'Refunds are handled manually. Contact us on WhatsApp at +91 7013989526 with your payment ID. We review each case and process eligible refunds within 3–5 working days.'), ('How do I upload my diet photos?', "Go to 'Patient Diet' tab → use the upload option to share your meals/food photos. Your doctor will review them and give feedback in the next session."), ('What is a Personal Consultation?', 'Personal (in-clinic or video) consultations are a premium service where you get dedicated 1:1 time with a doctor. The full fee goes to the admin and the doctor handles it directly.'), ('How do I see my assigned doctor?', "After booking, go to 'My Doctor' tab. It shows your doctor's name, specialty, phone, and a WhatsApp button to contact them directly."), ('Is my health data safe?', 'Yes. All data is stored locally in your browser (localStorage). We do not share your personal information with any third party.'), ('How do I reach support?', 'WhatsApp us anytime at +91 7013989526 or email srihariu123456789@gmail.com. We typically respond within a few hours.')];
+  var faqs = [
+    ['What is Prahari NatureCure?', 'Prahari NatureCure is an online naturopathy and yoga care platform connecting patients with qualified naturopathy doctors for Chat, Call, and Personal consultations. We focus on natural healing through diet correction, yoga therapy, herbal guidance, and lifestyle changes.'],
+    ['How does naturopathy treatment work?', 'Naturopathy uses natural therapies — diet corrections, yoga, breathing exercises, herbal guidance, and lifestyle changes — to help the body heal itself. Our doctors assess your condition and create a personalised plan tailored to your health needs.'],
+    ['What health conditions do you treat?', 'We help with hormonal problems (PCOS, thyroid, infertility), diabetes & weight management, joint pain & lifestyle disorders, digestive & skin problems, anxiety, stress, insomnia, hypertension, fatty liver, and general wellness. Our doctors guide you through natural healing for chronic and lifestyle conditions.'],
+    ['How do I register as a patient?', 'Visit the main website and click "Register as Patient". Fill in your name, phone number, email, health condition, age, and gender. Submit the form and you will receive a WhatsApp confirmation. Then log in to the Patient Portal using your registered phone number and OTP.'],
+    ['How do I login to the patient portal?', 'Click "Patient Login" on the main website or visit patient.html. Enter your registered 10-digit phone number and click "Send OTP via WhatsApp". Enter the 6-digit OTP received on WhatsApp or SMS to log in securely.'],
+    ['How do I book a session with a doctor?', "First recharge your wallet. Then go to the main website and click 'Book' next to any doctor. Choose 'Chat' (text-based) or 'Call' (voice-based), enter your phone number, and confirm. The session fee is deducted from your wallet instantly. You and the doctor both get a WhatsApp notification."],
+    ['What is the Wallet and how do I recharge it?', "The wallet stores prepaid credits for booking sessions. Go to 'My Wallet' tab → select a recharge amount → click 'Recharge Now' → pay securely via Razorpay (UPI, debit/credit card, Net Banking). The amount is added to your wallet instantly."],
+    ['What payment methods are accepted?', 'We accept UPI (Google Pay, PhonePe, Paytm, BHIM), debit cards, credit cards, and Net Banking — all processed securely via Razorpay, a trusted Indian payment gateway. Your card details are never stored on our servers.'],
+    ['What is a Chat session?', 'A Chat session is a text-based consultation where you type messages to your doctor in real time. The session fee is charged per minute based on the doctor\'s chat rate. Chat sessions are great for follow-ups, quick queries, and prescription reviews.'],
+    ['What is a Call session?', 'A Call session is a voice consultation via WhatsApp. After booking a Call session, the doctor reaches out on WhatsApp at the scheduled time. The session fee is calculated per minute based on the doctor\'s call rate and deducted from your wallet when the session ends.'],
+    ['What is a Personal Consultation?', 'Personal (in-clinic or video) consultations are a premium one-on-one service. You pay directly to admin, and the doctor handles the consultation exclusively. Ideal for detailed assessments, diagnostic reviews, and long-term treatment planning.'],
+    ['How much does a session cost?', 'Each doctor sets their own per-minute rate for Chat and Call sessions. You can view the rate on the booking page. Personal consultations have a fixed fee set by admin. All fees are shown clearly before you confirm any booking.'],
+    ['What happens after I book a session?', 'You and the doctor both receive a WhatsApp notification with booking details — type, date, fee, and session info. Your doctor will contact you on WhatsApp at the agreed time to start the session.'],
+    ['How do I start a chat with my doctor?', "Go to the 'Chat & Call' tab in your patient portal. You will see all available doctors. Click the 💬 Chat button next to your doctor. A chat window opens where you can send and receive messages in real time."],
+    ['How do I make a call with my doctor?', "Go to the 'Chat & Call' tab and click the 📞 Call button next to your doctor. A call screen opens showing a WhatsApp Call button. Click it to connect with your doctor via WhatsApp. Your wallet is charged per minute and deducted automatically when you end the call."],
+    ['How do I see my assigned doctor?', "After a booking or admin assignment, go to the 'My Doctor' tab. It shows your doctor's name, specialty, qualifications, availability, and a WhatsApp button to contact them directly."],
+    ['How do I upload my diet photos?', "Go to the 'Patient Diet' tab → use the upload option to share your food/meal photos. Your doctor will review them and give personalised dietary feedback in your next session."],
+    ['What is a diet chart?', 'A diet chart is a personalised meal plan created by your doctor based on your health condition. It includes breakfast, lunch, dinner, and snack recommendations. Your doctor sends it via WhatsApp directly from the Doctor Portal.'],
+    ['Can I switch doctors?', 'Yes. You can book sessions with any available doctor on the platform. If you were assigned a doctor by admin and want to switch, contact customer care on WhatsApp at +91 93466 15881 and we will reassign you.'],
+    ['Can I consult multiple doctors?', 'Yes. You can book Chat or Call sessions with any doctor on the platform. However, only one doctor can be assigned to you as your primary doctor by admin. You can contact customer care to discuss this.'],
+    ['How long does a session last?', 'Sessions have no fixed time limit. Chat and Call sessions run as long as you need. You are charged per minute — the fee is deducted from your wallet. For Personal Consultations, the duration is decided between you and the doctor.'],
+    ['How do I update my profile?', "Go to 'My Profile' tab in the patient portal. Your registered name, phone, email, gender, age, health condition, and registration date are shown. To make changes, contact customer care on WhatsApp at +91 93466 15881."],
+    ['Can I get a refund for an unused session?', 'Refunds are reviewed case by case. Contact us on WhatsApp at +91 93466 15881 with your phone number and payment ID. We process eligible refunds within 3–5 working days back to your original payment method.'],
+    ['Is my health data safe?', 'Yes. All your data — profile, bookings, wallet history, and chat messages — is stored locally in your browser (localStorage). We do not upload or share your personal health information with any third party.'],
+    ['How do I reach customer care?', 'WhatsApp us anytime at +91 93466 15881. Click the green WhatsApp button at the top of this page or go to the FAQs tab. We typically respond within a few minutes during business hours (9 AM – 9 PM IST).']
+  ];
   var el = document.getElementById('patientFaqList');
   if (!el) return;
   var html = '<div style="max-width:760px;">';
@@ -1064,5 +1099,22 @@ function patSubmitDietUpload() {
     </div>
   </div>
 </div>
+<!-- Floating Customer Care WhatsApp Button -->
+<a href="https://wa.me/919346615881?text=Hello%2C%20I%20need%20help%20with%20my%20patient%20account%20on%20Prahari%20NatureCure." target="_blank" id="floatWaBtn" style="display:none;position:fixed;bottom:22px;right:22px;z-index:9999;background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;border-radius:999px;padding:12px 20px;font-weight:800;font-size:0.88rem;text-decoration:none;box-shadow:0 4px 18px rgba(37,211,102,0.45);align-items:center;gap:8px;">
+  <span style="font-size:1.3rem;">&#x1F4AC;</span> Customer Care
+</a>
+<script>
+(function(){
+  var btn = document.getElementById('floatWaBtn');
+  function syncBtn(){
+    if(document.getElementById('mainPortal') && document.getElementById('mainPortal').style.display !== 'none'){
+      btn.style.display = 'inline-flex';
+    } else {
+      btn.style.display = 'none';
+    }
+  }
+  setInterval(syncBtn, 1000);
+})();
+</script>
 </body>
 </html>
