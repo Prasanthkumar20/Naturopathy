@@ -231,10 +231,17 @@
 
     <!-- Step 2: OTP entry -->
     <div id="docOtpStep2" style="display:none;">
-      <div style="background:#e8fdf5;border:1.5px solid #52b788;border-radius:12px;padding:14px;text-align:center;margin-bottom:16px;">
-        <div style="font-size:1.3rem;margin-bottom:4px;">&#x2705;</div>
-        <div style="font-weight:800;color:#0a5c4d;font-size:0.97rem;">OTP sent via WhatsApp &amp; SMS!</div>
-        <div style="font-size:0.8rem;color:#56766e;margin-top:4px;">Check your WhatsApp or SMS for the 6-digit OTP</div>
+      <!-- OTP Display Box -->
+      <div style="background:linear-gradient(135deg,#163832,#1b4332);border-radius:14px;padding:18px 14px;text-align:center;margin-bottom:14px;">
+        <div style="font-size:0.8rem;color:rgba(255,255,255,0.8);margin-bottom:6px;font-weight:600;">&#x1F511; Your One-Time Password</div>
+        <div id="docOtpDisplayCode" style="font-size:2.4rem;font-weight:900;color:#fff;letter-spacing:10px;font-family:monospace;margin-bottom:10px;">------</div>
+        <button onclick="docCopyOtp()" style="background:rgba(255,255,255,0.2);border:1.5px solid rgba(255,255,255,0.5);color:#fff;border-radius:999px;padding:6px 18px;font-size:0.82rem;font-weight:700;cursor:pointer;">&#x1F4CB; Copy &amp; Fill OTP</button>
+      </div>
+      <!-- WhatsApp backup link -->
+      <div id="docWaOtpRow" style="text-align:center;margin-bottom:12px;">
+        <a id="docWaOtpLink" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:#25d366;color:#fff;border-radius:999px;padding:7px 16px;font-size:0.82rem;font-weight:700;text-decoration:none;">&#x1F4F1; Also send via WhatsApp</a>
+        <span style="display:inline-block;margin:0 6px;color:#aaa;font-size:0.8rem;">|</span>
+        <a id="docSmsOtpLink" href="#" style="display:inline-flex;align-items:center;gap:6px;background:#1976d2;color:#fff;border-radius:999px;padding:7px 16px;font-size:0.82rem;font-weight:700;text-decoration:none;">&#x1F4F2; Send via SMS</a>
       </div>
       <input class="l-input" type="number" id="docOtpInput" placeholder="Enter 6-digit OTP"
         style="letter-spacing:6px;font-size:1.3rem;text-align:center;font-weight:800;"
@@ -578,13 +585,15 @@ function sendDocOTP() {
   _docOtpExpiry = Date.now() + 5 * 60 * 1000;
   var waPhone = raw.length === 10 ? '91' + raw : raw;
   var waMsg = '\uD83C\uDF3F *Prahari NatureCure — Doctor OTP*\n\nDear Dr. ' + match.name + ',\n\nYour OTP is: *' + _docOtpCode + '*\n\nValid for 5 minutes. Do not share this with anyone.\n\n\u2014 Prahari NatureCure Team';
-  var smsMsg = 'Prahari NatureCure Doctor OTP: ' + _docOtpCode + '. Valid 5 mins. Do not share. -NatureCure Team';
-  window.open('https://wa.me/' + waPhone + '?text=' + encodeURIComponent(waMsg), '_blank');
-  setTimeout(function(){
-    var a = document.createElement('a');
-    a.href = 'sms:+' + waPhone + '?&body=' + encodeURIComponent(smsMsg);
-    a.style.display = 'none'; document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  }, 600);
+  var smsMsg = 'Prahari NatureCure Doctor OTP: ' + _docOtpCode + '. Valid 5 mins. Do not share. -NatureCure';
+  /* Show OTP on screen */
+  var dispEl = document.getElementById('docOtpDisplayCode');
+  if (dispEl) dispEl.textContent = _docOtpCode;
+  /* Set WhatsApp & SMS backup links */
+  var waLink = document.getElementById('docWaOtpLink');
+  if (waLink) waLink.href = 'https://wa.me/' + waPhone + '?text=' + encodeURIComponent(waMsg);
+  var smsLink = document.getElementById('docSmsOtpLink');
+  if (smsLink) smsLink.href = 'sms:+' + waPhone + '?&body=' + encodeURIComponent(smsMsg);
   document.getElementById('docOtpStep1').style.display  = 'none';
   document.getElementById('docOtpStep2').style.display  = 'block';
   document.getElementById('loginErr').style.display     = 'none';
@@ -604,11 +613,17 @@ function sendDocOTP() {
   }, 1000);
 }
 
+function docCopyOtp() {
+  if (!_docOtpCode) return;
+  document.getElementById('docOtpInput').value = _docOtpCode;
+  if (navigator.clipboard) navigator.clipboard.writeText(_docOtpCode).catch(function(){});
+}
+
 function verifyDocOTP() {
   var entered = (document.getElementById('docOtpInput').value || '').trim();
-  if (!entered) { showErr('Please enter the OTP sent to your WhatsApp.'); return; }
+  if (!entered) { showErr('Please enter the OTP shown on screen above.'); return; }
   if (Date.now() > _docOtpExpiry) { showErr('OTP has expired. Please tap Resend OTP.'); return; }
-  if (entered !== _docOtpCode) { showErr('\u274C Incorrect OTP. Please check your WhatsApp and try again.'); return; }
+  if (entered !== _docOtpCode) { showErr('\u274C Incorrect OTP. Please use the code shown on screen above.'); return; }
   clearInterval(_docOtpTimer);
   _docOtpCode = null;
   var raw = (document.getElementById('loginPhone').value || '').replace(/\D/g,'');
