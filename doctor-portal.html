@@ -140,6 +140,46 @@
     .dbi-meta{font-size:0.77rem;color:#8a9e98;}
     .dbi-del{background:#fee2e2;color:#c0392b;border:none;border-radius:8px;padding:7px 14px;cursor:pointer;font-weight:700;font-size:0.8rem;flex-shrink:0;}
     .dbi-cat-badge{display:inline-block;background:#e8f0fe;color:#1565c0;border-radius:999px;padding:2px 10px;font-size:0.73rem;font-weight:700;margin-left:6px;}
+
+    /* DIET CHART TAB */
+    .dc-layout{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+    @media(max-width:800px){.dc-layout{grid-template-columns:1fr;}}
+    .dc-form-panel{background:#fff;border-radius:16px;padding:22px;box-shadow:var(--shadow);}
+    .dc-prev-panel{background:#fff;border-radius:16px;padding:22px;box-shadow:var(--shadow);max-height:80vh;overflow-y:auto;position:sticky;top:70px;}
+    .dc-fsec{margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid #e8f0fe;}
+    .dc-fsec:last-child{border-bottom:none;margin-bottom:0;}
+    .dc-fsec h3{font-size:0.85rem;font-weight:800;color:#1565c0;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.04em;}
+    .dc-frow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px;}
+    .dc-frow.s1{grid-template-columns:1fr;}
+    .dc-frow.s3{grid-template-columns:1fr 1fr 1fr;}
+    .dc-frow label{display:block;font-size:0.75rem;font-weight:700;color:#1565c0;margin-bottom:3px;}
+    .dc-frow input,.dc-frow select,.dc-frow textarea{width:100%;padding:8px 11px;border:1.5px solid #90caf9;border-radius:9px;font-size:0.88rem;box-sizing:border-box;outline:none;}
+    .dc-frow input:focus,.dc-frow select:focus,.dc-frow textarea:focus{border-color:#1565c0;}
+    .dc-frow textarea{min-height:80px;resize:vertical;font-family:inherit;line-height:1.5;}
+    .dc-meal-blk{background:#f0f6ff;border:1.5px solid #90caf9;border-radius:12px;padding:14px;margin-bottom:10px;}
+    .dc-meal-blk-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-weight:800;font-size:0.85rem;color:#1565c0;}
+    .dc-meal-blk-top button{background:#fee2e2;color:#c0392b;border:none;border-radius:7px;padding:4px 10px;cursor:pointer;font-size:0.78rem;font-weight:700;}
+    .dc-add-meal-btn{width:100%;padding:9px;background:#e8f0fe;color:#1565c0;border:2px dashed #90caf9;border-radius:10px;font-weight:800;cursor:pointer;font-size:0.85rem;margin-top:6px;}
+    .dc-add-opt-btn{background:#e8f0fe;color:#1565c0;border:none;border-radius:7px;padding:5px 12px;cursor:pointer;font-size:0.78rem;font-weight:700;margin-top:6px;}
+    .dc-add-itm-btn{background:#dbeafe;color:#1565c0;border:none;border-radius:6px;padding:3px 10px;cursor:pointer;font-size:0.74rem;font-weight:700;margin-top:4px;}
+    .dc-opt-row{display:flex;gap:6px;margin-bottom:4px;align-items:center;}
+    .dc-opt-row input{flex:2;padding:6px 9px;border:1px solid #bcd3f5;border-radius:7px;font-size:0.83rem;}
+    .dc-opt-row input.qty{flex:1;}
+    .dc-opt-row button{background:none;border:none;color:#c0392b;cursor:pointer;font-size:0.95rem;padding:2px 5px;}
+    .dc-act-row{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;}
+    .dc-btn-prev{flex:1;padding:11px;background:linear-gradient(135deg,#1565c0,#1976d2);color:#fff;border:none;border-radius:10px;font-weight:800;cursor:pointer;}
+    .dc-btn-prnt{flex:1;padding:11px;background:linear-gradient(135deg,#0a5c4d,#3aafa9);color:#fff;border:none;border-radius:10px;font-weight:800;cursor:pointer;}
+    .dc-btn-wa{width:100%;padding:12px;background:#25D366;color:#fff;border:none;border-radius:10px;font-weight:800;cursor:pointer;margin-top:8px;font-size:0.9rem;}
+    /* Preview styles */
+    .dc-out{font-size:0.82rem;color:#1a1a1a;line-height:1.6;}
+    .dc-out h2{font-size:1rem;color:#1565c0;font-weight:800;margin-bottom:4px;}
+    .dc-out .dc-header-box{background:linear-gradient(135deg,#1565c0,#1976d2);color:#fff;border-radius:12px;padding:16px;margin-bottom:14px;text-align:center;}
+    .dc-out .dc-meal-card{background:#f0f6ff;border-radius:10px;padding:12px;margin-bottom:10px;border-left:3px solid #1565c0;}
+    .dc-out .dc-meal-title{font-weight:800;color:#1565c0;margin-bottom:6px;}
+    .dc-out .dc-opt-sep{font-size:0.73rem;color:#888;font-weight:700;margin:4px 0 2px;}
+    .dc-out .dc-foot{text-align:center;font-size:0.75rem;color:#888;margin-top:16px;border-top:1px solid #e0e8f0;padding-top:10px;}
+    .dc-prev-empty{text-align:center;color:#90caf9;padding:40px 20px;font-size:0.88rem;}
+    @media print{.topbar,.tab-nav,.dc-form-panel,.dc-act-row,.dc-btn-wa{display:none!important;}.dc-prev-panel{max-height:none!important;position:static!important;box-shadow:none!important;}}
   </style>
 </head>
 <body>
@@ -178,6 +218,7 @@
     <button class="tab-btn" onclick="goTab('rates',this)">&#x2699;&#xFE0F; My Rates</button>
     <button class="tab-btn" onclick="goTab('profile',this)">&#x1F464; My Profile</button>
     <button class="tab-btn" onclick="goTab('blog',this)">&#x270D;&#xFE0F; Write Blog</button>
+    <button class="tab-btn" onclick="goTab('dietchart',this)">&#x1F957; Diet Chart</button>
   </div>
 
   <!-- DASHBOARD -->
@@ -271,6 +312,119 @@
         <strong>&#x1F4B0; Your earnings per session (60%):</strong><br>
         <span id="exampleEarnings"></span>
       </div>
+    </div>
+  </div>
+
+  <!-- DIET CHART -->
+  <div id="tab-dietchart" class="tab-pane">
+    <div class="dc-layout">
+
+      <!-- FORM -->
+      <div class="dc-form-panel">
+        <h2 style="font-size:1.05rem;font-weight:800;color:var(--dark);margin-bottom:18px;">&#x1F957; Build Diet Chart</h2>
+
+        <div class="dc-fsec">
+          <h3>&#x1F9D1; Patient</h3>
+          <div class="dc-frow s1">
+            <div><label>Select Assigned Patient</label>
+              <select id="dp-selPat" onchange="dcLoadPatient()">
+                <option value="">— Type manually below —</option>
+              </select>
+            </div>
+          </div>
+          <div class="dc-frow s1">
+            <div><label>Patient Name *</label>
+              <input type="text" id="dp-pname" placeholder="Full name" /></div>
+          </div>
+          <div class="dc-frow">
+            <div><label>Date</label><input type="date" id="dp-cdate" /></div>
+            <div><label>Condition / Plan</label>
+              <select id="dp-pcond">
+                <option>Personalised Diet Plan</option>
+                <option>Diabetes Management Plan</option>
+                <option>PCOS Diet Plan</option>
+                <option>Weight Loss Plan</option>
+                <option>Thyroid Diet Plan</option>
+                <option>Joint Pain Diet Plan</option>
+                <option>Digestive Wellness Plan</option>
+                <option>Skin Care Diet Plan</option>
+                <option>Hypertension Diet Plan</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="dc-fsec">
+          <h3>&#x1F4CA; Health Details</h3>
+          <div class="dc-frow s3">
+            <div><label>Weight (kg)</label><input type="number" id="dp-wt" placeholder="70" /></div>
+            <div><label>Height (cm)</label><input type="number" id="dp-ht" placeholder="165" /></div>
+            <div><label>Age</label><input type="number" id="dp-age" placeholder="35" /></div>
+          </div>
+          <div class="dc-frow s1">
+            <div><label>Target Weight (kg)</label><input type="number" id="dp-twt" placeholder="65" /></div>
+          </div>
+        </div>
+
+        <div class="dc-fsec">
+          <h3>&#x1F37D;&#xFE0F; Food Preferences</h3>
+          <div class="dc-frow">
+            <div><label>Food Type</label>
+              <select id="dp-ftype">
+                <option>Vegetarian</option>
+                <option>Non-Vegetarian</option>
+                <option>Vegetarian, Non-Vegetarian</option>
+                <option>Vegan</option>
+              </select>
+            </div>
+            <div><label>Cuisine</label><input type="text" id="dp-cuisine" placeholder="South Indian" /></div>
+          </div>
+          <div class="dc-frow s1">
+            <div><label>Dislikes / Allergies</label>
+              <input type="text" id="dp-dislikes" placeholder="Brinjal, Peanuts" /></div>
+          </div>
+        </div>
+
+        <div class="dc-fsec">
+          <h3>&#x1F957; Diet Plan (Meal Slots)</h3>
+          <div id="dp-mealsWrap"></div>
+          <button class="dc-add-meal-btn" onclick="dcAddMeal()">+ Add Meal Slot</button>
+        </div>
+
+        <div class="dc-fsec">
+          <h3>&#x1F33F; Naturopathy Treatments</h3>
+          <div class="dc-frow s1">
+            <div><textarea id="dp-naturo" placeholder="Hot and cold fomentation on joints&#10;Steam bath — twice a week&#10;Mud therapy — 30 minutes daily"></textarea></div>
+          </div>
+        </div>
+
+        <div class="dc-fsec">
+          <h3>&#x1F4A1; Tips &amp; Things to Avoid</h3>
+          <div class="dc-frow">
+            <div><label>Tips</label>
+              <textarea id="dp-tips" placeholder="• Drink 2-3 litres of water daily&#10;• Eat slowly and chew well"></textarea></div>
+            <div><label>Things to Avoid</label>
+              <textarea id="dp-avoid" placeholder="• Sugary drinks&#10;• Fried and processed foods"></textarea></div>
+          </div>
+        </div>
+
+        <div class="dc-act-row">
+          <button class="dc-btn-prev" onclick="dcGenChart()">&#x1F441;&#xFE0F; Preview</button>
+          <button class="dc-btn-prnt" onclick="dcPrintChart()">&#x1F5A8;&#xFE0F; Print / Save PDF</button>
+        </div>
+        <button class="dc-btn-wa" onclick="dcWaSummary()">&#x1F4AC; Send Diet Summary to Patient via WhatsApp</button>
+        <div style="font-size:0.74rem;color:#8a9e98;text-align:center;margin-top:5px;">Print/PDF → Save PDF → Share the PDF manually via WhatsApp</div>
+      </div>
+
+      <!-- PREVIEW -->
+      <div class="dc-prev-panel">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+          <h2 style="font-size:1rem;font-weight:800;color:var(--dark);">&#x1F4C4; Preview</h2>
+          <button onclick="dcPrintChart()" style="background:#e8f0fe;color:#1565c0;border:none;border-radius:8px;padding:6px 14px;font-weight:700;cursor:pointer;">&#x1F5A8;&#xFE0F; Print</button>
+        </div>
+        <div id="dp-dcOutput"><div class="dc-prev-empty">Fill in the form and click Preview to see the diet chart here.</div></div>
+      </div>
+
     </div>
   </div>
 
@@ -376,6 +530,7 @@ function goTab(name, btn) {
   if (name==='rates')     renderRates();
   if (name==='profile')   renderProfile();
   if (name==='blog')      renderDocBlog();
+  if (name==='dietchart') dcInit();
 }
 
 /* ── Data helpers ── */
@@ -668,6 +823,313 @@ function renderRates() {
   document.getElementById('exampleEarnings').innerHTML =
     (chat ? 'Chat: \u20B9' + chat + '/min \xD7 15 min = \u20B9' + (chat*15) + ' gross \u2192 Your share: \u20B9' + (chat*15*0.6).toFixed(0) + '<br>' : '') +
     (call ? 'Call: \u20B9' + call + '/min \xD7 15 min = \u20B9' + (call*15) + ' gross \u2192 Your share: \u20B9' + (call*15*0.6).toFixed(0) : '');
+}
+
+/* ── Diet Chart ── */
+var _dcMeals = []; var _dcMC = 0; var _dcReady = false;
+
+function dcInit() {
+  document.getElementById('dp-cdate').value = new Date().toISOString().split('T')[0];
+  if (!_dcReady) {
+    _dcReady = true;
+    dcInitMeals();
+  }
+  /* Populate patient dropdown from assigned patients */
+  var sel = document.getElementById('dp-selPat');
+  var assigns = getMyAssignedPatients();
+  var seen = {}; var opts = '<option value="">— Type manually below —</option>';
+  assigns.forEach(function(a) {
+    var key = a.patientPhone || a.patientName;
+    if (!seen[key]) {
+      seen[key] = true;
+      opts += '<option value="' + encodeURIComponent(JSON.stringify(a)) + '">' + a.patientName + (a.patientPhone ? ' · ' + a.patientPhone : '') + '</option>';
+    }
+  });
+  sel.innerHTML = opts;
+}
+
+function dcLoadPatient() {
+  var sel = document.getElementById('dp-selPat');
+  if (!sel.value) return;
+  var a = JSON.parse(decodeURIComponent(sel.value));
+  document.getElementById('dp-pname').value = a.patientName || '';
+  var condMap = { 'Diabetes':'Diabetes Management Plan', 'PCOS':'PCOS Diet Plan',
+    'Weight':'Weight Loss Plan', 'Thyroid':'Thyroid Diet Plan',
+    'Joint':'Joint Pain Diet Plan', 'Skin':'Skin Care Diet Plan',
+    'Hypertension':'Hypertension Diet Plan' };
+  var cond = a.patientCondition || 'General';
+  var sel2 = document.getElementById('dp-pcond');
+  for (var k in condMap) {
+    if (cond.toLowerCase().indexOf(k.toLowerCase()) !== -1) {
+      sel2.value = condMap[k]; break;
+    }
+  }
+}
+
+function dcInitMeals() {
+  _dcMeals = []; _dcMC = 0;
+  document.getElementById('dp-mealsWrap').innerHTML = '';
+  dcAddMeal('Early Morning', '7:00 AM');
+  dcAddMeal('Breakfast',     '9:00 AM');
+  dcAddMeal('Mid Morning',   '11:00 AM');
+  dcAddMeal('Lunch',         '1:30 PM');
+  dcAddMeal('Evening',       '6:00 PM');
+  dcAddMeal('Dinner',        '8:00 PM');
+}
+
+function dcAddMeal(name, time) {
+  var id = 'dcm' + _dcMC++;
+  _dcMeals.push({ id: id, opts: [] });
+  var d = document.createElement('div');
+  d.className = 'dc-meal-blk'; d.id = 'dcblk_' + id;
+  d.innerHTML =
+    '<div class="dc-meal-blk-top">' +
+      '<span>&#x1F37D; ' + (name || 'Meal ' + _dcMC) + '</span>' +
+      '<button onclick="dcRemMeal(\'' + id + '\')">&#x2715; Remove</button>' +
+    '</div>' +
+    '<div class="dc-frow">' +
+      '<div><label>Meal Name</label><input type="text" id="dcmn_' + id + '" value="' + (name||'') + '" placeholder="Breakfast"/></div>' +
+      '<div><label>Time</label><input type="text" id="dcmt_' + id + '" value="' + (time||'') + '" placeholder="8:30 AM"/></div>' +
+    '</div>' +
+    '<div id="dcopts_' + id + '"></div>' +
+    '<button class="dc-add-opt-btn" onclick="dcAddOpt(\'' + id + '\')">+ Add Food Option</button>';
+  document.getElementById('dp-mealsWrap').appendChild(d);
+  dcAddOpt(id);
+}
+
+function dcRemMeal(id) {
+  var b = document.getElementById('dcblk_' + id);
+  if (b) b.remove();
+  _dcMeals = _dcMeals.filter(function(m){ return m.id !== id; });
+}
+
+function dcAddOpt(mid) {
+  var meal = _dcMeals.find(function(m){ return m.id === mid; });
+  if (!meal) return;
+  var oi = meal.opts.length + 1;
+  var oid = mid + '_o' + oi;
+  meal.opts.push({ id: oid, items: [] });
+  var d = document.createElement('div');
+  d.id = 'dcob_' + oid;
+  d.style.marginBottom = '6px';
+  d.innerHTML =
+    (meal.opts.length > 1 ? '<div style="font-size:0.72rem;color:#1565c0;font-weight:700;margin:5px 0 3px;">Option ' + oi + '</div>' : '') +
+    '<div id="dcits_' + oid + '"></div>' +
+    '<button class="dc-add-itm-btn" onclick="dcAddItm(\'' + mid + '\',\'' + oid + '\')">+ Add Item</button>';
+  document.getElementById('dcopts_' + mid).appendChild(d);
+  dcAddItm(mid, oid);
+}
+
+function dcAddItm(mid, oid) {
+  var meal = _dcMeals.find(function(m){ return m.id === mid; });
+  if (!meal) return;
+  var opt = meal.opts.find(function(o){ return o.id === oid; });
+  if (!opt) return;
+  var ii = opt.items.length + 1;
+  var iid = oid + '_i' + ii;
+  opt.items.push(iid);
+  var r = document.createElement('div');
+  r.className = 'dc-opt-row'; r.id = 'dcrw_' + iid;
+  r.innerHTML =
+    '<input type="text" id="dcin_' + iid + '" placeholder="Food item (e.g. Oats)" />' +
+    '<input type="text" class="qty" id="dciq_' + iid + '" placeholder="Qty (e.g. 1 cup)" />' +
+    '<button onclick="dcRemItm(\'' + iid + '\')">&#x2715;</button>';
+  document.getElementById('dcits_' + oid).appendChild(r);
+}
+
+function dcRemItm(iid) {
+  var r = document.getElementById('dcrw_' + iid);
+  if (r) r.remove();
+}
+
+function dcGenChart() {
+  var pname  = (document.getElementById('dp-pname').value  || '').trim() || 'Patient';
+  var pcond  = document.getElementById('dp-pcond').value;
+  var cdate  = document.getElementById('dp-cdate').value;
+  var wt     = document.getElementById('dp-wt').value;
+  var ht     = document.getElementById('dp-ht').value;
+  var age    = document.getElementById('dp-age').value;
+  var twt    = document.getElementById('dp-twt').value;
+  var ftype  = document.getElementById('dp-ftype').value;
+  var cuisine= document.getElementById('dp-cuisine').value;
+  var disl   = document.getElementById('dp-dislikes').value;
+  var naturo = document.getElementById('dp-naturo').value;
+  var tips   = document.getElementById('dp-tips').value;
+  var avoid  = document.getElementById('dp-avoid').value;
+  var dname  = 'Dr. ' + _doctor.name;
+  var dqual  = _doctor.qualification || _doctor.degree || 'BNYS';
+
+  var bmi = ''; var bmiP = 0;
+  if (wt && ht) {
+    var h = parseFloat(ht)/100;
+    bmi = (parseFloat(wt)/(h*h)).toFixed(1);
+    bmiP = Math.min(100, Math.max(0, ((parseFloat(bmi)-10)/30)*100));
+  }
+
+  /* Meals HTML */
+  var mealsHtml = '';
+  document.querySelectorAll('.dc-meal-blk').forEach(function(blk) {
+    var bid = blk.id.replace('dcblk_','');
+    var mnEl = document.getElementById('dcmn_'+bid);
+    var mtEl = document.getElementById('dcmt_'+bid);
+    if (!mnEl) return;
+    var mn = mnEl.value || 'Meal'; var mt = mtEl ? mtEl.value : '';
+    var optsHtml = '';
+    var optBlks = document.querySelectorAll('[id^="dcob_' + bid + '"]');
+    optBlks.forEach(function(ob, oi) {
+      var oid = ob.id.replace('dcob_','');
+      var optHeader = optBlks.length > 1 ? '<div class="dc-opt-sep">Option ' + (oi+1) + '</div>' : '';
+      var itemsHtml = '';
+      ob.querySelectorAll('.dc-opt-row').forEach(function(row) {
+        var iid = row.id.replace('dcrw_','');
+        var inv = (document.getElementById('dcin_'+iid)||{}).value||'';
+        var iqv = (document.getElementById('dciq_'+iid)||{}).value||'';
+        if (inv) itemsHtml += '<li>' + inv + (iqv?' &mdash; <em>'+iqv+'</em>':'') + '</li>';
+      });
+      if (itemsHtml) optsHtml += optHeader + '<ul style="margin:0 0 4px 14px;padding:0;font-size:0.82rem;">' + itemsHtml + '</ul>';
+    });
+    if (optsHtml) mealsHtml +=
+      '<div class="dc-meal-card">' +
+        '<div class="dc-meal-title">&#x1F555; ' + mn + (mt?' &nbsp;<span style="font-size:0.78rem;font-weight:400;color:#555;">('+mt+')</span>':'') + '</div>' +
+        optsHtml +
+      '</div>';
+  });
+
+  /* Tips / Avoid */
+  var tipsHtml  = tips.split('\n').filter(function(l){return l.trim();}).map(function(l){return '<li>'+l.replace(/^[•\-]\s*/,'')+'</li>';}).join('');
+  var avoidHtml = avoid.split('\n').filter(function(l){return l.trim();}).map(function(l){return '<li>'+l.replace(/^[•\-]\s*/,'')+'</li>';}).join('');
+
+  var html =
+    '<div class="dc-out">' +
+    '<div class="dc-header-box">' +
+      '<div style="font-size:1.1rem;font-weight:800;">&#x1F331; Naturopathy &amp; Yoga Care</div>' +
+      '<div style="font-size:0.8rem;opacity:0.85;">Personalised Diet Chart</div>' +
+    '</div>' +
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">' +
+      '<div style="background:#f0f6ff;border-radius:10px;padding:12px;">' +
+        '<div style="font-size:0.72rem;font-weight:700;color:#1565c0;margin-bottom:6px;text-transform:uppercase;">Patient</div>' +
+        '<div style="font-weight:800;">' + pname + '</div>' +
+        '<div style="font-size:0.78rem;color:#555;">' + pcond + '</div>' +
+        (cdate ? '<div style="font-size:0.76rem;color:#888;margin-top:3px;">Date: ' + cdate + '</div>' : '') +
+      '</div>' +
+      '<div style="background:#f0f6ff;border-radius:10px;padding:12px;">' +
+        '<div style="font-size:0.72rem;font-weight:700;color:#1565c0;margin-bottom:6px;text-transform:uppercase;">Doctor</div>' +
+        '<div style="font-weight:800;">' + dname + '</div>' +
+        '<div style="font-size:0.78rem;color:#555;">' + dqual + '</div>' +
+      '</div>' +
+    '</div>' +
+    ((wt||ht||age) ?
+    '<div style="background:#f8faff;border-radius:10px;padding:12px;margin-bottom:14px;">' +
+      '<div style="font-size:0.72rem;font-weight:700;color:#1565c0;margin-bottom:8px;text-transform:uppercase;">Health Parameters</div>' +
+      (wt  ? '<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #e8f0fe;"><span>Weight</span><strong>'+wt+' kg</strong></div>' : '') +
+      (ht  ? '<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #e8f0fe;"><span>Height</span><strong>'+ht+' cm</strong></div>' : '') +
+      (age ? '<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #e8f0fe;"><span>Age</span><strong>'+age+' yrs</strong></div>' : '') +
+      (bmi ? '<div style="display:flex;justify-content:space-between;padding:4px 0;"><span>BMI</span><strong>'+bmi+'</strong></div>' +
+             '<div style="background:#e0e8f8;border-radius:999px;height:6px;margin-top:6px;"><div style="background:#1565c0;border-radius:999px;height:100%;width:'+bmiP+'%;"></div></div>' : '') +
+      (twt ? '<div style="margin-top:8px;font-size:0.78rem;color:#1565c0;font-weight:700;">&#x1F3AF; Target: '+twt+' kg</div>' : '') +
+    '</div>' : '') +
+    mealsHtml +
+    (naturo.trim() ?
+    '<div style="background:#f0fdf4;border-radius:10px;padding:12px;margin-bottom:10px;border-left:3px solid #059669;">' +
+      '<div style="font-size:0.72rem;font-weight:700;color:#065f46;margin-bottom:6px;text-transform:uppercase;">Naturopathy Treatment</div>' +
+      '<div style="font-size:0.82rem;white-space:pre-line;line-height:1.8;">'+naturo+'</div>' +
+    '</div>' : '') +
+    ((tipsHtml || avoidHtml) ?
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">' +
+      (tipsHtml  ? '<div style="background:#fffbea;border-radius:10px;padding:12px;"><div style="font-size:0.72rem;font-weight:700;color:#7a6020;margin-bottom:6px;text-transform:uppercase;">Tips</div><ul style="margin:0 0 0 14px;padding:0;font-size:0.8rem;line-height:1.8;">'+tipsHtml+'</ul></div>' : '') +
+      (avoidHtml ? '<div style="background:#fff0f0;border-radius:10px;padding:12px;"><div style="font-size:0.72rem;font-weight:700;color:#c0392b;margin-bottom:6px;text-transform:uppercase;">Avoid</div><ul style="margin:0 0 0 14px;padding:0;font-size:0.8rem;line-height:1.8;">'+avoidHtml+'</ul></div>' : '') +
+    '</div>' : '') +
+    '<div class="dc-foot">&#x1F331; Naturopathy &amp; Yoga Care &nbsp;|&nbsp; ' + dname + ' (' + dqual + ')' +
+      '<br>&#x1F4DE; +91 7013989526 &nbsp;|&nbsp; &#x2709; srihariu123456789@gmail.com' +
+      '<br><small>This diet plan is personalised for ' + pname + ' only.</small>' +
+    '</div>' +
+    '</div>';
+
+  document.getElementById('dp-dcOutput').innerHTML = html;
+  document.querySelector('.dc-prev-panel').scrollIntoView({ behavior:'smooth' });
+}
+
+function dcPrintChart() {
+  dcGenChart();
+  setTimeout(function(){ window.print(); }, 600);
+}
+
+function dcWaSummary() {
+  var pname  = (document.getElementById('dp-pname').value||'').trim() || 'Patient';
+  var pcond  = document.getElementById('dp-pcond').value;
+  var cdate  = document.getElementById('dp-cdate').value;
+  var wt     = document.getElementById('dp-wt').value;
+  var ht     = document.getElementById('dp-ht').value;
+  var age    = document.getElementById('dp-age').value;
+  var twt    = document.getElementById('dp-twt').value;
+  var ftype  = document.getElementById('dp-ftype').value;
+  var cuisine= document.getElementById('dp-cuisine').value;
+  var disl   = document.getElementById('dp-dislikes').value;
+  var naturo = document.getElementById('dp-naturo').value;
+  var tips   = document.getElementById('dp-tips').value;
+  var avoid  = document.getElementById('dp-avoid').value;
+  var dname  = 'Dr. ' + _doctor.name;
+  var dqual  = _doctor.qualification || _doctor.degree || 'BNYS';
+
+  /* Try to get patient phone from dropdown */
+  var phone = '';
+  var selVal = document.getElementById('dp-selPat').value;
+  if (selVal) {
+    try { var a = JSON.parse(decodeURIComponent(selVal)); phone = (a.patientPhone||'').replace(/\D/g,''); } catch(e){}
+  }
+  if (phone.length === 10) phone = '91' + phone;
+
+  var msg = '\uD83C\uDF31 *NATUROPATHY & YOGA CARE*\n';
+  msg += '\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\n';
+  msg += 'Hello *' + pname + '* \uD83D\uDE4F\n';
+  msg += 'Your personalised diet chart is ready!\n\n';
+  msg += '\uD83D\uDCCB *Plan:* ' + pcond + '\n';
+  msg += '\uD83D\uDCC5 *Date:* ' + cdate + '\n';
+  msg += '\uD83D\uDC68\u200D\u2695\uFE0F *Prescribed by:* ' + dname + ' (' + dqual + ')\n\n';
+
+  if (wt || ht || age) {
+    msg += '\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n';
+    msg += '*\uD83D\uDCCA Health Parameters*\n';
+    if (wt)  msg += '\u2696\uFE0F Weight : ' + wt  + ' kg\n';
+    if (ht)  msg += '\uD83D\uDCCF Height : ' + ht  + ' cm\n';
+    if (age) msg += '\uD83C\uDF82 Age    : ' + age + ' years\n';
+    if (wt && ht) { var h2=parseFloat(ht)/100; msg += '\uD83D\uDCCF BMI    : '+(parseFloat(wt)/(h2*h2)).toFixed(1)+'\n'; }
+    if (twt) msg += '\uD83C\uDFAF Target : ' + twt + ' kg\n';
+    msg += '\n';
+  }
+
+  msg += '\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n';
+  msg += '*\uD83E\uDD57 DAILY DIET PLAN*\n\n';
+
+  document.querySelectorAll('.dc-meal-blk').forEach(function(blk) {
+    var bid = blk.id.replace('dcblk_','');
+    var mnEl = document.getElementById('dcmn_'+bid);
+    var mtEl = document.getElementById('dcmt_'+bid);
+    if (!mnEl) return;
+    var mn = mnEl.value||'Meal'; var mt = mtEl ? mtEl.value : '';
+    msg += '\uD83D\uDD50 *' + mn + (mt?' ('+mt+')':'') + '*\n';
+    var optBlks = document.querySelectorAll('[id^="dcob_'+bid+'"]');
+    optBlks.forEach(function(ob, oi) {
+      if (optBlks.length > 1) msg += '  _Option ' + (oi+1) + ':_\n';
+      ob.querySelectorAll('.dc-opt-row').forEach(function(row) {
+        var iid = row.id.replace('dcrw_','');
+        var inv = (document.getElementById('dcin_'+iid)||{}).value||'';
+        var iqv = (document.getElementById('dciq_'+iid)||{}).value||'';
+        if (inv) msg += '  \u2022 ' + inv + (iqv?' \u2014 '+iqv:'') + '\n';
+      });
+    });
+    msg += '\n';
+  });
+
+  if (naturo.trim()) { msg += '\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n*\uD83C\uDF3F Naturopathy Treatment*\n' + naturo + '\n\n'; }
+  if (tips.trim())   { msg += '\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n*\uD83D\uDCA1 Tips*\n' + tips + '\n\n'; }
+  if (avoid.trim())  { msg += '\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n*\uD83D\uDEAB Things to Avoid*\n' + avoid + '\n\n'; }
+
+  msg += '\uD83D\uDE4F Please follow this diet plan strictly for best results.\n';
+  msg += '\u2014 ' + dname + ', Naturopathy & Yoga Care';
+
+  var waUrl = 'https://wa.me/' + (phone || '') + '?text=' + encodeURIComponent(msg);
+  window.open(waUrl, '_blank');
 }
 
 /* ── Blog ── */
