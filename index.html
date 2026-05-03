@@ -1375,7 +1375,7 @@
         <div class="reg-field" style="flex:1;"><label>💬 Chat Rate (₹ / min)</label><input type="number" id="rd-chat-rate" placeholder="e.g. 20" min="1" /></div>
         <div class="reg-field" style="flex:1;"><label>📞 Call Rate (₹ / min)</label><input type="number" id="rd-call-rate" placeholder="e.g. 30" min="1" /></div>
       </div>
-      <div style="background:#fff8e6;border:1px dashed #d4a000;border-radius:10px;padding:10px 14px;font-size:0.8rem;color:#7a5800;margin-bottom:14px;">💡 <strong>Platform Commission:</strong> 10% of each session goes to the platform. You keep 90%. Example: if your rate is ₹20/min and session is 10 min → total ₹200, you earn ₹180, platform gets ₹20.</div>
+      <div style="background:#fff8e6;border:1px dashed #d4a000;border-radius:10px;padding:10px 14px;font-size:0.8rem;color:#7a5800;margin-bottom:14px;">💡 <strong>Platform Commission:</strong> 20% of each session goes to the platform. You keep 80%. Example: if your rate is ₹20/min and session is 10 min → total ₹200, you earn ₹160, platform gets ₹40.</div>
       <button class="reg-submit-btn" onclick="registerDoctor()">✅ Register as Doctor</button>
       <div class="reg-success" id="rd-success">🎉 Registered! You will now appear in the Available Doctors section.</div>
     </div>
@@ -1412,7 +1412,7 @@
       </div>
       <div class="pay-calc" id="payCalc" style="display:none;">
         <div>Total: <strong id="pay-total">₹0</strong></div>
-        <div class="pay-split">Doctor receives 90% · Platform fee 10%</div>
+        <div class="pay-split">Doctor receives 80% · Platform fee 20%</div>
       </div>
       <button class="pay-btn" id="payNowBtn" onclick="startPayment()">💳 Pay &amp; Start Session</button>
     </div>
@@ -1591,7 +1591,7 @@ function loadAvailableDoctors() {
         '<button class="doc-session-btn chat" onclick="openPayModal(' + JSON.stringify(d) + ',\'chat\')">' + chatLabel + '</button>' +
         '<button class="doc-session-btn call" onclick="openPayModal(' + JSON.stringify(d) + ',\'call\')">' + callLabel + '</button>' +
       '</div>' +
-      (d.chatRate || d.callRate ? '<div class="commission-info">💳 Pay per minute · 10% platform fee applies</div>' : '');
+      (d.chatRate || d.callRate ? '<div class="commission-info">💳 Pay per minute · 20% platform fee applies</div>' : '');
     grid.appendChild(card);
   });
 }
@@ -1709,8 +1709,8 @@ function verifyPayment(response, totalRupees, patientName, orderId) {
   .then(function(r) { return r.json(); })
   .then(function(data) {
     if (data.verified) {
-      var yours = (totalRupees * 0.9).toFixed(2);
-      var plat  = (totalRupees * 0.1).toFixed(2);
+      var yours = (totalRupees * 0.8).toFixed(2);
+      var plat  = (totalRupees * 0.2).toFixed(2);
       var detail = document.getElementById('pay-success-detail');
       if (detail) detail.textContent = '₹' + totalRupees.toFixed(2) + ' paid · Dr. ' + _payDoctor.name + ' will earn ₹' + yours + ' · Platform fee ₹' + plat;
       document.getElementById('payForm').style.display = 'none';

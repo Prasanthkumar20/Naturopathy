@@ -619,16 +619,16 @@
         </div>
       </div>
       <div style="font-size:0.78rem;color:#7a5800;">
-        ℹ️ <strong>Platform commission: 10%</strong> is deducted from every session. Your take-home is <strong>90%</strong> of gross billing.
-        Example: ₹20/min × 15 min = ₹300 gross → <strong>You earn ₹270</strong>, platform gets ₹30.
+        ℹ️ <strong>Platform commission: 20%</strong> is deducted from every session. Your take-home is <strong>80%</strong> of gross billing.
+        Example: ₹20/min × 15 min = ₹300 gross → <strong>You earn ₹240</strong>, platform gets ₹60.
       </div>
     </div>
 
     <!-- Earnings Overview -->
     <div class="earn-overview">
       <div class="earn-card"><div class="earn-card-icon">💰</div><div class="earn-card-val" id="e-gross">₹0</div><div class="earn-card-lbl">Gross Billed</div></div>
-      <div class="earn-card doctor-share"><div class="earn-card-icon">🏦</div><div class="earn-card-val" id="e-yours">₹0</div><div class="earn-card-lbl">Your Earnings (90%)</div></div>
-      <div class="earn-card platform"><div class="earn-card-icon">🏢</div><div class="earn-card-val" id="e-platform">₹0</div><div class="earn-card-lbl">Platform Commission (10%)</div></div>
+      <div class="earn-card doctor-share"><div class="earn-card-icon">🏦</div><div class="earn-card-val" id="e-yours">₹0</div><div class="earn-card-lbl">Your Earnings (80%)</div></div>
+      <div class="earn-card platform"><div class="earn-card-icon">🏢</div><div class="earn-card-val" id="e-platform">₹0</div><div class="earn-card-lbl">Platform Commission (20%)</div></div>
       <div class="earn-card"><div class="earn-card-icon">📞</div><div class="earn-card-val" id="e-sessions">0</div><div class="earn-card-lbl">Total Sessions</div></div>
     </div>
 
@@ -1600,8 +1600,8 @@ function updateSessionPreview() {
   if (!prev) return;
   if (mins > 0 && rate > 0) {
     var gross   = mins * rate;
-    var yours   = (gross * 0.9).toFixed(2);
-    var plat    = (gross * 0.1).toFixed(2);
+    var yours   = (gross * 0.8).toFixed(2);
+    var plat    = (gross * 0.2).toFixed(2);
     prev.innerHTML = '💡 ' + mins + ' min × ₹' + rate + ' = <strong>₹' + gross + ' gross</strong> &nbsp;|&nbsp; You earn <strong>₹' + yours + '</strong> &nbsp;|&nbsp; Platform: ₹' + plat;
   } else {
     prev.textContent = '';
@@ -1617,8 +1617,8 @@ function logSession() {
   if (!mins || mins < 1) { alert('Please enter a valid duration.'); return; }
   if (!rate || rate < 1) { alert('Please enter a valid rate.'); return; }
   var gross   = mins * rate;
-  var yours   = parseFloat((gross * 0.9).toFixed(2));
-  var plat    = parseFloat((gross * 0.1).toFixed(2));
+  var yours   = parseFloat((gross * 0.8).toFixed(2));
+  var plat    = parseFloat((gross * 0.2).toFixed(2));
   var sessions = JSON.parse(localStorage.getItem('nyc_sessions') || '[]');
   sessions.push({
     id      : Date.now(),
