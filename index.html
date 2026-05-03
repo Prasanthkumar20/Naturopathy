@@ -567,6 +567,27 @@
     .book-wa-btn:disabled{opacity:0.5;cursor:not-allowed;}
     .book-recharge-btn{width:100%;padding:10px;background:#fff;color:#0a5c4d;border:2px solid #0a5c4d;border-radius:12px;font-weight:700;font-size:0.88rem;cursor:pointer;margin-bottom:6px;}
     .book-no-wallet{text-align:center;padding:4px 0 2px;font-size:0.82rem;color:#8a9e98;}
+    /* BOOKING CONFIRMATION MODAL */
+    .bc-modal{display:none;position:fixed;inset:0;z-index:9900;background:rgba(10,30,25,0.6);backdrop-filter:blur(6px);align-items:center;justify-content:center;}
+    .bc-modal.open{display:flex;}
+    .bc-box{background:#fff;border-radius:22px;width:min(440px,96vw);box-shadow:0 24px 60px rgba(0,0,0,0.22);overflow:hidden;}
+    .bc-header{background:linear-gradient(135deg,#1aa050,#25D366);color:#fff;padding:24px;text-align:center;}
+    .bc-icon{font-size:3rem;margin-bottom:6px;}
+    .bc-header h3{font-size:1.2rem;font-weight:800;margin-bottom:4px;}
+    .bc-header p{font-size:0.83rem;opacity:0.9;}
+    .bc-body{padding:20px 24px;}
+    .bc-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #f0f6f3;font-size:0.87rem;}
+    .bc-row:last-of-type{border-bottom:none;}
+    .bc-label{color:#8a9e98;font-weight:600;}
+    .bc-val{font-weight:700;color:#163832;}
+    .bc-split{background:#f7fff8;border-radius:12px;padding:14px;margin:14px 0;}
+    .bc-split-title{font-size:0.78rem;font-weight:700;color:#0a5c4d;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:10px;}
+    .bc-split-row{display:flex;justify-content:space-between;font-size:0.83rem;margin-bottom:5px;}
+    .bc-split-row:last-child{margin-bottom:0;}
+    .bc-new-bal{background:#e8fdf5;border-radius:10px;padding:12px;text-align:center;font-size:0.85rem;color:#0a5c4d;margin-bottom:16px;}
+    .bc-new-bal strong{font-size:1.1rem;}
+    .bc-close-btn{width:100%;padding:13px;background:linear-gradient(135deg,#0a5c4d,#3aafa9);color:#fff;border:none;border-radius:12px;font-weight:800;font-size:1rem;cursor:pointer;}
+
 
   </style>
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
@@ -599,7 +620,7 @@
      font-weight:700;
      font-size:0.88rem;
      border-bottom:none !important;">
-    🩺 Doctor Panel
+    🛡️ Admin Panel
   </a>
       <button class="wallet-nav-btn" onclick="openWalletModal()">&#x1F4B0; My Wallet <span class="wallet-bal-pill" id="navWalletBal">&#8377;0</span></button>
       <button id="langToggle" class="lang-btn">తెలుగు</button>
@@ -1456,6 +1477,34 @@
 </section>
 
 
+
+<!-- BOOKING CONFIRMATION MODAL -->
+<div class="bc-modal" id="bookConfirmModal">
+  <div class="bc-box">
+    <div class="bc-header">
+      <div class="bc-icon">&#x2705;</div>
+      <h3>Booking Confirmed!</h3>
+      <p>Your session has been booked successfully.</p>
+    </div>
+    <div class="bc-body">
+      <div class="bc-row"><span class="bc-label">Patient</span><span class="bc-val" id="bc-patient"></span></div>
+      <div class="bc-row"><span class="bc-label">Doctor</span><span class="bc-val" id="bc-doctor"></span></div>
+      <div class="bc-row"><span class="bc-label">Session Type</span><span class="bc-val" id="bc-type"></span></div>
+      <div class="bc-row"><span class="bc-label">Duration</span><span class="bc-val" id="bc-mins"></span></div>
+      <div class="bc-row"><span class="bc-label">Amount Paid</span><span class="bc-val" id="bc-total"></span></div>
+      <div class="bc-split">
+        <div class="bc-split-title">&#x1F4CA; Revenue Split</div>
+        <div class="bc-split-row"><span style="color:#0a5c4d;">&#x1F4BB; Platform (Developer)</span><span style="font-weight:700;" id="bc-plat"></span></div>
+        <div class="bc-split-row"><span style="color:#3aafa9;">&#x1F9D1;&#x200D;&#x2695;&#xFE0F; Doctor</span><span style="font-weight:700;" id="bc-doc"></span></div>
+        <div class="bc-split-row"><span style="color:#d9b66f;">&#x1F3E5; Admin / Clinic</span><span style="font-weight:700;" id="bc-admin"></span></div>
+      </div>
+      <div class="bc-new-bal">Wallet Balance: <strong id="bc-bal">&#8377;0</strong></div>
+      <p style="font-size:0.82rem;color:#5a7060;text-align:center;margin-bottom:14px;">The admin will assign a doctor and confirm your session shortly.</p>
+      <button class="bc-close-btn" onclick="document.getElementById('bookConfirmModal').classList.remove('open')">&#x1F44D; Done</button>
+    </div>
+  </div>
+</div>
+
 <!-- WALLET MODAL -->
 <div class="wallet-modal" id="walletModal">
   <div class="wallet-box">
@@ -1507,7 +1556,7 @@
   <div class="book-box">
     <div class="book-header">
       <h3 id="bookTitle">Book Session</h3>
-      <p id="bookSubtitle">Pay from wallet &amp; connect via WhatsApp</p>
+      <p id="bookSubtitle">Book your session &amp; pay from wallet</p>
       <button class="book-close" onclick="closeBookModal()">&#x2715;</button>
     </div>
     <div class="book-body">
@@ -1535,7 +1584,7 @@
         <div class="book-cost-row" style="font-size:0.78rem;"><span>Platform fee (20%)</span><span id="bookPlatFee" style="color:#888;"></span></div>
       </div>
       <div class="book-insuf" id="bookInsuf">&#x26A0; Insufficient wallet balance. Please recharge.</div>
-      <button class="book-wa-btn" id="bookConfirmBtn" onclick="confirmBooking()">&#x1F4F2; Book Appointment via WhatsApp</button>
+      <button class="book-wa-btn" id="bookConfirmBtn" onclick="confirmBooking()">&#x1F4C5; Book &amp; Pay from Wallet</button>
       <button class="book-recharge-btn" id="bookRechargeBtn" onclick="closeBookModal();openWalletModal();" style="display:none;">&#x1F4B0; Recharge Wallet</button>
       <div class="book-no-wallet" id="bookNoWallet" style="display:none;">No wallet yet? <a href="javascript:void(0)" onclick="closeBookModal();openWalletModal();" style="color:#0a5c4d;font-weight:700;">Set up &amp; recharge &#x2192;</a></div>
     </div>
@@ -1707,7 +1756,7 @@ function loadAvailableDoctors() {
         '<button class="doc-session-btn chat" onclick="openBookModal(' + JSON.stringify(d) + ',\'chat\')">' + chatLabel + '</button>' +
         '<button class="doc-session-btn call" onclick="openBookModal(' + JSON.stringify(d) + ',\'call\')">' + callLabel + '</button>' +
       '</div>' +
-      (d.chatRate || d.callRate ? '<div class="commission-info">💳 Pay per minute · 20% platform fee applies</div>' : '');
+      (d.chatRate || d.callRate ? '<div class="commission-info">💳 Pay per minute · Platform 20% · Doctor 20%</div>' : '');
     grid.appendChild(card);
   });
 }
@@ -1902,24 +1951,41 @@ function confirmBooking(){
   if(w.balance<total){alert('Insufficient wallet balance. Please recharge your wallet.');return;}
   w.balance-=total;
   var typeStr=_bookType==='chat'?'Chat':'Call';
+  /* Platform 20%, Doctor 20%, Admin 60% */
+  var platShare=(total*0.20).toFixed(2);
+  var docShare=(total*0.20).toFixed(2);
+  var adminShare=(total*0.60).toFixed(2);
   w.history.push({type:'debit',desc:(typeStr==='Chat'?'\ud83d\udcac':'\ud83d\udcde')+' '+typeStr+' with Dr.'+_bookDoctor.name+' ('+mins+' min)',amount:total,date:new Date().toLocaleString('en-IN')});
   saveWallet(p,w);
-  var docPhone=(_bookDoctor.phone||'').replace(/\D/g,'');
-  var msg=encodeURIComponent(
-    'New Appointment Request!\n'+
-    '\ud83d\udc64 Patient: '+name+'\n'+
-    '\ud83d\udcf1 Phone: +91'+p+'\n'+
-    '\ud83e\udba9 Type: '+typeStr+' Consultation\n'+
-    '\u23f1 Duration: '+mins+' minutes\n'+
-    '\ud83d\udcb0 Paid from wallet: \u20b9'+total.toFixed(2)+'\n'+
-    'Booked via: Naturopathy & Yoga Care'
-  );
-  window.open('https://wa.me/'+docPhone+'?text='+msg,'_blank');
+  /* Save booking record for admin */
+  var bookings=JSON.parse(localStorage.getItem('nyc_bookings')||'[]');
+  bookings.push({
+    id:Date.now(),patient:name,phone:p,
+    doctor:_bookDoctor.name,docPhone:(_bookDoctor.phone||''),
+    type:typeStr,mins:mins,amount:total,
+    platShare:platShare,docShare:docShare,adminShare:adminShare,
+    status:'Pending',date:new Date().toLocaleString('en-IN')
+  });
+  localStorage.setItem('nyc_bookings',JSON.stringify(bookings));
   closeBookModal();
   updateNavWalletBal();
-  setTimeout(function(){
-    alert('\u2705 Appointment booked!\nDr. '+_bookDoctor.name+' will contact you via WhatsApp.\n\u20b9'+total.toFixed(2)+' deducted.\nNew balance: \u20b9'+getWallet(p).balance.toFixed(2));
-  },350);
+  /* Show on-site confirmation */
+  showBookingConfirm(name,_bookDoctor.name,typeStr,mins,total,platShare,docShare,adminShare,getWallet(p).balance);
+}
+
+function showBookingConfirm(pname,dname,type,mins,total,plat,doc,admin,newBal){
+  var modal=document.getElementById('bookConfirmModal');
+  if(!modal)return;
+  document.getElementById('bc-patient').textContent=pname;
+  document.getElementById('bc-doctor').textContent='Dr. '+dname;
+  document.getElementById('bc-type').textContent=type+' Consultation';
+  document.getElementById('bc-mins').textContent=mins+' minutes';
+  document.getElementById('bc-total').textContent='\u20b9'+parseFloat(total).toFixed(2);
+  document.getElementById('bc-plat').textContent='\u20b9'+plat+' (20%)';
+  document.getElementById('bc-doc').textContent='\u20b9'+doc+' (20%)';
+  document.getElementById('bc-admin').textContent='\u20b9'+admin+' (60%)';
+  document.getElementById('bc-bal').textContent='\u20b9'+parseFloat(newBal).toFixed(2);
+  modal.classList.add('open');
 }
 
 document.addEventListener('keydown',function(e){

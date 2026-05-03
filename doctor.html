@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  <title>Doctor Panel — Naturopathy & Yoga Care</title>
+  <title>Admin Panel — Naturopathy & Yoga Care</title>
   <style>
     :root {
       --primary:#0a5c4d; --accent:#3aafa9;
@@ -108,6 +108,38 @@
       border-radius:8px;font-size:0.83rem;background:#fff;outline:none;}
     input:focus,select:focus,textarea:focus{border-color:var(--accent);}
     textarea{min-height:60px;resize:vertical;}
+    /* ASSIGN DOCTOR TAB */
+    .assign-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-top:14px;}
+    .assign-patient-card{background:#fff;border-radius:16px;padding:18px;box-shadow:var(--shadow);border-left:4px solid var(--accent);}
+    .apc-name{font-size:1rem;font-weight:800;color:var(--dark);margin-bottom:4px;}
+    .apc-meta{font-size:0.8rem;color:#8a9e98;margin-bottom:8px;}
+    .apc-condition{display:inline-block;background:#e8fdf5;color:#0a5c4d;border-radius:999px;padding:3px 10px;font-size:0.75rem;font-weight:700;margin-bottom:10px;}
+    .apc-assigned{display:inline-block;background:#dcfce7;color:#166534;border-radius:999px;padding:3px 10px;font-size:0.75rem;font-weight:700;margin-bottom:10px;}
+    .apc-pending{display:inline-block;background:#fff8e1;color:#7a5500;border-radius:999px;padding:3px 10px;font-size:0.75rem;font-weight:700;margin-bottom:10px;}
+    .assign-btn{width:100%;padding:9px;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:0.85rem;}
+    .assign-modal{display:none;position:fixed;inset:0;z-index:9500;background:rgba(10,30,25,0.6);backdrop-filter:blur(6px);align-items:center;justify-content:center;}
+    .assign-modal.open{display:flex;}
+    .assign-modal-box{background:#fff;border-radius:22px;width:min(460px,96vw);box-shadow:0 24px 60px rgba(0,0,0,0.22);overflow:hidden;max-height:90vh;overflow-y:auto;}
+    .assign-modal-hdr{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;padding:20px 22px;position:relative;}
+    .assign-modal-hdr h3{font-size:1.05rem;font-weight:800;margin-bottom:3px;}
+    .assign-modal-hdr p{font-size:0.82rem;opacity:0.88;}
+    .assign-modal-body{padding:20px 22px;}
+    .am-field{margin-bottom:14px;}
+    .am-field label{display:block;font-size:0.8rem;font-weight:700;color:var(--primary);margin-bottom:5px;}
+    .am-field select,.am-field input{width:100%;padding:9px 12px;border:2px solid #cde8da;border-radius:10px;font-size:0.88rem;outline:none;}
+    .am-split-box{background:#f7fff8;border:2px solid #b2eed8;border-radius:12px;padding:14px;margin-bottom:14px;display:none;}
+    .am-split-row{display:flex;justify-content:space-between;font-size:0.83rem;margin-bottom:6px;color:#5a7060;}
+    .am-split-row:last-child{margin-bottom:0;}
+    .am-split-total{font-weight:800;color:var(--dark);font-size:0.95rem;border-top:1px solid #b2eed8;padding-top:8px;margin-top:4px;display:flex;justify-content:space-between;}
+    .am-save-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:12px;font-weight:800;font-size:1rem;cursor:pointer;}
+    .am-cancel-btn{width:100%;padding:10px;background:#fff;color:var(--primary);border:2px solid var(--primary);border-radius:12px;font-weight:700;font-size:0.9rem;cursor:pointer;margin-top:8px;}
+    .assign-empty{text-align:center;color:#8a9e98;padding:40px;grid-column:1/-1;}
+    .booking-history-row{display:flex;justify-content:space-between;align-items:center;background:#f7fff8;border-radius:10px;padding:12px 14px;margin-bottom:8px;font-size:0.83rem;}
+    .bhr-left{display:flex;flex-direction:column;gap:3px;}
+    .bhr-badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:0.72rem;font-weight:700;}
+    .bhr-pending{background:#fff8e1;color:#7a5500;}
+    .bhr-done{background:#dcfce7;color:#166534;}
+
 
     .meal-blk{background:#f4fbf8;border-radius:11px;padding:11px;
       margin-bottom:9px;border:1px solid #d4ede5;}
@@ -332,8 +364,8 @@
 <div class="login-screen" id="loginScreen">
   <div class="login-box">
     <div class="logo">🌿</div>
-    <h2>Doctor Login</h2>
-    <p>Naturopathy & Yoga Care — Doctor Panel</p>
+    <h2>Admin Login</h2>
+    <p>Naturopathy & Yoga Care — Admin Panel</p>
     <input class="l-input" type="text" id="lu" placeholder="Username" />
     <input class="l-input" type="password" id="lp" placeholder="Password"
       onkeydown="if(event.key==='Enter')doLogin()" />
@@ -346,9 +378,9 @@
 <div id="mainPanel" style="display:none;">
 
   <div class="topbar">
-    <h1>🌿 Doctor Panel — Naturopathy & Yoga Care</h1>
+    <h1>🌿 Admin Panel — Naturopathy & Yoga Care</h1>
     <div class="topbar-right">
-      <span class="doc-tag" id="docTag">👨‍⚕️ Doctor</span>
+      <span class="doc-tag" id="docTag">🛡️ Admin</span>
       <button class="t-btn" onclick="window.open('index.html','_blank')">🌐 Website</button>
       <button class="t-btn" onclick="doLogout()">🚪 Logout</button>
     </div>
@@ -362,6 +394,7 @@
     <button class="tab-btn" onclick="goTab('dietuploads',this)">📸 Diet Uploads</button>
     <button class="tab-btn" onclick="goTab('blogs',this)">📝 Blogs</button>
     <button class="tab-btn" onclick="goTab('registrations',this)">📋 Registrations</button>
+    <button class="tab-btn" onclick="goTab('assign',this)">🔗 Assign Doctor</button>
     <button class="tab-btn" onclick="goTab('earnings',this)">💰 Earnings</button>
   </div>
 
@@ -619,16 +652,15 @@
         </div>
       </div>
       <div style="font-size:0.78rem;color:#7a5800;">
-        ℹ️ <strong>Platform commission: 20%</strong> is deducted from every session. Your take-home is <strong>80%</strong> of gross billing.
-        Example: ₹20/min × 15 min = ₹300 gross → <strong>You earn ₹240</strong>, platform gets ₹60.
+        ℹ️ <strong>Commission split for Chat/Call:</strong> Platform (Developer) <strong>20%</strong> · Doctor <strong>20%</strong> · Admin/Clinic <strong>60%</strong>.<br>Example: ₹300 gross → Platform ₹60 · Doctor ₹60 · Admin ₹180. For <strong>Personal Consultations</strong>, Admin takes full payment and manages doctor payment directly.
       </div>
     </div>
 
     <!-- Earnings Overview -->
     <div class="earn-overview">
       <div class="earn-card"><div class="earn-card-icon">💰</div><div class="earn-card-val" id="e-gross">₹0</div><div class="earn-card-lbl">Gross Billed</div></div>
-      <div class="earn-card doctor-share"><div class="earn-card-icon">🏦</div><div class="earn-card-val" id="e-yours">₹0</div><div class="earn-card-lbl">Your Earnings (80%)</div></div>
-      <div class="earn-card platform"><div class="earn-card-icon">🏢</div><div class="earn-card-val" id="e-platform">₹0</div><div class="earn-card-lbl">Platform Commission (20%)</div></div>
+      <div class="earn-card doctor-share"><div class="earn-card-icon">🏦</div><div class="earn-card-val" id="e-yours">₹0</div><div class="earn-card-lbl">Doctor Share (20%)</div></div>
+      <div class="earn-card platform"><div class="earn-card-icon">🏢</div><div class="earn-card-val" id="e-platform">₹0</div><div class="earn-card-lbl">Platform Fee (20%)</div></div>
       <div class="earn-card"><div class="earn-card-icon">📞</div><div class="earn-card-val" id="e-sessions">0</div><div class="earn-card-lbl">Total Sessions</div></div>
     </div>
 
@@ -659,7 +691,93 @@
     </div>
   </div>
 
+
+  <!-- ASSIGN DOCTOR TAB -->
+  <div id="tab-assign" class="tab-pane">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;flex-wrap:wrap;gap:10px;">
+      <div>
+        <h2 style="color:var(--dark);font-size:1.05rem;font-weight:800;">🔗 Assign Doctors to Patients</h2>
+        <p style="font-size:0.82rem;color:#8a9e98;">View registered patients and assign available doctors based on their condition and payment.</p>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="p-add-btn" onclick="renderAssignTab()">🔄 Refresh</button>
+        <button class="p-add-btn" style="background:#3aafa9;" onclick="showBookingHistory()">📋 Booking History</button>
+      </div>
+    </div>
+
+    <!-- Stats row -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px;">
+      <div class="stat-card"><div class="stat-icon">🙋</div><div class="stat-num" id="as-patients">0</div><div class="stat-lbl">Registered Patients</div></div>
+      <div class="stat-card"><div class="stat-icon">👨‍⚕️</div><div class="stat-num" id="as-doctors">0</div><div class="stat-lbl">Available Doctors</div></div>
+      <div class="stat-card"><div class="stat-icon">🔗</div><div class="stat-num" id="as-assigned">0</div><div class="stat-lbl">Assignments Made</div></div>
+    </div>
+
+    <!-- Commission info box -->
+    <div style="background:linear-gradient(135deg,#fff8e1,#fff3cc);border:1px solid #f0d080;border-radius:14px;padding:16px;margin-bottom:18px;font-size:0.85rem;color:#7a5500;">
+      <strong>💰 Commission Structure:</strong><br>
+      <span style="display:inline-block;margin-top:6px;">
+        📞 <strong>Chat / Call (Online):</strong> Platform (Developer) 20% · Doctor 20% · Admin/Clinic 60%<br>
+        🏥 <strong>Personal Consultation:</strong> Admin takes full payment and manages doctor payment directly.
+      </span>
+    </div>
+
+    <h3 style="font-size:0.9rem;color:var(--dark);margin-bottom:10px;">👥 Registered Patients — Assign Doctor</h3>
+    <div class="assign-grid" id="assignGrid">
+      <div class="assign-empty">Loading patients...</div>
+    </div>
+
+    <h3 style="font-size:0.9rem;color:var(--dark);margin:22px 0 10px;">📋 Booking Requests (Wallet Sessions)</h3>
+    <div id="bookingHistoryList">
+      <div class="assign-empty">No wallet bookings yet.</div>
+    </div>
+  </div>
+
 </div><!-- END MAIN -->
+
+
+<!-- ASSIGN DOCTOR MODAL -->
+<div class="assign-modal" id="assignModal">
+  <div class="assign-modal-box">
+    <div class="assign-modal-hdr">
+      <h3>🔗 Assign Doctor to Patient</h3>
+      <p id="am-patient-info">Patient details</p>
+    </div>
+    <div class="assign-modal-body">
+      <div class="am-field">
+        <label>Select Doctor *</label>
+        <select id="am-doctor-select">
+          <option value="">-- Select Available Doctor --</option>
+        </select>
+      </div>
+      <div class="am-field">
+        <label>Consultation Type *</label>
+        <select id="am-consult-type" onchange="updateAmSplit()">
+          <option value="">-- Select Type --</option>
+          <option value="personal">🏥 Personal Consultation (Admin takes full payment)</option>
+          <option value="chat">💬 Chat (Online)</option>
+          <option value="call">📞 Call (Online)</option>
+        </select>
+      </div>
+      <div class="am-field">
+        <label>Amount Paid by Patient (₹) *</label>
+        <input type="number" id="am-amount" placeholder="e.g. 500" min="1" oninput="updateAmSplit()" />
+      </div>
+      <div class="am-split-box" id="amSplitBox">
+        <div style="font-size:0.78rem;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:10px;">💰 Revenue Split</div>
+        <div class="am-split-row"><span id="am-type-label">Platform (Developer) — 20%</span><span id="am-plat-val">₹0</span></div>
+        <div class="am-split-row" id="am-doc-row"><span>Doctor — 20%</span><span id="am-doc-val">₹0</span></div>
+        <div class="am-split-row"><span id="am-admin-label">Admin / Clinic — 60%</span><span id="am-admin-val">₹0</span></div>
+        <div class="am-split-total"><span>Total</span><span id="am-total-val">₹0</span></div>
+      </div>
+      <div class="am-field">
+        <label>Notes (optional)</label>
+        <input type="text" id="am-notes" placeholder="Any special notes for the doctor..." />
+      </div>
+      <button class="am-save-btn" onclick="saveAssignment()">✅ Confirm Assignment</button>
+      <button class="am-cancel-btn" onclick="closeAssignModal()">Cancel</button>
+    </div>
+  </div>
+</div>
 
 <!-- ADD PATIENT MODAL -->
 <div class="modal" id="addModal">
@@ -797,6 +915,7 @@ function goTab(name, btn) {
   if (name === "dashboard") initDash();
   if (name === "patients")  renderPatients();
   if (name === "dietchart") updatePatDD();
+  if (name === "assign") renderAssignTab();
 }
 
 function initDash() {
@@ -1538,7 +1657,7 @@ function renderRegistrations() {
     card.className = 'reg-card ' + (isDoc ? 'doctor-card' : 'patient-card');
     card.innerHTML =
       '<span class="reg-card-type ' + (isDoc ? 'type-doctor' : 'type-patient') + '">' +
-        (isDoc ? '👨‍⚕️ Doctor' : '🙋 Patient') +
+        (isDoc ? '🛡️ Admin' : '🙋 Patient') +
       '</span>' +
       '<div class="reg-card-name">' + (u.name || '—') + '</div>' +
       '<div class="reg-card-detail">📞 ' + (u.phone || '—') + '</div>' +
@@ -1680,6 +1799,165 @@ function deleteSession(id) {
   var sessions = JSON.parse(localStorage.getItem('nyc_sessions') || '[]');
   localStorage.setItem('nyc_sessions', JSON.stringify(sessions.filter(function(s){ return s.id !== id; })));
   renderEarnings();
+}
+
+
+
+/* ══════════════════════════════════════════
+   ASSIGN DOCTOR SYSTEM
+   ══════════════════════════════════════════ */
+var _assignPatient = null;
+
+function renderAssignTab() {
+  var regs = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
+  var patients = regs.filter(function(r){ return r.type === 'patient'; });
+  var doctors  = regs.filter(function(r){ return r.type === 'doctor'; });
+  var assignments = JSON.parse(localStorage.getItem('nyc_assignments') || '[]');
+
+  document.getElementById('as-patients').textContent = patients.length;
+  document.getElementById('as-doctors').textContent  = doctors.length;
+  document.getElementById('as-assigned').textContent = assignments.length;
+
+  var grid = document.getElementById('assignGrid');
+  if (!patients.length) {
+    grid.innerHTML = '<div class="assign-empty">No registered patients yet. Patients need to register on the website first.</div>';
+  } else {
+    grid.innerHTML = '';
+    patients.forEach(function(p) {
+      var assigned = assignments.filter(function(a){ return a.patientPhone === p.phone; });
+      var latestAssign = assigned.length ? assigned[assigned.length-1] : null;
+      var statusBadge = latestAssign
+        ? '<span class="apc-assigned">✅ Assigned: Dr.' + latestAssign.doctorName + '</span>'
+        : '<span class="apc-pending">⏳ Awaiting Assignment</span>';
+      var div = document.createElement('div');
+      div.className = 'assign-patient-card';
+      div.innerHTML =
+        '<div class="apc-name">👤 ' + p.name + '</div>' +
+        '<div class="apc-meta">📞 ' + p.phone + (p.email ? ' · ' + p.email : '') + (p.date ? ' · Registered: ' + p.date : '') + '</div>' +
+        '<span class="apc-condition">' + (p.condition || p.healthCondition || 'General') + '</span><br>' +
+        statusBadge +
+        '<br><br>' +
+        '<button class="assign-btn" onclick="openAssignModal(' + JSON.stringify(p) + ')">🔗 Assign / Re-assign Doctor</button>';
+      grid.appendChild(div);
+    });
+  }
+  showBookingHistory();
+}
+
+function openAssignModal(patient) {
+  _assignPatient = patient;
+  document.getElementById('am-patient-info').textContent = patient.name + ' — ' + (patient.condition || patient.healthCondition || 'General') + ' · ' + patient.phone;
+  /* Populate doctors dropdown */
+  var regs = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
+  var doctors = regs.filter(function(r){ return r.type === 'doctor'; });
+  var sel = document.getElementById('am-doctor-select');
+  sel.innerHTML = '<option value="">-- Select Available Doctor --</option>';
+  doctors.forEach(function(d) {
+    var opt = document.createElement('option');
+    opt.value = JSON.stringify(d);
+    opt.textContent = 'Dr. ' + d.name + ' (' + (d.specialty || '') + ')' + (d.timing ? ' · ' + d.timing : '');
+    sel.appendChild(opt);
+  });
+  document.getElementById('am-consult-type').value = '';
+  document.getElementById('am-amount').value = '';
+  document.getElementById('am-notes').value = '';
+  document.getElementById('amSplitBox').style.display = 'none';
+  document.getElementById('assignModal').classList.add('open');
+}
+
+function closeAssignModal() {
+  document.getElementById('assignModal').classList.remove('open');
+  _assignPatient = null;
+}
+
+function updateAmSplit() {
+  var type = document.getElementById('am-consult-type').value;
+  var amt  = parseFloat(document.getElementById('am-amount').value) || 0;
+  var box  = document.getElementById('amSplitBox');
+  if (!type || !amt) { box.style.display = 'none'; return; }
+  box.style.display = 'block';
+  if (type === 'personal') {
+    document.getElementById('am-type-label').textContent = 'Admin / Clinic — 100%';
+    document.getElementById('am-plat-val').textContent   = '₹0 (handled by Admin)';
+    document.getElementById('am-doc-row').style.display  = 'none';
+    document.getElementById('am-admin-label').textContent= 'Admin / Clinic';
+    document.getElementById('am-admin-val').textContent  = '₹' + amt.toFixed(2);
+    document.getElementById('am-total-val').textContent  = '₹' + amt.toFixed(2);
+  } else {
+    var plat  = (amt * 0.20).toFixed(2);
+    var doc   = (amt * 0.20).toFixed(2);
+    var admin = (amt * 0.60).toFixed(2);
+    document.getElementById('am-type-label').textContent = 'Platform (Developer) — 20%';
+    document.getElementById('am-plat-val').textContent   = '₹' + plat;
+    document.getElementById('am-doc-row').style.display  = 'flex';
+    document.getElementById('am-doc-val').textContent    = '₹' + doc;
+    document.getElementById('am-admin-label').textContent= 'Admin / Clinic — 60%';
+    document.getElementById('am-admin-val').textContent  = '₹' + admin;
+    document.getElementById('am-total-val').textContent  = '₹' + amt.toFixed(2);
+  }
+}
+
+function saveAssignment() {
+  if (!_assignPatient) return;
+  var doctorVal = document.getElementById('am-doctor-select').value;
+  var type      = document.getElementById('am-consult-type').value;
+  var amt       = parseFloat(document.getElementById('am-amount').value) || 0;
+  var notes     = document.getElementById('am-notes').value.trim();
+  if (!doctorVal) { alert('Please select a doctor.'); return; }
+  if (!type)      { alert('Please select consultation type.'); return; }
+  if (!amt)       { alert('Please enter the amount paid.'); return; }
+  var doctor = JSON.parse(doctorVal);
+  var split = {};
+  if (type === 'personal') {
+    split = { plat: 0, doc: 0, admin: amt };
+  } else {
+    split = { plat: (amt*0.20), doc: (amt*0.20), admin: (amt*0.60) };
+  }
+  var assignments = JSON.parse(localStorage.getItem('nyc_assignments') || '[]');
+  assignments.push({
+    id: Date.now(),
+    patientName:  _assignPatient.name,
+    patientPhone: _assignPatient.phone,
+    patientCondition: _assignPatient.condition || _assignPatient.healthCondition || 'General',
+    doctorName:   doctor.name,
+    doctorPhone:  doctor.phone,
+    type: type,
+    amount: amt,
+    platShare: split.plat,
+    docShare: split.doc,
+    adminShare: split.admin,
+    notes: notes,
+    date: new Date().toLocaleString('en-IN'),
+    status: 'Assigned'
+  });
+  localStorage.setItem('nyc_assignments', JSON.stringify(assignments));
+  closeAssignModal();
+  renderAssignTab();
+  alert('✅ Dr. ' + doctor.name + ' has been assigned to ' + _assignPatient.name + '!\nAmount: ₹' + amt +
+    (type !== 'personal' ? '\nPlatform: ₹' + split.plat.toFixed(2) + ' · Doctor: ₹' + split.doc.toFixed(2) + ' · Admin: ₹' + split.admin.toFixed(2) : '\nAdmin takes full payment.'));
+}
+
+function showBookingHistory() {
+  var bookings = JSON.parse(localStorage.getItem('nyc_bookings') || '[]');
+  var list = document.getElementById('bookingHistoryList');
+  if (!list) return;
+  if (!bookings.length) {
+    list.innerHTML = '<div class="assign-empty">No wallet bookings yet.</div>';
+    return;
+  }
+  var html = bookings.slice().reverse().slice(0,20).map(function(b) {
+    return '<div class="booking-history-row">' +
+      '<div class="bhr-left">' +
+        '<strong>' + b.patient + '</strong> → Dr. ' + b.doctor + '<br>' +
+        '<span style="font-size:0.78rem;color:#8a9e98;">' + b.type + ' · ' + b.mins + ' min · ' + b.date + '</span>' +
+      '</div>' +
+      '<div style="text-align:right;">' +
+        '<strong style="color:#0a5c4d;">₹' + parseFloat(b.amount).toFixed(2) + '</strong><br>' +
+        '<span class="bhr-badge bhr-pending">Wallet Paid</span>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+  list.innerHTML = html;
 }
 
 </script>
