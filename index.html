@@ -417,7 +417,69 @@
     .upload-submit-btn:hover { transform: translateY(-2px); }
     .upload-success { display: none; background: #dcfce7; border: 1.5px solid #4ade80; border-radius: 14px; padding: 16px; text-align: center; color: #166534; font-weight: 700; margin-top: 12px; }
     @media(max-width:768px) { .upload-wrap { grid-template-columns: 1fr; } }
-</style>
+
+    /* ========================= */
+    /*   AI CUSTOMER CARE CHAT   */
+    /* ========================= */
+    .ai-chat-btn {
+      position: fixed; right: 18px; bottom: 84px;
+      width: 58px; height: 58px; border-radius: 50%;
+      background: linear-gradient(135deg, #7b4fa6, #c96cc0);
+      color: #fff; display: flex; align-items: center; justify-content: center;
+      font-size: 26px; box-shadow: 0 8px 22px rgba(123,79,166,0.35);
+      z-index: 1000; cursor: pointer; border: none; transition: 0.25s;
+    }
+    .ai-chat-btn:hover { transform: scale(1.1); }
+    .ai-chat-badge {
+      position: absolute; top: -4px; right: -4px;
+      background: #e05; color: #fff; border-radius: 50%;
+      width: 18px; height: 18px; font-size: 0.65rem; font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ai-chat-window {
+      display: none; position: fixed; right: 18px; bottom: 154px;
+      width: min(380px, calc(100vw - 36px));
+      background: #fff; border-radius: 22px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+      z-index: 1001; flex-direction: column; overflow: hidden;
+      border: 1px solid #e8e0f0; max-height: 520px;
+    }
+    .ai-chat-window.open { display: flex; }
+    .ai-chat-head {
+      background: linear-gradient(135deg, #7b4fa6, #c96cc0);
+      color: #fff; padding: 14px 18px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .ai-chat-head-left { display: flex; align-items: center; gap: 10px; }
+    .ai-chat-avatar { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+    .ai-chat-head-info h4 { font-size: 0.92rem; font-weight: 700; margin-bottom: 1px; }
+    .ai-chat-head-info small { font-size: 0.72rem; opacity: 0.85; }
+    .ai-chat-close { background: rgba(255,255,255,0.2); border: none; color: #fff; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; }
+    .ai-chat-msgs {
+      flex: 1; overflow-y: auto; padding: 16px;
+      display: flex; flex-direction: column; gap: 10px;
+      background: #faf8ff; min-height: 0;
+    }
+    .ai-msg { max-width: 82%; padding: 10px 14px; border-radius: 16px; font-size: 0.88rem; line-height: 1.55; }
+    .ai-msg.bot { background: #fff; border: 1px solid #e8e0f0; border-bottom-left-radius: 4px; align-self: flex-start; color: #333; }
+    .ai-msg.user { background: linear-gradient(135deg, #7b4fa6, #c96cc0); color: #fff; border-bottom-right-radius: 4px; align-self: flex-end; }
+    .ai-msg.typing { background: #fff; border: 1px solid #e8e0f0; border-bottom-left-radius: 4px; align-self: flex-start; }
+    .typing-dots { display: flex; gap: 4px; align-items: center; padding: 4px 2px; }
+    .typing-dots span { width: 7px; height: 7px; border-radius: 50%; background: #c96cc0; animation: typingBounce 1.2s infinite; }
+    .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typingBounce { 0%,80%,100% { transform: translateY(0); opacity:0.4; } 40% { transform: translateY(-6px); opacity:1; } }
+    .ai-chat-foot { padding: 12px 14px; border-top: 1px solid #f0ebf8; background: #fff; display: flex; gap: 8px; }
+    .ai-chat-input { flex: 1; border: 1.5px solid #ddd6f0; border-radius: 999px; padding: 10px 15px; font-size: 0.88rem; outline: none; background: #faf8ff; transition: 0.2s; }
+    .ai-chat-input:focus { border-color: #c96cc0; }
+    .ai-chat-send { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, #7b4fa6, #c96cc0); border: none; color: #fff; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: 0.2s; }
+    .ai-chat-send:hover { transform: scale(1.08); }
+    .ai-chat-send:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .ai-quick-btns { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px 12px; }
+    .ai-quick-btn { background: #f0ebf8; color: #7b4fa6; border: 1px solid #d8c8f0; border-radius: 999px; padding: 6px 12px; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: 0.2s; white-space: nowrap; }
+    .ai-quick-btn:hover { background: #e0d0f8; }
+
+  </style>
 </head>
 <body>
 
@@ -1208,6 +1270,42 @@
   <div class="container">© 2025 Naturopathy &amp; Yoga Care. All rights reserved.</div>
 </footer>
 
+
+<!-- AI CUSTOMER CARE CHAT -->
+<button class="ai-chat-btn" onclick="toggleChat()" title="Chat with our AI assistant">
+  🤖
+  <span class="ai-chat-badge" id="chatBadge">1</span>
+</button>
+
+<div class="ai-chat-window" id="aiChatWindow">
+  <div class="ai-chat-head">
+    <div class="ai-chat-head-left">
+      <div class="ai-chat-avatar">🌿</div>
+      <div class="ai-chat-head-info">
+        <h4>Naturopathy Care Assistant</h4>
+        <small>✅ Online — Powered by AI</small>
+      </div>
+    </div>
+    <button class="ai-chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="ai-chat-msgs" id="chatMsgs">
+    <div class="ai-msg bot">
+      👋 Hello! I'm your Naturopathy & Yoga Care assistant.<br><br>
+      I can help you with consultations, pricing, services, doctors, booking and more. How can I help you today?
+    </div>
+  </div>
+  <div class="ai-quick-btns" id="quickBtns">
+    <button class="ai-quick-btn" onclick="sendQuick('What are your consultation charges?')">💰 Pricing</button>
+    <button class="ai-quick-btn" onclick="sendQuick('How do I book a consultation?')">📅 Booking</button>
+    <button class="ai-quick-btn" onclick="sendQuick('What conditions do you treat?')">🩺 Conditions</button>
+    <button class="ai-quick-btn" onclick="sendQuick('Tell me about the doctors')">👨‍⚕️ Doctors</button>
+  </div>
+  <div class="ai-chat-foot">
+    <input class="ai-chat-input" id="chatInput" type="text" placeholder="Type your question..." onkeydown="if(event.key==='Enter')sendChat()" />
+    <button class="ai-chat-send" id="chatSendBtn" onclick="sendChat()">➤</button>
+  </div>
+</div>
+
 <a class="wa-float" href="https://wa.me/917013989526" target="_blank">💬</a>
 
 <!-- POPUP -->
@@ -1299,6 +1397,88 @@ function submitDietUpload() {
   var suc = document.getElementById('uploadSuccess');
   suc.style.display = 'block';
   setTimeout(function() { suc.style.display = 'none'; }, 4000);
+}
+</script>
+
+
+<script>
+/* ---- AI Customer Care Chat ---- */
+var _chatHistory = [];
+var _chatOpen = false;
+
+function toggleChat() {
+  _chatOpen = !_chatOpen;
+  var win = document.getElementById('aiChatWindow');
+  win.classList.toggle('open', _chatOpen);
+  if (_chatOpen) {
+    document.getElementById('chatBadge').style.display = 'none';
+    document.getElementById('chatInput').focus();
+  }
+}
+
+function sendQuick(text) {
+  document.getElementById('quickBtns').style.display = 'none';
+  document.getElementById('chatInput').value = text;
+  sendChat();
+}
+
+function addMsg(role, text) {
+  var msgs = document.getElementById('chatMsgs');
+  var div = document.createElement('div');
+  div.className = 'ai-msg ' + role;
+  div.innerHTML = text.replace(/\n/g, '<br>');
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return div;
+}
+
+function showTyping() {
+  var msgs = document.getElementById('chatMsgs');
+  var div = document.createElement('div');
+  div.className = 'ai-msg typing';
+  div.id = 'typingIndicator';
+  div.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function hideTyping() {
+  var t = document.getElementById('typingIndicator');
+  if (t) t.remove();
+}
+
+async function sendChat() {
+  var input = document.getElementById('chatInput');
+  var text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  document.getElementById('quickBtns').style.display = 'none';
+  document.getElementById('chatSendBtn').disabled = true;
+
+  addMsg('user', text);
+  _chatHistory.push({ role: 'user', content: text });
+  showTyping();
+
+  try {
+    var res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: _chatHistory })
+    });
+    var data = await res.json();
+    hideTyping();
+    var reply = (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content)
+      ? data.choices[0].message.content
+      : (data.error ? '⚠️ ' + (data.error.message || data.error) : '⚠️ Sorry, something went wrong. Please try again.');
+    _chatHistory.push({ role: 'assistant', content: reply });
+    addMsg('bot', reply);
+  } catch(e) {
+    hideTyping();
+    addMsg('bot', '⚠️ Network error. Please check your connection and try again.');
+  }
+
+  document.getElementById('chatSendBtn').disabled = false;
+  document.getElementById('chatInput').focus();
 }
 </script>
 
