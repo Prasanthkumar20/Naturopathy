@@ -277,6 +277,7 @@
     <h1>&#x1F331; Patient Portal — Naturopathy &amp; Yoga Care</h1>
     <div class="topbar-right">
       <span class="pat-tag" id="patTag">&#x1F9D1; Patient</span>
+      <button id="topbarWalletPill" onclick="goTab('wallet',document.querySelectorAll('.tab-btn')[2])" style="background:linear-gradient(135deg,#d9b66f,#c8973d);color:#fff;border:none;border-radius:999px;padding:7px 15px;font-weight:800;font-size:0.82rem;cursor:pointer;display:inline-flex;align-items:center;gap:5px;">&#x1F4B0; <span id="topbarWalletAmt">&#8377;0.00</span></button>
       <button class="t-btn" onclick="window.open('index.html','_blank')">&#x1F310; Website</button>
       <button class="t-btn" onclick="doLogout()">&#x1F6AA; Logout</button>
     </div>
@@ -520,6 +521,7 @@ function verifyPatientOTP() {
   document.getElementById('mainPortal').style.display  = 'block';
   document.getElementById('patTag').textContent = '\uD83E\uDDD1 ' + _patient.name;
   goTab('dashboard', document.querySelector('.tab-btn'));
+  refreshTopbarWallet();
 }
 
 function backToPhone() {
@@ -550,6 +552,7 @@ function showErr(msg) {
       document.getElementById('mainPortal').style.display  = 'block';
       document.getElementById('patTag').textContent = '\uD83E\uDDD1 ' + _patient.name;
       goTab('dashboard', document.querySelector('.tab-btn'));
+      refreshTopbarWallet();
     } else {
       localStorage.removeItem('nyc_patient_active_phone');
     }
@@ -583,7 +586,13 @@ function goTab(name, btn) {
 /* ── Wallet helpers ── */
 function walletKey(p){ return 'nyc_wallet_' + p.replace(/\D/g,''); }
 function getWallet(p){ var r=localStorage.getItem(walletKey(p)); return r?JSON.parse(r):{balance:0,history:[]}; }
-function saveWallet(p,d){ localStorage.setItem(walletKey(p),JSON.stringify(d)); }
+function saveWallet(p,d){ localStorage.setItem(walletKey(p),JSON.stringify(d)); refreshTopbarWallet(); }
+function refreshTopbarWallet(){
+  if(!_phone) return;
+  var w = getWallet(_phone);
+  var el = document.getElementById('topbarWalletAmt');
+  if(el) el.textContent = '\u20B9' + w.balance.toFixed(2);
+}
 
 /* ── Dashboard ── */
 function renderDashboard() {
