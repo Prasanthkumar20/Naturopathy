@@ -108,6 +108,48 @@
       border-radius:8px;font-size:0.83rem;background:#fff;outline:none;}
     input:focus,select:focus,textarea:focus{border-color:var(--accent);}
     textarea{min-height:60px;resize:vertical;}
+    /* ── PAYOUTS TAB ── */
+    .payout-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:22px;}
+    .payout-stat{background:#fff;border-radius:14px;padding:18px;box-shadow:var(--shadow);text-align:center;}
+    .payout-stat-icon{font-size:1.6rem;margin-bottom:6px;}
+    .payout-stat-num{font-size:1.6rem;font-weight:900;color:var(--primary);}
+    .payout-stat-lbl{font-size:0.76rem;color:#888;margin-top:3px;}
+    .payout-period{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap;}
+    .period-btn{padding:7px 16px;border-radius:999px;border:2px solid #cde8da;background:#f0fdf8;
+      color:#5a7060;font-weight:700;font-size:0.82rem;cursor:pointer;transition:0.15s;}
+    .period-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+    .doctor-payout-card{background:#fff;border-radius:18px;padding:20px;box-shadow:var(--shadow);
+      margin-bottom:16px;border-left:5px solid var(--accent);}
+    .dpc-header{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px;margin-bottom:14px;}
+    .dpc-name{font-size:1.05rem;font-weight:800;color:var(--dark);}
+    .dpc-phone{font-size:0.8rem;color:#8a9e98;margin-top:2px;}
+    .dpc-owed{font-size:1.3rem;font-weight:900;color:#c0392b;}
+    .dpc-owed-lbl{font-size:0.75rem;color:#8a9e98;text-align:right;}
+    .dpc-row{display:flex;justify-content:space-between;font-size:0.83rem;padding:6px 0;
+      border-bottom:1px solid #f0f6f3;color:#5a7060;}
+    .dpc-row:last-of-type{border:none;}
+    .dpc-row strong{color:var(--dark);}
+    .dpc-sessions{background:#f4fbf8;border-radius:10px;margin:12px 0;overflow:hidden;}
+    .dpc-session-row{display:flex;justify-content:space-between;align-items:center;
+      padding:9px 14px;font-size:0.8rem;border-bottom:1px solid #e8f4ef;}
+    .dpc-session-row:last-child{border:none;}
+    .dpc-actions{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+    .mark-paid-btn{padding:10px 20px;background:linear-gradient(135deg,#0a5c4d,#3aafa9);
+      color:#fff;border:none;border-radius:999px;font-weight:700;font-size:0.85rem;cursor:pointer;}
+    .mark-paid-btn:disabled{opacity:0.5;cursor:not-allowed;}
+    .view-hist-btn{padding:10px 18px;background:#f0fdf8;border:2px solid var(--accent);
+      color:var(--primary);border-radius:999px;font-weight:700;font-size:0.85rem;cursor:pointer;}
+    .payout-hist-box{background:#f4fbf8;border-radius:10px;padding:12px;margin-top:10px;display:none;}
+    .ph-row{display:flex;justify-content:space-between;align-items:center;
+      padding:7px 0;border-bottom:1px solid #e0f2ec;font-size:0.8rem;}
+    .ph-row:last-child{border:none;}
+    .ph-paid-badge{background:#dcfce7;color:#166534;border-radius:999px;padding:2px 9px;
+      font-size:0.73rem;font-weight:700;}
+    .no-payouts{text-align:center;color:#8a9e98;padding:48px 20px;font-size:0.9rem;}
+    .payout-zero{background:#f0fdf8;border-left:5px solid #6dd8a8;}
+    .alert-box{background:#fff8e1;border:2px solid #f0d080;border-radius:14px;
+      padding:16px;margin-bottom:18px;font-size:0.85rem;color:#7a5800;}
+
     /* ASSIGN DOCTOR TAB */
     .assign-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-top:14px;}
     .assign-patient-card{background:#fff;border-radius:16px;padding:18px;box-shadow:var(--shadow);border-left:4px solid var(--accent);}
@@ -396,6 +438,7 @@
     <button class="tab-btn" onclick="goTab('registrations',this)">📋 Registrations</button>
     <button class="tab-btn" onclick="goTab('assign',this)">🔗 Assign Doctor</button>
     <button class="tab-btn" onclick="goTab('earnings',this)">💰 Earnings</button>
+    <button class="tab-btn" onclick="goTab('payouts',this)">💸 Payouts</button>
   </div>
 
   <!-- DASHBOARD -->
@@ -732,6 +775,44 @@
     </div>
   </div>
 
+
+  <!-- PAYOUTS TAB -->
+  <div id="tab-payouts" class="tab-pane">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:16px;">
+      <div>
+        <h2 style="color:var(--dark);font-size:1.05rem;font-weight:800;">💸 Doctor Payouts</h2>
+        <p style="font-size:0.82rem;color:#8a9e98;">Track how much you owe each doctor and record manual UPI/bank transfers.</p>
+      </div>
+      <button class="p-add-btn" onclick="renderPayoutsTab()">🔄 Refresh</button>
+    </div>
+
+    <div class="alert-box">
+      ℹ️ <strong>How payouts work:</strong> Each session's doctor share (60%) is calculated automatically. Click <strong>"Mark as Paid"</strong> once you've transferred the amount to the doctor via UPI or bank transfer. This keeps a permanent record of all payouts.
+    </div>
+
+    <!-- Stats -->
+    <div class="payout-stats">
+      <div class="payout-stat"><div class="payout-stat-icon">💰</div><div class="payout-stat-num" id="po-total">₹0</div><div class="payout-stat-lbl">Total Collected</div></div>
+      <div class="payout-stat"><div class="payout-stat-icon">🧑‍⚕️</div><div class="payout-stat-num" id="po-doc-total">₹0</div><div class="payout-stat-lbl">Doctors' Total (60%)</div></div>
+      <div class="payout-stat"><div class="payout-stat-icon">🔴</div><div class="payout-stat-num" id="po-owed">₹0</div><div class="payout-stat-lbl">Still Owed to Doctors</div></div>
+      <div class="payout-stat"><div class="payout-stat-icon">✅</div><div class="payout-stat-num" id="po-paid">₹0</div><div class="payout-stat-lbl">Already Paid Out</div></div>
+      <div class="payout-stat"><div class="payout-stat-icon">🏥</div><div class="payout-stat-num" id="po-admin">₹0</div><div class="payout-stat-lbl">Admin Earnings (20%)</div></div>
+      <div class="payout-stat"><div class="payout-stat-icon">💻</div><div class="payout-stat-num" id="po-platform">₹0</div><div class="payout-stat-lbl">Platform Fee (20%)</div></div>
+    </div>
+
+    <!-- Period filter -->
+    <div class="payout-period">
+      <button class="period-btn active" onclick="setPayoutPeriod('all',this)">All Time</button>
+      <button class="period-btn" onclick="setPayoutPeriod('month',this)">This Month</button>
+      <button class="period-btn" onclick="setPayoutPeriod('week',this)">This Week</button>
+    </div>
+
+    <!-- Per-doctor cards -->
+    <div id="doctorPayoutCards">
+      <div class="no-payouts">No session data yet. Bookings will appear here once patients book sessions.</div>
+    </div>
+  </div>
+
 </div><!-- END MAIN -->
 
 
@@ -916,6 +997,7 @@ function goTab(name, btn) {
   if (name === "patients")  renderPatients();
   if (name === "dietchart") updatePatDD();
   if (name === "assign") renderAssignTab();
+  if (name === "payouts") renderPayoutsTab();
 }
 
 function initDash() {
@@ -1958,6 +2040,190 @@ function showBookingHistory() {
     '</div>';
   }).join('');
   list.innerHTML = html;
+}
+
+
+
+/* ══════════════════════════════════════════
+   PAYOUTS SYSTEM
+   ══════════════════════════════════════════ */
+var _payoutPeriod = 'all';
+
+function setPayoutPeriod(p, btn) {
+  _payoutPeriod = p;
+  document.querySelectorAll('.period-btn').forEach(function(b){ b.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  renderPayoutsTab();
+}
+
+function filterByPeriod(items, dateField) {
+  if (_payoutPeriod === 'all') return items;
+  var now = new Date();
+  return items.filter(function(item) {
+    var d = new Date(item[dateField] || item.date || '');
+    if (isNaN(d)) return true;
+    if (_payoutPeriod === 'week') {
+      var weekAgo = new Date(now - 7*24*60*60*1000);
+      return d >= weekAgo;
+    }
+    if (_payoutPeriod === 'month') {
+      return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+    }
+    return true;
+  });
+}
+
+function renderPayoutsTab() {
+  var allBookings    = JSON.parse(localStorage.getItem('nyc_bookings') || '[]');
+  var allAssignments = JSON.parse(localStorage.getItem('nyc_assignments') || '[]').filter(function(a){ return a.type !== 'personal'; });
+  var payouts        = JSON.parse(localStorage.getItem('nyc_payouts') || '[]');
+  var regs           = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
+  var doctors        = regs.filter(function(r){ return r.type === 'doctor'; });
+
+  var bookings    = filterByPeriod(allBookings, 'date');
+  var assignments = filterByPeriod(allAssignments, 'date');
+
+  /* Global stats */
+  var totalCollected = 0, totalDocShare = 0, totalAdminShare = 0, totalPlatShare = 0;
+  bookings.forEach(function(b) {
+    totalCollected  += parseFloat(b.amount    || 0);
+    totalDocShare   += parseFloat(b.docShare  || 0);
+    totalAdminShare += parseFloat(b.adminShare|| 0);
+    totalPlatShare  += parseFloat(b.platShare || 0);
+  });
+  assignments.forEach(function(a) {
+    totalCollected  += parseFloat(a.amount    || 0);
+    totalDocShare   += parseFloat(a.docShare  || 0);
+    totalAdminShare += parseFloat(a.adminShare|| 0);
+    totalPlatShare  += parseFloat(a.platShare || 0);
+  });
+
+  var totalPaid = payouts.reduce(function(s,p){ return s + parseFloat(p.amount||0); }, 0);
+  var totalOwed = Math.max(0, totalDocShare - totalPaid);
+
+  document.getElementById('po-total').textContent    = '₹' + totalCollected.toFixed(0);
+  document.getElementById('po-doc-total').textContent= '₹' + totalDocShare.toFixed(0);
+  document.getElementById('po-owed').textContent     = '₹' + totalOwed.toFixed(0);
+  document.getElementById('po-paid').textContent     = '₹' + totalPaid.toFixed(0);
+  document.getElementById('po-admin').textContent    = '₹' + totalAdminShare.toFixed(0);
+  document.getElementById('po-platform').textContent = '₹' + totalPlatShare.toFixed(0);
+
+  /* Build per-doctor data */
+  var docMap = {};
+
+  /* From wallet bookings */
+  bookings.forEach(function(b) {
+    var key = (b.doctor || 'Unknown').trim();
+    if (!docMap[key]) docMap[key] = { name: key, phone: b.docPhone || '', sessions: [], totalBilled: 0, docShare: 0 };
+    docMap[key].sessions.push({ date: b.date, patient: b.patient, type: b.type, mins: b.mins, amount: b.amount, docShare: b.docShare, source: 'Wallet' });
+    docMap[key].totalBilled += parseFloat(b.amount || 0);
+    docMap[key].docShare    += parseFloat(b.docShare || 0);
+  });
+
+  /* From admin assignments */
+  assignments.forEach(function(a) {
+    var key = (a.doctorName || 'Unknown').trim();
+    if (!docMap[key]) docMap[key] = { name: key, phone: a.doctorPhone || '', sessions: [], totalBilled: 0, docShare: 0 };
+    docMap[key].sessions.push({ date: a.date, patient: a.patientName, type: a.type, amount: a.amount, docShare: a.docShare, source: 'Assignment' });
+    docMap[key].totalBilled += parseFloat(a.amount || 0);
+    docMap[key].docShare    += parseFloat(a.docShare || 0);
+  });
+
+  /* Also add doctors with no sessions yet */
+  doctors.forEach(function(d) {
+    var key = (d.name || '').trim();
+    if (!docMap[key]) docMap[key] = { name: key, phone: d.phone || '', sessions: [], totalBilled: 0, docShare: 0 };
+    if (!docMap[key].phone) docMap[key].phone = d.phone || '';
+  });
+
+  var container = document.getElementById('doctorPayoutCards');
+  var keys = Object.keys(docMap);
+  if (!keys.length) {
+    container.innerHTML = '<div class="no-payouts">No session data yet. Sessions will appear here once patients book.</div>';
+    return;
+  }
+
+  container.innerHTML = keys.map(function(key) {
+    var doc = docMap[key];
+    var docPayouts = payouts.filter(function(p){ return p.doctorName === doc.name; });
+    var paidAmt    = docPayouts.reduce(function(s,p){ return s + parseFloat(p.amount||0); }, 0);
+    var owedAmt    = Math.max(0, doc.docShare - paidAmt);
+    var isSettled  = owedAmt <= 0;
+
+    var sessionsHTML = doc.sessions.length
+      ? doc.sessions.slice().reverse().slice(0,5).map(function(s){
+          return '<div class="dpc-session-row">' +
+            '<span>' + (s.type==='Chat'?'💬':'📞') + ' ' + (s.patient||'—') + ' · ' + (s.date||'') + (s.mins?' · '+s.mins+' min':'') + '</span>' +
+            '<span style="font-weight:700;color:var(--primary);">Doc: ₹' + parseFloat(s.docShare||0).toFixed(2) + '</span>' +
+          '</div>';
+        }).join('') + (doc.sessions.length>5?'<div style="text-align:center;padding:7px;font-size:0.78rem;color:#8a9e98;">+ '+(doc.sessions.length-5)+' more sessions</div>':'')
+      : '<div style="padding:10px;text-align:center;color:#8a9e98;font-size:0.82rem;">No sessions yet</div>';
+
+    var histHTML = docPayouts.length
+      ? docPayouts.slice().reverse().map(function(p){
+          return '<div class="ph-row">' +
+            '<span>₹' + parseFloat(p.amount).toFixed(2) + ' — ' + p.note + '</span>' +
+            '<span style="display:flex;gap:6px;align-items:center;">' +
+              '<span class="ph-paid-badge">✅ Paid</span>' +
+              '<span style="font-size:0.75rem;color:#8a9e98;">' + p.date + '</span>' +
+            '</span>' +
+          '</div>';
+        }).join('')
+      : '<div style="color:#8a9e98;font-size:0.82rem;text-align:center;padding:8px;">No payouts recorded yet.</div>';
+
+    return '<div class="doctor-payout-card' + (isSettled?' payout-zero':'') + '" id="dpc-'+key.replace(/\s/g,'_')+'">' +
+      '<div class="dpc-header">' +
+        '<div>' +
+          '<div class="dpc-name">👨‍⚕️ Dr. ' + doc.name + '</div>' +
+          '<div class="dpc-phone">' + (doc.phone||'Phone not registered') + '</div>' +
+        '</div>' +
+        '<div style="text-align:right;">' +
+          '<div class="dpc-owed' + (isSettled?' " style="color:#166534;':'"') + '>' + (isSettled?'✅ Settled':'₹' + owedAmt.toFixed(2)) + '</div>' +
+          '<div class="dpc-owed-lbl">' + (isSettled?'All paid':'Still owed') + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="dpc-row"><span>Total Billed to Patients</span><strong>₹' + doc.totalBilled.toFixed(2) + '</strong></div>' +
+      '<div class="dpc-row"><span>Doctor's Share (60%)</span><strong>₹' + doc.docShare.toFixed(2) + '</strong></div>' +
+      '<div class="dpc-row"><span>Already Paid Out</span><strong style="color:#166534;">₹' + paidAmt.toFixed(2) + '</strong></div>' +
+      '<div class="dpc-row"><span>Balance Owed</span><strong style="color:' + (isSettled?'#166534':'#c0392b') + ';">₹' + owedAmt.toFixed(2) + '</strong></div>' +
+      '<div style="font-size:0.8rem;font-weight:700;color:var(--primary);margin:12px 0 5px;">📋 Recent Sessions</div>' +
+      '<div class="dpc-sessions">' + sessionsHTML + '</div>' +
+      '<div class="dpc-actions">' +
+        '<button class="mark-paid-btn" ' + (isSettled?'disabled':'') +
+          ' onclick="openMarkPaid('' + doc.name.replace(/'/g,"\'") + '','' + (doc.phone||'').replace(/'/g,"\'") + '',' + owedAmt.toFixed(2) + ')">' +
+          (isSettled?'✅ All Settled':'💸 Mark as Paid') +
+        '</button>' +
+        '<button class="view-hist-btn" onclick="togglePayoutHist(this)">📜 Payment History</button>' +
+      '</div>' +
+      '<div class="payout-hist-box">' + histHTML + '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function togglePayoutHist(btn) {
+  var box = btn.closest('.doctor-payout-card').querySelector('.payout-hist-box');
+  box.style.display = box.style.display==='block' ? 'none' : 'block';
+  btn.textContent = box.style.display==='block' ? '📜 Hide History' : '📜 Payment History';
+}
+
+/* Mark as Paid modal (inline prompt) */
+function openMarkPaid(docName, docPhone, owedAmt) {
+  var amt = prompt('Mark payment to Dr. ' + docName + '\nBalance owed: ₹' + owedAmt.toFixed(2) + '\n\nEnter amount being paid now (₹):', owedAmt.toFixed(2));
+  if (!amt || isNaN(parseFloat(amt)) || parseFloat(amt) <= 0) return;
+  var note = prompt('Payment method/note (e.g. UPI - 9876543210, NEFT):', 'UPI');
+  if (note === null) return;
+  var payouts = JSON.parse(localStorage.getItem('nyc_payouts') || '[]');
+  payouts.push({
+    id: Date.now(),
+    doctorName: docName,
+    doctorPhone: docPhone,
+    amount: parseFloat(amt),
+    note: note || 'Manual transfer',
+    date: new Date().toLocaleString('en-IN')
+  });
+  localStorage.setItem('nyc_payouts', JSON.stringify(payouts));
+  renderPayoutsTab();
+  alert('✅ Payout of ₹' + parseFloat(amt).toFixed(2) + ' to Dr. ' + docName + ' recorded successfully!');
 }
 
 </script>
