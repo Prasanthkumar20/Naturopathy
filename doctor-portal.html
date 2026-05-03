@@ -218,9 +218,37 @@
     <div class="login-logo">&#x1F468;&#x200D;&#x2695;&#xFE0F;</div>
     <h2>Doctor Portal</h2>
     <p>Naturopathy &amp; Yoga Care — Login with your registered phone number</p>
-    <input class="l-input" type="tel" id="loginPhone" placeholder="Registered phone number"
-      onkeydown="if(event.key==='Enter')doDocLogin()" />
-    <button class="login-btn" onclick="doDocLogin()">&#x1F513; Login to My Portal</button>
+
+    <!-- Step 1: Phone number -->
+    <div id="docOtpStep1">
+      <div style="font-size:0.8rem;color:#56766e;background:#e8fdf5;border-radius:10px;padding:10px 12px;margin-bottom:14px;border:1px solid #b7e4c7;">
+        &#x1F4F2; An OTP will be sent to your WhatsApp number
+      </div>
+      <input class="l-input" type="tel" id="loginPhone" placeholder="Registered phone number"
+        onkeydown="if(event.key==='Enter')sendDocOTP()" />
+      <button class="login-btn" onclick="sendDocOTP()">&#x1F4AC; Send OTP via WhatsApp</button>
+    </div>
+
+    <!-- Step 2: OTP entry -->
+    <div id="docOtpStep2" style="display:none;">
+      <div style="background:#e8fdf5;border:1.5px solid #52b788;border-radius:12px;padding:14px;text-align:center;margin-bottom:16px;">
+        <div style="font-size:1.3rem;margin-bottom:4px;">&#x2705;</div>
+        <div style="font-weight:800;color:#0a5c4d;font-size:0.97rem;">OTP sent to your WhatsApp!</div>
+        <div style="font-size:0.8rem;color:#56766e;margin-top:4px;">Check WhatsApp and enter the 6-digit OTP below</div>
+      </div>
+      <input class="l-input" type="number" id="docOtpInput" placeholder="Enter 6-digit OTP"
+        style="letter-spacing:6px;font-size:1.3rem;text-align:center;font-weight:800;"
+        onkeydown="if(event.key==='Enter')verifyDocOTP()" />
+      <div id="docOtpTimerBox" style="text-align:center;font-size:0.82rem;color:#56766e;margin-bottom:12px;">
+        &#x23F1; OTP valid for <span id="docOtpTimerCount" style="font-weight:800;color:#0a5c4d;">5:00</span>
+      </div>
+      <div id="docOtpResendRow" style="display:none;text-align:center;font-size:0.83rem;margin-bottom:12px;">
+        OTP expired. <a href="#" onclick="sendDocOTP();return false;" style="color:var(--primary);font-weight:700;">Resend OTP</a>
+      </div>
+      <button class="login-btn" onclick="verifyDocOTP()">&#x2705; Verify &amp; Login</button>
+      <button onclick="backToDocPhone()" style="width:100%;padding:11px;background:transparent;border:2px solid #cde8da;border-radius:999px;color:#5a7060;font-weight:700;cursor:pointer;font-size:0.88rem;margin-top:8px;">&#x2190; Change Number</button>
+    </div>
+
     <div class="login-err" id="loginErr"></div>
     <div class="login-hint">Not registered? <a href="index.html#register">Register as Doctor</a> &nbsp;|&nbsp; <a href="index.html">Main Website</a></div>
   </div>
@@ -519,15 +547,50 @@ var _doctor = null;
 var _docPhone = '';
 var _sessionFilter = 'all';
 
-/* ── Login ── */
-function doDocLogin() {
-  var raw = (document.getElementById('loginPhone').value || '').replace(/\D/g, '');
+/* ── OTP Login ── */
+var _docOtpCode = null, _docOtpExpiry = 0, _docOtpTimer = null;
+
+function sendDocOTP() {
+  var raw = (document.getElementById('loginPhone').value || '').replace(/\D/g,'');
   if (!raw || raw.length < 10) { showErr('Please enter a valid 10-digit phone number.'); return; }
   var regs = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
   var match = regs.find(function(r){ return r.phone && r.phone.replace(/\D/g,'') === raw && r.type === 'doctor'; });
   if (!match) { showErr('\u274C No doctor account found for this number. Please register on the website first.'); return; }
-  _doctor = match;
-  _docPhone = raw;
+  _docOtpCode   = Math.floor(100000 + Math.random() * 900000).toString();
+  _docOtpExpiry = Date.now() + 5 * 60 * 1000;
+  var waPhone = raw.length === 10 ? '91' + raw : raw;
+  var msg = '\uD83C\uDF3F *Prahari NatureCure — Doctor OTP Verification*\n\nDear Dr. ' + match.name + ',\n\nYour OTP is: *' + _docOtpCode + '*\n\nValid for 5 minutes. Do not share this with anyone.\n\n\u2014 Prahari NatureCure Team';
+  window.open('https://wa.me/' + waPhone + '?text=' + encodeURIComponent(msg), '_blank');
+  document.getElementById('docOtpStep1').style.display  = 'none';
+  document.getElementById('docOtpStep2').style.display  = 'block';
+  document.getElementById('loginErr').style.display     = 'none';
+  document.getElementById('docOtpInput').value          = '';
+  document.getElementById('docOtpResendRow').style.display = 'none';
+  document.getElementById('docOtpTimerBox').style.display  = 'block';
+  clearInterval(_docOtpTimer);
+  _docOtpTimer = setInterval(function(){
+    var rem = Math.max(0, _docOtpExpiry - Date.now());
+    var m = Math.floor(rem/60000), s = Math.floor((rem%60000)/1000);
+    document.getElementById('docOtpTimerCount').textContent = m + ':' + (s<10?'0':'') + s;
+    if(rem <= 0){
+      clearInterval(_docOtpTimer);
+      document.getElementById('docOtpTimerBox').style.display  = 'none';
+      document.getElementById('docOtpResendRow').style.display = 'block';
+    }
+  }, 1000);
+}
+
+function verifyDocOTP() {
+  var entered = (document.getElementById('docOtpInput').value || '').trim();
+  if (!entered) { showErr('Please enter the OTP sent to your WhatsApp.'); return; }
+  if (Date.now() > _docOtpExpiry) { showErr('OTP has expired. Please tap Resend OTP.'); return; }
+  if (entered !== _docOtpCode) { showErr('\u274C Incorrect OTP. Please check your WhatsApp and try again.'); return; }
+  clearInterval(_docOtpTimer);
+  _docOtpCode = null;
+  var raw = (document.getElementById('loginPhone').value || '').replace(/\D/g,'');
+  var regs = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
+  var match = regs.find(function(r){ return r.phone && r.phone.replace(/\D/g,'') === raw && r.type === 'doctor'; });
+  _doctor = match; _docPhone = raw;
   localStorage.setItem('nyc_doc_active_phone', raw);
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('mainPortal').style.display  = 'block';
@@ -536,14 +599,38 @@ function doDocLogin() {
   loadMyRates();
 }
 
+function backToDocPhone() {
+  clearInterval(_docOtpTimer);
+  _docOtpCode = null;
+  document.getElementById('docOtpStep2').style.display = 'none';
+  document.getElementById('docOtpStep1').style.display = 'block';
+  document.getElementById('loginErr').style.display    = 'none';
+}
+
+function doDocLogin() { sendDocOTP(); }
+
 function showErr(msg) {
   var el = document.getElementById('loginErr');
   el.textContent = msg; el.style.display = 'block';
 }
 
+/* ── Auto-login if session saved (bypass OTP) ── */
 (function(){
   var saved = localStorage.getItem('nyc_doc_active_phone') || '';
-  if (saved) { document.getElementById('loginPhone').value = saved; doDocLogin(); }
+  if (saved) {
+    var regs = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
+    var match = regs.find(function(r){ return r.phone && r.phone.replace(/\D/g,'') === saved && r.type === 'doctor'; });
+    if (match) {
+      _doctor = match; _docPhone = saved;
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('mainPortal').style.display  = 'block';
+      document.getElementById('docTag').textContent = '\uD83D\uDC68\u200D\u2695\uFE0F Dr. ' + _doctor.name;
+      goTab('dashboard', document.querySelector('.tab-btn'));
+      loadMyRates();
+    } else {
+      localStorage.removeItem('nyc_doc_active_phone');
+    }
+  }
 })();
 
 function doLogout() {

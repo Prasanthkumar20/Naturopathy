@@ -184,12 +184,40 @@
       <button class="l-tab" onclick="switchLoginTab('register',this)">&#x1F4CB; New Patient</button>
     </div>
 
-    <!-- Phone Login -->
+    <!-- Phone Login with OTP -->
     <div id="loginPhoneForm">
-      <input class="l-input" type="tel" id="loginPhone" placeholder="Enter your registered phone number"
-        onkeydown="if(event.key==='Enter')doPatientLogin()" />
-      <button class="login-btn" onclick="doPatientLogin()">&#x1F513; Login to My Portal</button>
-      <div class="login-err" id="loginErr">&#x274C; No account found with this phone number. Please register first.</div>
+
+      <!-- Step 1: Enter phone -->
+      <div id="otpStep1">
+        <div style="font-size:0.8rem;color:#56766e;background:#e8fdf5;border-radius:10px;padding:10px 12px;margin-bottom:14px;border:1px solid #b7e4c7;">
+          &#x1F4F2; An OTP will be sent to your WhatsApp number
+        </div>
+        <input class="l-input" type="tel" id="loginPhone" placeholder="Enter your registered phone number"
+          onkeydown="if(event.key==='Enter')sendPatientOTP()" />
+        <button class="login-btn" onclick="sendPatientOTP()">&#x1F4AC; Send OTP via WhatsApp</button>
+      </div>
+
+      <!-- Step 2: Enter OTP -->
+      <div id="otpStep2" style="display:none;">
+        <div style="background:#e8fdf5;border:1.5px solid #52b788;border-radius:12px;padding:14px;text-align:center;margin-bottom:16px;">
+          <div style="font-size:1.3rem;margin-bottom:4px;">&#x2705;</div>
+          <div style="font-weight:800;color:#0a5c4d;font-size:0.97rem;">OTP sent to your WhatsApp!</div>
+          <div style="font-size:0.8rem;color:#56766e;margin-top:4px;">Check WhatsApp and enter the 6-digit OTP below</div>
+        </div>
+        <input class="l-input" type="number" id="otpInput" placeholder="Enter 6-digit OTP"
+          style="letter-spacing:6px;font-size:1.3rem;text-align:center;font-weight:800;"
+          onkeydown="if(event.key==='Enter')verifyPatientOTP()" />
+        <div id="otpTimerBox" style="text-align:center;font-size:0.82rem;color:#56766e;margin-bottom:12px;">
+          &#x23F1; OTP valid for <span id="otpTimerCount" style="font-weight:800;color:#0a5c4d;">5:00</span>
+        </div>
+        <div id="otpResendRow" style="display:none;text-align:center;font-size:0.83rem;margin-bottom:12px;">
+          OTP expired. <a href="#" onclick="sendPatientOTP();return false;" style="color:var(--primary);font-weight:700;">Resend OTP</a>
+        </div>
+        <button class="login-btn" onclick="verifyPatientOTP()">&#x2705; Verify &amp; Login</button>
+        <button onclick="backToPhone()" style="width:100%;padding:11px;background:transparent;border:2px solid #cde8da;border-radius:999px;color:#5a7060;font-weight:700;cursor:pointer;font-size:0.88rem;margin-top:8px;">&#x2190; Change Number</button>
+      </div>
+
+      <div class="login-err" id="loginErr"></div>
     </div>
 
     <!-- Register redirect -->
@@ -381,19 +409,49 @@ function switchLoginTab(tab, btn) {
   document.getElementById('loginErr').style.display = 'none';
 }
 
-/* ── Login ── */
-function doPatientLogin() {
+/* ── OTP Login ── */
+var _patOtpCode = null, _patOtpExpiry = 0, _patOtpTimer = null;
+
+function sendPatientOTP() {
   var raw = (document.getElementById('loginPhone').value || '').replace(/\D/g,'');
-  if (!raw || raw.length < 10) {
-    showErr('Please enter a valid 10-digit phone number.');
-    return;
-  }
+  if (!raw || raw.length < 10) { showErr('Please enter a valid 10-digit phone number.'); return; }
   var regs = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
   var match = regs.find(function(r){ return r.phone && r.phone.replace(/\D/g,'') === raw && r.type === 'patient'; });
-  if (!match) {
-    showErr('\u274C No patient account found for this number. Please register on the website first.');
-    return;
-  }
+  if (!match) { showErr('\u274C No patient account found for this number. Please register on the website first.'); return; }
+  _patOtpCode   = Math.floor(100000 + Math.random() * 900000).toString();
+  _patOtpExpiry = Date.now() + 5 * 60 * 1000;
+  var waPhone = raw.length === 10 ? '91' + raw : raw;
+  var msg = '\uD83C\uDF3F *Prahari NatureCure — OTP Verification*\n\nYour OTP is: *' + _patOtpCode + '*\n\nValid for 5 minutes. Do not share this with anyone.\n\n\u2014 Prahari NatureCure Team';
+  window.open('https://wa.me/' + waPhone + '?text=' + encodeURIComponent(msg), '_blank');
+  document.getElementById('otpStep1').style.display = 'none';
+  document.getElementById('otpStep2').style.display = 'block';
+  document.getElementById('loginErr').style.display = 'none';
+  document.getElementById('otpInput').value = '';
+  document.getElementById('otpResendRow').style.display = 'none';
+  document.getElementById('otpTimerBox').style.display = 'block';
+  clearInterval(_patOtpTimer);
+  _patOtpTimer = setInterval(function(){
+    var rem = Math.max(0, _patOtpExpiry - Date.now());
+    var m = Math.floor(rem/60000), s = Math.floor((rem%60000)/1000);
+    document.getElementById('otpTimerCount').textContent = m + ':' + (s<10?'0':'') + s;
+    if(rem <= 0){
+      clearInterval(_patOtpTimer);
+      document.getElementById('otpTimerBox').style.display = 'none';
+      document.getElementById('otpResendRow').style.display = 'block';
+    }
+  }, 1000);
+}
+
+function verifyPatientOTP() {
+  var entered = (document.getElementById('otpInput').value || '').trim();
+  if (!entered) { showErr('Please enter the OTP sent to your WhatsApp.'); return; }
+  if (Date.now() > _patOtpExpiry) { showErr('OTP has expired. Please tap Resend OTP.'); return; }
+  if (entered !== _patOtpCode) { showErr('\u274C Incorrect OTP. Please check your WhatsApp and try again.'); return; }
+  clearInterval(_patOtpTimer);
+  _patOtpCode = null;
+  var raw = (document.getElementById('loginPhone').value || '').replace(/\D/g,'');
+  var regs = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
+  var match = regs.find(function(r){ return r.phone && r.phone.replace(/\D/g,'') === raw && r.type === 'patient'; });
   _patient = match;
   _phone   = raw;
   localStorage.setItem('nyc_patient_active_phone', raw);
@@ -403,18 +461,37 @@ function doPatientLogin() {
   goTab('dashboard', document.querySelector('.tab-btn'));
 }
 
+function backToPhone() {
+  clearInterval(_patOtpTimer);
+  _patOtpCode = null;
+  document.getElementById('otpStep2').style.display = 'none';
+  document.getElementById('otpStep1').style.display = 'block';
+  document.getElementById('loginErr').style.display = 'none';
+}
+
+function doPatientLogin() { sendPatientOTP(); }
+
 function showErr(msg) {
   var el = document.getElementById('loginErr');
   el.textContent = msg;
   el.style.display = 'block';
 }
 
-/* ── Auto-login if session saved ── */
+/* ── Auto-login if session saved (bypass OTP) ── */
 (function(){
   var saved = localStorage.getItem('nyc_patient_active_phone') || '';
   if (saved) {
-    document.getElementById('loginPhone').value = saved;
-    doPatientLogin();
+    var regs = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
+    var match = regs.find(function(r){ return r.phone && r.phone.replace(/\D/g,'') === saved && r.type === 'patient'; });
+    if (match) {
+      _patient = match; _phone = saved;
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('mainPortal').style.display  = 'block';
+      document.getElementById('patTag').textContent = '\uD83E\uDDD1 ' + _patient.name;
+      goTab('dashboard', document.querySelector('.tab-btn'));
+    } else {
+      localStorage.removeItem('nyc_patient_active_phone');
+    }
   }
 })();
 
