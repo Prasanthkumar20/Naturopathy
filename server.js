@@ -1,9 +1,16 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
+const Razorpay = require('razorpay');
 
 const PORT = 5000;
 const HOST = '0.0.0.0';
+
+const razorpay = new Razorpay({
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET,
+});
 
 const mimeTypes = {
   '.html': 'text/html',
@@ -18,8 +25,93 @@ const mimeTypes = {
   '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 };
 
-const server = http.createServer((req, res) => {
-  let filePath = '.' + req.url.split('?')[0];
+function readBody(req) {
+  return new Promise((resolve, reject) => {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      try { resolve(JSON.parse(body)); }
+      catch(e) { resolve({}); }
+    });
+    req.on('error', reject);
+  });
+}
+
+function json(res, status, data) {
+  res.writeHead(status, {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Content-Type',
+  });
+  res.end(JSON.stringify(data));
+}
+
+const server = http.createServer(async (req, res) => {
+  const url = req.url.split('?')[0];
+
+  if (req.method === 'OPTIONS') {
+    res.writeHead(204, { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Content-Type', 'Access-Control-Allow-Methods': 'POST, GET, OPTIONS' });
+    return res.end();
+  }
+
+  /* ── POST /api/create-order ─────────────────────────────────────────
+     Creates a Razorpay order.
+     Body: { amount_paise, doctor_name, session_type, patient_name }
+  ─────────────────────────────────────────────────────────────────── */
+  if (req.method === 'POST' && url === '/api/create-order') {
+    try {
+      const body = await readBody(req);
+      const { amount_paise, doctor_name, session_type, patient_name } = body;
+      if (!amount_paise || amount_paise < 100) {
+        return json(res, 400, { error: 'Invalid amount. Minimum ₹1 (100 paise).' });
+      }
+      const order = await razorpay.orders.create({
+        amount: Math.round(amount_paise),
+        currency: 'INR',
+        receipt: 'rcpt_' + Date.now(),
+        notes: {
+          doctor: doctor_name || '',
+          type: session_type || '',
+          patient: patient_name || '',
+        },
+      });
+      return json(res, 200, {
+        order_id: order.id,
+        amount: order.amount,
+        currency: order.currency,
+        key_id: process.env.RAZORPAY_KEY_ID,
+      });
+    } catch (err) {
+      console.error('create-order error:', err);
+      return json(res, 500, { error: err.message || 'Order creation failed.' });
+    }
+  }
+
+  /* ── POST /api/verify-payment ───────────────────────────────────────
+     Verifies Razorpay signature after successful payment.
+     Body: { razorpay_order_id, razorpay_payment_id, razorpay_signature }
+  ─────────────────────────────────────────────────────────────────── */
+  if (req.method === 'POST' && url === '/api/verify-payment') {
+    try {
+      const body = await readBody(req);
+      const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = body;
+      const expected = crypto
+        .createHmac('sha256', process.env.RAZORPAY_KEY_SECRET)
+        .update(razorpay_order_id + '|' + razorpay_payment_id)
+        .digest('hex');
+      if (expected === razorpay_signature) {
+        return json(res, 200, { verified: true, payment_id: razorpay_payment_id });
+      } else {
+        return json(res, 400, { verified: false, error: 'Signature mismatch.' });
+      }
+    } catch (err) {
+      console.error('verify-payment error:', err);
+      return json(res, 500, { error: err.message });
+    }
+  }
+
+  /* ── Static file server ──────────────────────────────────────────── */
+  let filePath = '.' + url;
   if (filePath === './') filePath = './index.html';
 
   const extname = path.extname(filePath).toLowerCase();
