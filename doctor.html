@@ -2041,6 +2041,51 @@ function saveAssignment() {
   renderAssignTab();
   alert('✅ Dr. ' + doctor.name + ' has been assigned to ' + _assignPatient.name + '!\nAmount: ₹' + amt +
     (type !== 'personal' ? '\nPlatform: ₹' + split.plat.toFixed(2) + ' · Doctor: ₹' + split.doc.toFixed(2) + ' · Admin: ₹' + split.admin.toFixed(2) : '\nAdmin takes full payment.'));
+
+  /* ── WhatsApp notification to assigned doctor ── */
+  if (doctor.phone) {
+    var docPhone = String(doctor.phone).replace(/\D/g,'');
+    if (docPhone.length === 10) docPhone = '91' + docPhone;
+    var consultLabel = type === 'personal' ? 'Personal Consultation' : (type === 'Chat' ? 'Chat Consultation' : 'Call Consultation');
+    var docMsg =
+      '🌿 *New Patient Assigned — Naturopathy & Yoga Care*\n' +
+      '━━━━━━━━━━━━━━━━━━━━━━\n' +
+      'Dear Dr. ' + doctor.name + ',\n\n' +
+      'You have been assigned a new patient.\n\n' +
+      '👤 *Patient Name:* ' + _assignPatient.name + '\n' +
+      '📞 *Patient Phone:* ' + (_assignPatient.phone || '—') + '\n' +
+      '🩺 *Condition:* ' + (_assignPatient.condition || _assignPatient.healthCondition || 'General') + '\n' +
+      '📋 *Consultation Type:* ' + consultLabel + '\n' +
+      '💰 *Amount Paid:* ₹' + amt.toFixed(2) + '\n' +
+      (type !== 'personal' ? '💵 *Your Share (60%):* ₹' + split.doc.toFixed(2) + '\n' : '') +
+      (notes ? '📝 *Admin Notes:* ' + notes + '\n' : '') +
+      '━━━━━━━━━━━━━━━━━━━━━━\n' +
+      'Please connect with the patient at your earliest convenience.\n' +
+      '— Naturopathy & Yoga Care Admin';
+    window.open('https://wa.me/' + docPhone + '?text=' + encodeURIComponent(docMsg), '_blank');
+  }
+
+  /* ── WhatsApp notification to patient ── */
+  if (_assignPatient && _assignPatient.phone) {
+    var patPhone = String(_assignPatient.phone).replace(/\D/g,'');
+    if (patPhone.length === 10) patPhone = '91' + patPhone;
+    var consultLabelP = type === 'personal' ? 'Personal Consultation' : (type === 'Chat' ? 'Chat Consultation' : 'Call Consultation');
+    var patMsg =
+      '🌿 *Doctor Assigned — Naturopathy & Yoga Care*\n' +
+      '━━━━━━━━━━━━━━━━━━━━━━\n' +
+      'Dear ' + _assignPatient.name + ',\n\n' +
+      'Your doctor has been assigned! 🎉\n\n' +
+      '👨‍⚕️ *Doctor:* Dr. ' + doctor.name + '\n' +
+      (doctor.specialty ? '🏥 *Specialty:* ' + doctor.specialty + '\n' : '') +
+      (doctor.phone ? '📞 *Doctor Contact:* ' + doctor.phone + '\n' : '') +
+      '📋 *Consultation Type:* ' + consultLabelP + '\n' +
+      '━━━━━━━━━━━━━━━━━━━━━━\n' +
+      'Your doctor will reach out to you shortly. You may also contact them directly.\n\n' +
+      'Thank you for choosing Naturopathy & Yoga Care! 🌱';
+    setTimeout(function() {
+      window.open('https://wa.me/' + patPhone + '?text=' + encodeURIComponent(patMsg), '_blank');
+    }, 800);
+  }
 }
 
 function showBookingHistory() {
