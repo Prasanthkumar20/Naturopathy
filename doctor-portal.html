@@ -276,6 +276,7 @@
     <button class="tab-btn" onclick="goTab('blog',this)">&#x270D;&#xFE0F; Write Blog</button>
     <button class="tab-btn" onclick="goTab('dietchart',this)">&#x1F957; Diet Chart</button>
     <button class="tab-btn" onclick="goTab('faqs',this)">&#x2753; FAQs</button>
+    <button class="tab-btn" id="notifTabBtn" onclick="goTab('notifications',this)" style="position:relative;">&#x1F514; Notifications<span id="notifBadge" style="display:none;position:absolute;top:4px;right:6px;background:#e63946;color:#fff;border-radius:999px;font-size:0.65rem;font-weight:800;padding:1px 6px;min-width:17px;text-align:center;line-height:16px;pointer-events:none;"></span></button>
   </div>
 
   <!-- DASHBOARD -->
@@ -540,6 +541,14 @@
     <div id="doctorFaqList"></div>
   </div>
 
+  <div id="tab-notifications" class="tab-pane">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:20px;">
+      <h2 style="font-size:1.1rem;font-weight:800;color:var(--dark);margin:0;">&#x1F514; Notifications</h2>
+      <button onclick="clearAllNotifications()" style="background:none;border:1.5px solid #cde8da;border-radius:999px;padding:6px 16px;font-size:0.8rem;color:#56766e;cursor:pointer;font-weight:700;">&#x1F5D1; Mark All Read</button>
+    </div>
+    <div id="notifList" style="max-width:760px;"></div>
+  </div>
+
 </div><!-- end mainPortal -->
 
 <script>
@@ -603,6 +612,7 @@ function verifyDocOTP() {
   document.getElementById('docTag').textContent = '\uD83D\uDC68\u200D\u2695\uFE0F Dr. ' + _doctor.name;
   goTab('dashboard', document.querySelector('.tab-btn'));
   loadMyRates();
+  startNotifPolling();
 }
 
 function backToDocPhone() {
@@ -633,6 +643,7 @@ function showErr(msg) {
       document.getElementById('docTag').textContent = '\uD83D\uDC68\u200D\u2695\uFE0F Dr. ' + _doctor.name;
       goTab('dashboard', document.querySelector('.tab-btn'));
       loadMyRates();
+      startNotifPolling();
     } else {
       localStorage.removeItem('nyc_doc_active_phone');
     }
@@ -662,10 +673,165 @@ function goTab(name, btn) {
   if (name==='blog')      renderDocBlog();
   if (name==='dietchart') dcInit();
   if (name==='faqs')      renderDoctorFAQs();
+  if (name==='notifications') { markAllNotifsRead(); renderNotifications(); }
 }
 
 /* ── Data helpers ── */
 function getMyName(){ return (_doctor.name||'').trim(); }
+
+/* ══ NOTIFICATIONS ══ */
+function _notifSeenKey()   { return 'nyc_notif_seen_'   + _docPhone; }
+function _notifChatKey(p)  { return 'nyc_notif_chat_'   + _docPhone + '_' + p; }
+
+/* Returns object: { chatItems:[], bookingItems:[], assignItems:[], total } */
+function collectNotifications() {
+  var seenTs = parseInt(localStorage.getItem(_notifSeenKey()) || '0', 10);
+  var items  = [];
+
+  /* ── 1. Unread patient chat messages ── */
+  var chatCounts = JSON.parse(localStorage.getItem('nyc_notif_chatcounts_' + _docPhone) || '{}');
+  for (var i = 0; i < localStorage.length; i++) {
+    var key = localStorage.key(i);
+    if (!key) continue;
+    var prefix = 'nyc_chat_' + _docPhone + '_';
+    if (key.indexOf(prefix) === 0) {
+      var patPhone = key.slice(prefix.length);
+      var msgs = JSON.parse(localStorage.getItem(key) || '[]');
+      var patMsgs = msgs.filter(function(m){ return m.sender === 'pat'; });
+      var knownCount = parseInt(chatCounts[patPhone] || '0', 10);
+      var newCount   = patMsgs.length - knownCount;
+      if (newCount > 0) {
+        var regs   = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
+        var patReg = regs.find(function(r){ return (r.phone||'').replace(/\D/g,'') === patPhone && r.type === 'patient'; });
+        var patName = patReg ? patReg.name : patPhone;
+        var last = patMsgs[patMsgs.length - 1];
+        items.push({ type:'chat', icon:'💬', color:'#1b4f72', bg:'#eaf4fb',
+          title: newCount + ' new message' + (newCount>1?'s':'') + ' from ' + patName,
+          sub: last ? '"' + last.text.slice(0,80) + (last.text.length>80?'…':'') + '"' : '',
+          meta: last ? (last.date || '') + (last.time ? ' · ' + last.time : '') : '',
+          action: function(pp){ return function(){ openChatWith(pp); }; }(patPhone)
+        });
+      }
+    }
+  }
+
+  /* ── 2. New bookings ── */
+  var myName = getMyName().toLowerCase();
+  var bookings = JSON.parse(localStorage.getItem('nyc_bookings') || '[]')
+    .filter(function(b){ return (b.doctor||'').toLowerCase() === myName; });
+  var seenBookings = parseInt(localStorage.getItem('nyc_notif_bcount_' + _docPhone) || '0', 10);
+  var newBookings  = bookings.length - seenBookings;
+  if (newBookings > 0) {
+    var latest = bookings.slice(-newBookings);
+    latest.forEach(function(b){
+      items.push({ type:'booking', icon:'📅', color:'#1a5c36', bg:'#eafaf1',
+        title: 'New ' + (b.sessionType || 'session') + ' booking from ' + (b.patientName || b.patient || 'a patient'),
+        sub:   'Fee: ₹' + (b.fee || b.amount || '—') + (b.date ? ' · ' + b.date : ''),
+        meta:  b.date || '',
+        action: null
+      });
+    });
+  }
+
+  /* ── 3. New admin assignments ── */
+  var assigns = JSON.parse(localStorage.getItem('nyc_assignments') || '[]')
+    .filter(function(a){ return (a.doctorName||'').toLowerCase() === myName; });
+  var seenAssigns = parseInt(localStorage.getItem('nyc_notif_acount_' + _docPhone) || '0', 10);
+  var newAssigns  = assigns.length - seenAssigns;
+  if (newAssigns > 0) {
+    var latestA = assigns.slice(-newAssigns);
+    latestA.forEach(function(a){
+      items.push({ type:'assign', icon:'🧑‍⚕️', color:'#5c1a5c', bg:'#faf0ff',
+        title: 'Admin assigned patient: ' + (a.patientName || a.patient || '—'),
+        sub:   'Type: ' + (a.type || 'Session') + (a.date ? ' · ' + a.date : ''),
+        meta:  a.date || '',
+        action: null
+      });
+    });
+  }
+
+  return { items: items, total: items.length };
+}
+
+function updateNotifBadge() {
+  if (!_docPhone) return;
+  var count = collectNotifications().total;
+  var badge = document.getElementById('notifBadge');
+  if (!badge) return;
+  if (count > 0) {
+    badge.textContent = count > 99 ? '99+' : count;
+    badge.style.display = 'inline-block';
+  } else {
+    badge.style.display = 'none';
+  }
+}
+
+function markAllNotifsRead() {
+  if (!_docPhone) return;
+  localStorage.setItem(_notifSeenKey(), Date.now().toString());
+  /* snapshot chat counts */
+  var chatCounts = {};
+  for (var i = 0; i < localStorage.length; i++) {
+    var key = localStorage.key(i);
+    if (!key) continue;
+    var prefix = 'nyc_chat_' + _docPhone + '_';
+    if (key.indexOf(prefix) === 0) {
+      var patPhone = key.slice(prefix.length);
+      var msgs = JSON.parse(localStorage.getItem(key) || '[]');
+      chatCounts[patPhone] = msgs.filter(function(m){ return m.sender === 'pat'; }).length;
+    }
+  }
+  localStorage.setItem('nyc_notif_chatcounts_' + _docPhone, JSON.stringify(chatCounts));
+  /* snapshot booking & assign counts */
+  var myName = getMyName().toLowerCase();
+  var bCount = (JSON.parse(localStorage.getItem('nyc_bookings')||'[]')).filter(function(b){ return (b.doctor||'').toLowerCase()===myName; }).length;
+  var aCount = (JSON.parse(localStorage.getItem('nyc_assignments')||'[]')).filter(function(a){ return (a.doctorName||'').toLowerCase()===myName; }).length;
+  localStorage.setItem('nyc_notif_bcount_' + _docPhone, bCount);
+  localStorage.setItem('nyc_notif_acount_' + _docPhone, aCount);
+  updateNotifBadge();
+}
+
+function clearAllNotifications() {
+  markAllNotifsRead();
+  renderNotifications();
+}
+
+function renderNotifications() {
+  var el = document.getElementById('notifList');
+  if (!el) return;
+  var data = collectNotifications();
+  if (data.items.length === 0) {
+    el.innerHTML = '<div style="text-align:center;padding:60px 20px;color:#7a9a8a;">' +
+      '<div style="font-size:3rem;margin-bottom:14px;">🔕</div>' +
+      '<div style="font-size:1rem;font-weight:700;color:#2d6a4f;">All caught up!</div>' +
+      '<div style="font-size:0.85rem;margin-top:6px;">No new notifications right now.</div>' +
+      '</div>';
+    return;
+  }
+  el.innerHTML = data.items.map(function(n){
+    return '<div style="background:' + n.bg + ';border-left:4px solid ' + n.color + ';border-radius:12px;padding:16px 18px;margin-bottom:12px;display:flex;gap:14px;align-items:flex-start;box-shadow:0 2px 8px rgba(0,0,0,0.06);">' +
+      '<span style="font-size:1.5rem;flex-shrink:0;">' + n.icon + '</span>' +
+      '<div style="flex:1;min-width:0;">' +
+        '<div style="font-weight:800;font-size:0.93rem;color:' + n.color + ';margin-bottom:4px;">' + n.title + '</div>' +
+        (n.sub  ? '<div style="font-size:0.84rem;color:#4a6658;margin-bottom:3px;word-break:break-word;">' + n.sub + '</div>' : '') +
+        (n.meta ? '<div style="font-size:0.76rem;color:#8aaa96;">' + n.meta + '</div>' : '') +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+/* open chat overlay for a patient phone — helper used in notification action */
+function openChatWith(patPhone) {
+  var regs = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
+  var pat  = regs.find(function(r){ return (r.phone||'').replace(/\D/g,'') === patPhone && r.type === 'patient'; });
+  if (pat) { goTab('dashboard', document.querySelector('.tab-btn')); openDocChat(pat); }
+}
+
+var _notifPollTimer = null;
+function startNotifPolling() {
+  updateNotifBadge();
+  _notifPollTimer = setInterval(updateNotifBadge, 60000);
+}
 
 function getMySessions() {
   var n = getMyName().toLowerCase();
