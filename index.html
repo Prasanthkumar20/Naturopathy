@@ -1414,6 +1414,15 @@
         </select>
       </div>
       <div class="reg-field"><label>Age</label><input type="number" id="rp-age" placeholder="Your age" /></div>
+      <div class="reg-field"><label>Gender *</label>
+        <select id="rp-gender">
+          <option value="">— Select Gender —</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+          <option value="Prefer not to say">Prefer not to say</option>
+        </select>
+      </div>
       <button class="reg-submit-btn" onclick="registerPatient()">✅ Register as Patient</button>
       <div class="reg-success" id="rp-success">🎉 Registered successfully! A doctor will reach out to you via WhatsApp.</div>
     </div>
@@ -1423,6 +1432,15 @@
       <div class="reg-field"><label>Full Name *</label><input type="text" id="rd-name" placeholder="Dr. Full Name" /></div>
       <div class="reg-field"><label>Phone (WhatsApp) *</label><input type="tel" id="rd-phone" placeholder="+91 9999999999" /></div>
       <div class="reg-field"><label>Email *</label><input type="email" id="rd-email" placeholder="doctor@email.com" /></div>
+      <div class="reg-field"><label>Gender *</label>
+        <select id="rd-gender">
+          <option value="">— Select Gender —</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+          <option value="Prefer not to say">Prefer not to say</option>
+        </select>
+      </div>
       <div class="reg-field"><label>Specialization *</label>
         <select id="rd-spec">
           <option>Naturopathy</option>
@@ -1667,6 +1685,7 @@ function registerPatient() {
   users.push({
     id: Date.now(), type: 'patient', name: name, phone: phone,
     email: document.getElementById('rp-email').value.trim(),
+    gender: document.getElementById('rp-gender').value,
     condition: document.getElementById('rp-condition').value,
     age: document.getElementById('rp-age').value,
     date: new Date().toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' })
@@ -1676,6 +1695,7 @@ function registerPatient() {
   document.getElementById('rp-phone').value = '';
   document.getElementById('rp-email').value = '';
   document.getElementById('rp-age').value = '';
+  document.getElementById('rp-gender').value = '';
   var suc = document.getElementById('rp-success');
   if (suc) { suc.style.display = 'block'; setTimeout(function() { suc.style.display = 'none'; }, 5000); }
 }
@@ -1689,6 +1709,7 @@ function registerDoctor() {
   users.push({
     id: Date.now(), type: 'doctor', name: name, phone: phone,
     email: document.getElementById('rd-email').value.trim(),
+    gender: document.getElementById('rd-gender').value,
     specialty: document.getElementById('rd-spec').value,
     qualifications: document.getElementById('rd-qual').value.trim(),
     timing: document.getElementById('rd-timing').value.trim(),
@@ -1698,7 +1719,7 @@ function registerDoctor() {
     date: new Date().toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' })
   });
   localStorage.setItem('nyc_registrations', JSON.stringify(users));
-  ['rd-name','rd-phone','rd-email','rd-qual','rd-timing','rd-bio','rd-chat-rate','rd-call-rate'].forEach(function(id) {
+  ['rd-name','rd-phone','rd-email','rd-qual','rd-timing','rd-bio','rd-chat-rate','rd-call-rate','rd-gender'].forEach(function(id) {
     var el = document.getElementById(id); if (el) el.value = '';
   });
   var suc = document.getElementById('rd-success');

@@ -1474,9 +1474,10 @@ function renderProfile() {
     ['Full Name',     _doctor.name],
     ['Phone',         _doctor.phone],
     ['Email',         _doctor.email || '—'],
+    ['Gender',        _doctor.gender || '—'],
     ['Specialization',_doctor.specialty || _doctor.specialization || '—'],
     ['Timing / Hours',_doctor.timing || _doctor.hours || '—'],
-    ['Qualification', _doctor.qualification || _doctor.degree || '—'],
+    ['Qualification', _doctor.qualifications || _doctor.qualification || _doctor.degree || '—'],
     ['Registered On', _doctor.date || '—'],
   ];
   document.getElementById('profileFields').innerHTML =

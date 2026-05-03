@@ -1019,6 +1019,8 @@ function renderPatientsList() {
       '</div>' +
       '<div style="font-size:0.85rem;color:#444;display:grid;gap:6px;">' +
         '<div>📞 <b>' + (p.phone||'—') + '</b></div>' +
+        (p.gender ? '<div>👤 Gender: <b>' + p.gender + '</b></div>' : '') +
+        (p.age ? '<div>🎂 Age: <b>' + p.age + '</b></div>' : '') +
         '<div>💰 Wallet: <b>₹' + walBal.toFixed(2) + '</b></div>' +
         (assigned ? '<div>👨‍⚕️ Doctor: <b>' + (assigned.doctor||'—') + '</b></div>' : '<div style="color:#c77b00;">⚠️ No doctor assigned yet</div>') +
         (p.date ? '<div>📅 Registered: ' + p.date + '</div>' : '') +
@@ -1057,7 +1059,8 @@ function renderDoctorsList() {
       '</div>' +
       '<div style="font-size:0.85rem;color:#444;display:grid;gap:6px;">' +
         '<div>📞 <b>' + (d.phone||'—') + '</b></div>' +
-        (d.qual ? '<div>🎓 ' + d.qual + '</div>' : '') +
+        (d.gender ? '<div>👤 Gender: <b>' + d.gender + '</b></div>' : '') +
+        (d.qualifications ? '<div>🎓 ' + d.qualifications + '</div>' : (d.qual ? '<div>🎓 ' + d.qual + '</div>' : '')) +
         (d.timing ? '<div>⏰ ' + d.timing + '</div>' : '') +
         (d.city ? '<div>📍 ' + d.city + '</div>' : '') +
         '<div style="margin-top:8px;">' +
@@ -1318,7 +1321,7 @@ function renderAssignTab() {
       div.className = 'assign-patient-card';
       div.innerHTML =
         '<div class="apc-name">👤 ' + p.name + '</div>' +
-        '<div class="apc-meta">📞 ' + p.phone + (p.email ? ' · ' + p.email : '') + (p.date ? ' · Registered: ' + p.date : '') + '</div>' +
+        '<div class="apc-meta">📞 ' + p.phone + (p.email ? ' · ' + p.email : '') + (p.gender ? ' · ' + p.gender : '') + (p.age ? ' · Age: ' + p.age : '') + (p.date ? ' · Registered: ' + p.date : '') + '</div>' +
         '<span class="apc-condition">' + (p.condition || p.healthCondition || 'General') + '</span><br>' +
         statusBadge +
         '<br><br>' +
