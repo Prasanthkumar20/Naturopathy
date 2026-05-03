@@ -1459,7 +1459,7 @@
         <div class="reg-field" style="flex:1;"><label>💬 Chat Rate (₹ / min)</label><input type="number" id="rd-chat-rate" placeholder="e.g. 20" min="1" /></div>
         <div class="reg-field" style="flex:1;"><label>📞 Call Rate (₹ / min)</label><input type="number" id="rd-call-rate" placeholder="e.g. 30" min="1" /></div>
       </div>
-      <div style="background:#fff8e6;border:1px dashed #d4a000;border-radius:10px;padding:10px 14px;font-size:0.8rem;color:#7a5800;margin-bottom:14px;">💡 <strong>Platform Commission:</strong> 20% of each session goes to the platform. You keep 80%. Example: if your rate is ₹20/min and session is 10 min → total ₹200, you earn ₹160, platform gets ₹40.</div>
+      <div style="background:#fff8e6;border:1px dashed #d4a000;border-radius:10px;padding:10px 14px;font-size:0.8rem;color:#7a5800;margin-bottom:14px;">💡 <strong>Session Split (Chat/Call):</strong> Doctor <strong>60%</strong> · Admin <strong>20%</strong> · Platform <strong>20%</strong>. Example: ₹20/min × 10 min = ₹200 → Doctor ₹120, Admin ₹40, Platform ₹40.</div>
       <button class="reg-submit-btn" onclick="registerDoctor()">✅ Register as Doctor</button>
       <div class="reg-success" id="rd-success">🎉 Registered! You will now appear in the Available Doctors section.</div>
     </div>
@@ -1757,7 +1757,7 @@ function loadAvailableDoctors() {
         '<button class="doc-session-btn chat" onclick="openBookModal(' + JSON.stringify(d) + ',\'chat\')">' + chatLabel + '</button>' +
         '<button class="doc-session-btn call" onclick="openBookModal(' + JSON.stringify(d) + ',\'call\')">' + callLabel + '</button>' +
       '</div>' +
-      (d.chatRate || d.callRate ? '<div class="commission-info">💳 Pay per minute · Platform 20% · Doctor 20%</div>' : '');
+      (d.chatRate || d.callRate ? '<div class="commission-info">💳 Pay per minute · Doctor 60% · Admin 20% · Platform 20%</div>' : '');
     grid.appendChild(card);
   });
 }
@@ -1952,10 +1952,10 @@ function confirmBooking(){
   if(w.balance<total){alert('Insufficient wallet balance. Please recharge your wallet.');return;}
   w.balance-=total;
   var typeStr=_bookType==='chat'?'Chat':'Call';
-  /* Platform 20%, Doctor 20%, Admin 60% */
+  /* Platform 20%, Doctor 60%, Admin 20% */
   var platShare=(total*0.20).toFixed(2);
-  var docShare=(total*0.20).toFixed(2);
-  var adminShare=(total*0.60).toFixed(2);
+  var docShare=(total*0.60).toFixed(2);
+  var adminShare=(total*0.20).toFixed(2);
   w.history.push({type:'debit',desc:(typeStr==='Chat'?'\ud83d\udcac':'\ud83d\udcde')+' '+typeStr+' with Dr.'+_bookDoctor.name+' ('+mins+' min)',amount:total,date:new Date().toLocaleString('en-IN')});
   saveWallet(p,w);
   /* Save booking record for admin */
@@ -1983,8 +1983,8 @@ function showBookingConfirm(pname,dname,type,mins,total,plat,doc,admin,newBal){
   document.getElementById('bc-mins').textContent=mins+' minutes';
   document.getElementById('bc-total').textContent='\u20b9'+parseFloat(total).toFixed(2);
   document.getElementById('bc-plat').textContent='\u20b9'+plat+' (20%)';
-  document.getElementById('bc-doc').textContent='\u20b9'+doc+' (20%)';
-  document.getElementById('bc-admin').textContent='\u20b9'+admin+' (60%)';
+  document.getElementById('bc-doc').textContent='\u20b9'+doc+' (60%)';
+  document.getElementById('bc-admin').textContent='\u20b9'+admin+' (20%)';
   document.getElementById('bc-bal').textContent='\u20b9'+parseFloat(newBal).toFixed(2);
   modal.classList.add('open');
 }

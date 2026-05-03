@@ -537,9 +537,9 @@ function bookingCardHTML(b) {
     '<div class="bc-meta">\u23F1 '+b.mins+' min &nbsp;|&nbsp; \uD83D\uDCC5 '+b.date+'</div>' +
     '<div class="bc-split">' +
       '<span class="bc-split-pill">Total: \u20B9'+parseFloat(b.amount).toFixed(2)+'</span>' +
-      '<span class="bc-split-pill">\uD83D\uDCBB Platform: \u20B9'+parseFloat(b.platShare||0).toFixed(2)+'</span>' +
-      '<span class="bc-split-pill">\uD83E\uDDB9 Doctor: \u20B9'+parseFloat(b.docShare||0).toFixed(2)+'</span>' +
-      '<span class="bc-split-pill">\uD83C\uDFE5 Admin: \u20B9'+parseFloat(b.adminShare||0).toFixed(2)+'</span>' +
+      '<span class="bc-split-pill">\uD83E\uDDB9 Doctor (60%): \u20B9'+parseFloat(b.docShare||0).toFixed(2)+'</span>' +
+      '<span class="bc-split-pill">\uD83C\uDFE5 Admin (20%): \u20B9'+parseFloat(b.adminShare||0).toFixed(2)+'</span>' +
+      '<span class="bc-split-pill">\uD83D\uDCBB Platform (20%): \u20B9'+parseFloat(b.platShare||0).toFixed(2)+'</span>' +
     '</div>' +
   '</div>';
 }
@@ -575,7 +575,7 @@ function renderMyDoctor() {
       '<div class="da-row"><span class="da-label">Consultation Type</span><span class="da-val">'+a.type+'</span></div>' +
       '<div class="da-row"><span class="da-label">Amount Paid</span><span class="da-val">\u20B9'+parseFloat(a.amount).toFixed(2)+'</span></div>' +
       (a.type!=='personal'?
-        '<div class="da-row"><span class="da-label">Doctor Share</span><span class="da-val" style="color:var(--primary);font-weight:700;">\u20B9'+parseFloat(a.docShare||0).toFixed(2)+' (20%)</span></div>' : '') +
+        '<div class="da-row"><span class="da-label">Doctor Share</span><span class="da-val" style="color:var(--primary);font-weight:700;">\u20B9'+parseFloat(a.docShare||0).toFixed(2)+' (60%)</span></div>' : '') +
       (a.notes?'<div class="da-row"><span class="da-label">Notes</span><span class="da-val">'+a.notes+'</span></div>':'') +
       '<div class="da-row"><span class="da-label">Assigned On</span><span class="da-val">'+a.date+'</span></div>' +
     '</div>';
