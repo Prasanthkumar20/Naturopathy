@@ -739,49 +739,83 @@ function startRecharge() {
   var custom = parseFloat(document.getElementById('customAmt').value)||0;
   var amt = custom>0 ? custom : _rechargeAmt;
   if (!amt||amt<10) { alert('Please select or enter a recharge amount (minimum \u20B910).'); return; }
+  if (!window.Razorpay) { alert('Payment system not loaded. Please refresh the page and try again.'); return; }
   var btn = document.getElementById('rechargeBtn');
   if (btn) { btn.disabled=true; btn.textContent='\u23F3 Opening payment...'; }
+
   fetch('/api/create-order',{
     method:'POST', headers:{'Content-Type':'application/json'},
     body:JSON.stringify({amount_paise:Math.round(amt*100),doctor_name:'Wallet Recharge',session_type:'recharge',patient_name:_patient.name})
   })
-  .then(function(r){ return r.json(); })
+  .then(function(r){
+    if (!r.ok) { return r.text().then(function(t){ throw new Error('Server error ('+r.status+'): '+t.substring(0,120)); }); }
+    return r.json();
+  })
   .then(function(data){
-    if (data.error) { alert('Error: '+data.error); resetBtn(); return; }
+    if (!data || data.error) { alert('\u274C ' + (data && data.error ? data.error : 'Order creation failed. Please try again.')); resetBtn(); return; }
+
     var opts = {
-      key:data.key_id, amount:data.amount, currency:data.currency,
-      name:'Naturopathy & Yoga Care', description:'Wallet Recharge', order_id:data.order_id,
-      theme:{color:'#0a5c4d'},
-      prefill:{name:_patient.name, contact:'+91'+_phone},
-      retry:{enabled:true,max_count:3},
-      handler:function(resp){
-        fetch('/api/verify-payment',{
-          method:'POST', headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({razorpay_order_id:resp.razorpay_order_id||data.order_id,razorpay_payment_id:resp.razorpay_payment_id,razorpay_signature:resp.razorpay_signature})
+      key: data.key_id,
+      amount: data.amount,
+      currency: data.currency,
+      name: 'Prahari NatureCure',
+      description: 'Wallet Recharge',
+      order_id: data.order_id,
+      theme: { color: '#0a5c4d' },
+      prefill: { name: _patient.name, contact: '+91' + _phone },
+      retry: { enabled: true, max_count: 3 },
+      handler: function(resp) {
+        btn.textContent = '\u23F3 Verifying payment...';
+        fetch('/api/verify-payment', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            razorpay_order_id: resp.razorpay_order_id || data.order_id,
+            razorpay_payment_id: resp.razorpay_payment_id,
+            razorpay_signature: resp.razorpay_signature
+          })
         })
-        .then(function(r){ return r.json(); })
-        .then(function(vd){
+        .then(function(r){
+          if (!r.ok) { return r.text().then(function(t){ throw new Error('Verify error ('+r.status+'): '+t.substring(0,120)); }); }
+          return r.json();
+        })
+        .then(function(vd) {
           if (vd.verified) {
             var w = getWallet(_phone);
             w.balance = (w.balance||0) + amt;
-            w.history.push({type:'credit',desc:'\uD83D\uDCB0 Wallet Recharge',amount:amt,date:new Date().toLocaleString('en-IN'),payId:resp.razorpay_payment_id});
-            saveWallet(_phone,w);
+            w.history.push({ type:'credit', desc:'\uD83D\uDCB0 Wallet Recharge', amount:amt, date:new Date().toLocaleString('en-IN'), payId:resp.razorpay_payment_id });
+            saveWallet(_phone, w);
             renderWallet();
             document.getElementById('ds-wallet').textContent = '\u20B9' + w.balance.toFixed(0);
-            var s=document.getElementById('rechargeSuccess');
-            s.style.display='block'; s.textContent='\u2705 \u20B9'+amt+' added to your wallet!';
-            setTimeout(function(){ s.style.display='none'; },4000);
+            var s = document.getElementById('rechargeSuccess');
+            s.style.display = 'block';
+            s.textContent = '\u2705 \u20B9' + amt + ' added to your wallet! Payment ID: ' + resp.razorpay_payment_id;
+            setTimeout(function(){ s.style.display='none'; }, 6000);
             document.querySelectorAll('.recharge-btn').forEach(function(b){ b.classList.remove('selected'); });
-            document.getElementById('customAmt').value=''; _rechargeAmt=0;
-          } else { alert('Payment verification failed. Contact support.'); }
+            document.getElementById('customAmt').value = '';
+            _rechargeAmt = 0;
+          } else {
+            alert('\u274C Payment verification failed.\nPayment ID: ' + resp.razorpay_payment_id + '\nPlease contact support with this ID if money was deducted.');
+          }
+          resetBtn();
+        })
+        .catch(function(err) {
+          alert('\u26A0\uFE0F Verification could not be confirmed.\nPayment ID: ' + (resp.razorpay_payment_id||'unknown') + '\nError: ' + err.message + '\n\nIf money was deducted, please contact support with this Payment ID.');
           resetBtn();
         });
       },
-      modal:{ondismiss:function(){ resetBtn(); }}
+      modal: { ondismiss: function(){ resetBtn(); } }
     };
     new window.Razorpay(opts).open();
   })
-  .catch(function(){ alert('Network error. Try again.'); resetBtn(); });
+  .catch(function(err) {
+    var msg = err && err.message ? err.message : 'Unknown error';
+    if (msg.indexOf('Failed to fetch') !== -1 || msg.indexOf('NetworkError') !== -1 || msg.indexOf('Load failed') !== -1) {
+      alert('\uD83D\uDEAB Cannot reach payment server.\nPlease check your internet connection and try again.\n\nIf this keeps happening, please refresh the page.');
+    } else {
+      alert('\u274C Payment error: ' + msg + '\n\nPlease try again or contact support.');
+    }
+    resetBtn();
+  });
 }
 
 function resetBtn() {
