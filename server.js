@@ -1,8 +1,43 @@
 const http = require('http');
+const https = require('https');
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const Razorpay = require('razorpay');
+
+/* ── Fast2SMS helper ──────────────────────────────────────────────────────── */
+function sendFast2SMS(phone, otp) {
+  return new Promise((resolve) => {
+    const apiKey = process.env.FAST2SMS_API_KEY;
+    if (!apiKey) { resolve({ success: false, reason: 'no_key' }); return; }
+    const digits = phone.replace(/\D/g, '').slice(-10);
+    const qs = new URLSearchParams({
+      authorization: apiKey,
+      variables_values: otp,
+      route: 'otp',
+      numbers: digits,
+    }).toString();
+    const options = {
+      hostname: 'www.fast2sms.com',
+      path: '/dev/bulkV2?' + qs,
+      method: 'GET',
+      headers: { 'cache-control': 'no-cache' },
+    };
+    const req = https.request(options, (res) => {
+      let data = '';
+      res.on('data', chunk => { data += chunk; });
+      res.on('end', () => {
+        try {
+          const parsed = JSON.parse(data);
+          console.log('Fast2SMS response:', JSON.stringify(parsed));
+          resolve({ success: parsed.return === true, raw: parsed });
+        } catch(e) { resolve({ success: false, raw: data }); }
+      });
+    });
+    req.on('error', (err) => { console.error('Fast2SMS error:', err.message); resolve({ success: false, reason: err.message }); });
+    req.end();
+  });
+}
 
 const PORT = 5000;
 const HOST = '0.0.0.0';
@@ -58,6 +93,24 @@ const server = http.createServer(async (req, res) => {
       'Access-Control-Allow-Methods': 'POST, GET, OPTIONS'
     });
     return res.end();
+  }
+
+  /* ── POST /api/send-otp ─────────────────────────────────────────────
+     Sends OTP via Fast2SMS. Silently succeeds even if SMS fails
+     (OTP is always shown on screen as primary delivery).
+     Body: { phone, otp, name }
+  ─────────────────────────────────────────────────────────────────── */
+  if (req.method === 'POST' && url === '/api/send-otp') {
+    try {
+      const body = await readBody(req);
+      const { phone, otp } = body;
+      if (!phone || !otp) return json(res, 400, { sent: false, error: 'phone and otp required' });
+      const result = await sendFast2SMS(phone, otp);
+      return json(res, 200, { sent: result.success, reason: result.reason || null });
+    } catch (err) {
+      console.error('send-otp error:', err);
+      return json(res, 200, { sent: false, error: err.message });
+    }
   }
 
   /* ── POST /api/create-order ─────────────────────────────────────────

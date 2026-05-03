@@ -236,6 +236,7 @@
         <div style="font-size:0.8rem;color:rgba(255,255,255,0.8);margin-bottom:6px;font-weight:600;">&#x1F511; Your One-Time Password</div>
         <div id="docOtpDisplayCode" style="font-size:2.4rem;font-weight:900;color:#fff;letter-spacing:10px;font-family:monospace;margin-bottom:10px;">------</div>
         <button onclick="docCopyOtp()" style="background:rgba(255,255,255,0.2);border:1.5px solid rgba(255,255,255,0.5);color:#fff;border-radius:999px;padding:6px 18px;font-size:0.82rem;font-weight:700;cursor:pointer;">&#x1F4CB; Copy &amp; Fill OTP</button>
+        <div id="docSmsStatus" style="font-size:0.78rem;color:rgba(255,255,255,0.75);margin-top:10px;">&#x1F4E8; Sending SMS to your phone&hellip;</div>
       </div>
       <!-- WhatsApp backup link -->
       <div id="docWaOtpRow" style="text-align:center;margin-bottom:12px;">
@@ -589,6 +590,9 @@ function sendDocOTP() {
   /* Show OTP on screen */
   var dispEl = document.getElementById('docOtpDisplayCode');
   if (dispEl) dispEl.textContent = _docOtpCode;
+  /* Reset SMS status to "sending..." */
+  var smsStatusEl = document.getElementById('docSmsStatus');
+  if (smsStatusEl) { smsStatusEl.textContent = '\uD83D\uDCE8 Sending SMS to your phone\u2026'; smsStatusEl.style.color = 'rgba(255,255,255,0.75)'; }
   /* Set WhatsApp & SMS backup links */
   var waLink = document.getElementById('docWaOtpLink');
   if (waLink) waLink.href = 'https://wa.me/' + waPhone + '?text=' + encodeURIComponent(waMsg);
@@ -596,6 +600,25 @@ function sendDocOTP() {
   if (smsLink) smsLink.href = 'sms:+' + waPhone + '?&body=' + encodeURIComponent(smsMsg);
   document.getElementById('docOtpStep1').style.display  = 'none';
   document.getElementById('docOtpStep2').style.display  = 'block';
+  /* Send SMS via server (Fire-and-forget; OTP shown on screen is always primary) */
+  fetch('/api/send-otp', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ phone: raw, otp: _docOtpCode })
+  }).then(function(r){ return r.json(); }).then(function(data){
+    var el = document.getElementById('docSmsStatus');
+    if (!el) return;
+    if (data.sent) {
+      el.textContent = '\u2705 OTP also sent to your phone via SMS';
+      el.style.color = 'rgba(200,255,200,0.95)';
+    } else {
+      el.textContent = '\uD83D\uDCF1 Use the code shown above to login';
+      el.style.color = 'rgba(255,255,255,0.6)';
+    }
+  }).catch(function(){
+    var el = document.getElementById('docSmsStatus');
+    if (el) { el.textContent = '\uD83D\uDCF1 Use the code shown above to login'; el.style.color = 'rgba(255,255,255,0.6)'; }
+  });
   document.getElementById('loginErr').style.display     = 'none';
   document.getElementById('docOtpInput').value          = '';
   document.getElementById('docOtpResendRow').style.display = 'none';
