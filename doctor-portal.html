@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+  <title>Doctor Portal — Naturopathy & Yoga Care</title>
+  <style>
+    :root{--primary:#0a5c4d;--accent:#3aafa9;--dark:#163832;--gold:#d9b66f;--text:#35524a;--shadow:0 8px 28px rgba(10,92,77,0.10);}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:Arial,sans-serif;background:#f4fbf8;color:var(--text);}
+
+    /* LOGIN */
+    .login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,#f0f9ff,#e8f8f5);}
+    .login-box{background:#fff;border-radius:24px;padding:44px 38px;width:min(420px,94%);
+      box-shadow:0 16px 48px rgba(10,92,77,0.13);text-align:center;}
+    .login-logo{font-size:3rem;margin-bottom:10px;}
+    .login-box h2{color:var(--dark);font-size:1.35rem;font-weight:800;margin-bottom:4px;}
+    .login-box p{color:#8a9e98;font-size:0.88rem;margin-bottom:28px;}
+    .l-input{width:100%;padding:13px 16px;border:2px solid #cde8da;border-radius:12px;
+      font-size:0.97rem;margin-bottom:14px;outline:none;}
+    .l-input:focus{border-color:var(--accent);}
+    .login-btn{width:100%;padding:14px;background:linear-gradient(135deg,#1565c0,#1976d2);
+      color:#fff;border:none;border-radius:999px;font-weight:800;font-size:1rem;cursor:pointer;}
+    .login-err{color:#c0392b;font-size:0.85rem;margin-top:10px;display:none;
+      background:#fff0f0;padding:8px 12px;border-radius:8px;}
+    .login-hint{font-size:0.8rem;color:#8a9e98;margin-top:14px;}
+    .login-hint a{color:var(--primary);font-weight:700;}
+
+    /* TOPBAR */
+    .topbar{background:linear-gradient(135deg,#1565c0,#1976d2);color:#fff;
+      padding:11px 20px;display:flex;justify-content:space-between;align-items:center;
+      flex-wrap:wrap;gap:8px;position:sticky;top:0;z-index:100;
+      box-shadow:0 4px 16px rgba(21,101,192,0.25);}
+    .topbar h1{font-size:1rem;font-weight:700;}
+    .topbar-right{display:flex;gap:8px;align-items:center;}
+    .t-btn{background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.35);
+      color:#fff;padding:6px 13px;border-radius:999px;cursor:pointer;font-weight:700;font-size:0.8rem;}
+    .doc-tag{background:rgba(255,255,255,0.15);padding:5px 14px;border-radius:999px;font-size:0.82rem;font-weight:700;}
+
+    /* TABS */
+    .tab-nav{background:#fff;border-bottom:2px solid #e8f0fe;display:flex;padding:0 20px;overflow-x:auto;}
+    .tab-btn{padding:13px 18px;border:none;background:none;color:#888;font-weight:700;
+      font-size:0.88rem;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:0.2s;}
+    .tab-btn.active{color:#1565c0;border-bottom-color:#1565c0;}
+    .tab-pane{display:none;padding:20px;max-width:1100px;margin:auto;}
+    .tab-pane.active{display:block;}
+
+    /* CARDS */
+    .card{background:#fff;border-radius:16px;padding:22px;box-shadow:var(--shadow);margin-bottom:16px;}
+    .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:14px;margin-bottom:22px;}
+    .stat-card{background:#fff;border-radius:14px;padding:18px;box-shadow:var(--shadow);text-align:center;}
+    .stat-icon{font-size:1.7rem;margin-bottom:6px;}
+    .stat-num{font-size:1.8rem;font-weight:900;color:#1565c0;}
+    .stat-lbl{font-size:0.78rem;color:#888;margin-top:3px;}
+
+    /* EARNINGS SUMMARY */
+    .earn-box{background:linear-gradient(135deg,#e8f4fd,#d1e9ff);border-radius:16px;
+      padding:24px;text-align:center;border:2px solid #90caf9;margin-bottom:18px;}
+    .earn-label{font-size:0.82rem;color:#1565c0;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;}
+    .earn-amt{font-size:2.6rem;font-weight:900;color:#1565c0;margin:8px 0 4px;}
+    .earn-sub{font-size:0.82rem;color:#5a7090;}
+    .earn-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:18px;}
+    .earn-mini{background:#fff;border-radius:12px;padding:16px;box-shadow:var(--shadow);text-align:center;}
+    .earn-mini-val{font-size:1.4rem;font-weight:900;color:#1565c0;margin-bottom:4px;}
+    .earn-mini-lbl{font-size:0.78rem;color:#888;}
+
+    /* SESSION CARDS */
+    .session-card{background:#fff;border-radius:14px;padding:16px;box-shadow:var(--shadow);
+      margin-bottom:10px;border-left:4px solid #1976d2;}
+    .sc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;}
+    .sc-patient{font-size:0.97rem;font-weight:800;color:var(--dark);}
+    .sc-badge{display:inline-block;padding:3px 10px;border-radius:999px;font-size:0.75rem;font-weight:700;}
+    .sc-chat{background:#e8fdf5;color:var(--primary);}
+    .sc-call{background:#e8f4fd;color:#1565c0;}
+    .sc-personal{background:#fff8e1;color:#7a5500;}
+    .sc-meta{font-size:0.8rem;color:#8a9e98;margin-bottom:6px;}
+    .sc-earn{font-size:0.88rem;font-weight:700;color:#1565c0;}
+
+    /* PATIENT CARDS */
+    .patient-card{background:#fff;border-radius:14px;padding:16px;box-shadow:var(--shadow);margin-bottom:10px;border-left:4px solid var(--accent);}
+    .pc-name{font-size:0.97rem;font-weight:800;color:var(--dark);margin-bottom:4px;}
+    .pc-meta{font-size:0.8rem;color:#8a9e98;margin-bottom:6px;}
+    .pc-condition{display:inline-block;background:#e8fdf5;color:var(--primary);border-radius:999px;padding:3px 10px;font-size:0.75rem;font-weight:700;}
+
+    /* PAYOUT CARDS */
+    .payout-row{display:flex;justify-content:space-between;align-items:center;
+      padding:12px 14px;background:#f4fbf8;border-radius:10px;margin-bottom:8px;font-size:0.83rem;}
+    .pr-paid{background:#dcfce7;color:#166534;border-radius:999px;padding:3px 10px;font-size:0.75rem;font-weight:700;}
+    .pr-pending{background:#fff8e1;color:#7a5500;border-radius:999px;padding:3px 10px;font-size:0.75rem;font-weight:700;}
+
+    /* PROFILE */
+    .profile-field{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #f0f6f3;font-size:0.88rem;}
+    .profile-field:last-child{border-bottom:none;}
+    .pf-label{font-weight:700;color:#1565c0;min-width:150px;}
+    .pf-val{color:var(--dark);}
+
+    /* RATES */
+    .rate-box{background:#e8f4fd;border:2px solid #90caf9;border-radius:14px;padding:18px;margin-bottom:16px;}
+    .rate-box h3{color:#1565c0;font-size:0.9rem;font-weight:800;margin-bottom:12px;}
+    .rate-field{display:flex;flex-direction:column;gap:4px;margin-bottom:12px;}
+    .rate-field label{font-size:0.8rem;font-weight:700;color:#1565c0;}
+    .rate-field input{padding:10px 12px;border:2px solid #90caf9;border-radius:10px;font-size:0.95rem;outline:none;}
+    .rate-save-btn{padding:11px 28px;background:linear-gradient(135deg,#1565c0,#1976d2);color:#fff;
+      border:none;border-radius:999px;font-weight:800;cursor:pointer;font-size:0.9rem;}
+    .rate-saved{color:var(--primary);font-weight:700;font-size:0.85rem;margin-left:10px;display:none;}
+
+    .no-data{text-align:center;color:#8a9e98;padding:40px;font-size:0.88rem;}
+    .section-title{font-size:0.88rem;font-weight:700;color:#1565c0;text-transform:uppercase;letter-spacing:0.05em;margin:18px 0 10px;}
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">&#x1F468;&#x200D;&#x2695;&#xFE0F;</div>
+    <h2>Doctor Portal</h2>
+    <p>Naturopathy &amp; Yoga Care — Login with your registered phone number</p>
+    <input class="l-input" type="tel" id="loginPhone" placeholder="Registered phone number"
+      onkeydown="if(event.key==='Enter')doDocLogin()" />
+    <button class="login-btn" onclick="doDocLogin()">&#x1F513; Login to My Portal</button>
+    <div class="login-err" id="loginErr"></div>
+    <div class="login-hint">Not registered? <a href="index.html#register">Register as Doctor</a> &nbsp;|&nbsp; <a href="index.html">Main Website</a></div>
+  </div>
+</div>
+
+<!-- MAIN PORTAL -->
+<div id="mainPortal" style="display:none;">
+
+  <div class="topbar">
+    <h1>&#x1F468;&#x200D;&#x2695;&#xFE0F; Doctor Portal — Naturopathy &amp; Yoga Care</h1>
+    <div class="topbar-right">
+      <span class="doc-tag" id="docTag">&#x1F9D1;&#x200D;&#x2695;&#xFE0F; Doctor</span>
+      <button class="t-btn" onclick="window.open('index.html','_blank')">&#x1F310; Website</button>
+      <button class="t-btn" onclick="doLogout()">&#x1F6AA; Logout</button>
+    </div>
+  </div>
+
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="goTab('dashboard',this)">&#x1F4CA; Dashboard</button>
+    <button class="tab-btn" onclick="goTab('sessions',this)">&#x1F4C5; My Sessions</button>
+    <button class="tab-btn" onclick="goTab('earnings',this)">&#x1F4B0; My Earnings</button>
+    <button class="tab-btn" onclick="goTab('patients',this)">&#x1F9D1; My Patients</button>
+    <button class="tab-btn" onclick="goTab('rates',this)">&#x2699;&#xFE0F; My Rates</button>
+    <button class="tab-btn" onclick="goTab('profile',this)">&#x1F464; My Profile</button>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="tab-dashboard" class="tab-pane active">
+    <h2 id="dashGreeting" style="font-size:1.15rem;font-weight:800;color:var(--dark);margin-bottom:18px;"></h2>
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-icon">&#x1F4C5;</div><div class="stat-num" id="ds-sessions">0</div><div class="stat-lbl">Total Sessions</div></div>
+      <div class="stat-card"><div class="stat-icon">&#x1F9D1;</div><div class="stat-num" id="ds-patients">0</div><div class="stat-lbl">Assigned Patients</div></div>
+      <div class="stat-card"><div class="stat-icon">&#x1F4B0;</div><div class="stat-num" id="ds-earned">&#8377;0</div><div class="stat-lbl">Total Earned (60%)</div></div>
+      <div class="stat-card"><div class="stat-icon">&#x2705;</div><div class="stat-num" id="ds-paid">&#8377;0</div><div class="stat-lbl">Received (Paid Out)</div></div>
+      <div class="stat-card"><div class="stat-icon">&#x1F534;</div><div class="stat-num" id="ds-pending">&#8377;0</div><div class="stat-lbl">Pending Payout</div></div>
+    </div>
+
+    <!-- Recent sessions -->
+    <h3 class="section-title">&#x1F4CB; Recent Sessions</h3>
+    <div id="dashSessions"></div>
+
+    <!-- Payout status -->
+    <h3 class="section-title">&#x1F4B3; Recent Payouts Received</h3>
+    <div id="dashPayouts"></div>
+  </div>
+
+  <!-- SESSIONS -->
+  <div id="tab-sessions" class="tab-pane">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
+      <h2 style="font-size:1.05rem;font-weight:800;color:var(--dark);">&#x1F4C5; My Sessions</h2>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;" id="sessionFilters">
+        <button class="tab-btn active" style="padding:6px 14px;border:2px solid #90caf9;border-radius:999px;font-size:0.82rem;" onclick="filterSessions('all',this)">All</button>
+        <button class="tab-btn" style="padding:6px 14px;border:2px solid #90caf9;border-radius:999px;font-size:0.82rem;" onclick="filterSessions('Chat',this)">&#x1F4AC; Chat</button>
+        <button class="tab-btn" style="padding:6px 14px;border:2px solid #90caf9;border-radius:999px;font-size:0.82rem;" onclick="filterSessions('Call',this)">&#x1F4DE; Call</button>
+        <button class="tab-btn" style="padding:6px 14px;border:2px solid #90caf9;border-radius:999px;font-size:0.82rem;" onclick="filterSessions('personal',this)">&#x1F3E5; Personal</button>
+      </div>
+    </div>
+    <div id="sessionsList"></div>
+  </div>
+
+  <!-- EARNINGS -->
+  <div id="tab-earnings" class="tab-pane">
+    <div class="earn-box">
+      <div class="earn-label">Total Earnings (60% of all sessions)</div>
+      <div class="earn-amt" id="earn-total">&#8377;0.00</div>
+      <div class="earn-sub">Your share from all Chat &amp; Call sessions</div>
+    </div>
+    <div class="earn-grid">
+      <div class="earn-mini"><div class="earn-mini-val" id="earn-paid">&#8377;0</div><div class="earn-mini-lbl">&#x2705; Received (Paid Out)</div></div>
+      <div class="earn-mini"><div class="earn-mini-val" style="color:#c0392b;" id="earn-pending">&#8377;0</div><div class="earn-mini-lbl">&#x1F534; Pending Payout</div></div>
+      <div class="earn-mini"><div class="earn-mini-val" id="earn-sessions-count">0</div><div class="earn-mini-lbl">&#x1F4C5; Total Sessions</div></div>
+      <div class="earn-mini"><div class="earn-mini-val" id="earn-avg">&#8377;0</div><div class="earn-mini-lbl">&#x1F4CA; Avg. Per Session</div></div>
+    </div>
+    <h3 class="section-title">&#x1F4CB; Payout History</h3>
+    <div id="earningsPayoutList"></div>
+    <div class="card" style="background:#fff8e1;border:1px solid #f0d080;margin-top:6px;">
+      <p style="font-size:0.85rem;color:#7a6020;">
+        &#x1F4A1; <strong>How payouts work:</strong> The admin processes your session earnings (60% of each session) via Razorpay Route or UPI transfer.
+        Once a payout is recorded, it appears here. Contact the admin if a payout is overdue.
+      </p>
+    </div>
+  </div>
+
+  <!-- PATIENTS -->
+  <div id="tab-patients" class="tab-pane">
+    <h2 style="font-size:1.05rem;font-weight:800;color:var(--dark);margin-bottom:16px;">&#x1F9D1; My Assigned Patients</h2>
+    <div id="patientsList"></div>
+  </div>
+
+  <!-- RATES -->
+  <div id="tab-rates" class="tab-pane">
+    <div class="rate-box">
+      <h3>&#x2699;&#xFE0F; Set Your Consultation Rates</h3>
+      <p style="font-size:0.82rem;color:#5a7090;margin-bottom:14px;">Set your per-minute rates for Chat and Call sessions. Patients will see these rates when booking.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+        <div class="rate-field">
+          <label>&#x1F4AC; Chat Rate (&#8377; / minute)</label>
+          <input type="number" id="pr-chat" placeholder="e.g. 20" min="1" />
+        </div>
+        <div class="rate-field">
+          <label>&#x1F4DE; Call Rate (&#8377; / minute)</label>
+          <input type="number" id="pr-call" placeholder="e.g. 30" min="1" />
+        </div>
+      </div>
+      <button class="rate-save-btn" onclick="saveMyRates()">&#x1F4BE; Save Rates</button>
+      <span class="rate-saved" id="rateSaved">&#x2705; Saved!</span>
+    </div>
+    <div class="card">
+      <h3 style="font-size:0.9rem;font-weight:800;color:var(--dark);margin-bottom:12px;">&#x1F4CA; Current Rates</h3>
+      <div id="currentRatesDisplay"></div>
+      <div style="background:#e8fdf5;border-radius:10px;padding:12px;margin-top:10px;font-size:0.82rem;color:#0a5c4d;">
+        <strong>&#x1F4B0; Your earnings per session (60%):</strong><br>
+        <span id="exampleEarnings"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROFILE -->
+  <div id="tab-profile" class="tab-pane">
+    <div class="card">
+      <h2 style="font-size:1.05rem;font-weight:800;color:var(--dark);margin-bottom:16px;">&#x1F464; My Profile</h2>
+      <div id="profileFields"></div>
+    </div>
+  </div>
+
+</div><!-- end mainPortal -->
+
+<script>
+var _doctor = null;
+var _docPhone = '';
+var _sessionFilter = 'all';
+
+/* ── Login ── */
+function doDocLogin() {
+  var raw = (document.getElementById('loginPhone').value || '').replace(/\D/g, '');
+  if (!raw || raw.length < 10) { showErr('Please enter a valid 10-digit phone number.'); return; }
+  var regs = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
+  var match = regs.find(function(r){ return r.phone && r.phone.replace(/\D/g,'') === raw && r.type === 'doctor'; });
+  if (!match) { showErr('\u274C No doctor account found for this number. Please register on the website first.'); return; }
+  _doctor = match;
+  _docPhone = raw;
+  localStorage.setItem('nyc_doc_active_phone', raw);
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('mainPortal').style.display  = 'block';
+  document.getElementById('docTag').textContent = '\uD83D\uDC68\u200D\u2695\uFE0F Dr. ' + _doctor.name;
+  goTab('dashboard', document.querySelector('.tab-btn'));
+  loadMyRates();
+}
+
+function showErr(msg) {
+  var el = document.getElementById('loginErr');
+  el.textContent = msg; el.style.display = 'block';
+}
+
+(function(){
+  var saved = localStorage.getItem('nyc_doc_active_phone') || '';
+  if (saved) { document.getElementById('loginPhone').value = saved; doDocLogin(); }
+})();
+
+function doLogout() {
+  localStorage.removeItem('nyc_doc_active_phone');
+  _doctor = null; _docPhone = '';
+  document.getElementById('mainPortal').style.display  = 'none';
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('loginPhone').value = '';
+}
+
+/* ── Tab nav ── */
+function goTab(name, btn) {
+  document.querySelectorAll('.tab-pane').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('tab-'+name).classList.add('active');
+  if (btn) btn.classList.add('active');
+  if (name==='dashboard') renderDashboard();
+  if (name==='sessions')  renderSessions();
+  if (name==='earnings')  renderEarnings();
+  if (name==='patients')  renderPatients();
+  if (name==='rates')     renderRates();
+  if (name==='profile')   renderProfile();
+}
+
+/* ── Data helpers ── */
+function getMyName(){ return (_doctor.name||'').trim(); }
+
+function getMySessions() {
+  var n = getMyName().toLowerCase();
+  var bookings = JSON.parse(localStorage.getItem('nyc_bookings')||'[]')
+    .filter(function(b){ return (b.doctor||'').toLowerCase() === n; });
+  var assigns  = JSON.parse(localStorage.getItem('nyc_assignments')||'[]')
+    .filter(function(a){ return (a.doctorName||'').toLowerCase() === n && a.type !== 'personal'; });
+  return { bookings: bookings, assigns: assigns };
+}
+
+function getMyPayouts() {
+  var n = getMyName().toLowerCase();
+  return JSON.parse(localStorage.getItem('nyc_payouts')||'[]')
+    .filter(function(p){ return (p.doctorName||'').toLowerCase() === n; });
+}
+
+function getMyAssignedPatients() {
+  var n = getMyName().toLowerCase();
+  return JSON.parse(localStorage.getItem('nyc_assignments')||'[]')
+    .filter(function(a){ return (a.doctorName||'').toLowerCase() === n; });
+}
+
+function totalDocShare(bookings, assigns) {
+  var t = 0;
+  bookings.forEach(function(b){ t += parseFloat(b.docShare||0); });
+  assigns.forEach(function(a){ t += parseFloat(a.docShare||0); });
+  return t;
+}
+
+/* ── Dashboard ── */
+function renderDashboard() {
+  document.getElementById('dashGreeting').textContent = 'Welcome, Dr. ' + _doctor.name + '! \uD83C\uDF31';
+  var d = getMySessions();
+  var payouts = getMyPayouts();
+  var patients = getMyAssignedPatients();
+  var earned = totalDocShare(d.bookings, d.assigns);
+  var paid   = payouts.reduce(function(s,p){ return s+parseFloat(p.amount||0); }, 0);
+  var pending = Math.max(0, earned - paid);
+  var total   = d.bookings.length + d.assigns.length;
+
+  document.getElementById('ds-sessions').textContent = total;
+  document.getElementById('ds-patients').textContent = patients.length;
+  document.getElementById('ds-earned').textContent   = '\u20B9' + earned.toFixed(0);
+  document.getElementById('ds-paid').textContent     = '\u20B9' + paid.toFixed(0);
+  document.getElementById('ds-pending').textContent  = '\u20B9' + pending.toFixed(0);
+
+  /* Recent sessions */
+  var allSess = buildAllSessions(d.bookings, d.assigns).slice(0,4);
+  var ds = document.getElementById('dashSessions');
+  ds.innerHTML = allSess.length ? allSess.map(sessionCardHTML).join('') : '<div class="no-data">No sessions yet.</div>';
+
+  /* Recent payouts */
+  var dp = document.getElementById('dashPayouts');
+  var recentPay = payouts.slice().reverse().slice(0,4);
+  dp.innerHTML = recentPay.length ? recentPay.map(function(p){
+    return '<div class="payout-row">' +
+      '<div><strong>\u20B9' + parseFloat(p.amount).toFixed(2) + '</strong> &nbsp;|&nbsp; ' + (p.note||'') + '<br><span style="font-size:0.76rem;color:#8a9e98;">' + p.date + (p.transfer_id?' &nbsp;\uD83C\uDD94 '+p.transfer_id:'') + '</span></div>' +
+      '<span class="pr-paid">\u2705 Paid</span>' +
+    '</div>';
+  }).join('') : '<div class="no-data">No payouts received yet.</div>';
+}
+
+/* ── Sessions ── */
+function buildAllSessions(bookings, assigns) {
+  var all = [];
+  bookings.forEach(function(b){
+    all.push({ patient:b.patient, type:b.type, mins:b.mins, amount:b.amount, docShare:b.docShare, date:b.date, source:'Wallet' });
+  });
+  assigns.forEach(function(a){
+    all.push({ patient:a.patientName, type:a.type, mins:a.mins||'—', amount:a.amount, docShare:a.docShare, date:a.date, source:'Assignment', notes:a.notes });
+  });
+  return all.sort(function(a,b){ return new Date(b.date)-new Date(a.date); });
+}
+
+function sessionCardHTML(s) {
+  var icon  = s.type==='Chat' ? '\uD83D\uDCAC' : s.type==='Call' ? '\uD83D\uDCDE' : '\uD83C\uDFE5';
+  var cls   = s.type==='Chat' ? 'sc-chat' : s.type==='Call' ? 'sc-call' : 'sc-personal';
+  return '<div class="session-card">' +
+    '<div class="sc-top">' +
+      '<span class="sc-patient">' + icon + ' ' + (s.patient||'—') + '</span>' +
+      '<span class="sc-badge '+cls+'">' + s.type + '</span>' +
+    '</div>' +
+    '<div class="sc-meta">' + (s.mins&&s.mins!=='—'?'\u23F1 '+s.mins+' min &nbsp;|&nbsp;':'') + '\uD83D\uDDD3 ' + (s.date||'') + (s.source?' &nbsp;|&nbsp; '+s.source:'') + (s.notes?' &nbsp;|&nbsp; '+s.notes:'') + '</div>' +
+    '<div class="sc-earn">\uD83D\uDCB0 Your Share (60%): \u20B9' + parseFloat(s.docShare||0).toFixed(2) + ' &nbsp;|&nbsp; Total: \u20B9' + parseFloat(s.amount||0).toFixed(2) + '</div>' +
+  '</div>';
+}
+
+function filterSessions(f, btn) {
+  _sessionFilter = f;
+  document.querySelectorAll('#sessionFilters .tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  renderSessions();
+}
+
+function renderSessions() {
+  var d    = getMySessions();
+  var all  = buildAllSessions(d.bookings, d.assigns);
+  if (_sessionFilter !== 'all') all = all.filter(function(s){ return (s.type||'').toLowerCase() === _sessionFilter.toLowerCase(); });
+  var el = document.getElementById('sessionsList');
+  el.innerHTML = all.length ? all.map(sessionCardHTML).join('') : '<div class="no-data">No sessions found.</div>';
+}
+
+/* ── Earnings ── */
+function renderEarnings() {
+  var d = getMySessions();
+  var payouts = getMyPayouts();
+  var earned  = totalDocShare(d.bookings, d.assigns);
+  var paid    = payouts.reduce(function(s,p){ return s+parseFloat(p.amount||0); }, 0);
+  var pending = Math.max(0, earned - paid);
+  var total   = d.bookings.length + d.assigns.length;
+
+  document.getElementById('earn-total').textContent          = '\u20B9' + earned.toFixed(2);
+  document.getElementById('earn-paid').textContent           = '\u20B9' + paid.toFixed(2);
+  document.getElementById('earn-pending').textContent        = '\u20B9' + pending.toFixed(2);
+  document.getElementById('earn-sessions-count').textContent = total;
+  document.getElementById('earn-avg').textContent            = '\u20B9' + (total ? (earned/total).toFixed(0) : '0');
+
+  var el = document.getElementById('earningsPayoutList');
+  var sortedPay = payouts.slice().reverse();
+  el.innerHTML = sortedPay.length ? sortedPay.map(function(p){
+    var isRoute = p.method === 'razorpay_route';
+    return '<div class="payout-row">' +
+      '<div>' +
+        '<strong>\u20B9' + parseFloat(p.amount).toFixed(2) + '</strong> &nbsp;|&nbsp; ' + (p.note||'Manual transfer') + '<br>' +
+        '<span style="font-size:0.76rem;color:#8a9e98;">' + p.date + (isRoute?' &nbsp;\uD83D\uDCBB Razorpay Route':'') + (p.transfer_id?' &nbsp;\uD83C\uDD94 '+p.transfer_id:'') + '</span>' +
+      '</div>' +
+      '<span class="pr-paid">\u2705 Paid</span>' +
+    '</div>';
+  }).join('') : '<div class="no-data">No payouts recorded yet. Contact the admin if a payout is overdue.</div>';
+}
+
+/* ── Patients ── */
+function renderPatients() {
+  var assigns = getMyAssignedPatients();
+  var el = document.getElementById('patientsList');
+  if (!assigns.length) {
+    el.innerHTML = '<div class="no-data">No patients assigned yet. The admin will assign patients to you.</div>';
+    return;
+  }
+  var seen = {};
+  el.innerHTML = assigns.filter(function(a){
+    if (seen[a.patientPhone]) return false;
+    seen[a.patientPhone] = true; return true;
+  }).map(function(a){
+    return '<div class="patient-card">' +
+      '<div class="pc-name">\uD83D\uDC64 ' + (a.patientName||'—') + '</div>' +
+      '<div class="pc-meta">\uD83D\uDCF1 ' + (a.patientPhone||'—') + ' &nbsp;|&nbsp; Assigned: ' + a.date + '</div>' +
+      '<span class="pc-condition">' + (a.patientCondition||'General') + '</span>' +
+      (a.notes?'<div style="font-size:0.8rem;color:#5a7060;margin-top:8px;">Note: '+a.notes+'</div>':'') +
+    '</div>';
+  }).join('');
+}
+
+/* ── Rates ── */
+function loadMyRates() {
+  var rates = JSON.parse(localStorage.getItem('nyc_my_rates') || 'null');
+  if (rates && rates[_docPhone]) {
+    var r = rates[_docPhone];
+    document.getElementById('pr-chat').value = r.chat || '';
+    document.getElementById('pr-call').value = r.call || '';
+  }
+}
+
+function saveMyRates() {
+  var chat = parseFloat(document.getElementById('pr-chat').value) || 0;
+  var call = parseFloat(document.getElementById('pr-call').value) || 0;
+  if (!chat && !call) { alert('Please enter at least one rate.'); return; }
+  var rates = JSON.parse(localStorage.getItem('nyc_my_rates') || '{}');
+  rates[_docPhone] = { chat: chat, call: call };
+  localStorage.setItem('nyc_my_rates', JSON.stringify(rates));
+  /* Also update doctor registration entry */
+  var regs = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
+  regs = regs.map(function(r){
+    if (r.phone && r.phone.replace(/\D/g,'') === _docPhone && r.type === 'doctor') {
+      r.chatRate = chat; r.callRate = call;
+    }
+    return r;
+  });
+  localStorage.setItem('nyc_registrations', JSON.stringify(regs));
+  var el = document.getElementById('rateSaved');
+  el.style.display = 'inline';
+  setTimeout(function(){ el.style.display = 'none'; }, 2500);
+  renderRates();
+}
+
+function renderRates() {
+  var chat = parseFloat(document.getElementById('pr-chat').value) || 0;
+  var call = parseFloat(document.getElementById('pr-call').value) || 0;
+  var rates = JSON.parse(localStorage.getItem('nyc_my_rates') || '{}');
+  var r = rates[_docPhone] || {};
+  chat = r.chat || chat; call = r.call || call;
+  document.getElementById('pr-chat').value = chat || '';
+  document.getElementById('pr-call').value = call || '';
+  document.getElementById('currentRatesDisplay').innerHTML =
+    '<div class="profile-field"><span class="pf-label">\uD83D\uDCAC Chat Rate</span><span class="pf-val">' + (chat ? '\u20B9' + chat + ' / minute' : 'Not set') + '</span></div>' +
+    '<div class="profile-field"><span class="pf-label">\uD83D\uDCDE Call Rate</span><span class="pf-val">' + (call ? '\u20B9' + call + ' / minute' : 'Not set') + '</span></div>';
+  document.getElementById('exampleEarnings').innerHTML =
+    (chat ? 'Chat: \u20B9' + chat + '/min \xD7 15 min = \u20B9' + (chat*15) + ' gross \u2192 Your share: \u20B9' + (chat*15*0.6).toFixed(0) + '<br>' : '') +
+    (call ? 'Call: \u20B9' + call + '/min \xD7 15 min = \u20B9' + (call*15) + ' gross \u2192 Your share: \u20B9' + (call*15*0.6).toFixed(0) : '');
+}
+
+/* ── Profile ── */
+function renderProfile() {
+  var fields = [
+    ['Full Name',     _doctor.name],
+    ['Phone',         _doctor.phone],
+    ['Email',         _doctor.email || '—'],
+    ['Specialization',_doctor.specialty || _doctor.specialization || '—'],
+    ['Timing / Hours',_doctor.timing || _doctor.hours || '—'],
+    ['Qualification', _doctor.qualification || _doctor.degree || '—'],
+    ['Registered On', _doctor.date || '—'],
+  ];
+  document.getElementById('profileFields').innerHTML =
+    fields.map(function(f){
+      return '<div class="profile-field"><span class="pf-label">'+f[0]+'</span><span class="pf-val">'+(f[1]||'—')+'</span></div>';
+    }).join('');
+}
+</script>
+</body>
+</html>
