@@ -395,6 +395,7 @@
         <div style="font-weight:800;margin-bottom:6px;">Payment options</div>
         <div>Option 1: Pay to UPI ID <b>prasanthkumar103c@ybl</b></div>
         <div>Option 2: Razorpay link</div>
+        <div style="margin-top:8px;color:#b45309;">If Razorpay shows an error, use the UPI ID option instead.</div>
       </div>
     </div>
 
@@ -758,7 +759,7 @@ function startRecharge(mode) {
     if (!opened) { window.location.href = upiUrl; }
     return;
   }
-    if (!window.Razorpay) { alert('Razorpay is not loaded. Please use the UPI ID option or refresh and try again.'); return; }
+  if (!window.Razorpay) { alert('Razorpay is not loaded. Please use the UPI ID option or refresh and try again.'); return; }
   var btn = document.getElementById('rechargeBtn');
   if (btn) { btn.disabled=true; btn.textContent='\u23F3 Opening payment...'; }
 
@@ -840,8 +841,10 @@ function startRecharge(mode) {
   })
   .catch(function(err) {
     var msg = err && err.message ? err.message : 'Unknown error';
-    if (msg.indexOf('Failed to fetch') !== -1 || msg.indexOf('NetworkError') !== -1 || msg.indexOf('Load failed') !== -1) {
-      alert('\uD83D\uDEAB Cannot reach payment server.\nPlease check your internet connection and try again.\n\nIf this keeps happening, please refresh the page.');
+    if (msg.indexOf('405') !== -1 || msg.toLowerCase().indexOf('not allowed') !== -1) {
+      alert('\u26A0\uFE0F Razorpay is temporarily unavailable.\nPlease use the UPI ID option: prasanthkumar103c@ybl');
+    } else if (msg.indexOf('Failed to fetch') !== -1 || msg.indexOf('NetworkError') !== -1 || msg.indexOf('Load failed') !== -1) {
+      alert('\uD83D\uDEAB Cannot reach payment server.\nPlease check your internet connection and try again.\n\nIf this keeps happening, please use the UPI ID option.');
     } else {
       alert('\u274C Payment error: ' + msg + '\n\nPlease try again or contact support.');
     }
