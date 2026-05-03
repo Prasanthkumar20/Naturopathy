@@ -222,19 +222,19 @@
     <!-- Step 1: Phone number -->
     <div id="docOtpStep1">
       <div style="font-size:0.8rem;color:#56766e;background:#e8fdf5;border-radius:10px;padding:10px 12px;margin-bottom:14px;border:1px solid #b7e4c7;">
-        &#x1F4F2; An OTP will be sent to your WhatsApp number
+        &#x1F4F2; OTP will be sent to your <b>WhatsApp</b> &amp; <b>SMS</b>
       </div>
       <input class="l-input" type="tel" id="loginPhone" placeholder="Registered phone number"
         onkeydown="if(event.key==='Enter')sendDocOTP()" />
-      <button class="login-btn" onclick="sendDocOTP()">&#x1F4AC; Send OTP via WhatsApp</button>
+      <button class="login-btn" onclick="sendDocOTP()">&#x1F4AC; Send OTP (WhatsApp &amp; SMS)</button>
     </div>
 
     <!-- Step 2: OTP entry -->
     <div id="docOtpStep2" style="display:none;">
       <div style="background:#e8fdf5;border:1.5px solid #52b788;border-radius:12px;padding:14px;text-align:center;margin-bottom:16px;">
         <div style="font-size:1.3rem;margin-bottom:4px;">&#x2705;</div>
-        <div style="font-weight:800;color:#0a5c4d;font-size:0.97rem;">OTP sent to your WhatsApp!</div>
-        <div style="font-size:0.8rem;color:#56766e;margin-top:4px;">Check WhatsApp and enter the 6-digit OTP below</div>
+        <div style="font-weight:800;color:#0a5c4d;font-size:0.97rem;">OTP sent via WhatsApp &amp; SMS!</div>
+        <div style="font-size:0.8rem;color:#56766e;margin-top:4px;">Check your WhatsApp or SMS for the 6-digit OTP</div>
       </div>
       <input class="l-input" type="number" id="docOtpInput" placeholder="Enter 6-digit OTP"
         style="letter-spacing:6px;font-size:1.3rem;text-align:center;font-weight:800;"
@@ -559,8 +559,14 @@ function sendDocOTP() {
   _docOtpCode   = Math.floor(100000 + Math.random() * 900000).toString();
   _docOtpExpiry = Date.now() + 5 * 60 * 1000;
   var waPhone = raw.length === 10 ? '91' + raw : raw;
-  var msg = '\uD83C\uDF3F *Prahari NatureCure — Doctor OTP Verification*\n\nDear Dr. ' + match.name + ',\n\nYour OTP is: *' + _docOtpCode + '*\n\nValid for 5 minutes. Do not share this with anyone.\n\n\u2014 Prahari NatureCure Team';
-  window.open('https://wa.me/' + waPhone + '?text=' + encodeURIComponent(msg), '_blank');
+  var waMsg = '\uD83C\uDF3F *Prahari NatureCure — Doctor OTP*\n\nDear Dr. ' + match.name + ',\n\nYour OTP is: *' + _docOtpCode + '*\n\nValid for 5 minutes. Do not share this with anyone.\n\n\u2014 Prahari NatureCure Team';
+  var smsMsg = 'Prahari NatureCure Doctor OTP: ' + _docOtpCode + '. Valid 5 mins. Do not share. -NatureCure Team';
+  window.open('https://wa.me/' + waPhone + '?text=' + encodeURIComponent(waMsg), '_blank');
+  setTimeout(function(){
+    var a = document.createElement('a');
+    a.href = 'sms:+' + waPhone + '?&body=' + encodeURIComponent(smsMsg);
+    a.style.display = 'none'; document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  }, 600);
   document.getElementById('docOtpStep1').style.display  = 'none';
   document.getElementById('docOtpStep2').style.display  = 'block';
   document.getElementById('loginErr').style.display     = 'none';

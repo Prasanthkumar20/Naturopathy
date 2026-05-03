@@ -190,7 +190,7 @@
       <!-- Step 1: Enter phone -->
       <div id="otpStep1">
         <div style="font-size:0.8rem;color:#56766e;background:#e8fdf5;border-radius:10px;padding:10px 12px;margin-bottom:14px;border:1px solid #b7e4c7;">
-          &#x1F4F2; An OTP will be sent to your WhatsApp number
+          &#x1F4F2; OTP will be sent to your <b>WhatsApp</b> &amp; <b>SMS</b>
         </div>
         <input class="l-input" type="tel" id="loginPhone" placeholder="Enter your registered phone number"
           onkeydown="if(event.key==='Enter')sendPatientOTP()" />
@@ -421,8 +421,14 @@ function sendPatientOTP() {
   _patOtpCode   = Math.floor(100000 + Math.random() * 900000).toString();
   _patOtpExpiry = Date.now() + 5 * 60 * 1000;
   var waPhone = raw.length === 10 ? '91' + raw : raw;
-  var msg = '\uD83C\uDF3F *Prahari NatureCure — OTP Verification*\n\nYour OTP is: *' + _patOtpCode + '*\n\nValid for 5 minutes. Do not share this with anyone.\n\n\u2014 Prahari NatureCure Team';
-  window.open('https://wa.me/' + waPhone + '?text=' + encodeURIComponent(msg), '_blank');
+  var waMsg = '\uD83C\uDF3F *Prahari NatureCure — OTP Verification*\n\nYour OTP is: *' + _patOtpCode + '*\n\nValid for 5 minutes. Do not share this with anyone.\n\n\u2014 Prahari NatureCure Team';
+  var smsMsg = 'Prahari NatureCure OTP: ' + _patOtpCode + '. Valid 5 mins. Do not share with anyone. -NatureCure Team';
+  window.open('https://wa.me/' + waPhone + '?text=' + encodeURIComponent(waMsg), '_blank');
+  setTimeout(function(){
+    var a = document.createElement('a');
+    a.href = 'sms:+' + waPhone + '?&body=' + encodeURIComponent(smsMsg);
+    a.style.display = 'none'; document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  }, 600);
   document.getElementById('otpStep1').style.display = 'none';
   document.getElementById('otpStep2').style.display = 'block';
   document.getElementById('loginErr').style.display = 'none';
