@@ -383,9 +383,14 @@
           oninput="selectRecharge(null,null)"/>
       </div>
       <div class="recharge-success" id="rechargeSuccess"></div>
-      <button class="recharge-pay-btn" id="rechargeBtn" onclick="startRecharge()">
-        &#x1F4B3; Recharge via Razorpay
-      </button>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;">
+        <button class="recharge-pay-btn" id="rechargeBtn" onclick="startRecharge('razorpay')">
+          &#x1F4B3; Recharge via Razorpay
+        </button>
+        <button class="recharge-pay-btn" style="background:linear-gradient(135deg,#0f766e,#14b8a6);" onclick="startRecharge('upi')">
+          &#x1F4B8; Recharge via UPI
+        </button>
+      </div>
     </div>
 
     <div class="card">
@@ -735,10 +740,18 @@ function renderTxns(tab) {
   }).join('');
 }
 
-function startRecharge() {
+function startRecharge(mode) {
   var custom = parseFloat(document.getElementById('customAmt').value)||0;
   var amt = custom>0 ? custom : _rechargeAmt;
   if (!amt||amt<10) { alert('Please select or enter a recharge amount (minimum \u20B910).'); return; }
+  if (mode === 'upi') {
+    var upiId = 'praharinaturecure@upi';
+    var payee = 'Prahari NatureCure';
+    var note = 'Wallet Recharge ' + _patient.name;
+    var upiUrl = 'upi://pay?pa=' + encodeURIComponent(upiId) + '&pn=' + encodeURIComponent(payee) + '&am=' + encodeURIComponent(amt.toFixed(2)) + '&cu=INR&tn=' + encodeURIComponent(note);
+    window.open(upiUrl, '_blank');
+    return;
+  }
   if (!window.Razorpay) { alert('Payment system not loaded. Please refresh the page and try again.'); return; }
   var btn = document.getElementById('rechargeBtn');
   if (btn) { btn.disabled=true; btn.textContent='\u23F3 Opening payment...'; }
