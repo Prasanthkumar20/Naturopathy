@@ -42,10 +42,14 @@
     .pat-tag{background:rgba(255,255,255,0.15);padding:5px 14px;border-radius:999px;font-size:0.82rem;font-weight:700;}
 
     /* TABS */
-    .tab-nav{background:#fff;border-bottom:2px solid #e0f2ec;display:flex;padding:0 20px;overflow-x:auto;}
-    .tab-btn{padding:13px 18px;border:none;background:none;color:#888;font-weight:700;
-      font-size:0.88rem;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:0.2s;}
-    .tab-btn.active{color:var(--primary);border-bottom-color:var(--primary);}
+    .tab-nav{background:linear-gradient(135deg,#1b4332,#2d6a4f);
+      display:flex;padding:0 16px;overflow-x:auto;
+      box-shadow:0 4px 20px rgba(27,67,50,0.30);position:sticky;top:0;z-index:200;}
+    .tab-btn{padding:12px 20px;border:none;background:none;color:rgba(255,255,255,0.72);
+      font-weight:700;font-size:0.85rem;cursor:pointer;
+      border-bottom:3px solid transparent;white-space:nowrap;transition:all 0.2s;}
+    .tab-btn:hover{color:#fff;background:rgba(255,255,255,0.12);}
+    .tab-btn.active{color:#fff;border-bottom-color:#95d5b2;background:rgba(255,255,255,0.15);}
     .tab-pane{display:none;padding:20px;max-width:1200px;margin:auto;}
     .tab-pane.active{display:block;}
 
@@ -101,7 +105,7 @@
     .bc-doctor{font-size:1rem;font-weight:800;color:var(--dark);}
     .bc-type-badge{display:inline-block;padding:3px 10px;border-radius:999px;font-size:0.75rem;font-weight:700;}
     .bc-chat{background:#e8fdf5;color:var(--primary);}
-    .bc-call{background:#e8f4fd;color:#1565c0;}
+    .bc-call{background:#e8f5ee;color:#2d6a4f;}
     .bc-meta{font-size:0.82rem;color:#8a9e98;margin-bottom:8px;}
     .bc-split{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
     .bc-split-pill{background:#f0fdf8;border:1px solid #b2eed8;border-radius:999px;
@@ -192,7 +196,7 @@
     <button class="tab-btn" onclick="goTab('wallet',this)">&#x1F4B0; My Wallet</button>
     <button class="tab-btn" onclick="goTab('bookings',this)">&#x1F4C5; My Bookings</button>
     <button class="tab-btn" onclick="goTab('doctor',this)">&#x1F9D1;&#x200D;&#x2695;&#xFE0F; My Doctor</button>
-    <button class="tab-btn" onclick="goTab('diet',this)">&#x1F4F8; Diet Uploads</button>
+    <button class="tab-btn" onclick="goTab('diet',this)">&#x1F957; Patient Diet</button>
     <button class="tab-btn" onclick="goTab('profile',this)">&#x1F464; My Profile</button>
   </div>
 

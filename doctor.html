@@ -42,12 +42,14 @@
     .doc-tag{background:rgba(255,255,255,0.15);padding:5px 12px;
       border-radius:999px;font-size:0.82rem;font-weight:700;}
 
-    .tab-nav{background:#fff;border-bottom:2px solid #e0f2ec;
-      display:flex;padding:0 20px;overflow-x:auto;}
-    .tab-btn{padding:13px 18px;border:none;background:none;color:#888;
-      font-weight:700;font-size:0.88rem;cursor:pointer;
-      border-bottom:3px solid transparent;white-space:nowrap;transition:0.2s;}
-    .tab-btn.active{color:var(--primary);border-bottom-color:var(--primary);}
+    .tab-nav{background:linear-gradient(135deg,#1b4332,#2d6a4f);
+      display:flex;padding:0 16px;overflow-x:auto;
+      box-shadow:0 4px 20px rgba(27,67,50,0.30);position:sticky;top:0;z-index:200;}
+    .tab-btn{padding:12px 20px;border:none;background:none;color:rgba(255,255,255,0.72);
+      font-weight:700;font-size:0.85rem;cursor:pointer;
+      border-bottom:3px solid transparent;white-space:nowrap;transition:all 0.2s;}
+    .tab-btn:hover{color:#fff;background:rgba(255,255,255,0.12);}
+    .tab-btn.active{color:#fff;border-bottom-color:#95d5b2;background:rgba(255,255,255,0.15);}
 
     .tab-pane{display:none;padding:20px;max-width:1400px;margin:auto;}
     .tab-pane.active{display:block;}
@@ -444,11 +446,9 @@
 
   <!-- TABS — How To Use REMOVED -->
   <div class="tab-nav">
-    <button class="tab-btn active" onclick="goTab('dashboard',this)">📊 Dashboard</button>
-    <button class="tab-btn" onclick="goTab('patients',this)">👥 Patients</button>
-    <button class="tab-btn" onclick="goTab('dietchart',this)">🥗 Diet Chart</button>
-    <button class="tab-btn" onclick="goTab('dietuploads',this)">📸 Diet Uploads</button>
-    <button class="tab-btn" onclick="goTab('blogs',this)">📝 Blogs</button>
+    <button class="tab-btn active" onclick="goTab('dashboard',this)">🌿 Dashboard</button>
+    <button class="tab-btn" onclick="goTab('patients',this)">🥗 Patient Diet</button>
+    <button class="tab-btn" onclick="goTab('doctors',this)">👨‍⚕️ Doctors List</button>
     <button class="tab-btn" onclick="goTab('registrations',this)">📋 Registrations</button>
     <button class="tab-btn" onclick="goTab('assign',this)">🔗 Assign Doctor</button>
     <button class="tab-btn" onclick="goTab('earnings',this)">💰 Earnings</button>
@@ -494,186 +494,15 @@
     </div>
   </div>
 
-  <!-- DIET CHART -->
-  <div id="tab-dietchart" class="tab-pane">
-    <div class="builder-wrap">
-
-      <!-- FORM -->
-      <div class="form-panel">
-        <h2>📋 Build Diet Chart</h2>
-
-        <div class="fsec">
-          <h3>👤 Patient</h3>
-          <div class="frow s1">
-            <div><label>Select Saved Patient</label>
-              <select id="selPat" onchange="loadPatToForm()">
-                <option value="">— Type manually below —</option>
-              </select>
-            </div>
-          </div>
-          <div class="frow s1">
-            <div><label>Patient Name *</label>
-              <input type="text" id="pname" placeholder="Full name" /></div>
-          </div>
-          <div class="frow">
-            <div><label>Date</label><input type="date" id="cdate" /></div>
-            <div><label>Condition</label>
-              <select id="pcond">
-                <option>Personalised Diet Plan</option>
-                <option>Diabetes Management Plan</option>
-                <option>PCOS Diet Plan</option>
-                <option>Weight Loss Plan</option>
-                <option>Thyroid Diet Plan</option>
-                <option>Joint Pain Diet Plan</option>
-                <option>Digestive Wellness Plan</option>
-                <option>Skin Care Diet Plan</option>
-                <option>Hypertension Diet Plan</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div class="fsec">
-          <h3>🩺 Doctor</h3>
-          <div class="frow">
-            <div><label>Name</label><input type="text" id="dname" /></div>
-            <div><label>Qualification</label><input type="text" id="dqual" /></div>
-          </div>
-        </div>
-
-        <div class="fsec">
-          <h3>📊 Health Details</h3>
-          <div class="frow s3">
-            <div><label>Weight(kg)</label><input type="number" id="wt" placeholder="70" /></div>
-            <div><label>Height(cm)</label><input type="number" id="ht" placeholder="165" /></div>
-            <div><label>Age</label><input type="number" id="age" placeholder="35" /></div>
-          </div>
-          <div class="frow s1">
-            <div><label>Target Wt(kg)</label><input type="number" id="twt" placeholder="65" /></div>
-          </div>
-        </div>
-
-        <div class="fsec">
-          <h3>🍽️ Preferences</h3>
-          <div class="frow">
-            <div><label>Food Type</label>
-              <select id="ftype">
-                <option>Vegetarian</option>
-                <option>Non-Vegetarian</option>
-                <option>Vegetarian, Non-Vegetarian</option>
-                <option>Vegan</option>
-              </select>
-            </div>
-            <div><label>Cuisine</label><input type="text" id="cuisine" placeholder="South Indian" /></div>
-          </div>
-          <div class="frow s1">
-            <div><label>Dislikes / Allergies</label>
-              <input type="text" id="dislikes" placeholder="Brinjal, Peanuts" /></div>
-          </div>
-        </div>
-
-        <div class="fsec">
-          <h3>🥗 Diet Plan</h3>
-          <div id="mealsWrap"></div>
-          <button class="add-meal-btn" onclick="addMeal()">+ Add Meal Slot</button>
-        </div>
-
-        <div class="fsec">
-          <h3>🌿 Naturopathy Treatments</h3>
-          <textarea id="naturo"
-            placeholder="Hot and cold fomentation on joints&#10;4.00 - Cold fomentation on stomach for 20min&#10;Steam bath - twice a week"></textarea>
-        </div>
-
-        <div class="fsec">
-          <h3>💡 Tips</h3>
-          <textarea id="tips"
-            placeholder="• Drink 2-3 litres of water daily&#10;• Eat slowly and chew well"></textarea>
-        </div>
-
-        <div class="fsec">
-          <h3>🚫 Things to Avoid</h3>
-          <textarea id="avoid"
-            placeholder="• Sugary drinks and packaged juices&#10;• Fried and processed foods"></textarea>
-        </div>
-
-        <div class="act-row">
-          <button class="btn-prev" onclick="genChart()">👁 Preview</button>
-          <button class="btn-prnt" onclick="printChart()">🖨 Print/PDF</button>
-        </div>
-        <button class="btn-wa-s" onclick="waSummary()">
-          💬 Send Summary to Patient via WhatsApp
-        </button>
-        <div style="margin-top:6px;font-size:0.75rem;color:#888;text-align:center;">
-          Print/PDF → Save PDF → Send PDF file manually via WhatsApp
-        </div>
-      </div>
-
-      <!-- PREVIEW -->
-      <div class="prev-panel">
-        <div class="prev-top">
-          <h2>📄 Diet Chart Preview</h2>
-          <button onclick="printChart()">🖨 Print / Save as PDF</button>
-        </div>
-        <div id="dcOutput">
-          <div class="dc-empty">
-            <div class="ei">🥗</div>
-            <p>Fill the form and click <strong>Preview</strong></p>
-          </div>
-        </div>
-      </div>
-
+  <!-- DOCTORS LIST -->
+  <div id="tab-doctors" class="tab-pane">
+    <h2 style="font-size:1.1rem;font-weight:800;color:var(--dark);margin-bottom:16px;">👨‍⚕️ Registered Doctors</h2>
+    <div style="margin-bottom:14px;">
+      <input id="docListSearch" placeholder="🔍 Search by name, specialty or phone…"
+        oninput="renderDoctorsList()"
+        style="width:100%;max-width:400px;padding:10px 14px;border-radius:10px;border:1.5px solid #c6e6d4;font-size:0.9rem;outline:none;" />
     </div>
-  </div>
-
-
-  <!-- DIET UPLOADS -->
-  <div id="tab-dietuploads" class="tab-pane">
-    <div class="du-toolbar">
-      <input class="du-filter" id="duSearch" placeholder="🔍 Search patient..." oninput="renderDietUploads()" />
-      <button class="p-add-btn" onclick="clearAllUploads()" style="background:#fee2e2;color:#e05;">🗑 Clear All</button>
-    </div>
-    <div class="du-grid" id="duGrid">
-      <div class="du-empty">No diet uploads yet. Patients upload photos from the website.</div>
-    </div>
-  </div>
-
-  <!-- BLOGS -->
-  <div id="tab-blogs" class="tab-pane">
-    <div class="blog-form-wrap">
-      <h3>✍️ Publish New Blog Post</h3>
-      <div class="blog-form-field">
-        <label>Blog Title *</label>
-        <input type="text" id="bl-title" placeholder="e.g. 5 Yoga Poses for PCOS Relief" />
-      </div>
-      <div class="blog-form-field">
-        <label>Category</label>
-        <select id="bl-cat">
-          <option>Yoga & Wellness</option>
-          <option>Diet & Nutrition</option>
-          <option>Naturopathy Tips</option>
-          <option>PCOS & Hormones</option>
-          <option>Diabetes Care</option>
-          <option>Weight Management</option>
-          <option>Mental Wellness</option>
-          <option>Skin & Hair Care</option>
-          <option>General Health</option>
-        </select>
-      </div>
-      <div class="blog-form-field">
-        <label>Author Name</label>
-        <input type="text" id="bl-author" placeholder="Dr. Srihari / Dr. Prathima..." />
-      </div>
-      <div class="blog-form-field">
-        <label>Blog Content *</label>
-        <textarea id="bl-content" placeholder="Write your full blog post here..."></textarea>
-      </div>
-      <button class="blog-pub-btn" onclick="publishBlog()">🚀 Publish Blog</button>
-      <div class="blog-success" id="bl-success">✅ Blog published successfully!</div>
-    </div>
-    <h3 style="color:var(--dark);font-size:0.97rem;margin-bottom:4px;">📋 Published Blogs</h3>
-    <div class="blog-list" id="blogList">
-      <div style="color:#8aaa90;padding:20px;text-align:center;">No blogs published yet.</div>
-    </div>
+    <div id="doctorListGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;"></div>
   </div>
 
   <!-- REGISTRATIONS -->
@@ -985,8 +814,7 @@ function doLogin() {
     document.getElementById("cdate").value = new Date().toISOString().split("T")[0];
     document.getElementById("lerr").style.display = "none";
     initDash();
-    initMeals();
-    updatePatDD();
+    renderDoctorsList();
   } else {
     document.getElementById("lerr").style.display = "block";
   }
@@ -1013,13 +841,12 @@ function goTab(name, btn) {
   document.querySelectorAll(".tab-pane").forEach(function(t) { t.classList.remove("active"); });
   document.querySelectorAll(".tab-btn").forEach(function(b) { b.classList.remove("active"); });
   document.getElementById("tab-" + name).classList.add("active");
-  if (name === "blogs") renderBlogList();
   if (name === "registrations") renderRegistrations();
   if (name === "earnings") { loadMyRates(); renderEarnings(); }
   if (btn) btn.classList.add("active");
   if (name === "dashboard") initDash();
   if (name === "patients")  renderPatients();
-  if (name === "dietchart") updatePatDD();
+  if (name === "doctors")   renderDoctorsList();
   if (name === "assign") renderAssignTab();
   if (name === "payouts") renderPayoutsTab();
 }
@@ -1096,7 +923,6 @@ function savePatient() {
   localStorage.setItem("nyc_patients", JSON.stringify(patients));
   closeModal();
   renderPatients();
-  updatePatDD();
   initDash();
   alert("✅ Patient " + name + " saved successfully!");
 }
@@ -1106,7 +932,6 @@ function deletePatient(id) {
   patients = patients.filter(function(p) { return p.id !== id; });
   localStorage.setItem("nyc_patients", JSON.stringify(patients));
   renderPatients();
-  updatePatDD();
   initDash();
 }
 
@@ -1156,477 +981,11 @@ function waMsg(phone, name) {
   window.open("https://wa.me/" + c + "?text=" + encodeURIComponent(msg), "_blank");
 }
 
-function updatePatDD() {
-  var sel = document.getElementById("selPat");
-  sel.innerHTML = '<option value="">— Type manually —</option>';
-  for (var i = 0; i < patients.length; i++) {
-    var o = document.createElement("option");
-    o.value = patients[i].id;
-    o.textContent = patients[i].name + " (" + patients[i].condition + ")";
-    sel.appendChild(o);
-  }
-}
+function loadByName(name) { /* diet chart removed — tab no longer in admin */ }
 
-function loadPatToForm() {
-  var id = parseInt(document.getElementById("selPat").value);
-  if (!id) return;
-  var p = null;
-  for (var i = 0; i < patients.length; i++) {
-    if (patients[i].id === id) { p = patients[i]; break; }
-  }
-  if (!p) return;
-  document.getElementById("pname").value    = p.name;
-  document.getElementById("age").value      = p.age    || "";
-  document.getElementById("wt").value       = p.weight || "";
-  document.getElementById("ht").value       = p.height || "";
-  document.getElementById("ftype").value    = p.food   || "Vegetarian";
-  document.getElementById("dislikes").value = p.dislikes || "";
-  document.getElementById("pcond").value    = p.condition || "Personalised Diet Plan";
-}
-
-function loadByName(name) {
-  var p = null;
-  for (var i = 0; i < patients.length; i++) {
-    if (patients[i].name === name) { p = patients[i]; break; }
-  }
-  if (!p) return;
-  goTab("dietchart", document.querySelector(".tab-btn:nth-child(3)"));
-  setTimeout(function() {
-    document.getElementById("selPat").value = p.id;
-    loadPatToForm();
-  }, 150);
-}
-
-function initMeals() {
-  MEALS = []; MC = 0;
-  document.getElementById("mealsWrap").innerHTML = "";
-  addMeal("Early Morning",  "7:00 AM");
-  addMeal("Breakfast",      "9:00 AM");
-  addMeal("Mid Morning",    "11:00 AM");
-  addMeal("Lunch",          "1:30 PM");
-  addMeal("Evening",        "6:00 PM");
-  addMeal("Dinner",         "8:00 PM");
-}
-
-function addMeal(name, time) {
-  var id = "m" + MC++;
-  MEALS.push({ id: id, opts: [] });
-  var d = document.createElement("div");
-  d.className = "meal-blk";
-  d.id = "blk_" + id;
-  d.innerHTML =
-    '<div class="meal-blk-top">' +
-      '<span>🍽 ' + (name || "Meal " + MC) + '</span>' +
-      '<button onclick="remMeal(\'' + id + '\')">✕ Remove</button>' +
-    '</div>' +
-    '<div class="frow">' +
-      '<div><label>Meal Name</label>' +
-        '<input type="text" id="mn_' + id + '" value="' + (name||"") + '" placeholder="Breakfast"/></div>' +
-      '<div><label>Time</label>' +
-        '<input type="text" id="mt_' + id + '" value="' + (time||"") + '" placeholder="8:30 AM"/></div>' +
-    '</div>' +
-    '<div id="opts_' + id + '"></div>' +
-    '<button class="add-opt-btn" onclick="addOpt(\'' + id + '\')">+ Add Food Option</button>';
-  document.getElementById("mealsWrap").appendChild(d);
-  addOpt(id);
-}
-
-function remMeal(id) {
-  var b = document.getElementById("blk_" + id);
-  if (b) b.remove();
-  MEALS = MEALS.filter(function(m) { return m.id !== id; });
-}
-
-function addOpt(mid) {
-  var meal = null;
-  for (var i = 0; i < MEALS.length; i++) {
-    if (MEALS[i].id === mid) { meal = MEALS[i]; break; }
-  }
-  if (!meal) return;
-  var oi  = meal.opts.length + 1;
-  var oid = mid + "_o" + oi;
-  meal.opts.push({ id: oid, items: [] });
-  var d = document.createElement("div");
-  d.id = "ob_" + oid;
-  d.style.marginBottom = "5px";
-  d.innerHTML =
-    '<div style="font-size:0.73rem;color:#888;font-weight:700;margin:5px 0 3px;">Option ' + oi + '</div>' +
-    '<div id="its_' + oid + '"></div>' +
-    '<button class="add-item-btn" onclick="addItm(\'' + mid + '\',\'' + oid + '\')">+ Add Item</button>';
-  document.getElementById("opts_" + mid).appendChild(d);
-  addItm(mid, oid);
-}
-
-function addItm(mid, oid) {
-  var meal = null;
-  for (var i = 0; i < MEALS.length; i++) {
-    if (MEALS[i].id === mid) { meal = MEALS[i]; break; }
-  }
-  if (!meal) return;
-  var opt = null;
-  for (var j = 0; j < meal.opts.length; j++) {
-    if (meal.opts[j].id === oid) { opt = meal.opts[j]; break; }
-  }
-  if (!opt) return;
-  var ii  = opt.items.length + 1;
-  var iid = oid + "_i" + ii;
-  opt.items.push(iid);
-  var r = document.createElement("div");
-  r.className = "opt-row";
-  r.id = "rw_" + iid;
-  r.innerHTML =
-    '<input type="text" id="in_' + iid + '" placeholder="Food name"/>' +
-    '<input type="text" id="iq_' + iid + '" placeholder="Quantity"/>' +
-    '<button class="del-btn" onclick="remItm(\'' + iid + '\')">✕</button>';
-  document.getElementById("its_" + oid).appendChild(r);
-}
-
-function remItm(iid) {
-  var r = document.getElementById("rw_" + iid);
-  if (r) r.remove();
-}
-
-function genChart() {
-  var pname    = document.getElementById("pname").value   || "Patient";
-  var cdate    = document.getElementById("cdate").value;
-  var pcond    = document.getElementById("pcond").value;
-  var dname    = document.getElementById("dname").value   || "Dr Prathima Kumari";
-  var dqual    = document.getElementById("dqual").value   || "BNYS";
-  var wt       = document.getElementById("wt").value;
-  var ht       = document.getElementById("ht").value;
-  var age      = document.getElementById("age").value;
-  var twt      = document.getElementById("twt").value;
-  var ftype    = document.getElementById("ftype").value;
-  var cuisine  = document.getElementById("cuisine").value || "South Indian";
-  var dislikes = document.getElementById("dislikes").value;
-  var naturoRaw= document.getElementById("naturo").value;
-  var tipsRaw  = document.getElementById("tips").value;
-  var avoidRaw = document.getElementById("avoid").value;
-
-  var bmi = ""; var bmiP = 50;
-  if (wt && ht) {
-    var h  = parseFloat(ht) / 100;
-    var bv = parseFloat(wt) / (h * h);
-    bmi    = bv.toFixed(1);
-    bmiP   = Math.min(Math.max(((bv - 15) / 20) * 100, 5), 95);
-  }
-
-  var ds = "";
-  if (cdate) {
-    var d = new Date(cdate);
-    ds = d.toLocaleDateString("en-IN", { day:"numeric", month:"long", year:"numeric" });
-  }
-
-  function toList(raw) {
-    if (!raw.trim()) return "";
-    return raw.split("\n").filter(function(t) { return t.trim(); })
-      .map(function(t) { return "<li>" + t.replace(/^[•\-\*]\s*/, "") + "</li>"; }).join("");
-  }
-
-  var tipsHtml  = toList(tipsRaw);
-  var avoidHtml = toList(avoidRaw);
-
-  var mealsHtml = "";
-  var mealBlks  = document.querySelectorAll(".meal-blk");
-
-  for (var mi = 0; mi < mealBlks.length; mi++) {
-    var blk = mealBlks[mi];
-    var bid = blk.id.replace("blk_", "");
-    var mnEl = document.getElementById("mn_" + bid);
-    if (!mnEl) continue;
-    var mnv = mnEl.value || "Meal";
-    var mtEl = document.getElementById("mt_" + bid);
-    var mtv  = mtEl ? mtEl.value : "";
-
-    var optsHtml = "";
-    var optsWrap = document.getElementById("opts_" + bid);
-    if (optsWrap) {
-      var optBlks = optsWrap.querySelectorAll("[id^='ob_']");
-      for (var oi = 0; oi < optBlks.length; oi++) {
-        optsHtml += '<div class="opt-gap"><div class="opt-ttl">Option ' + (oi+1) + '</div>';
-        var itsWrap = optBlks[oi].querySelector("[id^='its_']");
-        if (itsWrap) {
-          var itemRows = itsWrap.querySelectorAll(".opt-row");
-          for (var ii = 0; ii < itemRows.length; ii++) {
-            var iid  = itemRows[ii].id.replace("rw_", "");
-            var inEl = document.getElementById("in_" + iid);
-            var iqEl = document.getElementById("iq_" + iid);
-            var inv  = inEl ? inEl.value : "";
-            var iqv  = iqEl ? iqEl.value : "";
-            if (inv.trim()) {
-              optsHtml +=
-                '<div class="opt-item">' +
-                  '<span>' + inv + '</span>' +
-                  '<span class="opt-item-r">' + iqv + '</span>' +
-                '</div>';
-            }
-          }
-        }
-        optsHtml += '</div>';
-      }
-    }
-
-    mealsHtml +=
-      '<div class="meal-box">' +
-        '<div class="meal-hdr">' +
-          '<span class="meal-nm">' + mnv + (mtv ? ' &bull; ' + mtv : '') + '</span>' +
-        '</div>' +
-        optsHtml +
-      '</div>';
-  }
-
-  var html =
-    '<div class="dc-hdr">' +
-      '<div>' +
-        '<div class="dc-pname">' + pname + '</div>' +
-        '<div class="dc-ptype">' + pcond + '</div>' +
-        (ds ? '<div class="dc-date">Date: ' + ds + '</div>' : '') +
-        '<div class="dc-dlbl">Prescribed by:</div>' +
-        '<div class="dc-dname">' + dname +
-          ' <span style="font-weight:400;color:#888;font-size:0.85rem;">(' + dqual + ')</span>' +
-        '</div>' +
-      '</div>' +
-    '</div>' +
-
-    '<div class="info-grid">' +
-      '<div class="info-box">' +
-        '<h3>Preferences</h3>' +
-        '<span class="pref-tag">🍽 Food: ' + ftype + '</span>' +
-        '<span class="pref-tag">🍛 Cuisine: ' + cuisine + '</span>' +
-        (dislikes ? '<span class="pref-tag">👎 Dislikes: ' + dislikes + '</span>' : '') +
-      '</div>' +
-      '<div>' +
-        '<div class="info-box" style="margin-bottom:14px;">' +
-          '<h3>Health Parameters</h3>' +
-          (wt  ? '<div class="h-row"><span class="h-lbl">Weight</span><span class="h-val">' + wt + ' kg</span></div>' : '') +
-          (ht  ? '<div class="h-row"><span class="h-lbl">Height</span><span class="h-val">' + ht + ' cm</span></div>' : '') +
-          (age ? '<div class="h-row"><span class="h-lbl">Age</span><span class="h-val">' + age + ' years</span></div>' : '') +
-          (bmi ? '<div class="h-row"><span class="h-lbl">BMI</span><span class="h-val">' + bmi + '</span></div>' +
-                 '<div class="bmi-bar"><div class="bmi-fill" style="width:' + bmiP + '%"></div></div>' : '') +
-        '</div>' +
-        (twt ?
-        '<div class="tgt-box"><h3>Target</h3>' +
-          '<div class="tgt-row"><span style="color:#888">Target Weight</span><span style="font-weight:700">' + twt + ' kg</span></div>' +
-          '<div class="tgt-row"><span style="color:#888">Ideal BMI</span><span style="font-weight:700">18.5 – 22.9</span></div>' +
-        '</div>' : '') +
-      '</div>' +
-    '</div>' +
-
-    mealsHtml +
-
-    (naturoRaw.trim() ?
-    '<div style="background:#f0fdf4;border-radius:11px;padding:14px;margin-bottom:14px;border-left:4px solid #059669;">' +
-      '<h3 style="color:#065f46;font-size:0.95rem;font-weight:800;margin-bottom:10px;">🌿 Naturopathy Treatment</h3>' +
-      '<div style="font-size:0.88rem;color:#1a1a1a;line-height:1.9;white-space:pre-line;">' + naturoRaw + '</div>' +
-    '</div>' : '') +
-
-    ((tipsHtml || avoidHtml) ?
-    '<div class="tips-grid">' +
-      (tipsHtml  ? '<div class="tips-box"><h3>💡 Tips</h3><ul>' + tipsHtml + '</ul></div>' : '') +
-      (avoidHtml ? '<div class="tips-box"><h3>🚫 Things to Avoid</h3><ul>' + avoidHtml + '</ul></div>' : '') +
-    '</div>' : '') +
-
-    '<div class="dc-foot">' +
-      '<strong>Naturopathy &amp; Yoga Care</strong> &nbsp;|&nbsp; ' +
-      dname + ' (' + dqual + ')' +
-      '<br>📞 +91 7013989526 &nbsp;|&nbsp; ✉ srihariu123456789@gmail.com' +
-      '<br><small>This diet plan is personalised for ' + pname + ' only.</small>' +
-    '</div>';
-
-  document.getElementById("dcOutput").innerHTML = html;
-  chartsDone++;
-  localStorage.setItem("nyc_charts", chartsDone);
-  document.querySelector(".prev-panel").scrollIntoView({ behavior: "smooth" });
-}
-
-function printChart() {
-  genChart();
-  setTimeout(function() { window.print(); }, 500);
-}
-function waSummary() {
-  var pname    = document.getElementById("pname").value    || "Patient";
-  var pcond    = document.getElementById("pcond").value;
-  var dname    = document.getElementById("dname").value    || "Dr Prathima Kumari";
-  var dqual    = document.getElementById("dqual").value    || "BNYS";
-  var cdate    = document.getElementById("cdate").value;
-  var wt       = document.getElementById("wt").value;
-  var ht       = document.getElementById("ht").value;
-  var age      = document.getElementById("age").value;
-  var twt      = document.getElementById("twt").value;
-  var ftype    = document.getElementById("ftype").value;
-  var cuisine  = document.getElementById("cuisine").value;
-  var dislikes = document.getElementById("dislikes").value;
-  var naturoRaw= document.getElementById("naturo").value;
-  var tipsRaw  = document.getElementById("tips").value;
-  var avoidRaw = document.getElementById("avoid").value;
-
-  var selId = parseInt(document.getElementById("selPat").value);
-  var phone = "";
-  if (selId) {
-    for (var i = 0; i < patients.length; i++) {
-      if (patients[i].id === selId) { phone = patients[i].phone.replace(/\D/g,""); break; }
-    }
-  }
-
-  // Header
-  var msg = "🌿 *NATUROPATHY & YOGA CARE*\n";
-  msg += "━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
-  msg += "Hello *" + pname + "* 🙏\n";
-  msg += "Your personalised diet chart is ready!\n\n";
-  msg += "📋 *Plan:* " + pcond + "\n";
-  msg += "📅 *Date:* " + cdate + "\n";
-  msg += "👨‍⚕️ *Prescribed by:* " + dname + " (" + dqual + ")\n\n";
-
-  // Health Parameters
-  if (wt || ht || age || twt) {
-    msg += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
-    msg += "*📊 Health Parameters*\n";
-    if (wt)  msg += "⚖️ Weight : " + wt  + " kg\n";
-    if (ht)  msg += "📏 Height : " + ht  + " cm\n";
-    if (age) msg += "🎂 Age    : " + age + " years\n";
-    if (wt && ht) {
-      var h   = parseFloat(ht) / 100;
-      var bmi = (parseFloat(wt) / (h * h)).toFixed(1);
-      msg += "📐 BMI    : " + bmi + "\n";
-    }
-    if (twt) msg += "🎯 Target : " + twt + " kg\n";
-    msg += "\n";
-  }
-
-  // Preferences
-  msg += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
-  msg += "*🍽️ Food Preferences*\n";
-  msg += "• Food Type : " + ftype + "\n";
-  if (cuisine)  msg += "• Cuisine   : " + cuisine  + "\n";
-  if (dislikes) msg += "• Dislikes  : " + dislikes + "\n";
-  msg += "\n";
-
-  // Meal Plan
-  msg += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
-  msg += "*🥗 DAILY DIET PLAN*\n\n";
-
-  var mealBlks = document.querySelectorAll(".meal-blk");
-  for (var mi = 0; mi < mealBlks.length; mi++) {
-    var blk = mealBlks[mi];
-    var bid = blk.id.replace("blk_", "");
-    var mnEl = document.getElementById("mn_" + bid);
-    if (!mnEl) continue;
-    var mnv = mnEl.value || "Meal";
-    var mtEl = document.getElementById("mt_" + bid);
-    var mtv  = mtEl ? mtEl.value : "";
-
-    msg += "🕐 *" + mnv + (mtv ? "  (" + mtv + ")" : "") + "*\n";
-
-    var optsWrap = document.getElementById("opts_" + bid);
-    if (optsWrap) {
-      var optBlks = optsWrap.querySelectorAll("[id^='ob_']");
-      for (var oi = 0; oi < optBlks.length; oi++) {
-        if (optBlks.length > 1) {
-          msg += "  _Option " + (oi + 1) + ":_\n";
-        }
-        var itsWrap = optBlks[oi].querySelector("[id^='its_']");
-        if (itsWrap) {
-          var itemRows = itsWrap.querySelectorAll(".opt-row");
-          var hasItem = false;
-          for (var ii = 0; ii < itemRows.length; ii++) {
-            var iid  = itemRows[ii].id.replace("rw_", "");
-            var inEl = document.getElementById("in_" + iid);
-            var iqEl = document.getElementById("iq_" + iid);
-            var inv  = inEl ? inEl.value.trim() : "";
-            var iqv  = iqEl ? iqEl.value.trim() : "";
-            if (inv) {
-              msg += "  • " + inv + (iqv ? "  — " + iqv : "") + "\n";
-              hasItem = true;
-            }
-          }
-          if (!hasItem) msg += "  • (no items added)\n";
-        }
-      }
-    }
-    msg += "\n";
-  }
-
-  // Naturopathy
-  if (naturoRaw.trim()) {
-    msg += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
-    msg += "*🌿 Naturopathy Treatment*\n";
-    msg += naturoRaw.trim() + "\n\n";
-  }
-
-  // Tips
-  if (tipsRaw.trim()) {
-    msg += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
-    msg += "*💡 Tips*\n";
-    msg += tipsRaw.trim() + "\n\n";
-  }
-
-  // Avoid
-  if (avoidRaw.trim()) {
-    msg += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
-    msg += "*🚫 Things to Avoid*\n";
-    msg += avoidRaw.trim() + "\n\n";
-  }
-
-  // Footer
-  msg += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
-  msg += "Please follow this diet plan strictly for best results. 🙏\n";
-  msg += "For queries contact us:\n";
-  msg += "📞 +91 7013989526\n";
-  msg += "✉️  srihariu123456789@gmail.com\n\n";
-  msg += "_This plan is personalised for " + pname + " only._\n";
-  msg += "— *Naturopathy & Yoga Care* 🌿";
-
-  var waURL = phone
-    ? "https://wa.me/" + phone + "?text=" + encodeURIComponent(msg)
-    : "https://wa.me/?text=" + encodeURIComponent(msg);
-  window.open(waURL, "_blank");
-}
 
 
 /* ---- Diet Uploads (Doctor Panel) ---- */
-function renderDietUploads() {
-  var q = (document.getElementById('duSearch').value || '').toLowerCase();
-  var uploads = JSON.parse(localStorage.getItem('nyc_diet_uploads') || '[]');
-  var list = uploads.filter(function(u) {
-    return u.name.toLowerCase().indexOf(q) !== -1 || (u.phone || '').indexOf(q) !== -1;
-  }).reverse();
-  var g = document.getElementById('duGrid');
-  if (!list.length) {
-    g.innerHTML = '<div class="du-empty">No diet uploads yet. Patients upload photos from the website.</div>';
-    return;
-  }
-  var html = '';
-  list.forEach(function(u) {
-    var imgs = (u.images || []).map(function(src) {
-      return '<img class="du-img" src="' + src + '" onclick="openLB(\'' + src + '\')" title="Click to enlarge" />';
-    }).join('');
-    html += '<div class="du-card">' +
-      '<div class="du-card-top">' +
-        '<div><div class="du-name">' + u.name + '</div><div class="du-phone">📞 ' + (u.phone||'—') + '</div></div>' +
-        '<div class="du-date">' + (u.date||'') + '</div>' +
-      '</div>' +
-      (u.note ? '<div class="du-note">"' + u.note + '"</div>' : '') +
-      '<div class="du-imgs">' + imgs + '</div>' +
-      '<button class="du-del" onclick="deleteDietUpload(' + u.id + ')">🗑 Delete</button>' +
-    '</div>';
-  });
-  g.innerHTML = html;
-}
-
-function deleteDietUpload(id) {
-  if (!confirm('Delete this upload?')) return;
-  var uploads = JSON.parse(localStorage.getItem('nyc_diet_uploads') || '[]');
-  uploads = uploads.filter(function(u) { return u.id !== id; });
-  localStorage.setItem('nyc_diet_uploads', JSON.stringify(uploads));
-  renderDietUploads();
-}
-
-function clearAllUploads() {
-  if (!confirm('Clear ALL patient diet uploads? This cannot be undone.')) return;
-  localStorage.removeItem('nyc_diet_uploads');
-  renderDietUploads();
-}
-
 function openLB(src) {
   document.getElementById('lbImg').src = src;
   document.getElementById('lbOverlay').classList.add('open');
@@ -1640,59 +999,44 @@ function closeLB() {
 
 
 /* ---- BLOGS ---- */
-function publishBlog() {
-  var title = document.getElementById('bl-title');
-  var cat = document.getElementById('bl-cat');
-  var content = document.getElementById('bl-content');
-  var author = document.getElementById('bl-author');
-  if (!title || !content) return;
-  if (!title.value.trim()) { alert('Please enter a blog title.'); return; }
-  if (!content.value.trim()) { alert('Please enter blog content.'); return; }
-  var blogs = JSON.parse(localStorage.getItem('nyc_blogs') || '[]');
-  blogs.push({
-    id: Date.now(),
-    title: title.value.trim(),
-    category: cat ? cat.value : 'General Health',
-    content: content.value.trim(),
-    author: author ? author.value.trim() || 'Doctor' : 'Doctor',
-    date: new Date().toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' })
-  });
-  localStorage.setItem('nyc_blogs', JSON.stringify(blogs));
-  title.value = '';
-  content.value = '';
-  if (author) author.value = '';
-  renderBlogList();
-  var suc = document.getElementById('bl-success');
-  if (suc) { suc.style.display = 'block'; setTimeout(function() { suc.style.display = 'none'; }, 3000); }
-}
-
-function renderBlogList() {
-  var blogs = JSON.parse(localStorage.getItem('nyc_blogs') || '[]');
-  var list = document.getElementById('blogList');
-  if (!list) return;
-  if (!blogs.length) {
-    list.innerHTML = '<div style="color:#8aaa90;padding:20px;text-align:center;">No blogs published yet.</div>';
+function renderDoctorsList() {
+  var q = (document.getElementById('docListSearch') ? document.getElementById('docListSearch').value : '').toLowerCase();
+  var regs = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
+  var docs = regs.filter(function(r) { return r.type === 'doctor'; });
+  if (q) {
+    docs = docs.filter(function(d) {
+      return (d.name||'').toLowerCase().indexOf(q)!==-1 ||
+             (d.specialty||'').toLowerCase().indexOf(q)!==-1 ||
+             (d.phone||'').indexOf(q)!==-1;
+    });
+  }
+  var grid = document.getElementById('doctorListGrid');
+  if (!grid) return;
+  if (!docs.length) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:#8aaa90;">No registered doctors found.</div>';
     return;
   }
-  list.innerHTML = '';
-  blogs.slice().reverse().forEach(function(b) {
-    var div = document.createElement('div');
-    div.className = 'blog-item';
-    div.innerHTML =
-      '<div class="blog-item-info">' +
-        '<div class="blog-item-title">' + b.title + '</div>' +
-        '<div class="blog-item-meta">📂 ' + (b.category || 'Health') + ' &nbsp;|&nbsp; 📅 ' + b.date + ' &nbsp;|&nbsp; ✍️ ' + (b.author || 'Doctor') + '</div>' +
+  var html = '';
+  docs.forEach(function(d) {
+    html += '<div style="background:#fff;border-radius:16px;padding:20px;box-shadow:0 2px 12px rgba(27,67,50,0.08);border-left:4px solid #2d6a4f;">' +
+      '<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">' +
+        '<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#2d6a4f,#52b788);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:#fff;">👨‍⚕️</div>' +
+        '<div><div style="font-weight:800;font-size:1rem;color:#163832;">' + (d.name||'—') + '</div>' +
+        '<div style="font-size:0.8rem;color:#52b788;font-weight:700;">' + (d.specialty||'General') + '</div></div>' +
       '</div>' +
-      '<button class="blog-del-btn" onclick="deleteBlog(' + b.id + ')">🗑 Delete</button>';
-    list.appendChild(div);
+      '<div style="font-size:0.85rem;color:#444;display:grid;gap:6px;">' +
+        '<div>📞 <b>' + (d.phone||'—') + '</b></div>' +
+        (d.qual ? '<div>🎓 ' + d.qual + '</div>' : '') +
+        (d.timing ? '<div>⏰ ' + d.timing + '</div>' : '') +
+        (d.city ? '<div>📍 ' + d.city + '</div>' : '') +
+        '<div style="margin-top:8px;">' +
+          '<span style="background:#e8f5e9;color:#2d6a4f;padding:4px 10px;border-radius:999px;font-size:0.78rem;font-weight:700;">Registered ' + (d.date||'') + '</span>' +
+        '</div>' +
+      '</div>' +
+      '<a href="https://wa.me/91' + (d.phone||'') + '" target="_blank" style="display:block;margin-top:12px;text-align:center;background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;border-radius:10px;padding:8px;font-weight:700;font-size:0.85rem;text-decoration:none;">💬 WhatsApp Doctor</a>' +
+    '</div>';
   });
-}
-
-function deleteBlog(id) {
-  if (!confirm('Delete this blog post?')) return;
-  var blogs = JSON.parse(localStorage.getItem('nyc_blogs') || '[]');
-  localStorage.setItem('nyc_blogs', JSON.stringify(blogs.filter(function(b) { return b.id !== id; })));
-  renderBlogList();
+  grid.innerHTML = html;
 }
 
 
