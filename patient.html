@@ -383,16 +383,17 @@
           oninput="selectRecharge(null,null)"/>
       </div>
       <div class="recharge-success" id="rechargeSuccess"></div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;">
         <button class="recharge-pay-btn" id="rechargeBtn" onclick="startRecharge('razorpay')">
           &#x1F4B3; Recharge via Razorpay
         </button>
         <button class="recharge-pay-btn" style="background:linear-gradient(135deg,#0f766e,#14b8a6);" onclick="startRecharge('upi')">
-          &#x1F4B8; Recharge via UPI
+          &#x1F4B8; UPI Pay
         </button>
-        <button class="recharge-pay-btn" style="background:linear-gradient(135deg,#7c3aed,#a855f7);" onclick="startRecharge('phonepe')">
-          &#x1F4F1; PhonePe UPI
-        </button>
+      </div>
+      <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="upi://pay?pa=9666796307@ybl&pn=Prahari%20NatureCure&cu=INR&tn=Wallet%20Recharge" style="flex:1;min-width:150px;text-align:center;padding:12px 14px;border-radius:999px;background:#f3e8ff;color:#6b21a8;font-weight:800;text-decoration:none;">PhonePe</a>
+        <a href="upi://pay?pa=9666796307@ybl&pn=Prahari%20NatureCure&cu=INR&tn=Wallet%20Recharge" style="flex:1;min-width:150px;text-align:center;padding:12px 14px;border-radius:999px;background:#eff6ff;color:#1d4ed8;font-weight:800;text-decoration:none;">Pay with UPI App</a>
       </div>
     </div>
 
@@ -748,19 +749,12 @@ function startRecharge(mode) {
   var amt = custom>0 ? custom : _rechargeAmt;
   if (!amt||amt<10) { alert('Please select or enter a recharge amount (minimum \u20B910).'); return; }
   if (mode === 'upi') {
-    var upiId = 'praharinaturecure@upi';
+    var upiId = '9666796307@ybl';
     var payee = 'Prahari NatureCure';
     var note = 'Wallet Recharge ' + _patient.name;
     var upiUrl = 'upi://pay?pa=' + encodeURIComponent(upiId) + '&pn=' + encodeURIComponent(payee) + '&am=' + encodeURIComponent(amt.toFixed(2)) + '&cu=INR&tn=' + encodeURIComponent(note);
-    window.open(upiUrl, '_blank');
-    return;
-  }
-  if (mode === 'phonepe') {
-    var phonepeId = '9666796307@ybl';
-    var payee2 = 'Prahari NatureCure';
-    var note2 = 'Wallet Recharge ' + _patient.name;
-    var phonepeUrl = 'upi://pay?pa=' + encodeURIComponent(phonepeId) + '&pn=' + encodeURIComponent(payee2) + '&am=' + encodeURIComponent(amt.toFixed(2)) + '&cu=INR&tn=' + encodeURIComponent(note2);
-    window.open(phonepeUrl, '_blank');
+    var opened = window.open(upiUrl, '_blank');
+    if (!opened) { window.location.href = upiUrl; }
     return;
   }
   if (!window.Razorpay) { alert('Payment system not loaded. Please refresh the page and try again.'); return; }
