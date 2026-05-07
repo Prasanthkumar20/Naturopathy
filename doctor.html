@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  <title>Admin Panel — Naturopathy & Yoga Care</title>
+  <title>Doctor Panel — Naturopathy & Yoga Care</title>
   <style>
     :root {
       --primary:#0a5c4d; --accent:#3aafa9;
@@ -12,11 +11,11 @@
       --text:#35524a; --shadow:0 8px 28px rgba(10,92,77,0.10);
     }
     *{margin:0;padding:0;box-sizing:border-box;}
-    body{font-family:Arial,sans-serif;background:linear-gradient(160deg,#bce8d6 0%,#d8f4e8 25%,#c0eada 55%,#daf5ec 100%);min-height:100vh;color:var(--text);}
+    body{font-family:Arial,sans-serif;background:#f4fbf8;color:var(--text);}
 
     .login-screen{min-height:100vh;display:flex;align-items:center;
-      justify-content:center;background:linear-gradient(160deg,#a8d8c0,#c8eada,#9ccfb8,#c0e8d0);}
-    .login-box{background:linear-gradient(160deg,#fff,#eafaf2);border-radius:24px;padding:40px 36px;border:1.5px solid #52b788;
+      justify-content:center;background:linear-gradient(135deg,#f4fffb,#e9fbf5);}
+    .login-box{background:#fff;border-radius:24px;padding:40px 36px;
       width:min(400px,92%);box-shadow:var(--shadow);text-align:center;}
     .login-box .logo{font-size:2.5rem;margin-bottom:8px;}
     .login-box h2{color:var(--dark);font-size:1.3rem;margin-bottom:4px;}
@@ -42,36 +41,26 @@
     .doc-tag{background:rgba(255,255,255,0.15);padding:5px 12px;
       border-radius:999px;font-size:0.82rem;font-weight:700;}
 
-    .tab-nav{background:linear-gradient(135deg,#1b4332,#2d6a4f);
-      display:flex;padding:0 16px;overflow-x:auto;
-      box-shadow:0 4px 20px rgba(27,67,50,0.30);position:sticky;top:0;z-index:200;}
-    .tab-btn{padding:11px 18px;border:none;background:none;color:rgba(255,255,255,0.70);
-      font-weight:700;font-size:0.84rem;cursor:pointer;
-      border-bottom:3px solid transparent;white-space:nowrap;transition:all 0.22s;
-      border-radius:8px 8px 0 0;margin-bottom:-1px;}
-    .tab-btn:hover{color:#fff;background:rgba(255,255,255,0.14);border-bottom-color:rgba(149,213,178,0.5);}
-    .tab-btn.active{
-      color:#0a3d25;
-      background:linear-gradient(160deg,#b7e4c7,#95d5b2);
-      border-bottom:3px solid #52b788;
-      box-shadow:0 4px 16px rgba(82,183,136,0.45),inset 0 1px 0 rgba(255,255,255,0.5);
-      font-weight:800;
-      text-shadow:none;
-    }
+    .tab-nav{background:#fff;border-bottom:2px solid #e0f2ec;
+      display:flex;padding:0 20px;overflow-x:auto;}
+    .tab-btn{padding:13px 18px;border:none;background:none;color:#888;
+      font-weight:700;font-size:0.88rem;cursor:pointer;
+      border-bottom:3px solid transparent;white-space:nowrap;transition:0.2s;}
+    .tab-btn.active{color:var(--primary);border-bottom-color:var(--primary);}
 
     .tab-pane{display:none;padding:20px;max-width:1400px;margin:auto;}
     .tab-pane.active{display:block;}
-    .card{background:linear-gradient(135deg,#ffffff,#ebfaf3);border-radius:16px;padding:20px;box-shadow:var(--shadow);border-top:3px solid #52b788;}
+    .card{background:#fff;border-radius:16px;padding:20px;box-shadow:var(--shadow);}
 
     .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;}
-    .stat-card{background:linear-gradient(135deg,#d8f5e8,#c0f0d8);border-radius:14px;padding:18px;border-bottom:3px solid #2d6a4f;
+    .stat-card{background:#fff;border-radius:14px;padding:18px;
       box-shadow:var(--shadow);text-align:center;}
     .stat-icon{font-size:1.7rem;margin-bottom:6px;}
     .stat-num{font-size:1.9rem;font-weight:900;color:var(--primary);}
     .stat-lbl{font-size:0.78rem;color:#888;margin-top:3px;}
 
     .tbl{width:100%;border-collapse:collapse;}
-    .tbl th{text-align:left;padding:8px 12px;background:linear-gradient(135deg,#c8f0e0,#b8ecd4);
+    .tbl th{text-align:left;padding:8px 12px;background:#f4fbf8;
       font-size:0.78rem;color:#888;border-bottom:1px solid #e0f2ec;}
     .tbl td{padding:10px 12px;font-size:0.85rem;border-bottom:1px solid #f0f0f0;}
     .tbl tr:last-child td{border-bottom:none;}
@@ -86,7 +75,7 @@
       color:#fff;border:none;border-radius:999px;padding:9px 18px;
       font-weight:700;cursor:pointer;font-size:0.85rem;}
     .p-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-    .p-card{background:linear-gradient(135deg,#fff,#edfaf3);border-radius:14px;padding:16px;box-shadow:var(--shadow);transition:0.25s;border-left:3px solid #52b788;}
+    .p-card{background:#fff;border-radius:14px;padding:16px;box-shadow:var(--shadow);transition:0.25s;}
     .p-card:hover{transform:translateY(-3px);}
     .p-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
     .p-avatar{width:44px;height:44px;border-radius:50%;
@@ -103,7 +92,7 @@
     .p-btn.del{background:#fee2e2;color:#e05;}
 
     .builder-wrap{display:grid;grid-template-columns:390px 1fr;gap:20px;}
-    .form-panel{background:linear-gradient(135deg,#fff,#f0fdf8);border-radius:18px;padding:20px;
+    .form-panel{background:#fff;border-radius:18px;padding:20px;
       box-shadow:var(--shadow);position:sticky;top:76px;
       max-height:calc(100vh - 90px);overflow-y:auto;}
     .form-panel h2{color:var(--dark);font-size:1rem;margin-bottom:12px;
@@ -118,94 +107,6 @@
       border-radius:8px;font-size:0.83rem;background:#fff;outline:none;}
     input:focus,select:focus,textarea:focus{border-color:var(--accent);}
     textarea{min-height:60px;resize:vertical;}
-    /* RAZORPAY ROUTE */
-    .route-link-box{background:#f0fdf8;border:2px solid #b2eed8;border-radius:12px;padding:14px;margin-top:12px;}
-    .route-link-box label{font-size:0.78rem;font-weight:700;color:var(--primary);display:block;margin-bottom:6px;}
-    .route-input-row{display:flex;gap:8px;}
-    .route-input-row input{flex:1;padding:9px 12px;border:2px solid #cde8da;border-radius:10px;font-size:0.85rem;outline:none;font-family:monospace;}
-    .route-link-btn{padding:9px 16px;background:linear-gradient(135deg,#0a5c4d,#3aafa9);color:#fff;border:none;border-radius:10px;font-weight:700;font-size:0.82rem;cursor:pointer;white-space:nowrap;}
-    .route-linked-badge{display:inline-flex;align-items:center;gap:6px;background:#dcfce7;color:#166534;border-radius:999px;padding:5px 12px;font-size:0.8rem;font-weight:700;margin-top:8px;}
-    .route-pay-btn{width:100%;padding:11px;background:linear-gradient(135deg,#1565c0,#1976d2);color:#fff;border:none;border-radius:999px;font-weight:800;font-size:0.88rem;cursor:pointer;margin-top:8px;}
-    .route-pay-btn:disabled{opacity:0.5;cursor:not-allowed;}
-    .route-status-processing{color:#1565c0;font-size:0.82rem;font-weight:700;margin-top:6px;display:none;}
-    .route-how{background:#e8f4fd;border:1px solid #90caf9;border-radius:10px;padding:12px 14px;font-size:0.8rem;color:#1565c0;margin-bottom:16px;}
-    .route-how ol{margin-left:16px;margin-top:6px;}
-    .route-how li{margin-bottom:4px;}
-
-    /* ── PAYOUTS TAB ── */
-    .payout-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:22px;}
-    .payout-stat{background:#fff;border-radius:14px;padding:18px;box-shadow:var(--shadow);text-align:center;}
-    .payout-stat-icon{font-size:1.6rem;margin-bottom:6px;}
-    .payout-stat-num{font-size:1.6rem;font-weight:900;color:var(--primary);}
-    .payout-stat-lbl{font-size:0.76rem;color:#888;margin-top:3px;}
-    .payout-period{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap;}
-    .period-btn{padding:7px 16px;border-radius:999px;border:2px solid #cde8da;background:#f0fdf8;
-      color:#5a7060;font-weight:700;font-size:0.82rem;cursor:pointer;transition:0.15s;}
-    .period-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);}
-    .doctor-payout-card{background:#fff;border-radius:18px;padding:20px;box-shadow:var(--shadow);
-      margin-bottom:16px;border-left:5px solid var(--accent);}
-    .dpc-header{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px;margin-bottom:14px;}
-    .dpc-name{font-size:1.05rem;font-weight:800;color:var(--dark);}
-    .dpc-phone{font-size:0.8rem;color:#8a9e98;margin-top:2px;}
-    .dpc-owed{font-size:1.3rem;font-weight:900;color:#c0392b;}
-    .dpc-owed-lbl{font-size:0.75rem;color:#8a9e98;text-align:right;}
-    .dpc-row{display:flex;justify-content:space-between;font-size:0.83rem;padding:6px 0;
-      border-bottom:1px solid #f0f6f3;color:#5a7060;}
-    .dpc-row:last-of-type{border:none;}
-    .dpc-row strong{color:var(--dark);}
-    .dpc-sessions{background:#f4fbf8;border-radius:10px;margin:12px 0;overflow:hidden;}
-    .dpc-session-row{display:flex;justify-content:space-between;align-items:center;
-      padding:9px 14px;font-size:0.8rem;border-bottom:1px solid #e8f4ef;}
-    .dpc-session-row:last-child{border:none;}
-    .dpc-actions{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
-    .mark-paid-btn{padding:10px 20px;background:linear-gradient(135deg,#0a5c4d,#3aafa9);
-      color:#fff;border:none;border-radius:999px;font-weight:700;font-size:0.85rem;cursor:pointer;}
-    .mark-paid-btn:disabled{opacity:0.5;cursor:not-allowed;}
-    .view-hist-btn{padding:10px 18px;background:#f0fdf8;border:2px solid var(--accent);
-      color:var(--primary);border-radius:999px;font-weight:700;font-size:0.85rem;cursor:pointer;}
-    .payout-hist-box{background:#f4fbf8;border-radius:10px;padding:12px;margin-top:10px;display:none;}
-    .ph-row{display:flex;justify-content:space-between;align-items:center;
-      padding:7px 0;border-bottom:1px solid #e0f2ec;font-size:0.8rem;}
-    .ph-row:last-child{border:none;}
-    .ph-paid-badge{background:#dcfce7;color:#166534;border-radius:999px;padding:2px 9px;
-      font-size:0.73rem;font-weight:700;}
-    .no-payouts{text-align:center;color:#8a9e98;padding:48px 20px;font-size:0.9rem;}
-    .payout-zero{background:#f0fdf8;border-left:5px solid #6dd8a8;}
-    .alert-box{background:#fff8e1;border:2px solid #f0d080;border-radius:14px;
-      padding:16px;margin-bottom:18px;font-size:0.85rem;color:#7a5800;}
-
-    /* ASSIGN DOCTOR TAB */
-    .assign-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-top:14px;}
-    .assign-patient-card{background:#fff;border-radius:16px;padding:18px;box-shadow:var(--shadow);border-left:4px solid var(--accent);}
-    .apc-name{font-size:1rem;font-weight:800;color:var(--dark);margin-bottom:4px;}
-    .apc-meta{font-size:0.8rem;color:#8a9e98;margin-bottom:8px;}
-    .apc-condition{display:inline-block;background:#e8fdf5;color:#0a5c4d;border-radius:999px;padding:3px 10px;font-size:0.75rem;font-weight:700;margin-bottom:10px;}
-    .apc-assigned{display:inline-block;background:#dcfce7;color:#166534;border-radius:999px;padding:3px 10px;font-size:0.75rem;font-weight:700;margin-bottom:10px;}
-    .apc-pending{display:inline-block;background:#fff8e1;color:#7a5500;border-radius:999px;padding:3px 10px;font-size:0.75rem;font-weight:700;margin-bottom:10px;}
-    .assign-btn{width:100%;padding:9px;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:0.85rem;}
-    .assign-modal{display:none;position:fixed;inset:0;z-index:9500;background:rgba(10,30,25,0.6);backdrop-filter:blur(6px);align-items:center;justify-content:center;}
-    .assign-modal.open{display:flex;}
-    .assign-modal-box{background:#fff;border-radius:22px;width:min(460px,96vw);box-shadow:0 24px 60px rgba(0,0,0,0.22);overflow:hidden;max-height:90vh;overflow-y:auto;}
-    .assign-modal-hdr{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;padding:20px 22px;position:relative;}
-    .assign-modal-hdr h3{font-size:1.05rem;font-weight:800;margin-bottom:3px;}
-    .assign-modal-hdr p{font-size:0.82rem;opacity:0.88;}
-    .assign-modal-body{padding:20px 22px;}
-    .am-field{margin-bottom:14px;}
-    .am-field label{display:block;font-size:0.8rem;font-weight:700;color:var(--primary);margin-bottom:5px;}
-    .am-field select,.am-field input{width:100%;padding:9px 12px;border:2px solid #cde8da;border-radius:10px;font-size:0.88rem;outline:none;}
-    .am-split-box{background:#f7fff8;border:2px solid #b2eed8;border-radius:12px;padding:14px;margin-bottom:14px;display:none;}
-    .am-split-row{display:flex;justify-content:space-between;font-size:0.83rem;margin-bottom:6px;color:#5a7060;}
-    .am-split-row:last-child{margin-bottom:0;}
-    .am-split-total{font-weight:800;color:var(--dark);font-size:0.95rem;border-top:1px solid #b2eed8;padding-top:8px;margin-top:4px;display:flex;justify-content:space-between;}
-    .am-save-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:12px;font-weight:800;font-size:1rem;cursor:pointer;}
-    .am-cancel-btn{width:100%;padding:10px;background:#fff;color:var(--primary);border:2px solid var(--primary);border-radius:12px;font-weight:700;font-size:0.9rem;cursor:pointer;margin-top:8px;}
-    .assign-empty{text-align:center;color:#8a9e98;padding:40px;grid-column:1/-1;}
-    .booking-history-row{display:flex;justify-content:space-between;align-items:center;background:#f7fff8;border-radius:10px;padding:12px 14px;margin-bottom:8px;font-size:0.83rem;}
-    .bhr-left{display:flex;flex-direction:column;gap:3px;}
-    .bhr-badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:0.72rem;font-weight:700;}
-    .bhr-pending{background:#fff8e1;color:#7a5500;}
-    .bhr-done{background:#dcfce7;color:#166534;}
-
 
     .meal-blk{background:#f4fbf8;border-radius:11px;padding:11px;
       margin-bottom:9px;border:1px solid #d4ede5;}
@@ -325,120 +226,7 @@
       .frow.s3{grid-template-columns:1fr 1fr;}
       .opt-row{grid-template-columns:2fr 1fr auto;}
     }
-  
-    /* Diet Uploads tab */
-    .du-toolbar{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;align-items:center;}
-    .du-filter{flex:1;min-width:180px;padding:9px 13px;border:1px solid #cfe5dd;border-radius:10px;font-size:0.88rem;outline:none;}
-    .du-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;}
-    .du-card{background:#fff;border-radius:16px;padding:18px;box-shadow:var(--shadow);}
-    .du-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
-    .du-name{font-weight:800;color:var(--dark);font-size:0.97rem;}
-    .du-phone{font-size:0.78rem;color:#888;margin-top:2px;}
-    .du-date{font-size:0.75rem;color:#aaa;}
-    .du-note{font-size:0.82rem;color:var(--text);background:#f4fbf8;border-radius:8px;padding:8px 10px;margin-bottom:10px;font-style:italic;}
-    .du-imgs{display:flex;flex-wrap:wrap;gap:8px;}
-    .du-img{width:80px;height:80px;border-radius:10px;object-fit:cover;border:2px solid #d7f2eb;cursor:pointer;transition:0.2s;}
-    .du-img:hover{transform:scale(1.05);border-color:var(--accent);}
-    .du-del{background:#fee2e2;border:none;border-radius:7px;color:#e05;padding:5px 10px;font-size:0.75rem;font-weight:700;cursor:pointer;margin-top:10px;}
-    .du-empty{text-align:center;padding:60px 20px;color:#aaa;font-size:1rem;grid-column:1/-1;}
-    /* Lightbox */
-    .lb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9999;align-items:center;justify-content:center;}
-    .lb-overlay.open{display:flex;}
-    .lb-img{max-width:90vw;max-height:88vh;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,0.5);}
-    .lb-close{position:fixed;top:18px;right:22px;background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:1.6rem;cursor:pointer;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;}
-
-
-    /* ---- Blogs Tab ---- */
-    .blog-form-wrap{background:#f0faf5;border-radius:16px;padding:24px;margin-bottom:28px;}
-    .blog-form-wrap h3{color:var(--dark);margin-bottom:18px;font-size:1rem;}
-    .blog-form-field{margin-bottom:14px;}
-    .blog-form-field label{display:block;font-size:0.8rem;font-weight:600;color:#3a5a3a;margin-bottom:4px;}
-    .blog-form-field input,.blog-form-field select,.blog-form-field textarea{width:100%;padding:10px 13px;border:1.5px solid #c8ead8;border-radius:10px;font-size:0.9rem;background:#fff;box-sizing:border-box;}
-    .blog-form-field textarea{min-height:160px;resize:vertical;}
-    .blog-pub-btn{padding:12px 28px;background:linear-gradient(135deg,#0a5c4d,#3aafa9);color:#fff;border:none;border-radius:10px;font-size:0.92rem;font-weight:700;cursor:pointer;}
-    .blog-list{margin-top:20px;display:flex;flex-direction:column;gap:14px;}
-    .blog-item{background:#fff;border:1.5px solid #e0f2ec;border-radius:14px;padding:18px;display:flex;justify-content:space-between;align-items:flex-start;gap:14px;}
-    .blog-item-info{flex:1;}
-    .blog-item-title{font-weight:700;color:#1a2e1a;font-size:0.97rem;margin-bottom:4px;}
-    .blog-item-meta{font-size:0.78rem;color:#8aaa90;}
-    .blog-del-btn{background:#fee2e2;color:#e05;border:none;border-radius:8px;padding:7px 14px;cursor:pointer;font-weight:600;font-size:0.82rem;flex-shrink:0;}
-    .blog-success{display:none;background:#d4edda;border:1.5px solid #28a745;color:#155724;border-radius:10px;padding:12px 16px;margin-top:12px;font-weight:600;}
-
-
-    /* ---- Registrations Tab ---- */
-    .reg-toolbar{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;align-items:center;}
-    .reg-filter-btn{padding:8px 18px;border-radius:999px;border:1.5px solid var(--primary);background:#fff;color:var(--primary);font-weight:700;font-size:0.82rem;cursor:pointer;transition:all .2s;}
-    .reg-filter-btn.active{background:var(--primary);color:#fff;}
-    .reg-search{flex:1;min-width:180px;padding:9px 14px;border:1.5px solid #c8ead8;border-radius:10px;font-size:0.9rem;}
-    .reg-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:4px;}
-    .reg-card{background:#fff;border:1.5px solid #e0f2ec;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:6px;}
-    .reg-card.doctor-card{border-left:4px solid var(--primary);}
-    .reg-card.patient-card{border-left:4px solid #3aafa9;}
-    .reg-card-type{font-size:0.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:2px 10px;border-radius:999px;display:inline-block;width:fit-content;}
-    .type-doctor{background:#e0f5eb;color:#0a5c4d;}
-    .type-patient{background:#e0f3ff;color:#0a4c8c;}
-    .reg-card-name{font-size:1rem;font-weight:700;color:#1a2e1a;}
-    .reg-card-detail{font-size:0.82rem;color:#5a7060;line-height:1.5;}
-    .reg-card-date{font-size:0.75rem;color:#9aaa9a;margin-top:4px;}
-    .reg-card-actions{display:flex;gap:8px;margin-top:8px;}
-    .reg-wa-btn{padding:7px 14px;background:#25D366;color:#fff;border:none;border-radius:8px;font-size:0.8rem;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block;}
-    .reg-del-btn{padding:7px 14px;background:#fee2e2;color:#e05;border:none;border-radius:8px;font-size:0.8rem;font-weight:600;cursor:pointer;}
-    .reg-empty{text-align:center;color:#8aaa90;padding:48px 20px;grid-column:1/-1;}
-    .reg-stats{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;}
-    .reg-stat{background:#f0faf5;border-radius:12px;padding:12px 20px;font-size:0.85rem;font-weight:700;color:#0a5c4d;}
-
-
-    /* ---- Earnings Tab ---- */
-    .earn-overview{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-bottom:28px;}
-    .earn-card{background:#fff;border-radius:14px;padding:18px;text-align:center;box-shadow:0 2px 10px rgba(0,80,60,.07);}
-    .earn-card-icon{font-size:1.8rem;margin-bottom:6px;}
-    .earn-card-val{font-size:1.5rem;font-weight:800;color:#0a5c4d;margin-bottom:4px;}
-    .earn-card-lbl{font-size:0.78rem;color:#7a9a7a;font-weight:600;}
-    .earn-card.platform{border-top:3px solid #f0a500;}
-    .earn-card.platform .earn-card-val{color:#b07000;}
-    .earn-card.doctor-share{border-top:3px solid #0a5c4d;}
-    .earn-log-form{background:#f0faf5;border-radius:16px;padding:22px;margin-bottom:24px;}
-    .earn-log-form h3{font-size:0.95rem;font-weight:700;color:var(--dark);margin-bottom:16px;}
-    .earn-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;}
-    .earn-row .earn-field{flex:1;min-width:130px;}
-    .earn-row .earn-field label{display:block;font-size:0.78rem;font-weight:600;color:#3a5a3a;margin-bottom:4px;}
-    .earn-row .earn-field input,.earn-row .earn-field select{width:100%;padding:9px 12px;border:1.5px solid #c8ead8;border-radius:9px;font-size:0.88rem;box-sizing:border-box;background:#fff;}
-    .earn-log-btn{padding:11px 24px;background:linear-gradient(135deg,#0a5c4d,#3aafa9);color:#fff;border:none;border-radius:10px;font-size:0.9rem;font-weight:700;cursor:pointer;}
-    .earn-history{display:flex;flex-direction:column;gap:12px;}
-    .earn-item{background:#fff;border:1.5px solid #e0f2ec;border-radius:12px;padding:16px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;}
-    .earn-item-info{flex:1;}
-    .earn-item-name{font-weight:700;color:#1a2e1a;font-size:0.93rem;margin-bottom:3px;}
-    .earn-item-meta{font-size:0.78rem;color:#7a9a7a;}
-    .earn-item-amounts{text-align:right;flex-shrink:0;}
-    .earn-gross{font-size:1rem;font-weight:800;color:#1a2e1a;}
-    .earn-split{font-size:0.75rem;color:#7a9a7a;margin-top:2px;}
-    .earn-del-btn{background:#fee2e2;color:#e05;border:none;border-radius:7px;padding:5px 11px;cursor:pointer;font-size:0.78rem;font-weight:600;}
-    .earn-empty{text-align:center;color:#8aaa90;padding:36px;font-size:0.9rem;}
-    .rate-setup-box{background:#fff8e6;border:1.5px dashed #d4a000;border-radius:14px;padding:20px;margin-bottom:22px;}
-    .rate-setup-box h3{font-size:0.92rem;font-weight:700;color:#7a5800;margin-bottom:14px;}
-    .rate-setup-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;}
-    .rate-setup-row .rf{flex:1;min-width:140px;}
-    .rate-setup-row .rf label{display:block;font-size:0.78rem;font-weight:600;color:#5a4000;margin-bottom:4px;}
-    .rate-setup-row .rf input{width:100%;padding:9px 12px;border:1.5px solid #e8c870;border-radius:9px;font-size:0.9rem;box-sizing:border-box;background:#fffdf0;}
-    .rate-save-btn{padding:10px 22px;background:#d4a000;color:#fff;border:none;border-radius:9px;font-weight:700;cursor:pointer;font-size:0.88rem;}
-
   </style>
-
-  <!-- PWA: Prahari NatureCure -->
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#0a5c4d">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Prahari NatureCure">
-  <link rel="apple-touch-icon" href="/icons/icon-192.png">
-  <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152.png">
-  <link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
-  <link rel="icon" type="image/png" sizes="96x96"  href="/icons/icon-96.png">
-  <meta name="application-name" content="Prahari NatureCure">
-  <meta name="msapplication-TileImage" content="/icons/icon-144.png">
-  <meta name="msapplication-TileColor" content="#0a5c4d">
 </head>
 <body>
 
@@ -446,8 +234,8 @@
 <div class="login-screen" id="loginScreen">
   <div class="login-box">
     <div class="logo">🌿</div>
-    <h2>Admin Login</h2>
-    <p>Naturopathy & Yoga Care — Admin Panel</p>
+    <h2>Doctor Login</h2>
+    <p>Naturopathy & Yoga Care — Doctor Panel</p>
     <input class="l-input" type="text" id="lu" placeholder="Username" />
     <input class="l-input" type="password" id="lp" placeholder="Password"
       onkeydown="if(event.key==='Enter')doLogin()" />
@@ -460,9 +248,9 @@
 <div id="mainPanel" style="display:none;">
 
   <div class="topbar">
-    <h1>🌿 Admin Panel — Naturopathy & Yoga Care</h1>
+    <h1>🌿 Doctor Panel — Naturopathy & Yoga Care</h1>
     <div class="topbar-right">
-      <span class="doc-tag" id="docTag">🛡️ Admin</span>
+      <span class="doc-tag" id="docTag">👨‍⚕️ Doctor</span>
       <button class="t-btn" onclick="window.open('index.html','_blank')">🌐 Website</button>
       <button class="t-btn" onclick="doLogout()">🚪 Logout</button>
     </div>
@@ -470,13 +258,9 @@
 
   <!-- TABS — How To Use REMOVED -->
   <div class="tab-nav">
-    <button class="tab-btn active" onclick="goTab('dashboard',this)">🌿 Dashboard</button>
-    <button class="tab-btn" onclick="goTab('patients',this)">👥 Patients List</button>
-    <button class="tab-btn" onclick="goTab('doctors',this)">👨‍⚕️ Doctors List</button>
-    <button class="tab-btn" onclick="goTab('registrations',this)">📋 Registrations</button>
-    <button class="tab-btn" onclick="goTab('assign',this)">🔗 Assign Doctor</button>
-    <button class="tab-btn" onclick="goTab('earnings',this)">💰 Earnings</button>
-    <button class="tab-btn" onclick="goTab('payouts',this)">💸 Payouts</button>
+    <button class="tab-btn active" onclick="goTab('dashboard',this)">📊 Dashboard</button>
+    <button class="tab-btn" onclick="goTab('patients',this)">👥 Patients</button>
+    <button class="tab-btn" onclick="goTab('dietchart',this)">🥗 Diet Chart</button>
   </div>
 
   <!-- DASHBOARD -->
@@ -509,233 +293,147 @@
 
   <!-- PATIENTS -->
   <div id="tab-patients" class="tab-pane">
-    <h2 style="font-size:1.1rem;font-weight:800;color:var(--dark);margin-bottom:16px;">👥 All Registered Patients</h2>
-    <div style="margin-bottom:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
-      <input id="patListSearch" placeholder="🔍 Search by name or phone…"
-        oninput="renderPatientsList()"
-        style="flex:1;min-width:220px;max-width:420px;padding:10px 14px;border-radius:10px;border:1.5px solid #c6e6d4;font-size:0.9rem;outline:none;" />
-      <button onclick="renderPatientsList()" style="background:linear-gradient(135deg,#2d6a4f,#40916c);color:#fff;border:none;border-radius:10px;padding:10px 18px;font-weight:700;cursor:pointer;">🔄 Refresh</button>
+    <div class="p-toolbar">
+      <input class="p-search" id="psearch" placeholder="🔍 Search patient..." oninput="renderPatients()" />
+      <button class="p-add-btn" onclick="openAddModal()">+ Add Patient</button>
     </div>
-    <div id="patientListGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;"></div>
-  </div>
-
-  <!-- DOCTORS LIST -->
-  <div id="tab-doctors" class="tab-pane">
-    <h2 style="font-size:1.1rem;font-weight:800;color:var(--dark);margin-bottom:16px;">👨‍⚕️ Registered Doctors</h2>
-    <div style="margin-bottom:14px;">
-      <input id="docListSearch" placeholder="🔍 Search by name, specialty or phone…"
-        oninput="renderDoctorsList()"
-        style="width:100%;max-width:400px;padding:10px 14px;border-radius:10px;border:1.5px solid #c6e6d4;font-size:0.9rem;outline:none;" />
-    </div>
-    <div id="doctorListGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;"></div>
-  </div>
-
-  <!-- REGISTRATIONS -->
-  <div id="tab-registrations" class="tab-pane">
-    <div class="reg-stats">
-      <div class="reg-stat">👥 Total: <span id="reg-total">0</span></div>
-      <div class="reg-stat">🙋 Patients: <span id="reg-patients-count">0</span></div>
-      <div class="reg-stat">👨‍⚕️ Doctors: <span id="reg-doctors-count">0</span></div>
-    </div>
-    <div class="reg-toolbar">
-      <button class="reg-filter-btn active" onclick="filterRegs('all',this)">All</button>
-      <button class="reg-filter-btn" onclick="filterRegs('patient',this)">🙋 Patients</button>
-      <button class="reg-filter-btn" onclick="filterRegs('doctor',this)">👨‍⚕️ Doctors</button>
-      <input class="reg-search" id="regSearch" placeholder="🔍 Search by name or phone..." oninput="renderRegistrations()" />
-      <button class="p-add-btn" style="background:#fee2e2;color:#e05;" onclick="clearAllRegistrations()">🗑 Clear All</button>
-    </div>
-    <div class="reg-cards" id="regCards">
-      <div class="reg-empty">No registrations yet.</div>
+    <div class="p-grid" id="pGrid">
+      <p style="color:#aaa;grid-column:1/-1;text-align:center;padding:40px;">No patients yet.</p>
     </div>
   </div>
 
-  <!-- EARNINGS -->
-  <div id="tab-earnings" class="tab-pane">
+  <!-- DIET CHART -->
+  <div id="tab-dietchart" class="tab-pane">
+    <div class="builder-wrap">
 
-    <!-- Rate Setup -->
-    <div class="rate-setup-box">
-      <h3>⚙️ Set Your Consultation Rates</h3>
-      <div class="rate-setup-row">
-        <div class="rf"><label>💬 Chat Rate (₹ / min)</label><input type="number" id="dc-chat-rate" placeholder="e.g. 20" min="1" /></div>
-        <div class="rf"><label>📞 Call Rate (₹ / min)</label><input type="number" id="dc-call-rate" placeholder="e.g. 30" min="1" /></div>
-        <div class="rf" style="display:flex;align-items:flex-end;">
-          <button class="rate-save-btn" onclick="saveMyRates()">💾 Save Rates</button>
+      <!-- FORM -->
+      <div class="form-panel">
+        <h2>📋 Build Diet Chart</h2>
+
+        <div class="fsec">
+          <h3>👤 Patient</h3>
+          <div class="frow s1">
+            <div><label>Select Saved Patient</label>
+              <select id="selPat" onchange="loadPatToForm()">
+                <option value="">— Type manually below —</option>
+              </select>
+            </div>
+          </div>
+          <div class="frow s1">
+            <div><label>Patient Name *</label>
+              <input type="text" id="pname" placeholder="Full name" /></div>
+          </div>
+          <div class="frow">
+            <div><label>Date</label><input type="date" id="cdate" /></div>
+            <div><label>Condition</label>
+              <select id="pcond">
+                <option>Personalised Diet Plan</option>
+                <option>Diabetes Management Plan</option>
+                <option>PCOS Diet Plan</option>
+                <option>Weight Loss Plan</option>
+                <option>Thyroid Diet Plan</option>
+                <option>Joint Pain Diet Plan</option>
+                <option>Digestive Wellness Plan</option>
+                <option>Skin Care Diet Plan</option>
+                <option>Hypertension Diet Plan</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="fsec">
+          <h3>🩺 Doctor</h3>
+          <div class="frow">
+            <div><label>Name</label><input type="text" id="dname" /></div>
+            <div><label>Qualification</label><input type="text" id="dqual" /></div>
+          </div>
+        </div>
+
+        <div class="fsec">
+          <h3>📊 Health Details</h3>
+          <div class="frow s3">
+            <div><label>Weight(kg)</label><input type="number" id="wt" placeholder="70" /></div>
+            <div><label>Height(cm)</label><input type="number" id="ht" placeholder="165" /></div>
+            <div><label>Age</label><input type="number" id="age" placeholder="35" /></div>
+          </div>
+          <div class="frow s1">
+            <div><label>Target Wt(kg)</label><input type="number" id="twt" placeholder="65" /></div>
+          </div>
+        </div>
+
+        <div class="fsec">
+          <h3>🍽️ Preferences</h3>
+          <div class="frow">
+            <div><label>Food Type</label>
+              <select id="ftype">
+                <option>Vegetarian</option>
+                <option>Non-Vegetarian</option>
+                <option>Vegetarian, Non-Vegetarian</option>
+                <option>Vegan</option>
+              </select>
+            </div>
+            <div><label>Cuisine</label><input type="text" id="cuisine" placeholder="South Indian" /></div>
+          </div>
+          <div class="frow s1">
+            <div><label>Dislikes / Allergies</label>
+              <input type="text" id="dislikes" placeholder="Brinjal, Peanuts" /></div>
+          </div>
+        </div>
+
+        <div class="fsec">
+          <h3>🥗 Diet Plan</h3>
+          <div id="mealsWrap"></div>
+          <button class="add-meal-btn" onclick="addMeal()">+ Add Meal Slot</button>
+        </div>
+
+        <div class="fsec">
+          <h3>🌿 Naturopathy Treatments</h3>
+          <textarea id="naturo"
+            placeholder="Hot and cold fomentation on joints&#10;4.00 - Cold fomentation on stomach for 20min&#10;Steam bath - twice a week"></textarea>
+        </div>
+
+        <div class="fsec">
+          <h3>💡 Tips</h3>
+          <textarea id="tips"
+            placeholder="• Drink 2-3 litres of water daily&#10;• Eat slowly and chew well"></textarea>
+        </div>
+
+        <div class="fsec">
+          <h3>🚫 Things to Avoid</h3>
+          <textarea id="avoid"
+            placeholder="• Sugary drinks and packaged juices&#10;• Fried and processed foods"></textarea>
+        </div>
+
+        <div class="act-row">
+          <button class="btn-prev" onclick="genChart()">👁 Preview</button>
+          <button class="btn-prnt" onclick="printChart()">🖨 Print/PDF</button>
+        </div>
+        <button class="btn-wa-s" onclick="waSummary()">
+          💬 Send Summary to Patient via WhatsApp
+        </button>
+        <div style="margin-top:6px;font-size:0.75rem;color:#888;text-align:center;">
+          Print/PDF → Save PDF → Send PDF file manually via WhatsApp
         </div>
       </div>
-      <div style="font-size:0.78rem;color:#7a5800;">
-        ℹ️ <strong>Commission split for Chat/Call:</strong> Doctor <strong>60%</strong> · Admin/Clinic <strong>20%</strong> · Platform (Developer) <strong>20%</strong>.<br>Example: ₹300 gross → Doctor ₹180 · Admin ₹60 · Platform ₹60. For <strong>Personal Consultations</strong>, Admin takes full payment and manages doctor payment directly.
-      </div>
-    </div>
 
-    <!-- Earnings Overview -->
-    <div class="earn-overview">
-      <div class="earn-card"><div class="earn-card-icon">💰</div><div class="earn-card-val" id="e-gross">₹0</div><div class="earn-card-lbl">Gross Billed</div></div>
-      <div class="earn-card doctor-share"><div class="earn-card-icon">🏦</div><div class="earn-card-val" id="e-yours">₹0</div><div class="earn-card-lbl">Doctor Share (60%)</div></div>
-      <div class="earn-card platform"><div class="earn-card-icon">🏢</div><div class="earn-card-val" id="e-platform">₹0</div><div class="earn-card-lbl">Platform Fee (20%)</div></div>
-      <div class="earn-card"><div class="earn-card-icon">📞</div><div class="earn-card-val" id="e-sessions">0</div><div class="earn-card-lbl">Total Sessions</div></div>
-    </div>
-
-    <!-- Log Session -->
-    <div class="earn-log-form">
-      <h3>➕ Log a Completed Session</h3>
-      <div class="earn-row">
-        <div class="earn-field"><label>Patient Name</label><input type="text" id="el-patient" placeholder="Patient name" /></div>
-        <div class="earn-field"><label>Session Type</label>
-          <select id="el-type">
-            <option value="chat">💬 Chat</option>
-            <option value="call">📞 Call</option>
-          </select>
+      <!-- PREVIEW -->
+      <div class="prev-panel">
+        <div class="prev-top">
+          <h2>📄 Diet Chart Preview</h2>
+          <button onclick="printChart()">🖨 Print / Save as PDF</button>
+        </div>
+        <div id="dcOutput">
+          <div class="dc-empty">
+            <div class="ei">🥗</div>
+            <p>Fill the form and click <strong>Preview</strong></p>
+          </div>
         </div>
       </div>
-      <div class="earn-row">
-        <div class="earn-field"><label>Duration (minutes)</label><input type="number" id="el-mins" placeholder="e.g. 15" min="1" oninput="updateSessionPreview()" /></div>
-        <div class="earn-field"><label>Rate Used (₹/min)</label><input type="number" id="el-rate" placeholder="e.g. 20" min="1" oninput="updateSessionPreview()" /></div>
-      </div>
-      <div id="el-preview" style="font-size:0.85rem;color:#0a5c4d;margin-bottom:12px;font-weight:600;min-height:20px;"></div>
-      <button class="earn-log-btn" onclick="logSession()">✅ Log Session</button>
-    </div>
 
-    <!-- Session History -->
-    <h3 style="font-size:0.95rem;color:var(--dark);margin-bottom:14px;">📋 Session History</h3>
-    <div class="earn-history" id="earnHistory">
-      <div class="earn-empty">No sessions logged yet. Log your first session above.</div>
-    </div>
-  </div>
-
-
-  <!-- ASSIGN DOCTOR TAB -->
-  <div id="tab-assign" class="tab-pane">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;flex-wrap:wrap;gap:10px;">
-      <div>
-        <h2 style="color:var(--dark);font-size:1.05rem;font-weight:800;">🔗 Assign Doctors to Patients</h2>
-        <p style="font-size:0.82rem;color:#8a9e98;">View registered patients and assign available doctors based on their condition and payment.</p>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <button class="p-add-btn" onclick="renderAssignTab()">🔄 Refresh</button>
-        <button class="p-add-btn" style="background:#3aafa9;" onclick="showBookingHistory()">📋 Booking History</button>
-      </div>
-    </div>
-
-    <!-- Stats row -->
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px;">
-      <div class="stat-card"><div class="stat-icon">🙋</div><div class="stat-num" id="as-patients">0</div><div class="stat-lbl">Registered Patients</div></div>
-      <div class="stat-card"><div class="stat-icon">👨‍⚕️</div><div class="stat-num" id="as-doctors">0</div><div class="stat-lbl">Available Doctors</div></div>
-      <div class="stat-card"><div class="stat-icon">🔗</div><div class="stat-num" id="as-assigned">0</div><div class="stat-lbl">Assignments Made</div></div>
-    </div>
-
-    <!-- Commission info box -->
-    <div style="background:linear-gradient(135deg,#fff8e1,#fff3cc);border:1px solid #f0d080;border-radius:14px;padding:16px;margin-bottom:18px;font-size:0.85rem;color:#7a5500;">
-      <strong>💰 Commission Structure:</strong><br>
-      <span style="display:inline-block;margin-top:6px;">
-        📞 <strong>Chat / Call (Online):</strong> Doctor 60% · Admin/Clinic 20% · Platform (Developer) 20%<br>
-        🏥 <strong>Personal Consultation:</strong> Admin takes full payment and manages doctor payment directly.
-      </span>
-    </div>
-
-    <h3 style="font-size:0.9rem;color:var(--dark);margin-bottom:10px;">👥 Registered Patients — Assign Doctor</h3>
-    <div class="assign-grid" id="assignGrid">
-      <div class="assign-empty">Loading patients...</div>
-    </div>
-
-    <h3 style="font-size:0.9rem;color:var(--dark);margin:22px 0 10px;">📋 Booking Requests (Wallet Sessions)</h3>
-    <div id="bookingHistoryList">
-      <div class="assign-empty">No wallet bookings yet.</div>
-    </div>
-  </div>
-
-
-  <!-- PAYOUTS TAB -->
-  <div id="tab-payouts" class="tab-pane">
-    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:16px;">
-      <div>
-        <h2 style="color:var(--dark);font-size:1.05rem;font-weight:800;">💸 Doctor Payouts</h2>
-        <p style="font-size:0.82rem;color:#8a9e98;">Track how much you owe each doctor and record manual UPI/bank transfers.</p>
-      </div>
-      <button class="p-add-btn" onclick="renderPayoutsTab()">🔄 Refresh</button>
-    </div>
-
-    <div class="route-how">
-      🔵 <strong>Razorpay Route is Active!</strong> You can now pay doctors directly from your Razorpay balance — no manual UPI needed.<br>
-      <ol>
-        <li>Go to <a href="https://dashboard.razorpay.com/app/route/linked-accounts" target="_blank" style="color:#1565c0;font-weight:700;">Razorpay Dashboard → Route → Linked Accounts</a></li>
-        <li>Find or create the doctor's linked account — copy their <strong>Account ID</strong> (starts with <code>acc_</code>)</li>
-        <li>Paste it below in each doctor's card and click <strong>"Link Account"</strong></li>
-        <li>Click <strong>"💳 Pay via Razorpay Route"</strong> — money transfers instantly from your balance</li>
-      </ol>
-    </div>
-    <div class="alert-box" style="background:#fff8e1;border-color:#f0d080;">
-      ℹ️ <strong>Manual option:</strong> If a doctor isn't linked yet, use <strong>"Mark as Paid"</strong> (records manual UPI transfer). Once linked, switch to Route for instant automated transfers.
-    </div>
-
-    <!-- Stats -->
-    <div class="payout-stats">
-      <div class="payout-stat"><div class="payout-stat-icon">💰</div><div class="payout-stat-num" id="po-total">₹0</div><div class="payout-stat-lbl">Total Collected</div></div>
-      <div class="payout-stat"><div class="payout-stat-icon">🧑‍⚕️</div><div class="payout-stat-num" id="po-doc-total">₹0</div><div class="payout-stat-lbl">Doctors' Total (60%)</div></div>
-      <div class="payout-stat"><div class="payout-stat-icon">🔴</div><div class="payout-stat-num" id="po-owed">₹0</div><div class="payout-stat-lbl">Still Owed to Doctors</div></div>
-      <div class="payout-stat"><div class="payout-stat-icon">✅</div><div class="payout-stat-num" id="po-paid">₹0</div><div class="payout-stat-lbl">Already Paid Out</div></div>
-      <div class="payout-stat"><div class="payout-stat-icon">🏥</div><div class="payout-stat-num" id="po-admin">₹0</div><div class="payout-stat-lbl">Admin Earnings (20%)</div></div>
-      <div class="payout-stat"><div class="payout-stat-icon">💻</div><div class="payout-stat-num" id="po-platform">₹0</div><div class="payout-stat-lbl">Platform Fee (20%)</div></div>
-    </div>
-
-    <!-- Period filter -->
-    <div class="payout-period">
-      <button class="period-btn active" onclick="setPayoutPeriod('all',this)">All Time</button>
-      <button class="period-btn" onclick="setPayoutPeriod('month',this)">This Month</button>
-      <button class="period-btn" onclick="setPayoutPeriod('week',this)">This Week</button>
-    </div>
-
-    <!-- Per-doctor cards -->
-    <div id="doctorPayoutCards">
-      <div class="no-payouts">No session data yet. Bookings will appear here once patients book sessions.</div>
     </div>
   </div>
 
 </div><!-- END MAIN -->
-
-
-<!-- ASSIGN DOCTOR MODAL -->
-<div class="assign-modal" id="assignModal">
-  <div class="assign-modal-box">
-    <div class="assign-modal-hdr">
-      <h3>🔗 Assign Doctor to Patient</h3>
-      <p id="am-patient-info">Patient details</p>
-    </div>
-    <div class="assign-modal-body">
-      <div class="am-field">
-        <label>Select Doctor *</label>
-        <select id="am-doctor-select">
-          <option value="">-- Select Available Doctor --</option>
-        </select>
-      </div>
-      <div class="am-field">
-        <label>Consultation Type *</label>
-        <select id="am-consult-type" onchange="updateAmSplit()">
-          <option value="">-- Select Type --</option>
-          <option value="personal">🏥 Personal Consultation (Admin takes full payment)</option>
-          <option value="chat">💬 Chat (Online)</option>
-          <option value="call">📞 Call (Online)</option>
-        </select>
-      </div>
-      <div class="am-field">
-        <label>Amount Paid by Patient (₹) *</label>
-        <input type="number" id="am-amount" placeholder="e.g. 500" min="1" oninput="updateAmSplit()" />
-      </div>
-      <div class="am-split-box" id="amSplitBox">
-        <div style="font-size:0.78rem;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:10px;">💰 Revenue Split</div>
-        <div class="am-split-row"><span id="am-type-label">Platform (Developer) — 20%</span><span id="am-plat-val">₹0</span></div>
-        <div class="am-split-row" id="am-doc-row"><span>Doctor — 60%</span><span id="am-doc-val">₹0</span></div>
-        <div class="am-split-row"><span id="am-admin-label">Admin / Clinic — 20%</span><span id="am-admin-val">₹0</span></div>
-        <div class="am-split-total"><span>Total</span><span id="am-total-val">₹0</span></div>
-      </div>
-      <div class="am-field">
-        <label>Notes (optional)</label>
-        <input type="text" id="am-notes" placeholder="Any special notes for the doctor..." />
-      </div>
-      <button class="am-save-btn" onclick="saveAssignment()">✅ Confirm Assignment</button>
-      <button class="am-cancel-btn" onclick="closeAssignModal()">Cancel</button>
-    </div>
-  </div>
-</div>
 
 <!-- ADD PATIENT MODAL -->
 <div class="modal" id="addModal">
@@ -811,7 +509,6 @@
 
 <script>
 var DOCTORS = [
-  { u:"admin",    p:"admin@nyc123", name:"Admin",              qual:"Naturopathy & Yoga Care" },
   { u:"srihari",  p:"srihari@123",  name:"Dr Srihari",        qual:"BNYS, MSc. Psy, Dip. in Acu" },
   { u:"prathima", p:"prathima@123", name:"Dr Prathima Kumari", qual:"BNYS" }
 ];
@@ -833,13 +530,14 @@ function doLogin() {
     ME = found;
     document.getElementById("loginScreen").style.display = "none";
     document.getElementById("mainPanel").style.display   = "block";
-    document.getElementById("docTag").textContent        = (found.u==="admin" ? "🛡️ Admin" : "👨‍⚕️ " + found.name);
+    document.getElementById("docTag").textContent        = "👨‍⚕️ " + found.name;
     document.getElementById("dname").value = found.name;
     document.getElementById("dqual").value = found.qual;
     document.getElementById("cdate").value = new Date().toISOString().split("T")[0];
     document.getElementById("lerr").style.display = "none";
     initDash();
-    renderDoctorsList();
+    initMeals();
+    updatePatDD();
   } else {
     document.getElementById("lerr").style.display = "block";
   }
@@ -866,14 +564,10 @@ function goTab(name, btn) {
   document.querySelectorAll(".tab-pane").forEach(function(t) { t.classList.remove("active"); });
   document.querySelectorAll(".tab-btn").forEach(function(b) { b.classList.remove("active"); });
   document.getElementById("tab-" + name).classList.add("active");
-  if (name === "registrations") renderRegistrations();
-  if (name === "earnings") { loadMyRates(); renderEarnings(); }
   if (btn) btn.classList.add("active");
   if (name === "dashboard") initDash();
-  if (name === "patients")  renderPatientsList();
-  if (name === "doctors")   renderDoctorsList();
-  if (name === "assign") renderAssignTab();
-  if (name === "payouts") renderPayoutsTab();
+  if (name === "patients")  renderPatients();
+  if (name === "dietchart") updatePatDD();
 }
 
 function initDash() {
@@ -947,7 +641,8 @@ function savePatient() {
   patients.push(p);
   localStorage.setItem("nyc_patients", JSON.stringify(patients));
   closeModal();
-  renderPatientsList();
+  renderPatients();
+  updatePatDD();
   initDash();
   alert("✅ Patient " + name + " saved successfully!");
 }
@@ -956,11 +651,48 @@ function deletePatient(id) {
   if (!confirm("Delete this patient?")) return;
   patients = patients.filter(function(p) { return p.id !== id; });
   localStorage.setItem("nyc_patients", JSON.stringify(patients));
-  renderPatientsList();
+  renderPatients();
+  updatePatDD();
   initDash();
 }
 
-function renderPatients() { renderPatientsList(); }
+function renderPatients() {
+  var q = (document.getElementById("psearch").value || "").toLowerCase();
+  var list = patients.filter(function(p) {
+    return p.name.toLowerCase().indexOf(q) !== -1;
+  });
+  var g = document.getElementById("pGrid");
+  if (!list.length) {
+    g.innerHTML = '<p style="color:#aaa;grid-column:1/-1;text-align:center;padding:40px;">No patients found.</p>';
+    return;
+  }
+  var html = "";
+  for (var i = 0; i < list.length; i++) {
+    var p   = list[i];
+    var ini = p.name.split(" ").map(function(w) { return w[0]; }).join("").toUpperCase().slice(0,2);
+    var bc  = p.paystatus === "Paid" ? "badge-paid" : "badge-pend";
+    html +=
+      '<div class="p-card">' +
+        '<div class="p-card-top">' +
+          '<div><h3>' + p.name + '</h3><div class="p-cond">' + p.condition + '</div></div>' +
+          '<div class="p-avatar">' + ini + '</div>' +
+        '</div>' +
+        '<div class="p-info">📞 ' + (p.phone || "—") + '</div>' +
+        '<div class="p-info">⚖️ ' + (p.weight ? p.weight+"kg" : "—") +
+          ' | 📏 ' + (p.height ? p.height+"cm" : "—") +
+          ' | 🎂 ' + (p.age ? p.age+"y" : "—") + '</div>' +
+        '<div class="p-info">🍽 ' + (p.food || "—") + '</div>' +
+        '<div class="p-info">💰 ' + p.plan + ' — <span class="badge ' + bc + '">' + p.paystatus + '</span></div>' +
+        (p.notes ? '<div class="p-info" style="font-style:italic;color:#888;">' + p.notes + '</div>' : '') +
+        '<div class="p-btns">' +
+          '<button class="p-btn diet" onclick="loadByName(\'' + p.name + '\')">🥗 Diet Chart</button>' +
+          '<button class="p-btn wa" onclick="waMsg(\'' + p.phone + '\',\'' + p.name + '\')">💬 WhatsApp</button>' +
+          '<button class="p-btn del" onclick="deletePatient(' + p.id + ')">🗑 Delete</button>' +
+        '</div>' +
+      '</div>';
+  }
+  g.innerHTML = html;
+}
 
 function waMsg(phone, name) {
   var c = phone.replace(/\D/g, "");
@@ -970,941 +702,432 @@ function waMsg(phone, name) {
   window.open("https://wa.me/" + c + "?text=" + encodeURIComponent(msg), "_blank");
 }
 
-function loadByName(name) { /* diet chart removed — tab no longer in admin */ }
-
-
-
-/* ---- Diet Uploads (Doctor Panel) ---- */
-function openLB(src) {
-  document.getElementById('lbImg').src = src;
-  document.getElementById('lbOverlay').classList.add('open');
-}
-
-function closeLB() {
-  document.getElementById('lbOverlay').classList.remove('open');
-  document.getElementById('lbImg').src = '';
-}
-
-
-
-/* ---- BLOGS ---- */
-function renderPatientsList() {
-  var q = (document.getElementById('patListSearch') ? document.getElementById('patListSearch').value : '').toLowerCase();
-  var regs = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
-  var pats = regs.filter(function(r) { return r.type === 'patient'; });
-  if (q) {
-    pats = pats.filter(function(p) {
-      return (p.name||'').toLowerCase().indexOf(q)!==-1 || (p.phone||'').indexOf(q)!==-1 ||
-             (p.condition||'').toLowerCase().indexOf(q)!==-1;
-    });
-  }
-  var grid = document.getElementById('patientListGrid');
-  if (!grid) return;
-  if (!pats.length) {
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:#8aaa90;">No registered patients found.</div>';
-    return;
-  }
-  // Also load assignments to show assigned doctor
-  var assignments = JSON.parse(localStorage.getItem('nyc_assignments') || '[]');
-  var html = '';
-  pats.forEach(function(p) {
-    var assigned = assignments.find(function(a) { return a.patient === p.name || a.patPhone === p.phone; });
-    var wallet = JSON.parse(localStorage.getItem('nyc_wallet_' + p.phone) || 'null');
-    var walBal = wallet ? (wallet.balance || 0) : 0;
-    html += '<div style="background:#fff;border-radius:16px;padding:20px;box-shadow:0 2px 12px rgba(27,67,50,0.08);border-left:4px solid #40916c;">' +
-      '<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">' +
-        '<div style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#40916c,#74c69d);display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:#fff;">🙋</div>' +
-        '<div><div style="font-weight:800;font-size:0.98rem;color:#163832;">' + (p.name||'—') + '</div>' +
-        '<div style="font-size:0.78rem;color:#52b788;font-weight:700;">' + (p.condition||'General') + '</div></div>' +
-      '</div>' +
-      '<div style="font-size:0.85rem;color:#444;display:grid;gap:6px;">' +
-        '<div>📞 <b>' + (p.phone||'—') + '</b></div>' +
-        (p.gender ? '<div>👤 Gender: <b>' + p.gender + '</b></div>' : '') +
-        (p.age ? '<div>🎂 Age: <b>' + p.age + '</b></div>' : '') +
-        '<div>💰 Wallet: <b>₹' + walBal.toFixed(2) + '</b></div>' +
-        (assigned ? '<div>👨‍⚕️ Doctor: <b>' + (assigned.doctor||'—') + '</b></div>' : '<div style="color:#c77b00;">⚠️ No doctor assigned yet</div>') +
-        (p.date ? '<div>📅 Registered: ' + p.date + '</div>' : '') +
-      '</div>' +
-      '<a href="https://wa.me/91' + (p.phone||'') + '" target="_blank" style="display:block;margin-top:12px;text-align:center;background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;border-radius:10px;padding:8px;font-weight:700;font-size:0.85rem;text-decoration:none;">💬 WhatsApp Patient</a>' +
-    '</div>';
-  });
-  grid.innerHTML = html;
-}
-
-
-function renderDoctorsList() {
-  var q = (document.getElementById('docListSearch') ? document.getElementById('docListSearch').value : '').toLowerCase();
-  var regs = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
-  var docs = regs.filter(function(r) { return r.type === 'doctor'; });
-  if (q) {
-    docs = docs.filter(function(d) {
-      return (d.name||'').toLowerCase().indexOf(q)!==-1 ||
-             (d.specialty||'').toLowerCase().indexOf(q)!==-1 ||
-             (d.phone||'').indexOf(q)!==-1;
-    });
-  }
-  var grid = document.getElementById('doctorListGrid');
-  if (!grid) return;
-  if (!docs.length) {
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:#8aaa90;">No registered doctors found.</div>';
-    return;
-  }
-  var html = '';
-  docs.forEach(function(d) {
-    html += '<div style="background:#fff;border-radius:16px;padding:20px;box-shadow:0 2px 12px rgba(27,67,50,0.08);border-left:4px solid #2d6a4f;">' +
-      '<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">' +
-        '<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#2d6a4f,#52b788);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:#fff;">👨‍⚕️</div>' +
-        '<div><div style="font-weight:800;font-size:1rem;color:#163832;">' + (d.name||'—') + '</div>' +
-        '<div style="font-size:0.8rem;color:#52b788;font-weight:700;">' + (d.specialty||'General') + '</div></div>' +
-      '</div>' +
-      '<div style="font-size:0.85rem;color:#444;display:grid;gap:6px;">' +
-        '<div>📞 <b>' + (d.phone||'—') + '</b></div>' +
-        (d.gender ? '<div>👤 Gender: <b>' + d.gender + '</b></div>' : '') +
-        (d.qualifications ? '<div>🎓 ' + d.qualifications + '</div>' : (d.qual ? '<div>🎓 ' + d.qual + '</div>' : '')) +
-        (d.timing ? '<div>⏰ ' + d.timing + '</div>' : '') +
-        (d.city ? '<div>📍 ' + d.city + '</div>' : '') +
-        '<div style="margin-top:8px;">' +
-          '<span style="background:#e8f5e9;color:#2d6a4f;padding:4px 10px;border-radius:999px;font-size:0.78rem;font-weight:700;">Registered ' + (d.date||'') + '</span>' +
-        '</div>' +
-      '</div>' +
-      '<a href="https://wa.me/91' + (d.phone||'') + '" target="_blank" style="display:block;margin-top:12px;text-align:center;background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;border-radius:10px;padding:8px;font-weight:700;font-size:0.85rem;text-decoration:none;">💬 WhatsApp Doctor</a>' +
-    '</div>';
-  });
-  grid.innerHTML = html;
-}
-
-
-/* ---- REGISTRATIONS ---- */
-var _regFilter = 'all';
-
-function filterRegs(type, btn) {
-  _regFilter = type;
-  document.querySelectorAll('.reg-filter-btn').forEach(function(b) { b.classList.remove('active'); });
-  if (btn) btn.classList.add('active');
-  renderRegistrations();
-}
-
-function renderRegistrations() {
-  var all = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
-  var search = (document.getElementById('regSearch') || {}).value || '';
-  search = search.toLowerCase();
-
-  // Update stats
-  var patients = all.filter(function(u) { return u.type === 'patient'; });
-  var doctors  = all.filter(function(u) { return u.type === 'doctor'; });
-  var t = document.getElementById('reg-total');          if (t) t.textContent = all.length;
-  var p = document.getElementById('reg-patients-count'); if (p) p.textContent = patients.length;
-  var d = document.getElementById('reg-doctors-count');  if (d) d.textContent = doctors.length;
-
-  var filtered = all.filter(function(u) {
-    var typeMatch = _regFilter === 'all' || u.type === _regFilter;
-    var searchMatch = !search ||
-      (u.name  || '').toLowerCase().includes(search) ||
-      (u.phone || '').toLowerCase().includes(search) ||
-      (u.email || '').toLowerCase().includes(search);
-    return typeMatch && searchMatch;
-  });
-
-  var grid = document.getElementById('regCards');
-  if (!grid) return;
-
-  if (!filtered.length) {
-    grid.innerHTML = '<div class="reg-empty">No registrations found.</div>';
-    return;
-  }
-
-  grid.innerHTML = '';
-  filtered.slice().reverse().forEach(function(u) {
-    var isDoc = u.type === 'doctor';
-    var phone = (u.phone || '').replace(/\D/g, '');
-    var waLink = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(
-      isDoc
-        ? 'Hello Dr. ' + u.name + ', this is regarding your registration on Naturopathy & Yoga Care.'
-        : 'Hello ' + u.name + ', this is regarding your patient registration on Naturopathy & Yoga Care.'
-    );
-
-    var details = isDoc
-      ? [
-          u.specialty ? '🏥 ' + u.specialty : '',
-          u.qualifications ? '🎓 ' + u.qualifications : '',
-          u.timing ? '🕐 ' + u.timing : '',
-          u.email ? '📧 ' + u.email : '',
-          u.bio ? '📝 ' + u.bio : ''
-        ].filter(Boolean).join('<br>')
-      : [
-          u.condition ? '🌿 ' + u.condition : '',
-          u.age ? '🎂 Age: ' + u.age : '',
-          u.email ? '📧 ' + u.email : ''
-        ].filter(Boolean).join('<br>');
-
-    var card = document.createElement('div');
-    card.className = 'reg-card ' + (isDoc ? 'doctor-card' : 'patient-card');
-    card.innerHTML =
-      '<span class="reg-card-type ' + (isDoc ? 'type-doctor' : 'type-patient') + '">' +
-        (isDoc ? '🛡️ Admin' : '🙋 Patient') +
-      '</span>' +
-      '<div class="reg-card-name">' + (u.name || '—') + '</div>' +
-      '<div class="reg-card-detail">📞 ' + (u.phone || '—') + '</div>' +
-      (details ? '<div class="reg-card-detail">' + details + '</div>' : '') +
-      '<div class="reg-card-date">📅 Registered: ' + (u.date || '—') + '</div>' +
-      '<div class="reg-card-actions">' +
-        '<a class="reg-wa-btn" href="' + waLink + '" target="_blank">💬 WhatsApp</a>' +
-        '<button class="reg-del-btn" onclick="deleteRegistration(' + u.id + ')">🗑 Delete</button>' +
-      '</div>';
-    grid.appendChild(card);
-  });
-}
-
-function deleteRegistration(id) {
-  if (!confirm('Remove this registration?')) return;
-  var all = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
-  localStorage.setItem('nyc_registrations', JSON.stringify(all.filter(function(u) { return u.id !== id; })));
-  renderRegistrations();
-}
-
-function clearAllRegistrations() {
-  if (!confirm('Clear ALL registrations? This cannot be undone.')) return;
-  localStorage.removeItem('nyc_registrations');
-  renderRegistrations();
-}
-
-
-/* ---- EARNINGS & RATES ---- */
-
-function saveMyRates() {
-  var chat = parseFloat(document.getElementById('dc-chat-rate').value) || 0;
-  var call = parseFloat(document.getElementById('dc-call-rate').value) || 0;
-  if (!chat && !call) { alert('Please enter at least one rate.'); return; }
-  var rates = { chatRate: chat, callRate: call };
-  localStorage.setItem('nyc_my_rates', JSON.stringify(rates));
-  alert('Rates saved! ₹' + chat + '/min for chat, ₹' + call + '/min for call.');
-}
-
-function loadMyRates() {
-  var rates = JSON.parse(localStorage.getItem('nyc_my_rates') || '{}');
-  if (rates.chatRate) { var el = document.getElementById('dc-chat-rate'); if (el) el.value = rates.chatRate; }
-  if (rates.callRate) { var el = document.getElementById('dc-call-rate'); if (el) el.value = rates.callRate; }
-  /* Pre-fill log form rate based on selected session type */
-  var typeEl = document.getElementById('el-type');
-  var rateEl = document.getElementById('el-rate');
-  if (typeEl && rateEl) {
-    typeEl.onchange = function() {
-      rateEl.value = typeEl.value === 'chat' ? (rates.chatRate || '') : (rates.callRate || '');
-      updateSessionPreview();
-    };
-    rateEl.value = rates.chatRate || '';
+function updatePatDD() {
+  var sel = document.getElementById("selPat");
+  sel.innerHTML = '<option value="">— Type manually —</option>';
+  for (var i = 0; i < patients.length; i++) {
+    var o = document.createElement("option");
+    o.value = patients[i].id;
+    o.textContent = patients[i].name + " (" + patients[i].condition + ")";
+    sel.appendChild(o);
   }
 }
 
-function updateSessionPreview() {
-  var mins = parseFloat(document.getElementById('el-mins').value) || 0;
-  var rate = parseFloat(document.getElementById('el-rate').value) || 0;
-  var prev = document.getElementById('el-preview');
-  if (!prev) return;
-  if (mins > 0 && rate > 0) {
-    var gross   = mins * rate;
-    var yours   = (gross * 0.8).toFixed(2);
-    var plat    = (gross * 0.2).toFixed(2);
-    prev.innerHTML = '💡 ' + mins + ' min × ₹' + rate + ' = <strong>₹' + gross + ' gross</strong> &nbsp;|&nbsp; You earn <strong>₹' + yours + '</strong> &nbsp;|&nbsp; Platform: ₹' + plat;
-  } else {
-    prev.textContent = '';
+function loadPatToForm() {
+  var id = parseInt(document.getElementById("selPat").value);
+  if (!id) return;
+  var p = null;
+  for (var i = 0; i < patients.length; i++) {
+    if (patients[i].id === id) { p = patients[i]; break; }
   }
+  if (!p) return;
+  document.getElementById("pname").value    = p.name;
+  document.getElementById("age").value      = p.age    || "";
+  document.getElementById("wt").value       = p.weight || "";
+  document.getElementById("ht").value       = p.height || "";
+  document.getElementById("ftype").value    = p.food   || "Vegetarian";
+  document.getElementById("dislikes").value = p.dislikes || "";
+  document.getElementById("pcond").value    = p.condition || "Personalised Diet Plan";
 }
 
-function logSession() {
-  var patient = (document.getElementById('el-patient').value || '').trim();
-  var type    = document.getElementById('el-type').value;
-  var mins    = parseFloat(document.getElementById('el-mins').value);
-  var rate    = parseFloat(document.getElementById('el-rate').value);
-  if (!patient) { alert('Please enter patient name.'); return; }
-  if (!mins || mins < 1) { alert('Please enter a valid duration.'); return; }
-  if (!rate || rate < 1) { alert('Please enter a valid rate.'); return; }
-  var gross   = mins * rate;
-  var yours   = parseFloat((gross * 0.8).toFixed(2));
-  var plat    = parseFloat((gross * 0.2).toFixed(2));
-  var sessions = JSON.parse(localStorage.getItem('nyc_sessions') || '[]');
-  sessions.push({
-    id      : Date.now(),
-    patient : patient,
-    type    : type,
-    mins    : mins,
-    rate    : rate,
-    gross   : gross,
-    yours   : yours,
-    plat    : plat,
-    date    : new Date().toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' }),
-    time    : new Date().toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' })
-  });
-  localStorage.setItem('nyc_sessions', JSON.stringify(sessions));
-  document.getElementById('el-patient').value = '';
-  document.getElementById('el-mins').value    = '';
-  document.getElementById('el-preview').textContent = '';
-  renderEarnings();
-}
-
-function renderEarnings() {
-  var sessions = JSON.parse(localStorage.getItem('nyc_sessions') || '[]');
-  var totalGross = sessions.reduce(function(s,x){ return s + x.gross; }, 0);
-  var totalYours = sessions.reduce(function(s,x){ return s + x.yours; }, 0);
-  var totalPlat  = sessions.reduce(function(s,x){ return s + x.plat; }, 0);
-
-  var eg = document.getElementById('e-gross');    if (eg) eg.textContent = '₹' + totalGross.toFixed(2);
-  var ey = document.getElementById('e-yours');    if (ey) ey.textContent = '₹' + totalYours.toFixed(2);
-  var ep = document.getElementById('e-platform'); if (ep) ep.textContent = '₹' + totalPlat.toFixed(2);
-  var es = document.getElementById('e-sessions'); if (es) es.textContent = sessions.length;
-
-  var hist = document.getElementById('earnHistory');
-  if (!hist) return;
-  if (!sessions.length) {
-    hist.innerHTML = '<div class="earn-empty">No sessions logged yet. Log your first session above.</div>';
-    return;
+function loadByName(name) {
+  var p = null;
+  for (var i = 0; i < patients.length; i++) {
+    if (patients[i].name === name) { p = patients[i]; break; }
   }
-  hist.innerHTML = '';
-  sessions.slice().reverse().forEach(function(s) {
-    var typeIcon = s.type === 'chat' ? '💬' : '📞';
-    var div = document.createElement('div');
-    div.className = 'earn-item';
-    div.innerHTML =
-      '<div class="earn-item-info">' +
-        '<div class="earn-item-name">' + typeIcon + ' ' + s.patient + '</div>' +
-        '<div class="earn-item-meta">' + s.mins + ' min × ₹' + s.rate + '/min &nbsp;|&nbsp; 📅 ' + s.date + ' ' + s.time + '</div>' +
-      '</div>' +
-      '<div class="earn-item-amounts">' +
-        '<div class="earn-gross">₹' + s.gross.toFixed(2) + ' gross</div>' +
-        '<div class="earn-split">You: ₹' + s.yours.toFixed(2) + ' &nbsp;|&nbsp; Platform: ₹' + s.plat.toFixed(2) + '</div>' +
-      '</div>' +
-      '<button class="earn-del-btn" onclick="deleteSession(' + s.id + ')">🗑</button>';
-    hist.appendChild(div);
-  });
+  if (!p) return;
+  goTab("dietchart", document.querySelector(".tab-btn:nth-child(3)"));
+  setTimeout(function() {
+    document.getElementById("selPat").value = p.id;
+    loadPatToForm();
+  }, 150);
 }
 
-function deleteSession(id) {
-  if (!confirm('Remove this session from history?')) return;
-  var sessions = JSON.parse(localStorage.getItem('nyc_sessions') || '[]');
-  localStorage.setItem('nyc_sessions', JSON.stringify(sessions.filter(function(s){ return s.id !== id; })));
-  renderEarnings();
+function initMeals() {
+  MEALS = []; MC = 0;
+  document.getElementById("mealsWrap").innerHTML = "";
+  addMeal("Early Morning",  "7:00 AM");
+  addMeal("Breakfast",      "9:00 AM");
+  addMeal("Mid Morning",    "11:00 AM");
+  addMeal("Lunch",          "1:30 PM");
+  addMeal("Evening",        "6:00 PM");
+  addMeal("Dinner",         "8:00 PM");
 }
 
+function addMeal(name, time) {
+  var id = "m" + MC++;
+  MEALS.push({ id: id, opts: [] });
+  var d = document.createElement("div");
+  d.className = "meal-blk";
+  d.id = "blk_" + id;
+  d.innerHTML =
+    '<div class="meal-blk-top">' +
+      '<span>🍽 ' + (name || "Meal " + MC) + '</span>' +
+      '<button onclick="remMeal(\'' + id + '\')">✕ Remove</button>' +
+    '</div>' +
+    '<div class="frow">' +
+      '<div><label>Meal Name</label>' +
+        '<input type="text" id="mn_' + id + '" value="' + (name||"") + '" placeholder="Breakfast"/></div>' +
+      '<div><label>Time</label>' +
+        '<input type="text" id="mt_' + id + '" value="' + (time||"") + '" placeholder="8:30 AM"/></div>' +
+    '</div>' +
+    '<div id="opts_' + id + '"></div>' +
+    '<button class="add-opt-btn" onclick="addOpt(\'' + id + '\')">+ Add Food Option</button>';
+  document.getElementById("mealsWrap").appendChild(d);
+  addOpt(id);
+}
 
+function remMeal(id) {
+  var b = document.getElementById("blk_" + id);
+  if (b) b.remove();
+  MEALS = MEALS.filter(function(m) { return m.id !== id; });
+}
 
-/* ══════════════════════════════════════════
-   ASSIGN DOCTOR SYSTEM
-   ══════════════════════════════════════════ */
-var _assignPatient = null;
-
-var _assignPatientList = [];
-
-function renderAssignTab() {
-  var regs = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
-  var patients = regs.filter(function(r){ return r.type === 'patient'; });
-  var doctors  = regs.filter(function(r){ return r.type === 'doctor'; });
-  var assignments = JSON.parse(localStorage.getItem('nyc_assignments') || '[]');
-
-  _assignPatientList = patients;
-
-  document.getElementById('as-patients').textContent = patients.length;
-  document.getElementById('as-doctors').textContent  = doctors.length;
-  document.getElementById('as-assigned').textContent = assignments.length;
-
-  var grid = document.getElementById('assignGrid');
-  if (!patients.length) {
-    grid.innerHTML = '<div class="assign-empty">No registered patients yet. Patients need to register on the website first.</div>';
-  } else {
-    grid.innerHTML = '';
-    patients.forEach(function(p, idx) {
-      var assigned = assignments.filter(function(a){ return a.patientPhone === p.phone; });
-      var latestAssign = assigned.length ? assigned[assigned.length-1] : null;
-      var statusBadge = latestAssign
-        ? '<span class="apc-assigned">✅ Assigned: Dr.' + latestAssign.doctorName + '</span>'
-        : '<span class="apc-pending">⏳ Awaiting Assignment</span>';
-      var div = document.createElement('div');
-      div.className = 'assign-patient-card';
-      div.innerHTML =
-        '<div class="apc-name">👤 ' + p.name + '</div>' +
-        '<div class="apc-meta">📞 ' + p.phone + (p.email ? ' · ' + p.email : '') + (p.gender ? ' · ' + p.gender : '') + (p.age ? ' · Age: ' + p.age : '') + (p.date ? ' · Registered: ' + p.date : '') + '</div>' +
-        '<span class="apc-condition">' + (p.condition || p.healthCondition || 'General') + '</span><br>' +
-        statusBadge +
-        '<br><br>' +
-        '<button class="assign-btn" onclick="openAssignModal(' + idx + ')">🔗 Assign / Re-assign Doctor</button>';
-      grid.appendChild(div);
-    });
+function addOpt(mid) {
+  var meal = null;
+  for (var i = 0; i < MEALS.length; i++) {
+    if (MEALS[i].id === mid) { meal = MEALS[i]; break; }
   }
-  showBookingHistory();
+  if (!meal) return;
+  var oi  = meal.opts.length + 1;
+  var oid = mid + "_o" + oi;
+  meal.opts.push({ id: oid, items: [] });
+  var d = document.createElement("div");
+  d.id = "ob_" + oid;
+  d.style.marginBottom = "5px";
+  d.innerHTML =
+    '<div style="font-size:0.73rem;color:#888;font-weight:700;margin:5px 0 3px;">Option ' + oi + '</div>' +
+    '<div id="its_' + oid + '"></div>' +
+    '<button class="add-item-btn" onclick="addItm(\'' + mid + '\',\'' + oid + '\')">+ Add Item</button>';
+  document.getElementById("opts_" + mid).appendChild(d);
+  addItm(mid, oid);
 }
 
-function openAssignModal(idx) {
-  var patient = _assignPatientList[idx];
-  if (!patient) return;
-  _assignPatient = patient;
-  document.getElementById('am-patient-info').textContent = patient.name + ' — ' + (patient.condition || patient.healthCondition || 'General') + ' · ' + patient.phone;
-  /* Populate doctors dropdown */
-  var regs = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
-  var doctors = regs.filter(function(r){ return r.type === 'doctor'; });
-  var sel = document.getElementById('am-doctor-select');
-  sel.innerHTML = '<option value="">-- Select Available Doctor --</option>';
-  doctors.forEach(function(d) {
-    var opt = document.createElement('option');
-    opt.value = JSON.stringify(d);
-    opt.textContent = 'Dr. ' + d.name + ' (' + (d.specialty || '') + ')' + (d.timing ? ' · ' + d.timing : '');
-    sel.appendChild(opt);
-  });
-  document.getElementById('am-consult-type').value = '';
-  document.getElementById('am-amount').value = '';
-  document.getElementById('am-notes').value = '';
-  document.getElementById('amSplitBox').style.display = 'none';
-  document.getElementById('assignModal').classList.add('open');
-}
-
-function closeAssignModal() {
-  document.getElementById('assignModal').classList.remove('open');
-  _assignPatient = null;
-}
-
-function updateAmSplit() {
-  var type = document.getElementById('am-consult-type').value;
-  var amt  = parseFloat(document.getElementById('am-amount').value) || 0;
-  var box  = document.getElementById('amSplitBox');
-  if (!type || !amt) { box.style.display = 'none'; return; }
-  box.style.display = 'block';
-  if (type === 'personal') {
-    document.getElementById('am-type-label').textContent = 'Admin / Clinic — 100%';
-    document.getElementById('am-plat-val').textContent   = '₹0 (handled by Admin)';
-    document.getElementById('am-doc-row').style.display  = 'none';
-    document.getElementById('am-admin-label').textContent= 'Admin / Clinic';
-    document.getElementById('am-admin-val').textContent  = '₹' + amt.toFixed(2);
-    document.getElementById('am-total-val').textContent  = '₹' + amt.toFixed(2);
-  } else {
-    var plat  = (amt * 0.20).toFixed(2);
-    var doc   = (amt * 0.60).toFixed(2);
-    var admin = (amt * 0.20).toFixed(2);
-    document.getElementById('am-type-label').textContent = 'Platform (Developer) — 20%';
-    document.getElementById('am-plat-val').textContent   = '₹' + plat;
-    document.getElementById('am-doc-row').style.display  = 'flex';
-    document.getElementById('am-doc-val').textContent    = '₹' + doc;
-    document.getElementById('am-admin-label').textContent= 'Admin / Clinic — 60%';
-    document.getElementById('am-admin-val').textContent  = '₹' + admin;
-    document.getElementById('am-total-val').textContent  = '₹' + amt.toFixed(2);
+function addItm(mid, oid) {
+  var meal = null;
+  for (var i = 0; i < MEALS.length; i++) {
+    if (MEALS[i].id === mid) { meal = MEALS[i]; break; }
   }
-}
-
-function saveAssignment() {
-  if (!_assignPatient) return;
-  var doctorVal = document.getElementById('am-doctor-select').value;
-  var type      = document.getElementById('am-consult-type').value;
-  var amt       = parseFloat(document.getElementById('am-amount').value) || 0;
-  var notes     = document.getElementById('am-notes').value.trim();
-  if (!doctorVal) { alert('Please select a doctor.'); return; }
-  if (!type)      { alert('Please select consultation type.'); return; }
-  if (!amt)       { alert('Please enter the amount paid.'); return; }
-  var doctor = JSON.parse(doctorVal);
-  var split = {};
-  if (type === 'personal') {
-    split = { plat: 0, doc: 0, admin: amt };
-  } else {
-    split = { plat: (amt*0.20), doc: (amt*0.60), admin: (amt*0.20) };
+  if (!meal) return;
+  var opt = null;
+  for (var j = 0; j < meal.opts.length; j++) {
+    if (meal.opts[j].id === oid) { opt = meal.opts[j]; break; }
   }
-  var assignments = JSON.parse(localStorage.getItem('nyc_assignments') || '[]');
-  assignments.push({
-    id: Date.now(),
-    patientName:  _assignPatient.name,
-    patientPhone: _assignPatient.phone,
-    patientCondition: _assignPatient.condition || _assignPatient.healthCondition || 'General',
-    doctorName:   doctor.name,
-    doctorPhone:  doctor.phone,
-    type: type,
-    amount: amt,
-    platShare: split.plat,
-    docShare: split.doc,
-    adminShare: split.admin,
-    notes: notes,
-    date: new Date().toLocaleString('en-IN'),
-    status: 'Assigned'
-  });
-  localStorage.setItem('nyc_assignments', JSON.stringify(assignments));
-  closeAssignModal();
-  renderAssignTab();
-  alert('✅ Dr. ' + doctor.name + ' has been assigned to ' + _assignPatient.name + '!\nAmount: ₹' + amt +
-    (type !== 'personal' ? '\nPlatform: ₹' + split.plat.toFixed(2) + ' · Doctor: ₹' + split.doc.toFixed(2) + ' · Admin: ₹' + split.admin.toFixed(2) : '\nAdmin takes full payment.'));
-
-  sendAssignmentWhatsAppMessages(doctor, _assignPatient, type, amt, split, notes);
+  if (!opt) return;
+  var ii  = opt.items.length + 1;
+  var iid = oid + "_i" + ii;
+  opt.items.push(iid);
+  var r = document.createElement("div");
+  r.className = "opt-row";
+  r.id = "rw_" + iid;
+  r.innerHTML =
+    '<input type="text" id="in_' + iid + '" placeholder="Food name"/>' +
+    '<input type="text" id="iq_' + iid + '" placeholder="Quantity"/>' +
+    '<button class="del-btn" onclick="remItm(\'' + iid + '\')">✕</button>';
+  document.getElementById("its_" + oid).appendChild(r);
 }
 
-function sendAssignmentWhatsAppMessages(doctor, patient, type, amt, split, notes) {
-  var consultLabel = type === 'personal' ? 'Personal Consultation' : (type === 'Chat' ? 'Chat Consultation' : 'Call Consultation');
-  if (doctor && doctor.phone) {
-    var docPhone = String(doctor.phone).replace(/\D/g,'');
-    if (docPhone.length === 10) docPhone = '91' + docPhone;
-    var docMsg =
-      '🌿 *New Patient Assigned — Naturopathy & Yoga Care*\n' +
-      '━━━━━━━━━━━━━━━━━━━━━━\n' +
-      'Dear Dr. ' + doctor.name + ',\n\n' +
-      'You have been assigned a new patient.\n\n' +
-      '👤 *Patient Name:* ' + (patient.name || '—') + '\n' +
-      '📞 *Patient Phone:* ' + (patient.phone || '—') + '\n' +
-      '🩺 *Condition:* ' + ((patient.condition || patient.healthCondition) || 'General') + '\n' +
-      '📋 *Consultation Type:* ' + consultLabel + '\n' +
-      '💰 *Amount Paid:* ₹' + Number(amt || 0).toFixed(2) + '\n' +
-      (type !== 'personal' ? '💵 *Your Share (60%):* ₹' + Number((split && split.doc) || 0).toFixed(2) + '\n' : '') +
-      (notes ? '📝 *Admin Notes:* ' + notes + '\n' : '') +
-      '━━━━━━━━━━━━━━━━━━━━━━\n' +
-      'Please connect with the patient at your earliest convenience.\n' +
-      '— Naturopathy & Yoga Care Admin';
-    window.open('https://wa.me/' + docPhone + '?text=' + encodeURIComponent(docMsg), '_blank');
-  }
-  if (patient && patient.phone) {
-    var patPhone = String(patient.phone).replace(/\D/g,'');
-    if (patPhone.length === 10) patPhone = '91' + patPhone;
-    var patMsg =
-      '🌿 *Doctor Assigned — Naturopathy & Yoga Care*\n' +
-      '━━━━━━━━━━━━━━━━━━━━━━\n' +
-      'Dear ' + (patient.name || 'Patient') + ',\n\n' +
-      'Your doctor has been assigned! 🎉\n\n' +
-      '👨‍⚕️ *Doctor:* Dr. ' + (doctor.name || '—') + '\n' +
-      (doctor.specialty ? '🏥 *Specialty:* ' + doctor.specialty + '\n' : '') +
-      (doctor.phone ? '📞 *Doctor Contact:* ' + doctor.phone + '\n' : '') +
-      '📋 *Consultation Type:* ' + consultLabel + '\n' +
-      '━━━━━━━━━━━━━━━━━━━━━━\n' +
-      'Your doctor will reach out to you shortly. You may also contact them directly.\n\n' +
-      'Thank you for choosing Naturopathy & Yoga Care! 🌱';
-    setTimeout(function() {
-      window.open('https://wa.me/' + patPhone + '?text=' + encodeURIComponent(patMsg), '_blank');
-    }, 800);
-  }
+function remItm(iid) {
+  var r = document.getElementById("rw_" + iid);
+  if (r) r.remove();
 }
 
-function showBookingHistory() {
-  var bookings = JSON.parse(localStorage.getItem('nyc_bookings') || '[]');
-  var list = document.getElementById('bookingHistoryList');
-  if (!list) return;
-  if (!bookings.length) {
-    list.innerHTML = '<div class="assign-empty">No wallet bookings yet.</div>';
-    return;
-  }
-  var html = bookings.slice().reverse().slice(0,20).map(function(b) {
-    return '<div class="booking-history-row">' +
-      '<div class="bhr-left">' +
-        '<strong>' + b.patient + '</strong> → Dr. ' + b.doctor + '<br>' +
-        '<span style="font-size:0.78rem;color:#8a9e98;">' + b.type + ' · ' + b.mins + ' min · ' + b.date + '</span>' +
-      '</div>' +
-      '<div style="text-align:right;">' +
-        '<strong style="color:#0a5c4d;">₹' + parseFloat(b.amount).toFixed(2) + '</strong><br>' +
-        '<span class="bhr-badge bhr-pending">Wallet Paid</span>' +
-      '</div>' +
-    '</div>';
-  }).join('');
-  list.innerHTML = html;
-}
+function genChart() {
+  var pname    = document.getElementById("pname").value   || "Patient";
+  var cdate    = document.getElementById("cdate").value;
+  var pcond    = document.getElementById("pcond").value;
+  var dname    = document.getElementById("dname").value   || "Dr Prathima Kumari";
+  var dqual    = document.getElementById("dqual").value   || "BNYS";
+  var wt       = document.getElementById("wt").value;
+  var ht       = document.getElementById("ht").value;
+  var age      = document.getElementById("age").value;
+  var twt      = document.getElementById("twt").value;
+  var ftype    = document.getElementById("ftype").value;
+  var cuisine  = document.getElementById("cuisine").value || "South Indian";
+  var dislikes = document.getElementById("dislikes").value;
+  var naturoRaw= document.getElementById("naturo").value;
+  var tipsRaw  = document.getElementById("tips").value;
+  var avoidRaw = document.getElementById("avoid").value;
 
-
-
-/* ══════════════════════════════════════════
-   PAYOUTS SYSTEM
-   ══════════════════════════════════════════ */
-var _payoutPeriod = 'all';
-
-function setPayoutPeriod(p, btn) {
-  _payoutPeriod = p;
-  document.querySelectorAll('.period-btn').forEach(function(b){ b.classList.remove('active'); });
-  if (btn) btn.classList.add('active');
-  renderPayoutsTab();
-}
-
-function filterByPeriod(items, dateField) {
-  if (_payoutPeriod === 'all') return items;
-  var now = new Date();
-  return items.filter(function(item) {
-    var d = new Date(item[dateField] || item.date || '');
-    if (isNaN(d)) return true;
-    if (_payoutPeriod === 'week') {
-      var weekAgo = new Date(now - 7*24*60*60*1000);
-      return d >= weekAgo;
-    }
-    if (_payoutPeriod === 'month') {
-      return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
-    }
-    return true;
-  });
-}
-
-function renderPayoutsTab() {
-  var allBookings    = JSON.parse(localStorage.getItem('nyc_bookings') || '[]');
-  var allAssignments = JSON.parse(localStorage.getItem('nyc_assignments') || '[]').filter(function(a){ return a.type !== 'personal'; });
-  var payouts        = JSON.parse(localStorage.getItem('nyc_payouts') || '[]');
-  var regs           = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
-  var doctors        = regs.filter(function(r){ return r.type === 'doctor'; });
-
-  var bookings    = filterByPeriod(allBookings, 'date');
-  var assignments = filterByPeriod(allAssignments, 'date');
-
-  /* Global stats */
-  var totalCollected = 0, totalDocShare = 0, totalAdminShare = 0, totalPlatShare = 0;
-  bookings.forEach(function(b) {
-    totalCollected  += parseFloat(b.amount    || 0);
-    totalDocShare   += parseFloat(b.docShare  || 0);
-    totalAdminShare += parseFloat(b.adminShare|| 0);
-    totalPlatShare  += parseFloat(b.platShare || 0);
-  });
-  assignments.forEach(function(a) {
-    totalCollected  += parseFloat(a.amount    || 0);
-    totalDocShare   += parseFloat(a.docShare  || 0);
-    totalAdminShare += parseFloat(a.adminShare|| 0);
-    totalPlatShare  += parseFloat(a.platShare || 0);
-  });
-
-  var totalPaid = payouts.reduce(function(s,p){ return s + parseFloat(p.amount||0); }, 0);
-  var totalOwed = Math.max(0, totalDocShare - totalPaid);
-
-  document.getElementById('po-total').textContent    = '₹' + totalCollected.toFixed(0);
-  document.getElementById('po-doc-total').textContent= '₹' + totalDocShare.toFixed(0);
-  document.getElementById('po-owed').textContent     = '₹' + totalOwed.toFixed(0);
-  document.getElementById('po-paid').textContent     = '₹' + totalPaid.toFixed(0);
-  document.getElementById('po-admin').textContent    = '₹' + totalAdminShare.toFixed(0);
-  document.getElementById('po-platform').textContent = '₹' + totalPlatShare.toFixed(0);
-
-  /* Build per-doctor data */
-  var docMap = {};
-
-  /* From wallet bookings */
-  bookings.forEach(function(b) {
-    var key = (b.doctor || 'Unknown').trim();
-    if (!docMap[key]) docMap[key] = { name: key, phone: b.docPhone || '', sessions: [], totalBilled: 0, docShare: 0 };
-    docMap[key].sessions.push({ date: b.date, patient: b.patient, type: b.type, mins: b.mins, amount: b.amount, docShare: b.docShare, source: 'Wallet' });
-    docMap[key].totalBilled += parseFloat(b.amount || 0);
-    docMap[key].docShare    += parseFloat(b.docShare || 0);
-  });
-
-  /* From admin assignments */
-  assignments.forEach(function(a) {
-    var key = (a.doctorName || 'Unknown').trim();
-    if (!docMap[key]) docMap[key] = { name: key, phone: a.doctorPhone || '', sessions: [], totalBilled: 0, docShare: 0 };
-    docMap[key].sessions.push({ date: a.date, patient: a.patientName, type: a.type, amount: a.amount, docShare: a.docShare, source: 'Assignment' });
-    docMap[key].totalBilled += parseFloat(a.amount || 0);
-    docMap[key].docShare    += parseFloat(a.docShare || 0);
-  });
-
-  /* Also add doctors with no sessions yet */
-  doctors.forEach(function(d) {
-    var key = (d.name || '').trim();
-    if (!docMap[key]) docMap[key] = { name: key, phone: d.phone || '', sessions: [], totalBilled: 0, docShare: 0 };
-    if (!docMap[key].phone) docMap[key].phone = d.phone || '';
-  });
-
-  var container = document.getElementById('doctorPayoutCards');
-  var keys = Object.keys(docMap);
-  if (!keys.length) {
-    container.innerHTML = '<div class="no-payouts">No session data yet. Sessions will appear here once patients book.</div>';
-    return;
+  var bmi = ""; var bmiP = 50;
+  if (wt && ht) {
+    var h  = parseFloat(ht) / 100;
+    var bv = parseFloat(wt) / (h * h);
+    bmi    = bv.toFixed(1);
+    bmiP   = Math.min(Math.max(((bv - 15) / 20) * 100, 5), 95);
   }
 
-  var routeAccounts = JSON.parse(localStorage.getItem('nyc_route_accounts') || '{}');
-  container.innerHTML = '';
-  keys.forEach(function(key) {
-    var doc      = docMap[key];
-    var routeId  = routeAccounts[key] || '';
-    var docPays  = payouts.filter(function(p){ return p.doctorName === doc.name; });
-    var paidAmt  = docPays.reduce(function(s,p){ return s + parseFloat(p.amount||0); }, 0);
-    var owedAmt  = Math.max(0, doc.docShare - paidAmt);
-    var isSettled = owedAmt <= 0;
-    var slug     = key.replace(/\s/g,'_');
-
-    var sessHTML = doc.sessions.length
-      ? doc.sessions.slice().reverse().slice(0,5).map(function(s){
-          return '<div class="dpc-session-row"><span>' +
-            (s.type==='Chat' ? '&#x1F4AC;' : '&#x1F4DE;') + ' ' + (s.patient||'&mdash;') +
-            ' &middot; ' + (s.date||'') + (s.mins ? ' &middot; '+s.mins+' min' : '') +
-            '</span><span style="font-weight:700;color:var(--primary);">Doc: &#x20B9;' +
-            parseFloat(s.docShare||0).toFixed(2) + '</span></div>';
-        }).join('') + (doc.sessions.length>5
-          ? '<div style="text-align:center;padding:7px;font-size:0.78rem;color:#8a9e98;">+ '+(doc.sessions.length-5)+' more</div>'
-          : '')
-      : '<div style="padding:10px;text-align:center;color:#8a9e98;font-size:0.82rem;">No sessions yet</div>';
-
-    var histHTML = docPays.length
-      ? docPays.slice().reverse().map(function(p){
-          return '<div class="ph-row"><span>&#x20B9;' + parseFloat(p.amount).toFixed(2) +
-            ' &mdash; ' + (p.note||'') + '</span>' +
-            '<span style="display:flex;gap:6px;align-items:center;">' +
-            '<span class="ph-paid-badge">&#x2705; Paid</span>' +
-            '<span style="font-size:0.75rem;color:#8a9e98;">' + (p.date||'') + '</span>' +
-            '</span></div>';
-        }).join('')
-      : '<div style="color:#8a9e98;font-size:0.82rem;text-align:center;padding:8px;">No payouts recorded yet.</div>';
-
-    var html =
-      '<div class="doctor-payout-card' + (isSettled ? ' payout-zero' : '') + '" id="dpc-' + slug + '">' +
-        '<div class="dpc-header">' +
-          '<div><div class="dpc-name">&#x1F468;&#x200D;&#x2695;&#xFE0F; Dr. ' + doc.name + '</div>' +
-          '<div class="dpc-phone">' + (doc.phone || 'Phone not registered') + '</div></div>' +
-          '<div style="text-align:right;">' +
-            '<div class="dpc-owed"' + (isSettled ? ' style="color:#166534;"' : '') + '>' +
-              (isSettled ? '&#x2705; Settled' : '&#x20B9;' + owedAmt.toFixed(2)) +
-            '</div>' +
-            '<div class="dpc-owed-lbl">' + (isSettled ? 'All paid' : 'Still owed') + '</div>' +
-          '</div>' +
-        '</div>' +
-        '<div class="dpc-row"><span>Total Billed</span><strong>&#x20B9;' + doc.totalBilled.toFixed(2) + '</strong></div>' +
-        '<div class="dpc-row"><span>Doctor Share (60%)</span><strong>&#x20B9;' + doc.docShare.toFixed(2) + '</strong></div>' +
-        '<div class="dpc-row"><span>Already Paid</span><strong style="color:#166534;">&#x20B9;' + paidAmt.toFixed(2) + '</strong></div>' +
-        '<div class="dpc-row"><span>Balance Owed</span><strong style="color:' + (isSettled ? '#166534' : '#c0392b') + ';">&#x20B9;' + owedAmt.toFixed(2) + '</strong></div>' +
-        '<div style="font-size:0.8rem;font-weight:700;color:var(--primary);margin:12px 0 5px;">&#x1F4CB; Recent Sessions</div>' +
-        '<div class="dpc-sessions">' + sessHTML + '</div>' +
-        '<div class="route-link-box">' +
-          '<label>&#x1F517; Razorpay Route &mdash; Linked Account ID</label>' +
-          '<div class="route-input-row">' +
-            '<input type="text" placeholder="acc_XXXXXXXXXXXXXXXX" id="route-inp-' + slug + '" value="' + (routeId||'') + '" />' +
-            '<button class="route-link-btn" data-slug="' + slug + '" data-docname="' + doc.name.replace(/"/g,'&quot;') + '" onclick="linkRouteAccount(this.dataset.slug, this.dataset.docname)">&#x1F517; Link</button>' +
-          '</div>' +
-          (routeId
-            ? '<div class="route-linked-badge">&#x2705; Linked: ' + routeId + '</div>'
-            : '<div style="font-size:0.76rem;color:#8a9e98;margin-top:5px;">Paste the acc_ ID from Razorpay Route dashboard</div>') +
-          (!isSettled && routeId
-            ? '<button class="route-pay-btn" id="route-pay-' + slug + '"' +
-                ' data-slug="' + slug + '"' +
-                ' data-docname="' + doc.name.replace(/"/g,'&quot;') + '"' +
-                ' data-phone="' + (doc.phone||'').replace(/"/g,'&quot;') + '"' +
-                ' data-owed="' + owedAmt.toFixed(2) + '"' +
-                ' data-rid="' + routeId + '"' +
-                ' onclick="payViaRoute(this.dataset.slug,this.dataset.docname,this.dataset.phone,parseFloat(this.dataset.owed),this.dataset.rid)">' +
-                '&#x1F4B3; Pay &#x20B9;' + owedAmt.toFixed(2) + ' via Razorpay Route' +
-              '</button>'
-            : '') +
-          '<div class="route-status-processing" id="route-status-' + slug + '">&#x23F3; Processing...</div>' +
-        '</div>' +
-        '<div class="dpc-actions">' +
-          '<button class="mark-paid-btn"' + (isSettled ? ' disabled' : '') +
-            ' data-docname="' + doc.name.replace(/"/g,'&quot;') + '"' +
-            ' data-phone="' + (doc.phone||'').replace(/"/g,'&quot;') + '"' +
-            ' data-owed="' + owedAmt.toFixed(2) + '"' +
-            ' onclick="openMarkPaid(this.dataset.docname, this.dataset.phone, parseFloat(this.dataset.owed))">' +
-            (isSettled ? '&#x2705; All Settled' : '&#x1F4B8; Record Manual Payment') +
-          '</button>' +
-          '<button class="view-hist-btn" onclick="togglePayoutHist(this)">&#x1F4DC; Payment History</button>' +
-        '</div>' +
-        '<div class="payout-hist-box">' + histHTML + '</div>' +
-      '</div>';
-    container.innerHTML += html;
-  });
-}
-
-function togglePayoutHist(btn) {
-  var box = btn.closest('.doctor-payout-card').querySelector('.payout-hist-box');
-  box.style.display = box.style.display==='block' ? 'none' : 'block';
-  btn.textContent = box.style.display==='block' ? '📜 Hide History' : '📜 Payment History';
-}
-
-/* Mark as Paid modal (inline prompt) */
-function openMarkPaid(docName, docPhone, owedAmt) {
-  var amt = prompt('Mark payment to Dr. ' + docName + '\nBalance owed: ₹' + owedAmt.toFixed(2) + '\n\nEnter amount being paid now (₹):', owedAmt.toFixed(2));
-  if (!amt || isNaN(parseFloat(amt)) || parseFloat(amt) <= 0) return;
-  var note = prompt('Payment method/note (e.g. UPI - 9876543210, NEFT):', 'UPI');
-  if (note === null) return;
-  var payouts = JSON.parse(localStorage.getItem('nyc_payouts') || '[]');
-  payouts.push({
-    id: Date.now(),
-    doctorName: docName,
-    doctorPhone: docPhone,
-    amount: parseFloat(amt),
-    note: note || 'Manual transfer',
-    date: new Date().toLocaleString('en-IN')
-  });
-  localStorage.setItem('nyc_payouts', JSON.stringify(payouts));
-  renderPayoutsTab();
-  /* WhatsApp notification to doctor */
-  if (docPhone) {
-    var phone = docPhone.replace(/\D/g,'');
-    if (phone.length >= 10) {
-      var msg = encodeURIComponent(
-        '\uD83C\uDF31 *Payment Received — Naturopathy & Yoga Care*\n' +
-        '━━━━━━━━━━━━━━━━━━━━━━\n' +
-        'Dear Dr. ' + docName + ',\n\n' +
-        '\u2705 Your consultation payment has been processed.\n\n' +
-        '\uD83D\uDCB0 Amount Paid: \u20B9' + parseFloat(amt).toFixed(2) + '\n' +
-        '\uD83D\uDCDD Method: ' + (note || 'Manual Transfer') + '\n' +
-        '\uD83D\uDDD3 Date: ' + new Date().toLocaleString('en-IN') + '\n' +
-        '━━━━━━━━━━━━━━━━━━━━━━\n' +
-        'Thank you for your services! \uD83C\uDF3F\nNaturopathy & Yoga Care'
-      );
-      if (confirm('✅ Payout recorded! Open WhatsApp to notify Dr. ' + docName + '?')) {
-        window.open('https://wa.me/' + (phone.length===10?'91':'')+phone + '?text=' + msg, '_blank');
-      }
-    } else {
-      alert('✅ Payout of ₹' + parseFloat(amt).toFixed(2) + ' to Dr. ' + docName + ' recorded!\n(No phone number available for WhatsApp notification)');
-    }
-  } else {
-    alert('✅ Payout of ₹' + parseFloat(amt).toFixed(2) + ' to Dr. ' + docName + ' recorded successfully!');
+  var ds = "";
+  if (cdate) {
+    var d = new Date(cdate);
+    ds = d.toLocaleDateString("en-IN", { day:"numeric", month:"long", year:"numeric" });
   }
-}
 
-
-
-/* ══════════════════════════════════════════
-   RAZORPAY ROUTE FUNCTIONS
-   ══════════════════════════════════════════ */
-
-function linkRouteAccount(keySlug, docName) {
-  var inp = document.getElementById('route-inp-' + keySlug);
-  if (!inp) return;
-  var accId = (inp.value || '').trim();
-  if (!accId || !accId.startsWith('acc_')) {
-    alert('❌ Please enter a valid Razorpay linked account ID.\nIt must start with acc_');
-    return;
+  function toList(raw) {
+    if (!raw.trim()) return "";
+    return raw.split("\n").filter(function(t) { return t.trim(); })
+      .map(function(t) { return "<li>" + t.replace(/^[•\-\*]\s*/, "") + "</li>"; }).join("");
   }
-  inp.disabled = true;
-  inp.value = '⏳ Verifying...';
-  fetch('/api/verify-linked-account', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ account_id: accId })
-  })
-  .then(function(r){ return r.json(); })
-  .then(function(d) {
-    inp.disabled = false;
-    if (d.valid) {
-      var accounts = JSON.parse(localStorage.getItem('nyc_route_accounts') || '{}');
-      accounts[keySlug] = accId;
-      localStorage.setItem('nyc_route_accounts', JSON.stringify(accounts));
-      renderPayoutsTab();
-      alert('✅ Account linked!\nDr. ' + docName + ' → ' + accId + '\nName: ' + (d.name || 'Verified') + '\n\nYou can now pay via Razorpay Route with one click.');
-    } else {
-      inp.value = accId;
-      alert('❌ Account not found: ' + (d.error || 'Invalid ID') + '\n\nMake sure you copied the correct acc_ ID from your Razorpay Route dashboard.');
-    }
-  })
-  .catch(function() {
-    inp.disabled = false;
-    inp.value = accId;
-    alert('❌ Network error. Check connection and try again.');
-  });
-}
 
-function payViaRoute(keySlug, docName, docPhone, owedAmt, accountId) {
-  if (!accountId || !accountId.startsWith('acc_')) {
-    alert('Please link a Razorpay Route account first.');
-    return;
-  }
-  var amtStr = prompt(
-    '💳 Razorpay Route Transfer to Dr. ' + docName + '\nLinked Account: ' + accountId +
-    '\nBalance owed: ₹' + owedAmt.toFixed(2) + '\n\nEnter amount to transfer (₹):',
-    owedAmt.toFixed(2)
-  );
-  if (!amtStr || isNaN(parseFloat(amtStr)) || parseFloat(amtStr) <= 0) return;
-  var amt = parseFloat(amtStr);
+  var tipsHtml  = toList(tipsRaw);
+  var avoidHtml = toList(avoidRaw);
 
-  var payBtn    = document.getElementById('route-pay-' + keySlug);
-  var statusEl  = document.getElementById('route-status-' + keySlug);
-  if (payBtn)   { payBtn.disabled = true; payBtn.textContent = '⏳ Transferring...'; }
-  if (statusEl) { statusEl.style.display = 'block'; }
+  var mealsHtml = "";
+  var mealBlks  = document.querySelectorAll(".meal-blk");
 
-  fetch('/api/route-transfer', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      account_id: accountId,
-      amount_rupees: amt,
-      doctor_name: docName,
-      note: 'Session payout — Naturopathy & Yoga Care'
-    })
-  })
-  .then(function(r){ return r.json(); })
-  .then(function(d) {
-    if (statusEl) statusEl.style.display = 'none';
-    if (d.transfer_id) {
-      /* Record in payouts */
-      var payouts = JSON.parse(localStorage.getItem('nyc_payouts') || '[]');
-      payouts.push({
-        id: Date.now(),
-        doctorName: docName,
-        doctorPhone: docPhone,
-        amount: amt,
-        note: '💳 Razorpay Route · Transfer ID: ' + d.transfer_id,
-        method: 'razorpay_route',
-        transfer_id: d.transfer_id,
-        date: new Date().toLocaleString('en-IN')
-      });
-      localStorage.setItem('nyc_payouts', JSON.stringify(payouts));
-      renderPayoutsTab();
-      /* WhatsApp notification */
-      if (docPhone) {
-        var phone = docPhone.replace(/\D/g,'');
-        if (phone.length >= 10) {
-          var msg = encodeURIComponent(
-            '\uD83C\uDF31 *Payment Received — Naturopathy & Yoga Care*\n' +
-            '━━━━━━━━━━━━━━━━━━━━━━\n' +
-            'Dear Dr. ' + docName + ',\n\n' +
-            '\u2705 Your payment has been transferred via Razorpay Route.\n\n' +
-            '\uD83D\uDCB0 Amount: \u20B9' + amt.toFixed(2) + '\n' +
-            '\uD83C\uDD94 Transfer ID: ' + d.transfer_id + '\n' +
-            '\uD83D\uDDD3 Date: ' + new Date().toLocaleString('en-IN') + '\n' +
-            '━━━━━━━━━━━━━━━━━━━━━━\n' +
-            'The amount will appear in your Razorpay dashboard shortly.\n' +
-            'Thank you! \uD83C\uDF3F\nNaturopathy & Yoga Care'
-          );
-          if (confirm('✅ ₹' + amt.toFixed(2) + ' transferred to Dr. ' + docName + ' via Razorpay Route!\nTransfer ID: ' + d.transfer_id + '\n\nSend WhatsApp notification to doctor?')) {
-            window.open('https://wa.me/' + (phone.length===10?'91':'')+phone + '?text=' + msg, '_blank');
+  for (var mi = 0; mi < mealBlks.length; mi++) {
+    var blk = mealBlks[mi];
+    var bid = blk.id.replace("blk_", "");
+    var mnEl = document.getElementById("mn_" + bid);
+    if (!mnEl) continue;
+    var mnv = mnEl.value || "Meal";
+    var mtEl = document.getElementById("mt_" + bid);
+    var mtv  = mtEl ? mtEl.value : "";
+
+    var optsHtml = "";
+    var optsWrap = document.getElementById("opts_" + bid);
+    if (optsWrap) {
+      var optBlks = optsWrap.querySelectorAll("[id^='ob_']");
+      for (var oi = 0; oi < optBlks.length; oi++) {
+        optsHtml += '<div class="opt-gap"><div class="opt-ttl">Option ' + (oi+1) + '</div>';
+        var itsWrap = optBlks[oi].querySelector("[id^='its_']");
+        if (itsWrap) {
+          var itemRows = itsWrap.querySelectorAll(".opt-row");
+          for (var ii = 0; ii < itemRows.length; ii++) {
+            var iid  = itemRows[ii].id.replace("rw_", "");
+            var inEl = document.getElementById("in_" + iid);
+            var iqEl = document.getElementById("iq_" + iid);
+            var inv  = inEl ? inEl.value : "";
+            var iqv  = iqEl ? iqEl.value : "";
+            if (inv.trim()) {
+              optsHtml +=
+                '<div class="opt-item">' +
+                  '<span>' + inv + '</span>' +
+                  '<span class="opt-item-r">' + iqv + '</span>' +
+                '</div>';
+            }
           }
-        } else {
-          alert('✅ ₹' + amt.toFixed(2) + ' transferred to Dr. ' + docName + ' via Razorpay Route!\nTransfer ID: ' + d.transfer_id);
+        }
+        optsHtml += '</div>';
+      }
+    }
+
+    mealsHtml +=
+      '<div class="meal-box">' +
+        '<div class="meal-hdr">' +
+          '<span class="meal-nm">' + mnv + (mtv ? ' &bull; ' + mtv : '') + '</span>' +
+        '</div>' +
+        optsHtml +
+      '</div>';
+  }
+
+  var html =
+    '<div class="dc-hdr">' +
+      '<div>' +
+        '<div class="dc-pname">' + pname + '</div>' +
+        '<div class="dc-ptype">' + pcond + '</div>' +
+        (ds ? '<div class="dc-date">Date: ' + ds + '</div>' : '') +
+        '<div class="dc-dlbl">Prescribed by:</div>' +
+        '<div class="dc-dname">' + dname +
+          ' <span style="font-weight:400;color:#888;font-size:0.85rem;">(' + dqual + ')</span>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="info-grid">' +
+      '<div class="info-box">' +
+        '<h3>Preferences</h3>' +
+        '<span class="pref-tag">🍽 Food: ' + ftype + '</span>' +
+        '<span class="pref-tag">🍛 Cuisine: ' + cuisine + '</span>' +
+        (dislikes ? '<span class="pref-tag">👎 Dislikes: ' + dislikes + '</span>' : '') +
+      '</div>' +
+      '<div>' +
+        '<div class="info-box" style="margin-bottom:14px;">' +
+          '<h3>Health Parameters</h3>' +
+          (wt  ? '<div class="h-row"><span class="h-lbl">Weight</span><span class="h-val">' + wt + ' kg</span></div>' : '') +
+          (ht  ? '<div class="h-row"><span class="h-lbl">Height</span><span class="h-val">' + ht + ' cm</span></div>' : '') +
+          (age ? '<div class="h-row"><span class="h-lbl">Age</span><span class="h-val">' + age + ' years</span></div>' : '') +
+          (bmi ? '<div class="h-row"><span class="h-lbl">BMI</span><span class="h-val">' + bmi + '</span></div>' +
+                 '<div class="bmi-bar"><div class="bmi-fill" style="width:' + bmiP + '%"></div></div>' : '') +
+        '</div>' +
+        (twt ?
+        '<div class="tgt-box"><h3>Target</h3>' +
+          '<div class="tgt-row"><span style="color:#888">Target Weight</span><span style="font-weight:700">' + twt + ' kg</span></div>' +
+          '<div class="tgt-row"><span style="color:#888">Ideal BMI</span><span style="font-weight:700">18.5 – 22.9</span></div>' +
+        '</div>' : '') +
+      '</div>' +
+    '</div>' +
+
+    mealsHtml +
+
+    (naturoRaw.trim() ?
+    '<div style="background:#f0fdf4;border-radius:11px;padding:14px;margin-bottom:14px;border-left:4px solid #059669;">' +
+      '<h3 style="color:#065f46;font-size:0.95rem;font-weight:800;margin-bottom:10px;">🌿 Naturopathy Treatment</h3>' +
+      '<div style="font-size:0.88rem;color:#1a1a1a;line-height:1.9;white-space:pre-line;">' + naturoRaw + '</div>' +
+    '</div>' : '') +
+
+    ((tipsHtml || avoidHtml) ?
+    '<div class="tips-grid">' +
+      (tipsHtml  ? '<div class="tips-box"><h3>💡 Tips</h3><ul>' + tipsHtml + '</ul></div>' : '') +
+      (avoidHtml ? '<div class="tips-box"><h3>🚫 Things to Avoid</h3><ul>' + avoidHtml + '</ul></div>' : '') +
+    '</div>' : '') +
+
+    '<div class="dc-foot">' +
+      '<strong>Naturopathy &amp; Yoga Care</strong> &nbsp;|&nbsp; ' +
+      dname + ' (' + dqual + ')' +
+      '<br>📞 +91 7013989526 &nbsp;|&nbsp; ✉ srihariu123456789@gmail.com' +
+      '<br><small>This diet plan is personalised for ' + pname + ' only.</small>' +
+    '</div>';
+
+  document.getElementById("dcOutput").innerHTML = html;
+  chartsDone++;
+  localStorage.setItem("nyc_charts", chartsDone);
+  document.querySelector(".prev-panel").scrollIntoView({ behavior: "smooth" });
+}
+
+function printChart() {
+  genChart();
+  setTimeout(function() { window.print(); }, 500);
+}
+function waSummary() {
+  var pname    = document.getElementById("pname").value    || "Patient";
+  var pcond    = document.getElementById("pcond").value;
+  var dname    = document.getElementById("dname").value    || "Dr Prathima Kumari";
+  var dqual    = document.getElementById("dqual").value    || "BNYS";
+  var cdate    = document.getElementById("cdate").value;
+  var wt       = document.getElementById("wt").value;
+  var ht       = document.getElementById("ht").value;
+  var age      = document.getElementById("age").value;
+  var twt      = document.getElementById("twt").value;
+  var ftype    = document.getElementById("ftype").value;
+  var cuisine  = document.getElementById("cuisine").value;
+  var dislikes = document.getElementById("dislikes").value;
+  var naturoRaw= document.getElementById("naturo").value;
+  var tipsRaw  = document.getElementById("tips").value;
+  var avoidRaw = document.getElementById("avoid").value;
+
+  var selId = parseInt(document.getElementById("selPat").value);
+  var phone = "";
+  if (selId) {
+    for (var i = 0; i < patients.length; i++) {
+      if (patients[i].id === selId) { phone = patients[i].phone.replace(/\D/g,""); break; }
+    }
+  }
+
+  // Header
+  var msg = "🌿 *NATUROPATHY & YOGA CARE*\n";
+  msg += "━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
+  msg += "Hello *" + pname + "* 🙏\n";
+  msg += "Your personalised diet chart is ready!\n\n";
+  msg += "📋 *Plan:* " + pcond + "\n";
+  msg += "📅 *Date:* " + cdate + "\n";
+  msg += "👨‍⚕️ *Prescribed by:* " + dname + " (" + dqual + ")\n\n";
+
+  // Health Parameters
+  if (wt || ht || age || twt) {
+    msg += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
+    msg += "*📊 Health Parameters*\n";
+    if (wt)  msg += "⚖️ Weight : " + wt  + " kg\n";
+    if (ht)  msg += "📏 Height : " + ht  + " cm\n";
+    if (age) msg += "🎂 Age    : " + age + " years\n";
+    if (wt && ht) {
+      var h   = parseFloat(ht) / 100;
+      var bmi = (parseFloat(wt) / (h * h)).toFixed(1);
+      msg += "📐 BMI    : " + bmi + "\n";
+    }
+    if (twt) msg += "🎯 Target : " + twt + " kg\n";
+    msg += "\n";
+  }
+
+  // Preferences
+  msg += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
+  msg += "*🍽️ Food Preferences*\n";
+  msg += "• Food Type : " + ftype + "\n";
+  if (cuisine)  msg += "• Cuisine   : " + cuisine  + "\n";
+  if (dislikes) msg += "• Dislikes  : " + dislikes + "\n";
+  msg += "\n";
+
+  // Meal Plan
+  msg += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
+  msg += "*🥗 DAILY DIET PLAN*\n\n";
+
+  var mealBlks = document.querySelectorAll(".meal-blk");
+  for (var mi = 0; mi < mealBlks.length; mi++) {
+    var blk = mealBlks[mi];
+    var bid = blk.id.replace("blk_", "");
+    var mnEl = document.getElementById("mn_" + bid);
+    if (!mnEl) continue;
+    var mnv = mnEl.value || "Meal";
+    var mtEl = document.getElementById("mt_" + bid);
+    var mtv  = mtEl ? mtEl.value : "";
+
+    msg += "🕐 *" + mnv + (mtv ? "  (" + mtv + ")" : "") + "*\n";
+
+    var optsWrap = document.getElementById("opts_" + bid);
+    if (optsWrap) {
+      var optBlks = optsWrap.querySelectorAll("[id^='ob_']");
+      for (var oi = 0; oi < optBlks.length; oi++) {
+        if (optBlks.length > 1) {
+          msg += "  _Option " + (oi + 1) + ":_\n";
+        }
+        var itsWrap = optBlks[oi].querySelector("[id^='its_']");
+        if (itsWrap) {
+          var itemRows = itsWrap.querySelectorAll(".opt-row");
+          var hasItem = false;
+          for (var ii = 0; ii < itemRows.length; ii++) {
+            var iid  = itemRows[ii].id.replace("rw_", "");
+            var inEl = document.getElementById("in_" + iid);
+            var iqEl = document.getElementById("iq_" + iid);
+            var inv  = inEl ? inEl.value.trim() : "";
+            var iqv  = iqEl ? iqEl.value.trim() : "";
+            if (inv) {
+              msg += "  • " + inv + (iqv ? "  — " + iqv : "") + "\n";
+              hasItem = true;
+            }
+          }
+          if (!hasItem) msg += "  • (no items added)\n";
         }
       }
-    } else {
-      if (payBtn) { payBtn.disabled = false; payBtn.textContent = '💳 Pay ₹' + owedAmt.toFixed(2) + ' via Razorpay Route'; }
-      alert('❌ Transfer failed: ' + (d.error || 'Unknown error') + '\n\nCheck your Razorpay Route balance and try again.');
     }
-  })
-  .catch(function(err) {
-    if (statusEl) statusEl.style.display = 'none';
-    if (payBtn) { payBtn.disabled = false; payBtn.textContent = '💳 Pay via Razorpay Route'; }
-    alert('❌ Network error. Please try again.');
-  });
+    msg += "\n";
+  }
+
+  // Naturopathy
+  if (naturoRaw.trim()) {
+    msg += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
+    msg += "*🌿 Naturopathy Treatment*\n";
+    msg += naturoRaw.trim() + "\n\n";
+  }
+
+  // Tips
+  if (tipsRaw.trim()) {
+    msg += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
+    msg += "*💡 Tips*\n";
+    msg += tipsRaw.trim() + "\n\n";
+  }
+
+  // Avoid
+  if (avoidRaw.trim()) {
+    msg += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
+    msg += "*🚫 Things to Avoid*\n";
+    msg += avoidRaw.trim() + "\n\n";
+  }
+
+  // Footer
+  msg += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
+  msg += "Please follow this diet plan strictly for best results. 🙏\n";
+  msg += "For queries contact us:\n";
+  msg += "📞 +91 7013989526\n";
+  msg += "✉️  srihariu123456789@gmail.com\n\n";
+  msg += "_This plan is personalised for " + pname + " only._\n";
+  msg += "— *Naturopathy & Yoga Care* 🌿";
+
+  var waURL = phone
+    ? "https://wa.me/" + phone + "?text=" + encodeURIComponent(msg)
+    : "https://wa.me/?text=" + encodeURIComponent(msg);
+  window.open(waURL, "_blank");
 }
 
 </script>
-
-<!-- LIGHTBOX -->
-<div class="lb-overlay" id="lbOverlay" onclick="closeLB()">
-  <button class="lb-close" onclick="closeLB()">✕</button>
-  <img class="lb-img" id="lbImg" src="" alt="Diet Photo" onclick="event.stopPropagation()" />
-</div>
-
-
-  <!-- PWA Install Banner -->
-  <div id="pwa-install-bar" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:99999;background:linear-gradient(135deg,#0a5c4d,#2d6a4f);color:#fff;padding:12px 16px;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 -4px 20px rgba(0,0,0,0.2);">
-    <div style="display:flex;align-items:center;gap:10px;">
-      <img src="/icons/icon-72.png" style="width:38px;height:38px;border-radius:10px;" alt="icon">
-      <div>
-        <div style="font-weight:800;font-size:0.95rem;">Install Prahari NatureCure</div>
-        <div style="font-size:0.78rem;opacity:0.85;">Add to home screen for easy access</div>
-      </div>
-    </div>
-    <div style="display:flex;gap:8px;flex-shrink:0;">
-      <button onclick="installPWA()" style="background:#fff;color:#0a5c4d;border:none;border-radius:999px;padding:8px 18px;font-weight:800;font-size:0.85rem;cursor:pointer;">Install</button>
-      <button onclick="document.getElementById('pwa-install-bar').style.display='none'" style="background:rgba(255,255,255,0.15);color:#fff;border:none;border-radius:999px;padding:8px 12px;font-size:0.85rem;cursor:pointer;">✕</button>
-    </div>
-  </div>
-  <script>
-    if('serviceWorker' in navigator){
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js', {scope:'/'})
-          .then(r => console.log('SW registered:', r.scope))
-          .catch(e => console.error('SW failed:', e));
-      });
-    }
-    let _pwaPrompt = null;
-    window.addEventListener('beforeinstallprompt', e => {
-      e.preventDefault();
-      _pwaPrompt = e;
-      const bar = document.getElementById('pwa-install-bar');
-      if(bar) bar.style.display = 'flex';
-    });
-    function installPWA(){
-      if(!_pwaPrompt) return;
-      _pwaPrompt.prompt();
-      _pwaPrompt.userChoice.then(r => {
-        _pwaPrompt = null;
-        const bar = document.getElementById('pwa-install-bar');
-        if(bar) bar.style.display = 'none';
-      });
-    }
-  </script>
 </body>
 </html>
