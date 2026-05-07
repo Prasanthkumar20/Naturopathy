@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   <title>Online Naturopathy & Yoga Consultation</title>
   <style>
     :root {
@@ -20,19 +19,19 @@
     .container { width: min(1180px, 92%); margin: auto; }
 
     /* NAV */
-    .navbar { position: sticky; top: 0; z-index: 1000; background: linear-gradient(135deg,#1b4332,#2d6a4f); backdrop-filter: blur(12px); box-shadow: 0 4px 24px rgba(27,67,50,0.35); }
+    .navbar { position: sticky; top: 0; z-index: 1000; background: rgba(255,255,255,0.96); backdrop-filter: blur(12px); box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
     .nav-wrap { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; gap: 8px; flex-wrap: wrap; }
-    .logo { font-size: 1.15rem; font-weight: 700; color: #fff; }
+    .logo { font-size: 1.15rem; font-weight: 700; color: var(--primary); }
     .nav-links { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
-    .nav-links a { color: rgba(255,255,255,0.82); font-weight: 600; font-size: 0.91rem; border-bottom: 2px solid transparent; transition: 0.2s; }
-    .nav-links a:hover { color: #fff; border-bottom-color: #95d5b2; }
+    .nav-links a { color: var(--dark); font-weight: 600; font-size: 0.91rem; border-bottom: 2px solid transparent; transition: 0.2s; }
+    .nav-links a:hover { color: var(--primary); border-bottom-color: var(--accent); }
     .lang-btn { background: linear-gradient(135deg, var(--primary), var(--accent)); color: #fff; border: none; border-radius: 999px; padding: 8px 14px; cursor: pointer; font-weight: 700; font-size: 0.88rem; }
 
     /* HERO */
     .hero { position: relative; padding: 70px 0 55px; overflow: hidden;
-      background: radial-gradient(circle at top left, rgba(58,175,169,0.22), transparent 32%),
-      radial-gradient(circle at bottom right, rgba(217,182,111,0.18), transparent 30%),
-      linear-gradient(135deg, #e0faf2, #d4f7ec 50%, #e8fef7); }
+      background: radial-gradient(circle at top left, rgba(58,175,169,0.2), transparent 32%),
+      radial-gradient(circle at bottom right, rgba(217,182,111,0.16), transparent 30%),
+      linear-gradient(135deg, #f4fffb, #e9fbf5 50%, #f7fffc); }
     .ov { position: absolute; border-radius: 50%; filter: blur(40px); opacity: 0.32; }
     .ov1 { width: 260px; height: 260px; background: #9fe3d6; top: -80px; right: -60px; }
     .ov2 { width: 220px; height: 220px; background: #dff4a7; bottom: -60px; left: -50px; }
@@ -92,7 +91,7 @@
     .pay-card { background: #fff; border-radius: 24px; padding: 28px; box-shadow: var(--shadow); text-align: center; }
     .pay-card h3 { color: var(--dark); margin-bottom: 6px; }
     .pay-amt { font-size: 2.2rem; font-weight: 900; color: var(--primary); margin: 8px 0 14px; }
-    .pay-card img { width: 260px; max-width: 100%; margin: 10px auto; display: block; border-radius: 0; border: 1px solid #d9eee7; background: #fff; padding: 4px; }
+    .pay-card img { width: 210px; max-width: 100%; margin: 10px auto; display: block; border-radius: 14px; border: 1px solid #d9eee7; background: #f8fffc; padding: 7px; }
     .upi-box { display: inline-block; margin-top: 10px; background: #eefaf6; color: var(--dark); padding: 9px 14px; border-radius: 10px; font-weight: 700; font-size: 0.9rem; word-break: break-all; }
     .pay-note { font-size: 0.83rem; background: #fff8e6; border: 1px solid #f0d080; border-radius: 10px; padding: 8px 12px; margin-top: 12px; color: #7a5500; line-height: 1.5; }
 
@@ -387,207 +386,7 @@
       .wellness-tabs { gap: 6px; }
       .w-tab-btn { padding: 9px 14px; font-size: 0.84rem; }
     }
-  
-    /* ========================= */
-    /* PATIENT UPLOAD SECTION    */
-    /* ========================= */
-    .upload-field { display: grid; gap: 14px; }
-    .upload-field input, .upload-field textarea { width: 100%; padding: 14px 16px; border: 1px solid #cfe5dd; border-radius: 14px; outline: none; font-size: 0.97rem; background: #fff; transition: 0.25s; }
-    .upload-field input:focus, .upload-field textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(58,175,169,0.1); }
-    .upload-field textarea { min-height: 80px; resize: vertical; }
-    .upload-preview { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
-    .upload-thumb { position: relative; width: 80px; height: 80px; border-radius: 10px; overflow: hidden; border: 2px solid #d7f2eb; }
-    .upload-thumb img { width: 100%; height: 100%; object-fit: cover; }
-    .upload-thumb .rm-thumb { position: absolute; top: 2px; right: 2px; background: rgba(220,0,0,0.75); border: none; border-radius: 50%; color: #fff; width: 18px; height: 18px; font-size: 0.65rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-
-
-
-    /* ===== BLOGS SECTION ===== */
-    .blogs-section{background:#f0faf5;padding:70px 0;}
-    .blogs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;margin-top:32px;}
-    .blog-card{background:#fff;border-radius:18px;box-shadow:0 4px 18px rgba(0,80,60,.08);overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s;}
-    .blog-card:hover{transform:translateY(-4px);box-shadow:0 8px 28px rgba(0,80,60,.15);}
-    .blog-card-img{width:100%;height:180px;object-fit:cover;}
-    .blog-card-img-placeholder{width:100%;height:180px;background:linear-gradient(135deg,#e0f5eb,#c8eddf);display:flex;align-items:center;justify-content:center;font-size:3rem;}
-    .blog-card-body{padding:20px;flex:1;display:flex;flex-direction:column;}
-    .blog-cat-badge{display:inline-block;background:#e0f5eb;color:#0a5c4d;border-radius:999px;font-size:0.75rem;font-weight:700;padding:3px 12px;margin-bottom:10px;}
-    .blog-card-title{font-size:1.1rem;font-weight:700;color:#1a2e1a;margin-bottom:8px;line-height:1.35;}
-    .blog-card-excerpt{font-size:0.87rem;color:#5a7060;flex:1;margin-bottom:14px;line-height:1.6;}
-    .blog-card-meta{font-size:0.78rem;color:#8aaa90;display:flex;justify-content:space-between;align-items:center;}
-    .blog-read-btn{background:none;border:1.5px solid var(--primary);color:var(--primary);border-radius:8px;padding:6px 14px;font-size:0.82rem;font-weight:600;cursor:pointer;transition:all .2s;margin-top:12px;}
-    .blog-read-btn:hover{background:var(--primary);color:#fff;}
-    .blog-empty{text-align:center;color:#8aaa90;padding:48px 20px;font-size:1rem;grid-column:1/-1;}
-    .blog-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9000;align-items:center;justify-content:center;padding:20px;}
-    .blog-modal.open{display:flex;}
-    .blog-modal-box{background:#fff;border-radius:20px;max-width:700px;width:100%;max-height:90vh;overflow-y:auto;padding:32px;position:relative;}
-    .blog-modal-close{position:absolute;top:16px;right:20px;background:none;border:none;font-size:1.5rem;cursor:pointer;color:#888;}
-    .blog-modal-title{font-size:1.5rem;font-weight:800;color:#1a2e1a;margin-bottom:12px;}
-    .blog-modal-meta{font-size:0.82rem;color:#8aaa90;margin-bottom:20px;}
-    .blog-modal-body{font-size:0.95rem;color:#2a3a2a;line-height:1.8;white-space:pre-wrap;}
-    /* ===== REGISTER SECTION ===== */
-    .register-section{padding:70px 0;background:#fff;}
-    .reg-tabs{display:flex;gap:12px;margin-bottom:32px;justify-content:center;flex-wrap:wrap;}
-    .reg-tab-btn{padding:12px 28px;border-radius:999px;border:2px solid var(--primary);background:#fff;color:var(--primary);font-weight:700;font-size:0.95rem;cursor:pointer;transition:all .2s;}
-    .reg-tab-btn.active{background:var(--primary);color:#fff;}
-    .reg-form-wrap{max-width:560px;margin:auto;background:#f0faf5;border-radius:20px;padding:32px;}
-    .reg-form-wrap h3{font-size:1.15rem;font-weight:700;color:#1a2e1a;margin-bottom:20px;}
-    .reg-field{margin-bottom:14px;}
-    .reg-field label{display:block;font-size:0.82rem;font-weight:600;color:#3a5a3a;margin-bottom:5px;}
-    .reg-field input,.reg-field select,.reg-field textarea{width:100%;padding:11px 14px;border:1.5px solid #c8ead8;border-radius:10px;font-size:0.92rem;background:#fff;box-sizing:border-box;}
-    .reg-field textarea{min-height:80px;resize:vertical;}
-    .reg-submit-btn{width:100%;padding:14px;background:linear-gradient(135deg,#0a5c4d,#3aafa9);color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:8px;}
-    .reg-success{display:none;background:#d4edda;border:1.5px solid #28a745;color:#155724;border-radius:10px;padding:14px 18px;margin-top:14px;font-weight:600;text-align:center;}
-    /* ===== AVAILABLE DOCTORS SECTION ===== */
-    .avail-doctors-section{padding:70px 0;background:#f0faf5;}
-    .doctors-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px;margin-top:32px;}
-    .doctor-reg-card{background:#fff;border-radius:18px;box-shadow:0 4px 18px rgba(0,80,60,.08);padding:24px;display:flex;flex-direction:column;align-items:center;text-align:center;transition:transform .2s,box-shadow .2s;}
-    .doctor-reg-card:hover{transform:translateY(-4px);box-shadow:0 8px 28px rgba(0,80,60,.15);}
-    .doctor-avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#0a5c4d,#3aafa9);color:#fff;font-size:1.8rem;display:flex;align-items:center;justify-content:center;margin-bottom:14px;font-weight:800;}
-    .doctor-reg-name{font-size:1.05rem;font-weight:700;color:#1a2e1a;margin-bottom:4px;}
-    .doctor-reg-spec{font-size:0.82rem;color:#5a7060;margin-bottom:6px;}
-    .doctor-avail-badge{background:#e0f5eb;color:#0a5c4d;border-radius:999px;font-size:0.75rem;font-weight:700;padding:3px 12px;margin-bottom:16px;display:inline-block;}
-    .doctor-action-btns{display:flex;gap:10px;margin-top:auto;width:100%;}
-    .doc-chat-btn,.doc-call-btn{flex:1;padding:10px;border:none;border-radius:10px;font-weight:700;font-size:0.88rem;cursor:pointer;text-decoration:none;display:block;text-align:center;}
-    .doc-chat-btn{background:#25D366;color:#fff;}
-    .doc-call-btn{background:linear-gradient(135deg,#0a5c4d,#3aafa9);color:#fff;}
-    .no-doctors-msg{text-align:center;color:#8aaa90;padding:48px 20px;font-size:1rem;grid-column:1/-1;}
-
-
-
-    /* ===== PRICING / RATES ===== */
-    .rate-badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:14px;}
-    .rate-badge{border-radius:10px;padding:7px 13px;font-size:0.82rem;font-weight:700;display:flex;align-items:center;gap:5px;}
-    .rate-badge.chat{background:#e8f8ee;color:#1a7a3a;border:1.5px solid #b2e8c4;}
-    .rate-badge.call{background:#e8f0ff;color:#2a4aaa;border:1.5px solid #b4c8f8;}
-    .doc-rate-note{font-size:0.72rem;color:#9aaa9a;margin-bottom:12px;}
-    .doc-session-btn{flex:1;padding:10px;border:none;border-radius:10px;font-weight:700;font-size:0.85rem;cursor:pointer;text-decoration:none;display:block;text-align:center;line-height:1.2;}
-    .doc-session-btn.chat{background:#25D366;color:#fff;}
-    .doc-session-btn.call{background:linear-gradient(135deg,#0a5c4d,#3aafa9);color:#fff;}
-    .commission-info{font-size:0.7rem;background:#fff8e6;border:1px dashed #d4a000;border-radius:8px;padding:6px 10px;color:#7a5800;margin-top:10px;text-align:center;}
-
-
-    /* ===== PAYMENT MODAL ===== */
-    .pay-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9100;align-items:center;justify-content:center;padding:20px;}
-    .pay-modal.open{display:flex;}
-    .pay-modal-box{background:#fff;border-radius:22px;max-width:440px;width:100%;padding:32px;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.18);}
-    .pay-modal-close{position:absolute;top:14px;right:18px;background:none;border:none;font-size:1.4rem;cursor:pointer;color:#888;}
-    .pay-modal-title{font-size:1.15rem;font-weight:800;color:#1a2e1a;margin-bottom:4px;}
-    .pay-modal-sub{font-size:0.82rem;color:#7a9a7a;margin-bottom:20px;}
-    .pay-field{margin-bottom:14px;}
-    .pay-field label{display:block;font-size:0.8rem;font-weight:600;color:#3a5a3a;margin-bottom:5px;}
-    .pay-field input{width:100%;padding:11px 14px;border:1.5px solid #c8ead8;border-radius:10px;font-size:0.92rem;box-sizing:border-box;}
-    .pay-duration-row{display:flex;gap:10px;align-items:flex-end;margin-bottom:14px;}
-    .pay-duration-row .pay-field{flex:1;margin-bottom:0;}
-    .pay-calc{background:#f0faf5;border-radius:12px;padding:14px;margin-bottom:18px;font-size:0.85rem;color:#0a5c4d;}
-    .pay-calc strong{font-size:1.05rem;}
-    .pay-calc .pay-split{font-size:0.78rem;color:#7a9a7a;margin-top:4px;}
-    .pay-btn{width:100%;padding:15px;background:linear-gradient(135deg,#0a5c4d,#3aafa9);color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:700;cursor:pointer;}
-    .pay-btn:disabled{opacity:.5;cursor:not-allowed;}
-    .pay-success{display:none;text-align:center;padding:20px 0;}
-    .pay-success-icon{font-size:3rem;margin-bottom:12px;}
-    .pay-success-msg{font-size:1rem;font-weight:700;color:#1a7a3a;margin-bottom:8px;}
-    .pay-success-sub{font-size:0.85rem;color:#5a7060;}
-    /* WALLET BUTTON */
-    .wallet-nav-btn{background:linear-gradient(135deg,#d9b66f,#c8973d);color:#fff!important;border:none;border-radius:999px;padding:8px 16px;cursor:pointer;font-weight:700;font-size:0.88rem;display:inline-flex;align-items:center;gap:5px;}
-    .wallet-bal-pill{background:rgba(255,255,255,0.25);border-radius:999px;padding:2px 8px;font-size:0.82rem;font-weight:700;}
-    /* WALLET MODAL */
-    .wallet-modal{display:none;position:fixed;inset:0;z-index:9000;background:rgba(10,30,25,0.55);backdrop-filter:blur(6px);align-items:center;justify-content:center;}
-    .wallet-modal.open{display:flex;}
-    .wallet-box{background:#fff;border-radius:22px;width:min(480px,96vw);max-height:90vh;overflow-y:auto;box-shadow:0 24px 60px rgba(0,0,0,0.2);}
-    .wallet-header{background:linear-gradient(135deg,#0a5c4d,#3aafa9);color:#fff;padding:24px 24px 18px;border-radius:22px 22px 0 0;position:relative;}
-    .wallet-header h2{font-size:1.3rem;font-weight:800;margin-bottom:4px;}
-    .wallet-header p{font-size:0.85rem;opacity:0.85;}
-    .wallet-close{position:absolute;top:16px;right:18px;background:rgba(255,255,255,0.2);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1.1rem;font-weight:700;}
-    .wallet-balance-card{margin:20px 20px 0;background:linear-gradient(135deg,#e8fdf5,#d0f5e8);border-radius:16px;padding:20px;text-align:center;border:2px solid #b2eed8;}
-    .wallet-balance-label{font-size:0.82rem;color:#5a7060;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;}
-    .wallet-balance-amount{font-size:2.4rem;font-weight:900;color:#0a5c4d;margin:6px 0 4px;}
-    .wallet-balance-sub{font-size:0.8rem;color:#5a7060;}
-    .wallet-phone-row{margin:16px 20px 0;display:flex;gap:8px;}
-    .wallet-phone-row input{flex:1;padding:10px 14px;border:2px solid #cde8da;border-radius:10px;font-size:0.9rem;outline:none;}
-    .wallet-phone-row button{background:#0a5c4d;color:#fff;border:none;border-radius:10px;padding:10px 16px;cursor:pointer;font-weight:700;font-size:0.88rem;}
-    .wallet-section-title{font-size:0.88rem;font-weight:700;color:#0a5c4d;text-transform:uppercase;letter-spacing:0.05em;margin:18px 20px 10px;}
-    .recharge-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 20px;}
-    .recharge-btn{background:#f0fdf8;border:2px solid #b2eed8;border-radius:12px;padding:12px 8px;cursor:pointer;font-weight:700;color:#0a5c4d;font-size:0.95rem;text-align:center;transition:0.15s;}
-    .recharge-btn:hover,.recharge-btn.selected{background:#0a5c4d;color:#fff;border-color:#0a5c4d;}
-    .recharge-custom-row{margin:10px 20px 0;display:flex;gap:8px;}
-    .recharge-custom-row input{flex:1;padding:10px 14px;border:2px solid #cde8da;border-radius:10px;font-size:0.9rem;outline:none;}
-    .recharge-pay-btn{width:calc(100% - 40px);margin:14px 20px 4px;padding:14px;background:linear-gradient(135deg,#0a5c4d,#3aafa9);color:#fff;border:none;border-radius:12px;font-weight:800;font-size:1rem;cursor:pointer;display:block;}
-    .recharge-pay-btn:disabled{opacity:0.6;cursor:not-allowed;}
-    .wallet-tabs{display:flex;margin:18px 20px 0;border-radius:12px;overflow:hidden;border:2px solid #cde8da;}
-    .wallet-tab{flex:1;padding:9px;text-align:center;font-size:0.85rem;font-weight:700;cursor:pointer;background:#f0fdf8;color:#5a7060;border:none;transition:0.15s;}
-    .wallet-tab.active{background:#0a5c4d;color:#fff;}
-    .wallet-history{margin:12px 20px 20px;max-height:220px;overflow-y:auto;}
-    .wallet-txn{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:10px;margin-bottom:6px;font-size:0.85rem;}
-    .wallet-txn.credit{background:#e8fdf5;} .wallet-txn.debit{background:#fff5f5;}
-    .wallet-txn-left{display:flex;flex-direction:column;gap:2px;}
-    .wallet-txn-desc{font-weight:700;color:#163832;} .wallet-txn-date{font-size:0.76rem;color:#8a9e98;}
-    .wallet-txn-amt{font-weight:800;font-size:0.95rem;}
-    .wallet-txn.credit .wallet-txn-amt{color:#0a5c4d;} .wallet-txn.debit .wallet-txn-amt{color:#c0392b;}
-    .wallet-empty-txn{text-align:center;color:#8a9e98;font-size:0.85rem;padding:20px 0;}
-    .wallet-login-prompt{margin:16px 20px;padding:14px;background:#fff8e1;border-radius:12px;border:1px solid #f0d080;font-size:0.85rem;color:#7a6020;text-align:center;}
-    .wallet-recharge-success{margin:4px 20px 0;padding:12px 14px;background:#e8fdf5;border-radius:12px;border:2px solid #6dd8a8;font-size:0.9rem;color:#0a5c4d;font-weight:700;text-align:center;display:none;}
-    /* BOOKING MODAL */
-    .book-modal{display:none;position:fixed;inset:0;z-index:8500;background:rgba(10,30,25,0.55);backdrop-filter:blur(6px);align-items:center;justify-content:center;}
-    .book-modal.open{display:flex;}
-    .book-box{background:#fff;border-radius:22px;width:min(420px,96vw);box-shadow:0 24px 60px rgba(0,0,0,0.2);overflow:hidden;}
-    .book-header{background:linear-gradient(135deg,#0a5c4d,#3aafa9);color:#fff;padding:20px 22px;position:relative;}
-    .book-header h3{font-size:1.1rem;font-weight:800;margin-bottom:3px;} .book-header p{font-size:0.83rem;opacity:0.85;}
-    .book-close{position:absolute;top:14px;right:16px;background:rgba(255,255,255,0.2);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:1rem;font-weight:700;}
-    .book-body{padding:20px 22px;}
-    .book-field{margin-bottom:14px;}
-    .book-field label{display:block;font-size:0.83rem;font-weight:700;color:#0a5c4d;margin-bottom:5px;}
-    .book-field input{width:100%;padding:10px 14px;border:2px solid #cde8da;border-radius:10px;font-size:0.9rem;outline:none;}
-    .book-field input:focus{border-color:#3aafa9;}
-    .book-wallet-info{background:#e8fdf5;border-radius:10px;padding:12px 14px;margin-bottom:14px;font-size:0.85rem;color:#0a5c4d;display:flex;justify-content:space-between;align-items:center;}
-    .book-wallet-bal{font-weight:800;font-size:1rem;}
-    .book-cost-box{background:#f7fff8;border:2px solid #b2eed8;border-radius:12px;padding:14px;margin-bottom:14px;}
-    .book-cost-row{display:flex;justify-content:space-between;font-size:0.85rem;color:#5a7060;margin-bottom:6px;}
-    .book-cost-total{display:flex;justify-content:space-between;font-size:1rem;font-weight:800;color:#0a5c4d;border-top:1px solid #b2eed8;padding-top:8px;margin-top:4px;}
-    .book-insuf{background:#fff0f0;border:1px solid #f8c0c0;border-radius:10px;padding:10px 12px;font-size:0.83rem;color:#c0392b;margin-bottom:12px;display:none;}
-    .book-wa-btn{width:100%;padding:14px;background:linear-gradient(135deg,#25D366,#1aa050);color:#fff;border:none;border-radius:12px;font-weight:800;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px;}
-    .book-wa-btn:disabled{opacity:0.5;cursor:not-allowed;}
-    .book-recharge-btn{width:100%;padding:10px;background:#fff;color:#0a5c4d;border:2px solid #0a5c4d;border-radius:12px;font-weight:700;font-size:0.88rem;cursor:pointer;margin-bottom:6px;}
-    .book-no-wallet{text-align:center;padding:4px 0 2px;font-size:0.82rem;color:#8a9e98;}
-    /* BOOKING CONFIRMATION MODAL */
-    .bc-modal{display:none;position:fixed;inset:0;z-index:9900;background:rgba(10,30,25,0.6);backdrop-filter:blur(6px);align-items:center;justify-content:center;}
-    .bc-modal.open{display:flex;}
-    .bc-box{background:#fff;border-radius:22px;width:min(440px,96vw);box-shadow:0 24px 60px rgba(0,0,0,0.22);overflow:hidden;}
-    .bc-header{background:linear-gradient(135deg,#1aa050,#25D366);color:#fff;padding:24px;text-align:center;}
-    .bc-icon{font-size:3rem;margin-bottom:6px;}
-    .bc-header h3{font-size:1.2rem;font-weight:800;margin-bottom:4px;}
-    .bc-header p{font-size:0.83rem;opacity:0.9;}
-    .bc-body{padding:20px 24px;}
-    .bc-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #f0f6f3;font-size:0.87rem;}
-    .bc-row:last-of-type{border-bottom:none;}
-    .bc-label{color:#8a9e98;font-weight:600;}
-    .bc-val{font-weight:700;color:#163832;}
-    .bc-split{background:#f7fff8;border-radius:12px;padding:14px;margin:14px 0;}
-    .bc-split-title{font-size:0.78rem;font-weight:700;color:#0a5c4d;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:10px;}
-    .bc-split-row{display:flex;justify-content:space-between;font-size:0.83rem;margin-bottom:5px;}
-    .bc-split-row:last-child{margin-bottom:0;}
-    .bc-new-bal{background:#e8fdf5;border-radius:10px;padding:12px;text-align:center;font-size:0.85rem;color:#0a5c4d;margin-bottom:16px;}
-    .bc-new-bal strong{font-size:1.1rem;}
-    .bc-close-btn{width:100%;padding:13px;background:linear-gradient(135deg,#0a5c4d,#3aafa9);color:#fff;border:none;border-radius:12px;font-weight:800;font-size:1rem;cursor:pointer;}
-
-
   </style>
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
-  <!-- PWA: Prahari NatureCure -->
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#0a5c4d">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Prahari NatureCure">
-  <link rel="apple-touch-icon" href="/icons/icon-192.png">
-  <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152.png">
-  <link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
-  <link rel="icon" type="image/png" sizes="96x96"  href="/icons/icon-96.png">
-  <meta name="application-name" content="Prahari NatureCure">
-  <meta name="msapplication-TileImage" content="/icons/icon-144.png">
-  <meta name="msapplication-TileColor" content="#0a5c4d">
 </head>
 <body>
 
@@ -598,18 +397,14 @@
     <nav class="nav-links">
       <a href="#services">Services</a>
       <a href="#wellness">Wellness</a>
-          <a href="#food">🌾Naturopathy Food</a>
+	  <a href="#food">🌾Naturopathy Food</a>
       <a href="#rules">Guidelines</a>
       <a href="#pricing">Plans</a>
       <a href="#payment">Payment</a>
       <a href="#contact">Booking</a>
-          <a href="#reviews">⭐ Reviews</a>
+	  <a href="#reviews">⭐ Reviews</a>
       <a href="#social">Social</a>
-      
-      <a href="#blogs">📝 Blogs</a>
-      <a href="#register">📋 Register</a>
-      <a href="#doctors">👨‍⚕️ Doctors</a>
-            <a href="doctor.html" target="_blank"
+	    <a href="doctor.html" target="_blank"
      style="background:linear-gradient(135deg,#0a5c4d,#3aafa9);
      color:#fff !important;
      padding:8px 16px;
@@ -617,10 +412,8 @@
      font-weight:700;
      font-size:0.88rem;
      border-bottom:none !important;">
-    🛡️ Admin Panel
+    🩺 Doctor Panel
   </a>
-      <a href="patient.html" style="background:linear-gradient(135deg,#3aafa9,#0a5c4d);color:#fff!important;padding:8px 16px;border-radius:999px;font-weight:700;font-size:0.88rem;border-bottom:none!important;display:inline-flex;align-items:center;gap:5px;text-decoration:none;">&#x1F9D1; Patient Login</a>
-      <a href="doctor-portal.html" style="background:linear-gradient(135deg,#1565c0,#1976d2);color:#fff!important;padding:8px 16px;border-radius:999px;font-weight:700;font-size:0.88rem;border-bottom:none!important;display:inline-flex;align-items:center;gap:5px;text-decoration:none;">&#x1F468;&#x200D;&#x2695;&#xFE0F; Doctor Login</a>
       <button id="langToggle" class="lang-btn">తెలుగు</button>
     </nav>
   </div>
@@ -668,27 +461,6 @@
 </section>
 
 <!-- SERVICES -->
-
-<!-- NATURE IMAGE BANNER -->
-<div style="position:relative;width:100%;height:320px;overflow:hidden;background:#1b4332;">
-  <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=1400&q=80"
-    alt="Nature Forest" loading="lazy"
-    style="width:100%;height:100%;object-fit:cover;object-position:center 40%;opacity:0.85;" />
-  <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(6,45,30,0.68),rgba(10,92,77,0.45),rgba(58,175,169,0.3));"></div>
-  <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;">
-    <div style="font-size:2.6rem;font-weight:900;color:#fff;text-shadow:0 2px 18px rgba(0,0,0,0.45);line-height:1.2;margin-bottom:12px;">
-      &#x1F331; Heal with Nature's Wisdom
-    </div>
-    <div style="font-size:1.05rem;color:rgba(255,255,255,0.9);max-width:600px;text-shadow:0 1px 8px rgba(0,0,0,0.3);font-weight:500;">
-      Personalised diet charts &bull; Yoga therapy &bull; Naturopathy consultations &bull; Holistic wellness
-    </div>
-    <div style="margin-top:20px;display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
-      <a href="#contact" style="background:linear-gradient(135deg,#2d6a4f,#52b788);color:#fff;padding:12px 26px;border-radius:999px;font-weight:800;text-decoration:none;font-size:0.95rem;box-shadow:0 8px 20px rgba(0,0,0,0.2);">&#x1F4DE; Book Consultation</a>
-      <a href="patient.html" style="background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);color:#fff;padding:12px 26px;border-radius:999px;font-weight:700;text-decoration:none;font-size:0.95rem;border:1.5px solid rgba(255,255,255,0.4);">&#x1F9D1; Patient Login</a>
-    </div>
-  </div>
-</div>
-
 <section id="services" class="section">
   <div class="container">
     <h2 class="sec-title">Conditions We Support</h2>
@@ -1077,21 +849,6 @@
 </section>
 
 <!-- PRICING -->
-
-<!-- BOTANICAL NATURE STRIP -->
-<div style="position:relative;width:100%;height:200px;overflow:hidden;">
-  <img src="https://images.unsplash.com/photo-1540479859555-17af45c78602?w=1400&q=80"
-    alt="Lotus Flower Nature" loading="lazy"
-    style="width:100%;height:100%;object-fit:cover;object-position:center 60%;opacity:0.9;" />
-  <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,92,77,0.55),rgba(27,67,50,0.35),rgba(58,175,169,0.25));"></div>
-  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:16px;">
-    <div style="color:#fff;text-shadow:0 2px 10px rgba(0,0,0,0.4);">
-      <div style="font-size:1.7rem;font-weight:900;margin-bottom:6px;">&#x1FAB7; Pure Nature, Expert Care</div>
-      <div style="font-size:0.95rem;opacity:0.9;">Combining ancient naturopathy with modern wellness science</div>
-    </div>
-  </div>
-</div>
-
 <section id="pricing" class="section alt-bg">
   <div class="container">
     <h2 class="sec-title">Consultation Plans</h2>
@@ -1359,253 +1116,9 @@
   </div>
 </section>
 
-
-<!-- PATIENT DIET UPLOAD -->
-
-<!-- BLOGS SECTION -->
-<section id="blogs" class="blogs-section">
-  <div class="container">
-    <h2 class="sec-title">📝 Health Blogs</h2>
-    <p class="sec-sub">Expert naturopathy and wellness insights from our doctors.</p>
-    <div class="blogs-grid" id="blogsGrid">
-      <div class="blog-empty">No blogs yet. Check back soon! 🌿</div>
-    </div>
-  </div>
-</section>
-
-<!-- Blog Read Modal -->
-<div class="blog-modal" id="blogReadModal">
-  <div class="blog-modal-box">
-    <button class="blog-modal-close" onclick="closeBlogModal()">✕</button>
-    <span class="blog-cat-badge" id="bm-cat"></span>
-    <h2 class="blog-modal-title" id="bm-title"></h2>
-    <div class="blog-modal-meta" id="bm-meta"></div>
-    <div class="blog-modal-body" id="bm-body"></div>
-  </div>
-</div>
-
-<!-- REGISTER SECTION -->
-<section id="register" class="register-section">
-  <div class="container">
-    <h2 class="sec-title">📋 Register</h2>
-    <p class="sec-sub">Create your account to connect with our naturopathy doctors.</p>
-    <div class="reg-tabs">
-      <button class="reg-tab-btn active" onclick="switchRegTab('patient', this)">🙋 Register as Patient</button>
-      <button class="reg-tab-btn" onclick="switchRegTab('doctor', this)">👨‍⚕️ Register as Doctor</button>
-    </div>
-    <!-- Patient Registration -->
-    <div class="reg-form-wrap" id="regFormPatient">
-      <h3>🙋 Patient Registration</h3>
-      <div class="reg-field"><label>Full Name *</label><input type="text" id="rp-name" placeholder="Your full name" /></div>
-      <div class="reg-field"><label>Phone Number *</label><input type="tel" id="rp-phone" placeholder="+91 9999999999" /></div>
-      <div class="reg-field"><label>Password *</label>
-        <div style="position:relative;">
-          <input type="password" id="rp-password" placeholder="Create a password" style="width:100%;padding:10px 40px 10px 12px;border:1.5px solid #b7e4c7;border-radius:10px;font-size:0.95rem;box-sizing:border-box;" />
-          <button type="button" onclick="var i=document.getElementById('rp-password');i.type=i.type==='password'?'text':'password';" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1rem;color:#56766e;">&#x1F441;</button>
-        </div>
-      </div>
-      <div class="reg-field"><label>Email</label><input type="email" id="rp-email" placeholder="you@email.com" /></div>
-      <div class="reg-field"><label>Health Condition</label>
-        <select id="rp-condition">
-          <option>PCOS / Hormonal Issues</option>
-          <option>Diabetes Management</option>
-          <option>Weight Loss</option>
-          <option>Thyroid</option>
-          <option>Joint Pain</option>
-          <option>Digestive Issues</option>
-          <option>Skin Problems</option>
-          <option>Hypertension</option>
-          <option>General Wellness</option>
-        </select>
-      </div>
-      <div class="reg-field"><label>Age</label><input type="number" id="rp-age" placeholder="Your age" /></div>
-      <div class="reg-field"><label>Gender *</label>
-        <select id="rp-gender">
-          <option value="">— Select Gender —</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-          <option value="Other">Other</option>
-          <option value="Prefer not to say">Prefer not to say</option>
-        </select>
-      </div>
-      <button class="reg-submit-btn" onclick="registerPatient()">✅ Register as Patient</button>
-      <div class="reg-success" id="rp-success">🎉 Registered successfully! A doctor will reach out to you via WhatsApp.</div>
-    </div>
-    <!-- Doctor Registration -->
-    <div class="reg-form-wrap" id="regFormDoctor" style="display:none;">
-      <h3>👨‍⚕️ Doctor Registration</h3>
-      <div class="reg-field"><label>Full Name *</label><input type="text" id="rd-name" placeholder="Dr. Full Name" /></div>
-      <div class="reg-field"><label>Phone (WhatsApp) *</label><input type="tel" id="rd-phone" placeholder="+91 9999999999" /></div>
-      <div class="reg-field"><label>Password *</label>
-        <div style="position:relative;">
-          <input type="password" id="rd-password" placeholder="Create a password" style="width:100%;padding:10px 40px 10px 12px;border:1.5px solid #b7e4c7;border-radius:10px;font-size:0.95rem;box-sizing:border-box;" />
-          <button type="button" onclick="var i=document.getElementById('rd-password');i.type=i.type==='password'?'text':'password';" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1rem;color:#56766e;">&#x1F441;</button>
-        </div>
-      </div>
-      <div class="reg-field"><label>Email *</label><input type="email" id="rd-email" placeholder="doctor@email.com" /></div>
-      <div class="reg-field"><label>Gender *</label>
-        <select id="rd-gender">
-          <option value="">— Select Gender —</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-          <option value="Other">Other</option>
-          <option value="Prefer not to say">Prefer not to say</option>
-        </select>
-      </div>
-      <div class="reg-field"><label>Specialization *</label>
-        <select id="rd-spec">
-          <option>Naturopathy</option>
-          <option>Yoga Therapy</option>
-          <option>Acupuncture</option>
-          <option>Diet &amp; Nutrition</option>
-          <option>Naturopathy &amp; Acupuncture</option>
-          <option>Yoga &amp; Women's Wellness</option>
-        </select>
-      </div>
-      <div class="reg-field"><label>Qualifications *</label><input type="text" id="rd-qual" placeholder="BNYS, MSc, Dip in Acu..." /></div>
-      <div class="reg-field"><label>Available Timings</label><input type="text" id="rd-timing" placeholder="e.g. Mon-Fri 9am-5pm" /></div>
-      <div class="reg-field"><label>Short Bio</label><textarea id="rd-bio" placeholder="Brief description about your expertise..."></textarea></div>
-      <div style="display:flex;gap:12px;">
-        <div class="reg-field" style="flex:1;"><label>💬 Chat Rate (₹ / min)</label><input type="number" id="rd-chat-rate" placeholder="e.g. 20" min="1" /></div>
-        <div class="reg-field" style="flex:1;"><label>📞 Call Rate (₹ / min)</label><input type="number" id="rd-call-rate" placeholder="e.g. 30" min="1" /></div>
-      </div>
-      <div style="background:#fff8e6;border:1px dashed #d4a000;border-radius:10px;padding:10px 14px;font-size:0.8rem;color:#7a5800;margin-bottom:14px;">💡 <strong>Session Split (Chat/Call):</strong> Doctor <strong>60%</strong> · Admin <strong>20%</strong> · Platform <strong>20%</strong>. Example: ₹20/min × 10 min = ₹200 → Doctor ₹120, Admin ₹40, Platform ₹40.</div>
-      <button class="reg-submit-btn" onclick="registerDoctor()">✅ Register as Doctor</button>
-      <div class="reg-success" id="rd-success">🎉 Registered! You will now appear in the Available Doctors section.</div>
-    </div>
-  </div>
-</section>
-
-<!-- AVAILABLE DOCTORS SECTION -->
-<section id="doctors" class="avail-doctors-section">
-  <div class="container">
-    <h2 class="sec-title">👨‍⚕️ Available Doctors</h2>
-    <p class="sec-sub">Connect with our registered naturopathy and yoga doctors instantly via chat or call.</p>
-    <div class="doctors-grid" id="availDoctorsGrid">
-      <div class="no-doctors-msg">No doctors registered yet. Check back soon! 🌿</div>
-    </div>
-  </div>
-</section>
-
-
-
-<!-- BOOKING CONFIRMATION MODAL -->
-<div class="bc-modal" id="bookConfirmModal">
-  <div class="bc-box">
-    <div class="bc-header">
-      <div class="bc-icon">&#x2705;</div>
-      <h3>Booking Confirmed!</h3>
-      <p>Your session has been booked successfully.</p>
-    </div>
-    <div class="bc-body">
-      <div class="bc-row"><span class="bc-label">Patient</span><span class="bc-val" id="bc-patient"></span></div>
-      <div class="bc-row"><span class="bc-label">Doctor</span><span class="bc-val" id="bc-doctor"></span></div>
-      <div class="bc-row"><span class="bc-label">Session Type</span><span class="bc-val" id="bc-type"></span></div>
-      <div class="bc-row"><span class="bc-label">Duration</span><span class="bc-val" id="bc-mins"></span></div>
-      <div class="bc-row"><span class="bc-label">Amount Paid</span><span class="bc-val" id="bc-total"></span></div>
-      <div class="bc-split">
-        <div class="bc-split-title">&#x1F4CA; Revenue Split</div>
-        <div class="bc-split-row"><span style="color:#0a5c4d;">&#x1F4BB; Platform (Developer)</span><span style="font-weight:700;" id="bc-plat"></span></div>
-        <div class="bc-split-row"><span style="color:#3aafa9;">&#x1F9D1;&#x200D;&#x2695;&#xFE0F; Doctor</span><span style="font-weight:700;" id="bc-doc"></span></div>
-        <div class="bc-split-row"><span style="color:#d9b66f;">&#x1F3E5; Admin / Clinic</span><span style="font-weight:700;" id="bc-admin"></span></div>
-      </div>
-      <div class="bc-new-bal">Wallet Balance: <strong id="bc-bal">&#8377;0</strong></div>
-      <p style="font-size:0.82rem;color:#5a7060;text-align:center;margin-bottom:14px;">The admin will assign a doctor and confirm your session shortly.</p>
-      <button class="bc-close-btn" id="bcWhatsappBtn" onclick="sendBookingReceiptWA()" style="background:linear-gradient(135deg,#25D366,#128C7E);margin-bottom:8px;">&#x1F4F2; Send Receipt on WhatsApp</button>
-      <button class="bc-close-btn" onclick="document.getElementById('bookConfirmModal').classList.remove('open')">&#x1F44D; Done</button>
-    </div>
-  </div>
-</div>
-
-<!-- WALLET MODAL -->
-<div class="wallet-modal" id="walletModal">
-  <div class="wallet-box">
-    <div class="wallet-header">
-      <h2>&#x1F4B0; My Wallet</h2>
-      <p>Recharge &amp; book appointments via WhatsApp</p>
-      <button class="wallet-close" onclick="closeWalletModal()">&#x2715;</button>
-    </div>
-    <div id="walletLoginArea">
-      <div class="wallet-login-prompt">&#x1F4F1; Enter your phone number to load your wallet.</div>
-      <div class="wallet-phone-row">
-        <input type="tel" id="walletPhoneInput" placeholder="10-digit phone number" maxlength="15"/>
-        <button onclick="loadWallet()">Load</button>
-      </div>
-    </div>
-    <div id="walletContent" style="display:none;">
-      <div class="wallet-balance-card">
-        <div class="wallet-balance-label">Available Balance</div>
-        <div class="wallet-balance-amount" id="walletBalAmt">&#8377;0.00</div>
-        <div class="wallet-balance-sub" id="walletPhoneShow"></div>
-      </div>
-      <div class="wallet-section-title">&#x1F4B3; Recharge Wallet</div>
-      <div class="recharge-grid">
-        <button class="recharge-btn" onclick="selectRecharge(100,this)">&#8377;100</button>
-        <button class="recharge-btn" onclick="selectRecharge(200,this)">&#8377;200</button>
-        <button class="recharge-btn" onclick="selectRecharge(500,this)">&#8377;500</button>
-        <button class="recharge-btn" onclick="selectRecharge(1000,this)">&#8377;1,000</button>
-        <button class="recharge-btn" onclick="selectRecharge(2000,this)">&#8377;2,000</button>
-        <button class="recharge-btn" onclick="selectRecharge(5000,this)">&#8377;5,000</button>
-      </div>
-      <div class="recharge-custom-row">
-        <input type="number" id="customRechargeAmt" placeholder="Custom amount (min &#8377;10)" min="10" oninput="selectRecharge(null,null)"/>
-      </div>
-      <button class="recharge-pay-btn" id="rechargePayBtn" onclick="startRecharge()">&#x1F4B3; Recharge via Razorpay</button>
-      <div class="wallet-recharge-success" id="rechargeSuccess"></div>
-      <div class="wallet-section-title">&#x1F4CB; Transaction History</div>
-      <div class="wallet-tabs">
-        <button class="wallet-tab active" onclick="showWalletTab('all',this)">All</button>
-        <button class="wallet-tab" onclick="showWalletTab('credit',this)">Recharges</button>
-        <button class="wallet-tab" onclick="showWalletTab('debit',this)">Sessions</button>
-      </div>
-      <div class="wallet-history" id="walletHistory"></div>
-    </div>
-  </div>
-</div>
-
-<!-- BOOKING MODAL -->
-<div class="book-modal" id="bookModal">
-  <div class="book-box">
-    <div class="book-header">
-      <h3 id="bookTitle">Book Session</h3>
-      <p id="bookSubtitle">Book your session &amp; pay from wallet</p>
-      <button class="book-close" onclick="closeBookModal()">&#x2715;</button>
-    </div>
-    <div class="book-body">
-      <div class="book-wallet-info">
-        <span>&#x1F4B0; Wallet Balance</span>
-        <span class="book-wallet-bal" id="bookWalletBal">&#8377;0.00</span>
-      </div>
-      <div class="book-field">
-        <label>Your Name *</label>
-        <input type="text" id="bookPatientName" placeholder="Your full name"/>
-      </div>
-      <div class="book-field">
-        <label>Your Phone (wallet linked) *</label>
-        <input type="tel" id="bookPatientPhone" placeholder="Registered phone number" oninput="refreshBookWallet()"/>
-      </div>
-      <div class="book-field">
-        <label>Duration (minutes) *</label>
-        <input type="number" id="bookDuration" placeholder="e.g. 15" min="1" oninput="updateBookCalc()"/>
-      </div>
-      <div class="book-cost-box" id="bookCostBox" style="display:none;">
-        <div class="book-cost-row"><span>Rate</span><span id="bookRate">&#8377;0/min</span></div>
-        <div class="book-cost-row"><span>Duration</span><span id="bookDurShow">0 min</span></div>
-        <div class="book-cost-total"><span>Total</span><span id="bookTotal">&#8377;0</span></div>
-        <div class="book-cost-row" style="margin-top:8px;font-size:0.78rem;"><span>Doctor earns (80%)</span><span id="bookDocEarn" style="color:#0a5c4d;font-weight:700;"></span></div>
-        <div class="book-cost-row" style="font-size:0.78rem;"><span>Platform fee (20%)</span><span id="bookPlatFee" style="color:#888;"></span></div>
-      </div>
-      <div class="book-insuf" id="bookInsuf">&#x26A0; Insufficient wallet balance. Please recharge.</div>
-      <button class="book-wa-btn" id="bookConfirmBtn" onclick="confirmBooking()">&#x1F4C5; Book &amp; Pay from Wallet</button>
-      <button class="book-recharge-btn" id="bookRechargeBtn" onclick="closeBookModal();openWalletModal();" style="display:none;">&#x1F4B0; Recharge Wallet</button>
-      <div class="book-no-wallet" id="bookNoWallet" style="display:none;">No wallet yet? <a href="javascript:void(0)" onclick="closeBookModal();openWalletModal();" style="color:#0a5c4d;font-weight:700;">Set up &amp; recharge &#x2192;</a></div>
-    </div>
-  </div>
-</div>
 <footer class="footer">
   <div class="container">© 2025 Naturopathy &amp; Yoga Care. All rights reserved.</div>
 </footer>
-
 
 <a class="wa-float" href="https://wa.me/917013989526" target="_blank">💬</a>
 
@@ -1626,478 +1139,19 @@
   </div>
 </div>
 
-<script>
-/* ---- Blogs Display ---- */
-function loadBlogs() {
-  var blogs = JSON.parse(localStorage.getItem('nyc_blogs') || '[]');
-  var grid = document.getElementById('blogsGrid');
-  if (!grid) return;
-  if (!blogs.length) {
-    grid.innerHTML = '<div class="blog-empty">No blogs yet. Check back soon! 🌿</div>';
-    return;
-  }
-  grid.innerHTML = '';
-  blogs.slice().reverse().forEach(function(b) {
-    var excerpt = b.content.length > 120 ? b.content.substring(0, 120) + '...' : b.content;
-    var imgHtml = '<div class="blog-card-img-placeholder">🌿</div>';
-    var card = document.createElement('div');
-    card.className = 'blog-card';
-    card.innerHTML = imgHtml +
-      '<div class="blog-card-body">' +
-        '<span class="blog-cat-badge">' + (b.category || 'Health') + '</span>' +
-        '<div class="blog-card-title">' + b.title + '</div>' +
-        '<div class="blog-card-excerpt">' + excerpt + '</div>' +
-        '<div class="blog-card-meta">' +
-          '<span>✍️ ' + (b.author || 'Doctor') + '</span>' +
-          '<span>📅 ' + b.date + '</span>' +
-        '</div>' +
-        '<button class="blog-read-btn" onclick="openBlog(' + b.id + ')">Read More →</button>' +
-      '</div>';
-    grid.appendChild(card);
-  });
-}
-
-function openBlog(id) {
-  var blogs = JSON.parse(localStorage.getItem('nyc_blogs') || '[]');
-  var b = blogs.find(function(x) { return x.id === id; });
-  if (!b) return;
-  var modal = document.getElementById('blogReadModal');
-  if (!modal) return;
-  document.getElementById('bm-cat').textContent = b.category || 'Health';
-  document.getElementById('bm-title').textContent = b.title;
-  document.getElementById('bm-meta').textContent = '✍️ ' + (b.author || 'Doctor') + '   •   📅 ' + b.date;
-  document.getElementById('bm-body').textContent = b.content;
-  modal.classList.add('open');
-}
-
-function closeBlogModal() {
-  var m = document.getElementById('blogReadModal');
-  if (m) m.classList.remove('open');
-}
-
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeBlogModal();
-});
-
-/* ---- Register ---- */
-function switchRegTab(type, btn) {
-  document.querySelectorAll('.reg-tab-btn').forEach(function(b) { b.classList.remove('active'); });
-  btn.classList.add('active');
-  document.getElementById('regFormPatient').style.display = type === 'patient' ? 'block' : 'none';
-  document.getElementById('regFormDoctor').style.display = type === 'doctor' ? 'block' : 'none';
-}
-
-function registerPatient() {
-  var name  = document.getElementById('rp-name').value.trim();
-  var phone = document.getElementById('rp-phone').value.trim();
-  var pwd   = document.getElementById('rp-password').value;
-  if (!name)  { alert('Please enter your full name.'); return; }
-  if (!phone) { alert('Please enter your phone number.'); return; }
-  if (!pwd || pwd.length < 4) { alert('Please create a password (min 4 characters).'); return; }
-  var rawPhone = phone.replace(/\D/g,'');
-  var users = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
-  var dup = users.find(function(u){ return u.phone && u.phone.replace(/\D/g,'') === rawPhone && u.type === 'patient'; });
-  if (dup) { alert('A patient account with this phone number already exists. Please login.'); return; }
-  users.push({
-    id: Date.now(), type: 'patient', name: name, phone: phone, password: pwd,
-    email: document.getElementById('rp-email').value.trim(),
-    gender: document.getElementById('rp-gender').value,
-    condition: document.getElementById('rp-condition').value,
-    age: document.getElementById('rp-age').value,
-    date: new Date().toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' })
-  });
-  localStorage.setItem('nyc_registrations', JSON.stringify(users));
-  document.getElementById('rp-name').value = '';
-  document.getElementById('rp-phone').value = '';
-  document.getElementById('rp-password').value = '';
-  document.getElementById('rp-email').value = '';
-  document.getElementById('rp-age').value = '';
-  document.getElementById('rp-gender').value = '';
-  var suc = document.getElementById('rp-success');
-  if (suc) { suc.style.display = 'block'; setTimeout(function() { suc.style.display = 'none'; }, 5000); }
-}
-
-function registerDoctor() {
-  var name  = document.getElementById('rd-name').value.trim();
-  var phone = document.getElementById('rd-phone').value.trim();
-  var pwd   = document.getElementById('rd-password').value;
-  if (!name)  { alert('Please enter your full name.'); return; }
-  if (!phone) { alert('Please enter your phone number.'); return; }
-  if (!pwd || pwd.length < 4) { alert('Please create a password (min 4 characters).'); return; }
-  var rawPhone = phone.replace(/\D/g,'');
-  var users = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
-  var dup = users.find(function(u){ return u.phone && u.phone.replace(/\D/g,'') === rawPhone && u.type === 'doctor'; });
-  if (dup) { alert('A doctor account with this phone number already exists. Please login.'); return; }
-  users.push({
-    id: Date.now(), type: 'doctor', name: name, phone: phone, password: pwd,
-    email: document.getElementById('rd-email').value.trim(),
-    gender: document.getElementById('rd-gender').value,
-    specialty: document.getElementById('rd-spec').value,
-    qualifications: document.getElementById('rd-qual').value.trim(),
-    timing: document.getElementById('rd-timing').value.trim(),
-    bio: document.getElementById('rd-bio').value.trim(),
-    chatRate: parseFloat(document.getElementById('rd-chat-rate').value) || 0,
-    callRate: parseFloat(document.getElementById('rd-call-rate').value) || 0,
-    date: new Date().toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' })
-  });
-  localStorage.setItem('nyc_registrations', JSON.stringify(users));
-  ['rd-name','rd-phone','rd-password','rd-email','rd-qual','rd-timing','rd-bio','rd-chat-rate','rd-call-rate','rd-gender'].forEach(function(id) {
-    var el = document.getElementById(id); if (el) el.value = '';
-  });
-  var suc = document.getElementById('rd-success');
-  if (suc) { suc.style.display = 'block'; setTimeout(function() { suc.style.display = 'none'; }, 5000); }
-  loadAvailableDoctors();
-}
-
-/* ---- Available Doctors ---- */
-var _availDoctors = [];
-function loadAvailableDoctors() {
-  var users = JSON.parse(localStorage.getItem('nyc_registrations') || '[]');
-  var doctors = users.filter(function(u) { return u.type === 'doctor'; });
-  var grid = document.getElementById('availDoctorsGrid');
-  if (!grid) return;
-  if (!doctors.length) {
-    grid.innerHTML = '<div class="no-doctors-msg">No doctors registered yet. Check back soon! 🌿</div>';
-    return;
-  }
-  _availDoctors = [];
-  grid.innerHTML = '';
-  doctors.forEach(function(d, _i) {
-    var _idx = _availDoctors.length;
-    _availDoctors.push(d);
-    var initial = (d.name || 'D').charAt(0).toUpperCase();
-    var phoneClean = d.phone.replace(/\D/g, '');
-    var waMsg = encodeURIComponent('Hello Dr. ' + d.name + ', I found you on Naturopathy & Yoga Care and would like to consult you.');
-    var waLink = 'https://wa.me/' + phoneClean + '?text=' + waMsg;
-    var card = document.createElement('div');
-    card.className = 'doctor-reg-card';
-    var chatRateLine = d.chatRate ? '<span class="rate-badge chat">💬 ₹' + d.chatRate + '/min</span>' : '<span class="rate-badge chat">💬 Chat</span>';
-    var callRateLine = d.callRate ? '<span class="rate-badge call">📞 ₹' + d.callRate + '/min</span>' : '<span class="rate-badge call">📞 Call</span>';
-    var chatLabel = d.chatRate ? '💬 Chat — ₹' + d.chatRate + '/min' : '💬 Chat';
-    var callLabel = d.callRate ? '📞 Call — ₹' + d.callRate + '/min' : '📞 Call';
-    card.innerHTML =
-      '<div class="doctor-avatar">' + initial + '</div>' +
-      '<div class="doctor-reg-name">Dr. ' + d.name + '</div>' +
-      '<div class="doctor-reg-spec">' + d.specialty + (d.qualifications ? ' · ' + d.qualifications : '') + '</div>' +
-      (d.timing ? '<div class="doctor-avail-badge">🕐 ' + d.timing + '</div>' : '<div class="doctor-avail-badge">🟢 Available</div>') +
-      '<div class="rate-badges">' + chatRateLine + callRateLine + '</div>' +
-      (d.bio ? '<div style="font-size:0.82rem;color:#5a7060;margin-bottom:10px;line-height:1.5;text-align:left;">' + d.bio + '</div>' : '') +
-      '<div class="doctor-action-btns">' +
-        '<button class="doc-session-btn chat" onclick="openBookModal(' + _idx + ',\'chat\')">' + chatLabel + '</button>' +
-        '<button class="doc-session-btn call" onclick="openBookModal(' + _idx + ',\'call\')">' + callLabel + '</button>' +
-      '</div>' +
-      (d.chatRate || d.callRate ? '<div class="commission-info">💳 Pay per minute · Doctor 60% · Admin 20% · Platform 20%</div>' : '');
-    grid.appendChild(card);
-  });
-}
-
-/* Init on page load */
-loadBlogs();
-loadAvailableDoctors();
-
-/* ══════════════════════════════════════════
-   PATIENT WALLET SYSTEM
-   ══════════════════════════════════════════ */
-function walletKey(p){return 'nyc_wallet_'+p.replace(/\D/g,'');}
-function getWallet(p){var k=walletKey(p),r=localStorage.getItem(k);return r?JSON.parse(r):{balance:0,history:[]};}
-function saveWallet(p,d){localStorage.setItem(walletKey(p),JSON.stringify(d));updateNavWalletBal();}
-function updateNavWalletBal(){
-  var p=localStorage.getItem('nyc_wallet_active_phone')||'';
-  var b=p?getWallet(p).balance:0;
-  var el=document.getElementById('navWalletBal');
-  if(el)el.textContent='\u20b9'+b.toFixed(0);
-}
-
-var _walletPhone='',_rechargeAmt=0,_walletTab='all';
-
-function openWalletModal(){
-  document.getElementById('walletModal').classList.add('open');
-  var s=localStorage.getItem('nyc_wallet_active_phone')||'';
-  if(s){document.getElementById('walletPhoneInput').value=s;loadWallet();}
-}
-function closeWalletModal(){document.getElementById('walletModal').classList.remove('open');}
-
-function loadWallet(){
-  var p=(document.getElementById('walletPhoneInput').value||'').replace(/\D/g,'');
-  if(!p||p.length<10){alert('Please enter a valid 10-digit phone number.');return;}
-  _walletPhone=p;
-  localStorage.setItem('nyc_wallet_active_phone',p);
-  document.getElementById('walletLoginArea').style.display='none';
-  document.getElementById('walletContent').style.display='block';
-  refreshWalletUI();
-}
-
-function refreshWalletUI(){
-  var d=getWallet(_walletPhone);
-  var b=document.getElementById('walletBalAmt');if(b)b.textContent='\u20b9'+d.balance.toFixed(2);
-  var ph=document.getElementById('walletPhoneShow');if(ph)ph.textContent='Phone: +91'+_walletPhone;
-  renderWalletHistory(_walletTab);
-  updateNavWalletBal();
-}
-
-function selectRecharge(amt,btn){
-  document.querySelectorAll('.recharge-btn').forEach(function(b){b.classList.remove('selected');});
-  if(btn)btn.classList.add('selected');
-  _rechargeAmt=amt;
-  if(amt)document.getElementById('customRechargeAmt').value='';
-}
-
-function showWalletTab(tab,btn){
-  _walletTab=tab;
-  document.querySelectorAll('.wallet-tab').forEach(function(b){b.classList.remove('active');});
-  if(btn)btn.classList.add('active');
-  renderWalletHistory(tab);
-}
-
-function renderWalletHistory(tab){
-  var d=getWallet(_walletPhone);
-  var h=(d.history||[]).slice().reverse();
-  if(tab==='credit')h=h.filter(function(t){return t.type==='credit';});
-  if(tab==='debit')h=h.filter(function(t){return t.type==='debit';});
-  var el=document.getElementById('walletHistory');if(!el)return;
-  if(!h.length){el.innerHTML='<div class="wallet-empty-txn">No transactions yet.</div>';return;}
-  el.innerHTML=h.map(function(t){
-    return '<div class="wallet-txn '+t.type+'">'+
-      '<div class="wallet-txn-left"><span class="wallet-txn-desc">'+t.desc+'</span>'+
-      '<span class="wallet-txn-date">'+t.date+'</span></div>'+
-      '<span class="wallet-txn-amt">'+(t.type==='credit'?'+':'-')+'\u20b9'+parseFloat(t.amount).toFixed(2)+'</span>'+
-    '</div>';
-  }).join('');
-}
-
-/* Recharge via Razorpay */
-function startRecharge(){
-  var custom=parseFloat(document.getElementById('customRechargeAmt').value)||0;
-  var amt=custom>0?custom:_rechargeAmt;
-  if(!amt||amt<10){alert('Please select or enter a recharge amount (minimum \u20b910).');return;}
-  if(!_walletPhone){alert('Please load your wallet first.');return;}
-  var btn=document.getElementById('rechargePayBtn');
-  if(btn){btn.disabled=true;btn.textContent='\u23f3 Opening payment...';}
-  fetch('/api/create-order',{
-    method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({amount_paise:Math.round(amt*100),doctor_name:'Wallet Recharge',session_type:'recharge',patient_name:'Patient'})
-  })
-  .then(function(r){return r.json();})
-  .then(function(data){
-    if(data.error){alert('Error: '+data.error);if(btn){btn.disabled=false;btn.textContent='\ud83d\udcb3 Recharge via Razorpay';}return;}
-    var opts={
-      key:data.key_id,amount:data.amount,currency:data.currency,
-      name:'Naturopathy & Yoga Care',description:'Wallet Recharge',order_id:data.order_id,
-      theme:{color:'#0a5c4d'},
-      prefill:{contact:'+91'+_walletPhone},
-      retry:{enabled:true,max_count:3},
-      handler:function(resp){
-        fetch('/api/verify-payment',{
-          method:'POST',headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({razorpay_order_id:resp.razorpay_order_id||data.order_id,razorpay_payment_id:resp.razorpay_payment_id,razorpay_signature:resp.razorpay_signature})
-        })
-        .then(function(r){return r.json();})
-        .then(function(vd){
-          if(vd.verified){
-            var w=getWallet(_walletPhone);
-            w.balance=(w.balance||0)+amt;
-            w.history.push({type:'credit',desc:'\ud83d\udcb0 Wallet Recharge',amount:amt,date:new Date().toLocaleString('en-IN'),payId:resp.razorpay_payment_id});
-            saveWallet(_walletPhone,w);
-            refreshWalletUI();
-            var s=document.getElementById('rechargeSuccess');
-            if(s){s.style.display='block';s.textContent='\u2705 \u20b9'+amt+' added to your wallet!';setTimeout(function(){s.style.display='none';},4000);}
-            document.querySelectorAll('.recharge-btn').forEach(function(b){b.classList.remove('selected');});
-            document.getElementById('customRechargeAmt').value='';_rechargeAmt=0;
-          }else{alert('Payment verification failed. Contact support.');}
-          if(btn){btn.disabled=false;btn.textContent='\ud83d\udcb3 Recharge via Razorpay';}
-        });
-      },
-      modal:{ondismiss:function(){if(btn){btn.disabled=false;btn.textContent='\ud83d\udcb3 Recharge via Razorpay';}}}
-    };
-    new window.Razorpay(opts).open();
-  })
-  .catch(function(){alert('Network error. Try again.');if(btn){btn.disabled=false;btn.textContent='\ud83d\udcb3 Recharge via Razorpay';}});
-}
-
-/* ══════════════════════════════════════════
-   WHATSAPP BOOKING MODAL
-   ══════════════════════════════════════════ */
-var _bookDoctor=null,_bookType=null;
-
-function openBookModal(doctorOrIdx,type){
-  var doctor = (typeof doctorOrIdx === 'number') ? _availDoctors[doctorOrIdx] : doctorOrIdx;
-  if (!doctor) return;
-  _bookDoctor=doctor;_bookType=type;
-  var rate=type==='chat'?(doctor.chatRate||0):(doctor.callRate||0);
-  var label=type==='chat'?'\ud83d\udcac Chat':'\ud83d\udcde Call';
-  document.getElementById('bookTitle').textContent=label+' with Dr. '+doctor.name;
-  document.getElementById('bookSubtitle').textContent=(rate?'\u20b9'+rate+'/min \u00b7 ':'')+( doctor.specialty||'');
-  document.getElementById('bookPatientName').value='';
-  document.getElementById('bookDuration').value='';
-  document.getElementById('bookCostBox').style.display='none';
-  document.getElementById('bookInsuf').style.display='none';
-  document.getElementById('bookRechargeBtn').style.display='none';
-  document.getElementById('bookNoWallet').style.display='none';
-  document.getElementById('bookConfirmBtn').disabled=false;
-  var s=localStorage.getItem('nyc_wallet_active_phone')||'';
-  document.getElementById('bookPatientPhone').value=s||'';
-  refreshBookWallet();
-  document.getElementById('bookModal').classList.add('open');
-}
-function closeBookModal(){document.getElementById('bookModal').classList.remove('open');}
-
-function refreshBookWallet(){
-  var p=(document.getElementById('bookPatientPhone').value||'').replace(/\D/g,'');
-  var b=(p&&p.length>=10)?getWallet(p).balance:0;
-  var el=document.getElementById('bookWalletBal');if(el)el.textContent='\u20b9'+b.toFixed(2);
-  updateBookCalc();
-}
-
-function updateBookCalc(){
-  if(!_bookDoctor)return;
-  var rate=_bookType==='chat'?(_bookDoctor.chatRate||0):(_bookDoctor.callRate||0);
-  var mins=parseFloat(document.getElementById('bookDuration').value)||0;
-  var p=(document.getElementById('bookPatientPhone').value||'').replace(/\D/g,'');
-  var hasP=p&&p.length>=10;
-  var bal=hasP?getWallet(p).balance:0;
-  if(mins>0&&rate>0){
-    var total=mins*rate;
-    document.getElementById('bookRate').textContent='\u20b9'+rate+'/min';
-    document.getElementById('bookDurShow').textContent=mins+' min';
-    document.getElementById('bookTotal').textContent='\u20b9'+total.toFixed(2);
-    document.getElementById('bookDocEarn').textContent='\u20b9'+(total*0.8).toFixed(2);
-    document.getElementById('bookPlatFee').textContent='\u20b9'+(total*0.2).toFixed(2);
-    document.getElementById('bookCostBox').style.display='block';
-    var insuf=hasP&&bal<total;
-    document.getElementById('bookInsuf').style.display=insuf?'block':'none';
-    document.getElementById('bookRechargeBtn').style.display=insuf?'block':'none';
-    document.getElementById('bookNoWallet').style.display=!hasP?'block':'none';
-    document.getElementById('bookConfirmBtn').disabled=insuf;
-  }else{document.getElementById('bookCostBox').style.display='none';}
-}
-
-function confirmBooking(){
-  var name=(document.getElementById('bookPatientName').value||'').trim();
-  var p=(document.getElementById('bookPatientPhone').value||'').replace(/\D/g,'');
-  var mins=parseFloat(document.getElementById('bookDuration').value)||0;
-  var rate=_bookType==='chat'?(_bookDoctor.chatRate||0):(_bookDoctor.callRate||0);
-  if(!name){alert('Please enter your name.');return;}
-  if(!p||p.length<10){alert('Please enter your phone number linked to your wallet.');return;}
-  if(mins<1){alert('Please enter session duration in minutes.');return;}
-  if(!rate){alert('This doctor has not set a rate for this session type.');return;}
-  var total=mins*rate;
-  var w=getWallet(p);
-  if(w.balance<total){alert('Insufficient wallet balance. Please recharge your wallet.');return;}
-  w.balance-=total;
-  var typeStr=_bookType==='chat'?'Chat':'Call';
-  /* Platform 20%, Doctor 60%, Admin 20% */
-  var platShare=(total*0.20).toFixed(2);
-  var docShare=(total*0.60).toFixed(2);
-  var adminShare=(total*0.20).toFixed(2);
-  w.history.push({type:'debit',desc:(typeStr==='Chat'?'\ud83d\udcac':'\ud83d\udcde')+' '+typeStr+' with Dr.'+_bookDoctor.name+' ('+mins+' min)',amount:total,date:new Date().toLocaleString('en-IN')});
-  saveWallet(p,w);
-  /* Save booking record for admin */
-  var bookings=JSON.parse(localStorage.getItem('nyc_bookings')||'[]');
-  bookings.push({
-    id:Date.now(),patient:name,phone:p,
-    doctor:_bookDoctor.name,docPhone:(_bookDoctor.phone||''),
-    type:typeStr,mins:mins,amount:total,
-    platShare:platShare,docShare:docShare,adminShare:adminShare,
-    status:'Pending',date:new Date().toLocaleString('en-IN')
-  });
-  localStorage.setItem('nyc_bookings',JSON.stringify(bookings));
-  closeBookModal();
-  updateNavWalletBal();
-  /* Show on-site confirmation */
-  showBookingConfirm(name,_bookDoctor.name,typeStr,mins,total,platShare,docShare,adminShare,getWallet(p).balance);
-}
-
-var _lastBookingReceipt = {};
-function showBookingConfirm(pname,dname,type,mins,total,plat,doc,admin,newBal){
-  var modal=document.getElementById('bookConfirmModal');
-  if(!modal)return;
-  _lastBookingReceipt={pname:pname,dname:dname,type:type,mins:mins,total:total,plat:plat,doc:doc,admin:admin,newBal:newBal};
-  document.getElementById('bc-patient').textContent=pname;
-  document.getElementById('bc-doctor').textContent='Dr. '+dname;
-  document.getElementById('bc-type').textContent=type+' Consultation';
-  document.getElementById('bc-mins').textContent=mins+' minutes';
-  document.getElementById('bc-total').textContent='\u20b9'+parseFloat(total).toFixed(2);
-  document.getElementById('bc-plat').textContent='\u20b9'+plat+' (20%)';
-  document.getElementById('bc-doc').textContent='\u20b9'+doc+' (60%)';
-  document.getElementById('bc-admin').textContent='\u20b9'+admin+' (20%)';
-  document.getElementById('bc-bal').textContent='\u20b9'+parseFloat(newBal).toFixed(2);
-  modal.classList.add('open');
-}
-
-function sendBookingReceiptWA(){
-  var r=_lastBookingReceipt;
-  var clinicNum='917013989526';
-  var patPhone=(localStorage.getItem('nyc_wallet_active_phone')||'').replace(/\D/g,'');
-  var msg=encodeURIComponent(
-    '\uD83C\uDF31 *Booking Receipt — Naturopathy & Yoga Care*\n'+
-    '━━━━━━━━━━━━━━━━━━━━━━\n'+
-    '\uD83D\uDC64 Patient: '+r.pname+'\n'+
-    '\uD83D\uDC68\u200D\u2695\uFE0F Doctor: Dr. '+r.dname+'\n'+
-    '\uD83D\uDCDE Session: '+r.type+' ('+r.mins+' min)\n'+
-    '━━━━━━━━━━━━━━━━━━━━━━\n'+
-    '\uD83D\uDCB0 Amount Paid: \u20B9'+parseFloat(r.total).toFixed(2)+'\n'+
-    '\uD83D\uDCBB Platform (20%): \u20B9'+parseFloat(r.plat).toFixed(2)+'\n'+
-    '\uD83E\uDDB9 Doctor (60%): \u20B9'+parseFloat(r.doc).toFixed(2)+'\n'+
-    '\uD83C\uDFE5 Admin (20%): \u20B9'+parseFloat(r.admin).toFixed(2)+'\n'+
-    '━━━━━━━━━━━━━━━━━━━━━━\n'+
-    '\uD83D\uDCB3 Wallet Balance: \u20B9'+parseFloat(r.newBal).toFixed(2)+'\n'+
-    '\uD83D\uDDD3 Date: '+new Date().toLocaleString('en-IN')+'\n\n'+
-    'Thank you for booking with Naturopathy & Yoga Care! \uD83C\uDF3F'
-  );
-  window.open('https://wa.me/'+clinicNum+'?text='+msg,'_blank');
-  document.getElementById('bookConfirmModal').classList.remove('open');
-}
-
-document.addEventListener('keydown',function(e){
-  if(e.key==='Escape'){closeWalletModal();closeBookModal();}
-});
-updateNavWalletBal();
-
-</script>
-
 <script src="script.js"></script>
-
-
-
-
-  <!-- PWA Install Banner -->
-  <div id="pwa-install-bar" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:99999;background:linear-gradient(135deg,#0a5c4d,#2d6a4f);color:#fff;padding:12px 16px;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 -4px 20px rgba(0,0,0,0.2);">
-    <div style="display:flex;align-items:center;gap:10px;">
-      <img src="/icons/icon-72.png" style="width:38px;height:38px;border-radius:10px;" alt="icon">
-      <div>
-        <div style="font-weight:800;font-size:0.95rem;">Install Prahari NatureCure</div>
-        <div style="font-size:0.78rem;opacity:0.85;">Add to home screen for easy access</div>
-      </div>
-    </div>
-    <div style="display:flex;gap:8px;flex-shrink:0;">
-      <button onclick="installPWA()" style="background:#fff;color:#0a5c4d;border:none;border-radius:999px;padding:8px 18px;font-weight:800;font-size:0.85rem;cursor:pointer;">Install</button>
-      <button onclick="document.getElementById('pwa-install-bar').style.display='none'" style="background:rgba(255,255,255,0.15);color:#fff;border:none;border-radius:999px;padding:8px 12px;font-size:0.85rem;cursor:pointer;">✕</button>
-    </div>
-  </div>
-  <script>
-    if('serviceWorker' in navigator){
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js', {scope:'/'})
-          .then(r => console.log('SW registered:', r.scope))
-          .catch(e => console.error('SW failed:', e));
-      });
-    }
-    let _pwaPrompt = null;
-    window.addEventListener('beforeinstallprompt', e => {
-      e.preventDefault();
-      _pwaPrompt = e;
-      const bar = document.getElementById('pwa-install-bar');
-      if(bar) bar.style.display = 'flex';
-    });
-    function installPWA(){
-      if(!_pwaPrompt) return;
-      _pwaPrompt.prompt();
-      _pwaPrompt.userChoice.then(r => {
-        _pwaPrompt = null;
-        const bar = document.getElementById('pwa-install-bar');
-        if(bar) bar.style.display = 'none';
-      });
-    }
-  </script>
 </body>
 </html>
+
+<!-- Add this at the very bottom of index.html before </body> -->
+<!-- DOCTOR PANEL LINK — Keep this secret / share only with doctors -->
+<a href="doctor.html" 
+   style="position:fixed;left:18px;bottom:18px;
+   background:var(--primary);color:#fff;
+   padding:10px 16px;border-radius:999px;
+   font-size:0.78rem;font-weight:700;
+   box-shadow:0 4px 14px rgba(0,0,0,0.15);
+   z-index:998;opacity:0.7;"
+   target="_blank">
+  🩺 Doctor
+</a>
